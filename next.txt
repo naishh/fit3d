@@ -81,6 +81,9 @@ simba interactief maken lekker kunnen blijven klikken vanuit loop
 en dan kloten met de formule want die was w.s. niet helemaal goed
 testen als ik 3d model beetje verplaats of het dan allemaal wel klopt
 
+
+results/lineWallassociator images report afmaken
+
 lwa:
 
 % bedenken of ik wil blijven kutten met coords of dat ik een tekenprogramma erbij pak

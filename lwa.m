@@ -1,0 +1,2 @@
+cd results
+cd lineWallAssociator
