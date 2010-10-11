@@ -6,17 +6,20 @@
 %close all;
 %thresh = 0.5;
 thresh = 0.1;
-%imRGB = imread('img02_floriande_highcontrast.jpg');
-%imGray = imread('img02_floriande_highcontrast.jpg');
-imRGB = imread('img02.jpg');
+%imRGB = imread('dataset/img02.jpg');
+imRGB = imread('dataset/img03_AKBuilding.jpg');
+%todo
+%imRGB = normalizeRGB(imRGB)
 imGray = rgb2gray(imRGB);
 
 close all;
 figure;
 imshow(imRGB);
 
+
 nrSamples = 3;
-%[X,Y] = ginput(nrSamples)
+print('select 3 pixels of the sky');
+[X,Y] = ginput(nrSamples)
 
 %todo beter datastructure
 imSkyR = uint32(0);
@@ -31,33 +34,89 @@ end
 imSky = [imSkyR, imSkyG, imSkyB]
 imSky = imSky / nrSamples
 
-[w,h,c] = size(imRGB)
+[h,w,c] = size(imRGB)
 
 imSkyRGB = uint8(zeros(w,h,c));
 
 imSkyRGB(:,:,1) = imSky(1);
 imSkyRGB(:,:,2) = imSky(2);
 imSkyRGB(:,:,3) = imSky(3);
+
+
+% -------------- GROUND -----------------------------------
+print('now the building');
+[U,V] = ginput(nrSamples)
+%todo beter datastructure
+imGroundR = uint32(0);
+imGroundG = uint32(0);
+imGroundB = uint32(0);
+for i=1:nrSamples
+	imGroundR = imGroundR + uint32(imRGB(V(i),U(i),1));
+	imGroundG = imGroundG + uint32(imRGB(V(i),U(i),2));
+	imGroundB = imGroundB + uint32(imRGB(V(i),U(i),3));
+end
+
+imGround = [imGroundR, imGroundG, imGroundB]
+imGround = imGround / nrSamples
+
+imGroundRGB = single(zeros(h,w,c));
+
+imGroundRGB(:,:,1) = imGround(1);
+imGroundRGB(:,:,2) = imGround(2);
+imGroundRGB(:,:,3) = imGround(3);
+%imshow(imGroundRGB);
+
+
 figure;
-imshow(imSkyRGB);
+imRGB = single(imRGB);
+imSkyRGB = single(imSkyRGB);
+imGroundRGB = single(imGroundRGB);
+
+
+
+imRGB = single(imRGB);
+imSky = single(imSky);
+imGround = single(imGround);
+
+imSkyEuclid = zeros(h,w);
+for i=1:h
+	for j=1:w
+		rDiff = (imRGB(i,j,1)-imSky(1))^2;
+		gDiff = (imRGB(i,j,1)-imSky(2))^2;
+		bDiff = (imRGB(i,j,1)-imSky(3))^2;
+		euclid = rDiff + gDiff + bDiff;
+		imSkyEuclid(i,j) = euclid;
+	end
+end
+
+figure;
+imshow(imSkyEuclid,[])
+
+imGroundEuclid = zeros(h,w);
+for i=1:h
+	for j=1:w
+		rDiff = (imRGB(i,j,1)-imGround(1))^2;
+		gDiff = (imRGB(i,j,1)-imGround(2))^2;
+		bDiff = (imRGB(i,j,1)-imGround(3))^2;
+		euclid = rDiff + gDiff + bDiff;
+		imGroundEuclid(i,j) = euclid;
+	end
+end
+
+figure;
+imshow(imGroundEuclid,[])
+
+% % lagere S betekent hogere kans dat het Sky is
+% S = abs(imRGB - imSkyRGB);
+% G = abs(imRGB - imGroundRGB);
+% 
+
+
+
+
+
 
 err
-figure
-imshow(imRGB - imSky)
-
-err
-% [h,w] = size(imGray)
-% imVar = zeros(h,w);
-% 
-% squareSize = 3
-% for i=1:h
-% 	for j=1:w
-% 
-% 		imVar(i,j) = 
-% 
-% 	end
-% end
-
 imEdge = edge(imGray, 'sobel', thresh);
 %imEdge = imread('img02_floriande_edge.jpg');
 
