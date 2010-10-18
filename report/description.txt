@@ -1,0 +1,59 @@
+
+Leo,
+
+I paste below the project (s) description. Please ACK if you receive it.
+
+
+ Building 3D models of urban areas is one of the hot topics right now  
+at both the industrial and the scientific level. The range of  
+applications of these 3D models run from a simple google-map approach  
+for visualization, to forensic investigation where 3D models are used  
+for analysis of the crime scene. The approach to building such 3D  
+models can be categorized in 3 areas: classical approach, high tech  
+approach and scientific (or elegant) approach.
+
+ The classical approach covers techniques based on laser scanners,  
+active stereo vision (where markers are used or a pattern is projected  
+into the scene). The high-tech approach is what the industry is using.  
+Companies such as Google or Cyclomedia spend thousands of dollars in  
+fancy equipment to obtain a set of geolocalized images. Later, a set  
+of highly skilled modelers manually build the 3D model. The elegant  
+approach is however more scientific. The goal is to use state of the  
+art mathematical methods to build a 3D model from a simple set of  
+images. In this scenario no expensive equipment is required (dGPS,  
+laser, scanners, IMU, etc). With something as simple as a pocket  
+camera a 3D model can be built. These models however lack some  
+information regarding the ground for instance and typically consist of  
+planes or surfaces.
+
+The goal of this MSc project is to improve the 3D models by exploring  
+the visual information. Images are usually the source of the 3D model,  
+though GIS data can be used instead. In this project we aim at  
+improving the 3D models by exploiting the great deal of information  
+contained in the images that depict a city (either ground level or  
+aerial images). Some of the topics that will be covered include:
+
+
+\begin{itemize}
+\item Bulding outline detection, for instance using sky detection,  
+shape reprojection, etc. This will help improve the 3D model by  
+understanding what part of the 3D model is actually the building.
+\item Door and window detection. Using machine learning techniques we  
+could detect doors and windows and transfer this information to the 3D  
+model.
+\item Foreground-background. One important issue when "texturing" the  
+3D model is the fact that trees, cars or people need to be accounted  
+for. By detecting what is part of the background (the building) and  
+the foreground (the objects) we can better compute the texture of the  
+building.
+\item More advanced image-object detection could also be used to  
+understand what part of the 3D model belongs to trees, cars, or people.
+\end{itemize}
+
+The ultimate goal is to improve the details of rough 3D models  
+obtained by either single cameras or GIS data by extracting  
+information from the image space.
+
+This project will be part of a larger picture project together with  
+another MSc student and I, and in conjunction with EPFL.
+

@@ -1,0 +1,75 @@
+25/9/2010
+
+Hi Isaac,
+
+How was the conference? In the mean time I played around with your baby, FIT3D. It was both fun and frustrating :)
+While playing I wrote down my progress. It would be nice if you can look at it. Apoligies for my bad English.
+
+First I read and studied the FIT3D paper, I got the main ideas of the
+algorithms but did not understand every detail.  I typed in the examples of the
+paper and runned the examples of run_examples.m I opened some functions and
+read some code.  I installed the OpenSceneGraph and loaded some 3D maps from
+the examples.
+
+Then I thought it was interesting and challenging to do a complete 3D reconstruction from scratch.
+
+I followed the instructions of INSTALLATION.TXT, this where my findings.
+
+STEP 1 - Prepare the images (calibration)
+I thought a dataset from Janmark with left center and right view of a package
+of sportlife gum (basic geometric structure, and distinctive features) would be
+usefull.  I didn't have the camera of the dataset so I couldn't perform the
+camera calibration. 
+
+So I just copied two images of your Floriandeset to my DATASETS/tjerk directory.
+
+radial distortion step.
+I studied and copied and changed the contents of scriptUndistortImage
+I tried different straight lines (windows, street). But I got stuck at this error:
+
+Optimization terminated: no further progress can be made.
+Cannot generate point that reduces the sum of squares.
+Problem may be ill-conditioned.
+
+I didn't took time to debug this because I thought the radial distortion is not the most importand step and maybe the images from the Floriandeset are already undistorted.
+
+STEP 2 - Create the folders
+No problems
+STEP 3 - Get the SIFT features
+No problems
+
+STEP 4 - Compute the camera motion
+This went well, no errors.
+(I used your Cannon calibration matrix as K).
+
+STEP 5 - Compute the scale
+I got an Error.
+I debugged the variables and the cause was 0 matches.
+(and therefor no 3D points to calculate on)
+
+After a while I figured it could caused by the refinement that I turned off (because of the long waiting times on the computation).
+Switched it on, still no 3D points:
+	Number of features in frame 1: 80
+	Number of 3frame matches: 4
+	Number of 3D points for scaling: 0
+
+I changed the number of images from 3 to 4.
+Then I played around a lot with the thresholds (sift and inlier), It took a lot time because of the computation time.
+Still no 3d points.
+
+I wanted to see some results so I tried the
+getMatches from tools and used the Fplus output from computeCameraMotion to see some sift matches.
+It didn't work because 
+ F = Fplus(Fplus(Fplus(:,3)==i2,2)==i1,:)
+ returns an empty matrix.
+
+
+Is a pitty I couldn't reconstruct a 3D model (from an existing dataset) but I think the goal is reached, I got arround with the toolbox and visualized the models. 
+
+Maybe we can both take a (short) look at it tuesday (it would be nice to finish it) and/or elebarate more on the first step (sky/building detection)
+
+I am available from 10am to 1pm. What is a good time for you?
+
+Kind regards,
+
+Tjerk
