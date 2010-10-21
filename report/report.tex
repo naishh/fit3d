@@ -1,0 +1,20 @@
+\section{Skyline detection}
+\cite{9} yields a good introduction af the different applied skyline detection
+techiques.
+
+In \cite{1}, a column based approach is used. This method is suitable for our
+application.
+
+First the contrast of the image is maximized, for now this is done by hand with
+GIMP.  Then the image undertakes a Gaussian blur.  On this image a
+\textit{sobel} edge detector with a manual threshold is applied.
+The result is feed to the Skyline Detector.
+
+The Skyline Detector uses an assumption: the first sharp edge (seen from top to
+bottom) is always a skyline/building edge.  It works as follows:
+Every column (width:1px) of the edge images is analysed. The value of a pixel
+in a column is checked from top to bottom. The system classifies the first
+pixel that is above a certain threshold as a skyline pixel.
+
+[1] Castano, Automatic detection of dust devils and clouds on Mars
+[9] Cozman, Outdoor visual position estimation for planetary rovers.

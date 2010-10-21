@@ -6,3 +6,5 @@ Automatic detection of dust devils and clouds on Mars
 	good introduction of the different skyline techniques on the market
 
 Window Detection in Facades
+
+Cozman, Outdoor visual position estimation for planetary rovers.

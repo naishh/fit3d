@@ -1,5 +1,22 @@
 close all;
 
+
+   
+
+    
+
+% x1 = rand(1,10);
+% y1 = rand(1,10);
+% 
+% vi = convhull(x1,y1);
+% polyarea(x1(vi),y1(vi))
+% 
+% plot(x1,y1,'.')
+% axis equal
+% hold on
+% fill ( x1(vi), y1(vi), 'r','facealpha', 0.5 ); 
+% hold off
+
 %for imgNr = 2:5
 	%file = sprintf('dataset/FloriandeSet1/img/outd%d.jpg', imgNr)
 	file = sprintf('dataset/randombuildings/02_gimped.jpg')
