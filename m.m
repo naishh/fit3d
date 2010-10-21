@@ -1,33 +1,30 @@
 close all;
 
-P1 = PcamX(:,:,1) % = [I,0]
 
-fullFilename = [Files.dir,Files.files(i).name]
+[SkylineX, SkylineY] = getSkyLineMain();
+
+% todo make camera center depended of translation in P
+P1 = PcamX(:,:,1) % = [I,0]
+fullFilename = [Files.dir,Files.files(1).name]
 Im = imread(fullFilename);
 %figure; imshow(Im);
 
-% the pixel coordinate (faked)
-xy = [10;10]
-% the homogeneous pixel coordinate 
-xyH = [xy;1]
+figure;
+% loop through skyline pixels
+for i=1:10:400
+	% the pixel coordinate 
+	xy = [SkylineX(i);SkylineY(i)]
 
-% the pixel in 3d space
-xy3D = Kcanon10GOOD * xyH
+	maxV = 10;
+	CC = [0;0;0]
+	lineCoord = pointsTo3DLine(xy, CC, Kcanon10GOOD, maxV)
+	X = lineCoord(1,:)
+	Y = lineCoord(2,:)
+	Z = lineCoord(3,:)
+	plot3(X,Y,Z)
 
-CameraCenter = [0;0;0]
-
-xyzDirection = xy3D - CameraCenter
-
-% v presents the position on the line (v = 0 = CameraCenter)
-% 3dLineEq = CameraCenter + v * xyzDirection
-
-v = 0;
-lineCoord1 = CameraCenter + v * xyzDirection
-
-v = 100;
-lineCoord2 = CameraCenter + v * xyzDirection
-
+	pause;
+end
 
 % todo:
-% draw the line in 3d 
-% get pixels from skyline detector 
+% draw multiple lines in 3d with plot3
