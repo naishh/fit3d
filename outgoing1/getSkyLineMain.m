@@ -1,26 +1,11 @@
+function [SkylineX, SkylineY] = getSkyLineMain()
 close all;
-
-
-   
-
-    
-
-% x1 = rand(1,10);
-% y1 = rand(1,10);
-% 
-% vi = convhull(x1,y1);
-% polyarea(x1(vi),y1(vi))
-% 
-% plot(x1,y1,'.')
-% axis equal
-% hold on
-% fill ( x1(vi), y1(vi), 'r','facealpha', 0.5 ); 
-% hold off
-
 %for imgNr = 2:5
+
+	% READ IMAGE 
+	%file = sprintf('dataset/randombuildings/02_gimped.jpg')
 	%file = sprintf('dataset/FloriandeSet1/img/outd%d.jpg', imgNr)
-	file = sprintf('dataset/randombuildings/02_gimped.jpg')
-	thresh = 0.05;
+	file = sprintf('dataset/FloriandeSet1/img/outd0_highcontrast.jpg')
 
 	imRGB = imread(file);
 	imBW = imadjust(rgb2gray(imRGB));
@@ -28,7 +13,7 @@ close all;
 	pause;
 	
 
-	% gaussian blur
+	% GAUSSIAN BLUR
 	% todo checken of het wel nut heef te blurren
 	s = fspecial('gaussian',5,5);
 	imBW=imfilter(imBW,s);
@@ -43,12 +28,15 @@ close all;
 	% 	pause;
 	% end
 
+	% EDGE DETECTION
+	thresh = 0.05;
 	imEdge = im2double(edge(imBW, 'sobel', thresh));
 	figure; imshow(imEdge)
 
 	% todo close opening proberen
 
+	% GET SKYLINE
 	xStepSize = 1;
 	skylineThresh = 0.9;
-	Skyline = getSkyLine(imRGB, imEdge, xStepSize, skylineThresh);
+	[SkylineX, SkylineY] = getSkyLine(imRGB, imEdge, xStepSize, skylineThresh);
 %end
