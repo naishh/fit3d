@@ -8,3 +8,6 @@ Automatic detection of dust devils and clouds on Mars
 Window Detection in Facades
 
 Cozman, Outdoor visual position estimation for planetary rovers.
+
+http://en.wikipedia.org/wiki/Line-plane_intersection
+sectie parametric form

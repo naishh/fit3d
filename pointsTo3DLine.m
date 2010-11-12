@@ -17,7 +17,9 @@ xyzDirection = xy3D - CC
 % v presents the position on the line (v = 0 => CC, v = maxV => xy3D)
 % 3dLineEq = CC + v * xyzDirection
 
-lineCoord = zeros(maxV, 3)
-for v = 1:maxV
-	lineCoord(v,:) = CC + v * xyzDirection;
+lineCoord = zeros(2, 3)
+n = 1
+for i=1:10:maxV
+	lineCoord(n,:) = CC + i * xyzDirection;
+	n=n+1;
 end
