@@ -13,3 +13,4 @@ lastF = 0;
 center = round(intSectPoint)
 r = 3;
 cubeToObj(file, lastF, center, r);
+!osgviewer cubeTest.obj
