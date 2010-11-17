@@ -21,7 +21,8 @@ fclose(fp)
 
 % loop through skyline pixels
 maxI = 400;
-for i=10:10:maxI
+stepSize = 10;
+for i=10:stepSize:maxI
 	% the 2d pixel coordinates of the skyline
 	xy = [SkylineX(i);SkylineY(i)];
 
@@ -31,7 +32,7 @@ for i=10:10:maxI
 	% plot in matlab
 	plot3(X,Y,Z)
 	xlabel('X axis'); ylabel('Y axis'); zlabel('Z axis')
-	XYZtoObj(X,Y,Z, i)
+	XYZtoObj(X,Y,Z, i/stepSize)
 	%pause;
 end
 

@@ -1,4 +1,10 @@
 function intSectPoint = interSectPointFromLinePlane(LinePoint0, LinePoint1, PlanePoint0, PlanePoint1, PlanePoint2)
+% LinePoint0 = [];
+% LinePoint1 = [];
+% PlanePoint0 = [];
+% PlanePoint1 = [];
+% PlanePoint2 = [];
+
 Xa = LinePoint0(1);
 Ya = LinePoint0(2);
 Za = LinePoint0(3);
