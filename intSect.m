@@ -8,9 +8,9 @@ intSectPoint = interSectPointFromLinePlane(LinePoint0, LinePoint1, PlanePoint0, 
 
 
 
-file = 'cubeTest.obj';
+file = 'Buildings_line.obj';
 lastF = 0;
-center = round(intSectPoint)
-r = 3;
+center = intSectPoint
+r = 0.1;
 cubeToObj(file, lastF, center, r);
-!osgviewer cubeTest.obj
+!osgviewer Buildings_line.obj

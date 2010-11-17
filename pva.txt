@@ -1,4 +1,4 @@
-
 leuke demo maken line intersect een plane van Building.
+verder met intSect
 zit intersect ook echt in het vlak of alleen in het plane? checken met pca etc
 pas later koppelen met echte data
