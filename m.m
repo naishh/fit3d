@@ -1,10 +1,11 @@
 close all;
-% cd ../FIT3D_online_17082010
-% FIT3D_setup
-% cd ../git
-% load outputVars_scriptComputeCameraMotion.mat
-%	%[SkylineX, SkylineY] = getSkyLineMain();
-% load outputVars_Skyline.mat
+cd ../FIT3D_online_17082010
+FIT3D_setup
+cd ../git/mats
+load outputVars_scriptComputeCameraMotion.mat
+  %[SkylineX, SkylineY] = getSkyLineMain();
+load outputVars_Skyline.mat
+cd ..
 
 
 % todo make camera center depended of translation in P
