@@ -1,7 +1,9 @@
 close all;
-cd ../FIT3D_online_17082010
-FIT3D_setup
-cd ../git/mats
+%cd ../FIT3D_online_17082010
+%FIT3D_setup
+%cd ../git/mats
+
+cd mats
 load outputVars_scriptComputeCameraMotion.mat
   %[SkylineX, SkylineY] = getSkyLineMain();
 load outputVars_Skyline.mat
