@@ -3,14 +3,14 @@ function cubeToObj(file, lastF, center, r)
 %fp = fopen(file, 'a');
 fp = fopen(file, 'a');
 
-c1 = [center(1)-r center(2)+r center(3)-r]
-c2 = [center(1)+r center(2)+r center(3)-r]
-c3 = [center(1)+r center(2)-r center(3)-r]
-c4 = [center(1)-r center(2)-r center(3)-r]
-c5 = [center(1)-r center(2)+r center(3)+r]
-c6 = [center(1)+r center(2)+r center(3)+r]
-c7 = [center(1)+r center(2)-r center(3)+r]
-c8 = [center(1)-r center(2)-r center(3)+r]
+c1 = [center(1)-r center(2)+r center(3)-r];
+c2 = [center(1)+r center(2)+r center(3)-r];
+c3 = [center(1)+r center(2)-r center(3)-r];
+c4 = [center(1)-r center(2)-r center(3)-r];
+c5 = [center(1)-r center(2)+r center(3)+r];
+c6 = [center(1)+r center(2)+r center(3)+r];
+c7 = [center(1)+r center(2)-r center(3)+r];
+c8 = [center(1)-r center(2)-r center(3)+r];
 
 % define vertices
 fprintf(fp, 'v %d %d %d\n', c1(1), c1(2), c1(3));

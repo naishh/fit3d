@@ -8,7 +8,7 @@ function lineCoord = pointsTo3DLine(xy, CC, K)
 xyH = [xy;1];
 
 % the pixel in 3d space
-xy3D = K * xyH;
+xy3D = inv(K) * xyH;
 
 % the direction vector
 xyzDirection = xy3D - CC;

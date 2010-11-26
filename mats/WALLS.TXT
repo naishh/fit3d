@@ -1,0 +1,5 @@
+every row is one wall
+4 points are defined as xyz xyz xyz xyz
+if I check this with Buildings.obj I have to read the coords from Buildings up
+	side down, for example the first wall read from line 4 to line 1
+
