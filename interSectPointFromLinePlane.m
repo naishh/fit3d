@@ -34,8 +34,8 @@ B = [Xa - X0;
 	Ya - Y0;
 	Za - Z0];
 
-TUV = A*B
-t = TUV(1)
+TUV = A*B;
+t = TUV(1);
 % if ~(t <= 1 && 0 <= t)
 % 	error('debug:NO INTERSECTION')
 % else

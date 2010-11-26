@@ -45,13 +45,12 @@ for i=range1
 
 	LinePoint0 = lineCoord(1,:);
 	LinePoint1 = lineCoord(2,:);
-	% loop through walls of building
-	%for w=1:length(WALLS)
 
-	nrWalls = 12;
+	nrWalls = length(WALLS);
 	% define a distance to the intersection point for every wall
 	distToIntSectPoint 	= zeros(nrWalls,1);
 	intSectPoint 		= zeros(nrWalls,3);
+	% loop through walls of building
 	for w=1:nrWalls
 		Wall = WALLS(w,:);
 		% todo feed Wall as an argument of interSectPointFromLinePlane
@@ -67,14 +66,14 @@ for i=range1
 			sprintf('no  intersection found for line %d and wall %d', i,w)
 		else
 			%sprintf('yes intersection found for line %d and wall %d', i,w)
-			cubeFileName = sprintf('cubes_wall%d.obj',w)
-			% write cube on intersection point
+			%cubeFileName = sprintf('cubes_wall%d.obj',w)
 		end
 	end
 	% find wall closest to cc
 	[minVal, minIdx] = min(distToIntSectPoint)
+	% write cube on intersection point
+	cubeFileName = sprintf('cubes_wall_all.obj');
 	cubeToObj(cubeFileName, 1, intSectPoint(minIdx,:), 0.05);
-	pause;
 end
 
 % write lines in obj file 
