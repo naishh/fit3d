@@ -7,8 +7,8 @@ fileName = 'outputM.obj';
 % cd ..
 
 % todo make camera center depended of translation in P
-P1 = PcamX(:,:,1) % = [I,0]
-fullFilename = [Files.dir,Files.files(1).name]
+P1 = PcamX(:,:,1); % = [I,0]
+fullFilename = [Files.dir,Files.files(1).name];
 
 % clear files
 fp = fopen(fileName, 'w'); fclose(fp);
@@ -32,16 +32,15 @@ for i=range1
 	XYZtoObj(fileName, X,Y,Z, i/stepSize);
 
 	nrWalls = length(WALLS);
-	distToIntSectPoint 	= zeros(nrWalls,1);
+	% distToIntSectPoint 	= zeros(nrWalls,1);
 	intSectPoint 		= zeros(nrWalls,3);
 	distPointToWalls 	= zeros(nrWalls,1);
 	% loop through walls of building
 	for w=1:nrWalls
-		Wall = WALLS(w,:);
 		% todo feed Wall as an argument of interSectPointFromLinePlane
-		PlanePoint0 = [Wall(1) Wall(2) Wall(3)];
-		PlanePoint1 = [Wall(4) Wall(5) Wall(6)];
-		PlanePoint2 = [Wall(7) Wall(8) Wall(9)];
+		PlanePoint0 = [WALLS(w,1) WALLS(w,2) WALLS(w,3)];
+		PlanePoint1 = [WALLS(w,4) WALLS(w,5) WALLS(w,6)];
+		PlanePoint2 = [WALLS(w,7) WALLS(w,8) WALLS(w,9)];
 		intSectPoint(w,:) = interSectPointFromLinePlane(lineCoord(1,:), lineCoord(2,:), PlanePoint0, PlanePoint1, PlanePoint2);
 
 		
@@ -49,28 +48,37 @@ for i=range1
 		% CC = LinePoint0;
 		% distToIntSectPoint(w) = norm(intSectPoint(w) - CC)
 		% % if the three dimensions have infinite intersection there is no intersection
+
+		% line and wall parallel?
 		if(sum(isnan(intSectPoint(w,:))) == 3)
-			sprintf('no  intersection found for line %d and wall %d', i,w)
+			sprintf('no  intersection found for line %d and wall %d (line and wall are parallel)', i,w)
+			dispPointToWalls(w) = inf;
 		else
-			%sprintf('yes intersection found for line %d and wall %d', i,w)
-			distPointToWalls(w) = distPointToWall(intSectPoint(w,:)', Wall);
-			%cubeFileName = sprintf('cubes_wall%d.obj',w)
+			% calculate distance from intersection point to current wall
+			distPointToWalls(w) = distPointToWall(intSectPoint(w,:)', WALLS(w,:));
 		end
 	end
+	% todo threshold min distances and take of a few the closest one to the CC	
 	% find wall closest to cc
 	% [minVal, minIdx] = min(distToIntSectPoint)
 	% write cube on intersection point
 
-	[minVal, minIdx] = min(distPointToWalls)
+	[minIspToWallDist, minIspToWallDistIdx] = min(distPointToWalls);
 	cubeFileName = sprintf('cubes_wall_all.obj');
-	cubeToObj(cubeFileName, 1, intSectPoint(minIdx,:), 0.05);
+	% write a little cube on the intersection point
+	cubeToObj(cubeFileName, 1, intSectPoint(minIspToWallDistIdx,:), 0.05);
+
+	% todo
+	% write the line
+	%XYZtoObj(fileName, X,Y,Z, i/stepSize);
+
 end
 
-% write lines in obj file 
-fp = fopen(fileName, 'a');
-for i=range1
-	fprintf(fp, 'p %d\n', i/stepSize);
-end
-fclose(fp);
+% write the points lines in obj file 
+% fp = fopen(fileName, 'a');
+% for i=range1
+% 	fprintf(fp, 'p %d\n', i/stepSize);
+% end
+% fclose(fp);
 
 % alle planes inladen uit .matlab file
