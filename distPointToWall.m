@@ -11,13 +11,26 @@ c2 = [Wall(4);Wall(5);Wall(6)];
 c3 = [Wall(7);Wall(8);Wall(9)];
 c4 = [Wall(10);Wall(11);Wall(12)];
 
+% isp
+% c1
+% c2
+% c3
+% c4
+
+cubeFileName = sprintf('cubes_wall_all.obj');
+% write a little cube on the intersection point
+cubeToObj(cubeFileName, 1, c1, 0.1);
+cubeToObj(cubeFileName, 1, c2, 0.1);
+cubeToObj(cubeFileName, 1, c3, 0.1);
+cubeToObj(cubeFileName, 1, c4, 0.1);
+
 inPolygon = pointInPolygon(isp, c1, c2, c3, c4);
 
 if inPolygon
-	disp('point in polygon');
+	disp('point in polygon!');
 	d = 0;
 else
-	disp('point not in polygon');
+	%disp('point not in polygon');
 	dist = zeros(4,1);
 	dist(1) = distPointToLineSegment(isp, c1, c2);
 	dist(2) = distPointToLineSegment(isp, c2, c3);

@@ -23,7 +23,8 @@ fp = fopen('cubes_wall_all.obj', 'w'); fclose(fp);
 load('mats/WALLS.mat')
 
 % determine samplesize and range of skyline pixels
-minI = 100; maxI = 1300; stepSize = 10;
+minI = 100; maxI = 1300; stepSize = 20;
+%minI = 1000; maxI = 1000; stepSize = 10;
 range1 = minI:stepSize:maxI;
 % loop through skyline pixels
 for i=range1
@@ -32,15 +33,11 @@ for i=range1
 	CC = [0;0;0];
 	% retrieve 2 coords of line in 3d
 	lineCoord = pointsTo3DLine([SkylineX(i);SkylineY(i)], CC, Kcanon10GOOD);
-	%X = lineCoord(:,1); Y = lineCoord(:,2); Z = lineCoord(:,3);
-	
-	% write line to obj file
-	%lineToObj(fileName, lineCoord(1,:), lineCoord(2,:));
 
 	nrWalls = length(WALLS);
 	% distToIntSectPoint 	= zeros(nrWalls,1);
 	intSectPoint 		= zeros(nrWalls,3);
-	distPointToWalls 	= zeros(nrWalls,1);
+	distPointToWalls 	= inf(nrWalls,1);
 	% loop through walls of building
 	for w=1:nrWalls
 		% todo feed Wall as an argument of interSectPointFromLinePlane
@@ -64,7 +61,7 @@ for i=range1
 			distPointToWalls(w) = distPointToWall(intSectPoint(w,:)', WALLS(w,:));
 		end
 	end
-	distPointToWalls
+	%distPointToWalls
 
 	% todo threshold min distances and take of a few the closest one to the CC	
 	% find wall closest to cc
@@ -75,13 +72,14 @@ for i=range1
 	cubeFileName = sprintf('cubes_wall_all.obj');
 	% write a little cube on the intersection point
 	cubeToObj(cubeFileName, 1, intSectPoint(minIspToWallDistIdx,:), 0.05);
-
-	% todo
-	% write the line
+	% write a line from cc to intersection point
 	lineToObj(fileName, CC, intSectPoint(minIspToWallDistIdx,:));
-	!./o
 
 end
+
+% open the osgviewer
+%!./o
+
 
 % write the points lines in obj file 
 % fp = fopen(fileName, 'a');
