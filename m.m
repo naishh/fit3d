@@ -1,10 +1,15 @@
 close all;
 fileName = 'outputM.obj';
-% cd mats
-% load outputVars_scriptComputeCameraMotion.mat
-%   %[SkylineX, SkylineY] = getSkyLineMain();
-% load outputVars_Skyline.mat
-% cd ..
+
+% if workspace vars are not loaded
+if exist('PcamX') == 0
+	disp('load PcamX');
+	cd mats
+	load outputVars_scriptComputeCameraMotion.mat
+	  %[SkylineX, SkylineY] = getSkyLineMain();
+	load outputVars_Skyline.mat
+	cd ..
+end
 
 % todo make camera center depended of translation in P
 P1 = PcamX(:,:,1); % = [I,0]
@@ -18,18 +23,19 @@ fp = fopen('cubes_wall_all.obj', 'w'); fclose(fp);
 load('mats/WALLS.mat')
 
 % determine samplesize and range of skyline pixels
-minI = 100; maxI = 1300; stepSize = 5;
+minI = 100; maxI = 1300; stepSize = 10;
 range1 = minI:stepSize:maxI;
 % loop through skyline pixels
 for i=range1
+	i
 	% camera center
 	CC = [0;0;0];
 	% retrieve 2 coords of line in 3d
 	lineCoord = pointsTo3DLine([SkylineX(i);SkylineY(i)], CC, Kcanon10GOOD);
-	X = lineCoord(:,1); Y = lineCoord(:,2); Z = lineCoord(:,3);
+	%X = lineCoord(:,1); Y = lineCoord(:,2); Z = lineCoord(:,3);
 	
 	% write line to obj file
-	XYZtoObj(fileName, X,Y,Z, i/stepSize);
+	%lineToObj(fileName, lineCoord(1,:), lineCoord(2,:));
 
 	nrWalls = length(WALLS);
 	% distToIntSectPoint 	= zeros(nrWalls,1);
@@ -58,6 +64,8 @@ for i=range1
 			distPointToWalls(w) = distPointToWall(intSectPoint(w,:)', WALLS(w,:));
 		end
 	end
+	distPointToWalls
+
 	% todo threshold min distances and take of a few the closest one to the CC	
 	% find wall closest to cc
 	% [minVal, minIdx] = min(distToIntSectPoint)
@@ -70,7 +78,8 @@ for i=range1
 
 	% todo
 	% write the line
-	%XYZtoObj(fileName, X,Y,Z, i/stepSize);
+	lineToObj(fileName, CC, intSectPoint(minIspToWallDistIdx,:));
+	!./o
 
 end
 

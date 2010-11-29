@@ -14,10 +14,10 @@ c4 = [Wall(10);Wall(11);Wall(12)];
 inPolygon = pointInPolygon(isp, c1, c2, c3, c4);
 
 if inPolygon
-	%disp('point in polygon');
+	disp('point in polygon');
 	d = 0;
 else
-	%disp('point not in polygon');
+	disp('point not in polygon');
 	dist = zeros(4,1);
 	dist(1) = distPointToLineSegment(isp, c1, c2);
 	dist(2) = distPointToLineSegment(isp, c2, c3);

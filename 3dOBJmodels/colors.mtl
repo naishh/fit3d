@@ -1,0 +1,26 @@
+newmtl shinyred
+Ka  0.1986  0.0000  0.0000
+Kd  0.5922  0.0166  0.0000
+Ks  0.5974  0.2084  0.2084
+illum 2
+Ns 100.2237
+
+
+newmtl black
+Ka 0 0 0
+newmtl white
+Ka 255 255 255 
+newmtl red
+Ka 255 0 0 
+newmtl darkred
+Ka 55 0 0 
+newmtl green
+Ka 0 255 0 
+newmtl blue
+Ka 0 0 255 
+newmtl yellow
+Ka 255 255 0 
+newmtl cyan
+Ka 0 255 255 
+newmtl magenta
+Ka 255 0 255 
