@@ -1,5 +1,6 @@
 close all;
-fileName = 'outputM.obj';
+linesFileName = 'lines.obj';
+ispCubesFileName = sprintf('ispCubes.obj');
 
 % if workspace vars are not loaded
 if exist('PcamX') == 0
@@ -16,18 +17,19 @@ P1 = PcamX(:,:,1); % = [I,0]
 fullFilename = [Files.dir,Files.files(1).name];
 
 % clear files
-fp = fopen(fileName, 'w'); fclose(fp);
-fp = fopen('cubes_wall_all.obj', 'w'); fclose(fp);
+fp = fopen(linesFileName , 'w'); fprintf(fp,'mtllib colors.mtl\n'); fclose(fp);
+fp = fopen(ispCubesFileName, 'w'); fprintf(fp,'mtllib colors.mtl\n'); fclose(fp);
 
 % load WALL coordinates
 load('mats/WALLS.mat')
 
 % determine samplesize and range of skyline pixels
-minI = 100; maxI = 1300; stepSize = 20;
-%minI = 1000; maxI = 1000; stepSize = 10;
+minI = 100; maxI = 1300; stepSize = 10;
 range1 = minI:stepSize:maxI;
 % loop through skyline pixels
 for i=range1
+	%clear file
+	fp = fopen('inpolygon.obj', 'w'); fclose(fp);
 	i
 	% camera center
 	CC = [0;0;0];
@@ -69,16 +71,15 @@ for i=range1
 	% write cube on intersection point
 
 	[minIspToWallDist, minIspToWallDistIdx] = min(distPointToWalls);
-	cubeFileName = sprintf('cubes_wall_all.obj');
 	% write a little cube on the intersection point
-	cubeToObj(cubeFileName, 1, intSectPoint(minIspToWallDistIdx,:), 0.05);
+	cubeToObj(ispCubesFileName, 1, intSectPoint(minIspToWallDistIdx,:), 0.05);
 	% write a line from cc to intersection point
-	lineToObj(fileName, CC, intSectPoint(minIspToWallDistIdx,:));
+	lineToObj(linesFileName, CC, intSectPoint(minIspToWallDistIdx,:), 'black');
 
 end
 
 % open the osgviewer
-%!./o
+!./o
 
 
 % write the points lines in obj file 

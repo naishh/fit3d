@@ -32,8 +32,8 @@ else
 	%disp('point not in polygon');
 	dist = zeros(4,1);
 	dist(1) = distPointToLineSegment(isp, c1, c2);
-	dist(2) = distPointToLineSegment(isp, c2, c3);
-	dist(3) = distPointToLineSegment(isp, c3, c4);
-	dist(4) = distPointToLineSegment(isp, c4, c1);
-	d = min(dist);
+	dist(2) = distPointToLineSegment(isp, c2, c4);
+	dist(3) = distPointToLineSegment(isp, c4, c3);
+	dist(4) = distPointToLineSegment(isp, c3, c1);
+	[d, dIdx] = min(dist);
 end

@@ -1,1 +1,1 @@
-osgviewer 3dOBJmodels/Buildings_colored.obj outputM.obj cubes_wall_all.obj
+osgviewer 3dOBJmodels/Buildings_colored.obj lines.obj ispCubes.obj inpolygon.obj
