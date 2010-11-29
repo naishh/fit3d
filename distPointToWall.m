@@ -17,12 +17,11 @@ c4 = [Wall(10);Wall(11);Wall(12)];
 % c3
 % c4
 
-cubeFileName = sprintf('cubes_wall_all.obj');
-% write a little cube on the intersection point
-cubeToObj(cubeFileName, 1, c1, 0.1);
-cubeToObj(cubeFileName, 1, c2, 0.1);
-cubeToObj(cubeFileName, 1, c3, 0.1);
-cubeToObj(cubeFileName, 1, c4, 0.1);
+% cubeFileName = sprintf('cubes_wall_all.obj');
+% cubeToObj(cubeFileName, 1, c1, 0.1);
+% cubeToObj(cubeFileName, 1, c2, 0.1);
+% cubeToObj(cubeFileName, 1, c3, 0.1);
+% cubeToObj(cubeFileName, 1, c4, 0.1);
 
 inPolygon = pointInPolygon(isp, c1, c2, c3, c4);
 
