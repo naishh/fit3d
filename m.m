@@ -1,3 +1,5 @@
+% todo if isp lies within line segment stop evaluating other line segments because they can never have shorter distance
+
 close all;
 linesFileName = 'lines.obj';
 ispCubesFileName = sprintf('ispCubes.obj');
