@@ -33,6 +33,7 @@ imNr = 2;
 
 
 Ccs = getCameraCentersFromP(PcamX)
+
 cubeToObj('ccs.obj', 1, Ccs{1}, 0.05);
 cubeToObj('ccs.obj', 1, Ccs{2}, 0.05);
 cubeToObj('ccs.obj', 1, Ccs{3}, 0.05);
