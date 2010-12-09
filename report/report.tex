@@ -25,32 +25,39 @@ pixel that is above a certain threshold as a skyline pixel.
 motivation
 (dis)advantages
 
-\subsection{Project pixel in 3D space}
-Every 2D pixel of an input image present a point in space. Because no information is known about its the distance from the camera (the Z-value of the point in space) it presents an infinite line of possible points in space.
-
-This line is spanned by a line segment that has two easy to calculate coordinates:
-The camera center and K'p, where K is the Calibration matrix of the camera and p is the homogeneous pixel coordinate.
-
-\subsection{Intersect with walls of building}
-Every wall of the building spans an (infinite) plane.
-The intersections are calculated with all planes.
-%TODOOOOOOOOOOOOOOOO
-
-
-\subsection{Select the right wall}
-To update the 3D model at the right place we need to know for every pixel 
+motivation:
+"To update the 3D model at the right place we need to know for every pixel 
 which wall it most likely presents.  
 
-To find the right wall the projected pixel must lie either
+\section{Project pixel in 3D space}
+Every 2D pixel of an input image present a 3D point in space. Because no
+information is known about the distance from the point to the camera, it
+presents an infinite line of possible points in space.
+
+
+This line is spanned by two known coordinates:
+\begin{itemize}
+\item The camera center, for the first camera $[0 0 0]\transpose$, the second %TODOOOOO
+\item $K'p$, where $K$ is the Calibration matrix of the camera and $p$ is the homogeneous pixel coordinate.
+\end{itemize}
+
+
+\textbf{Intersect with walls of building}
+To know which part of the building the pixel presents, the building is divided into different walls.
+Every wall of the building spans a plane. Intersections are calculated between the line from the previous section and these planes.
+The most propable intersection, the wall that is most likely responsable for the pixel, is calculated in the next.
+
+\subsection{Select the right wall}
+To find the right wall, the projected pixel must lie either
 1) On the wall (inside the polygonal representation of the wall)
 or
 2) On a small distance from the wall
 
-(1) is calculated using an inpolygon algorithm.
-(2) is calculated as follows:
-
-First the distance to all wall sides is calculated. For every wall the minimum of the four wall sides is used as its ISP wall distance.
-The wall with the smalles distance is the one that most likely presents the pixel. If there are two (or even more) walls that passed the inpolygon test succesfull, the wall closest to the camera is selected.
+The first is calculated using an inpolygon algorithm.
+The later is calculated as follows:
+\\
+First the distances from the intersection to all wall sides are calculated. For every wall the minimum of the four wall sides is used as its intersection point wall distance.
+The wall with the smalles distance is the one that most likely presents the pixel. If there are two (or even more) walls that succeded the inpolygon test then the wall closest to the camera is selected.
 
 \subsection{calculating the ISP wall distance}
 A wall consists of four corner points. Two cornerpoints connect a line segment which represents a side of a wall. There are four line segments.
@@ -60,4 +67,5 @@ If the projected ISP lies between the two corner points (on the line segment) th
 If it lies outside the two corner points the euclidean distance to the closest cornerpoint is returned.
 
 [I can explain how I did some clever dot product tricks but I think that is to much detail right?]
+
 
