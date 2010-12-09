@@ -21,7 +21,6 @@ fullFilename = [Files.dir,Files.files(1).name];
 % clear files
 fp = fopen(linesFileName , 'w'); fprintf(fp,'mtllib colors.mtl\n'); fclose(fp);
 fp = fopen(ispCubesFileName, 'w'); fprintf(fp,'mtllib colors.mtl\n'); fclose(fp);
-fp = fopen('ccs.obj', 'w'); fprintf(fp,'mtllib colors.mtl\n'); fclose(fp);
 
 % load WALL coordinates
 load('mats/WALLS.mat')
@@ -29,32 +28,21 @@ load('mats/WALLS.mat')
 % determine samplesize and range of skyline pixels
 minI = 100; maxI = 1300; stepSize = 10;
 range1 = minI:stepSize:maxI;
-imNr = 2;
-
+imNr = 1;
 
 Ccs = getCameraCentersFromP(PcamX)
 
-cubeToObj('ccs.obj', 1, Ccs{1}, 0.05);
-cubeToObj('ccs.obj', 1, Ccs{2}, 0.05);
-cubeToObj('ccs.obj', 1, Ccs{3}, 0.05);
-cubeToObj('ccs.obj', 1, Ccs{4}, 0.05);
-cubeToObj('ccs.obj', 1, Ccs{5}, 0.05);
 
-!./o
-error('t');
 % loop through skyline pixels
 for i=range1
 	%clear file
 	fp = fopen('inpolygon.obj', 'w'); fclose(fp);
 	i
 	% camera center
-	%if ImNr == 1
-	%CC = [0;0;0];
-
-	% get translation
-	CC = PcamX(:,4,imNr)
+	Cc = Ccs{imNr};
 	% retrieve 2 coords of line in 3d
-	lineCoord = pointsTo3DLine([Skylines{imNr}.SkylineX(i);Skylines{imNr}.SkylineY(i)], CC, Kcanon10GOOD);
+	% todo pcamX times skylines
+	lineCoord = pointsTo3DLine([Skylines{imNr}.SkylineX(i);Skylines{imNr}.SkylineY(i)], Cc, Kcanon10GOOD);
 
 	nrWalls = length(WALLS);
 	% distToIntSectPoint 	= zeros(nrWalls,1);
@@ -70,8 +58,8 @@ for i=range1
 
 		
 		% % camera center
-		% CC = LinePoint0;
-		% distToIntSectPoint(w) = norm(intSectPoint(w) - CC)
+		% Cc = LinePoint0;
+		% distToIntSectPoint(w) = norm(intSectPoint(w) - Cc)
 		% % if the three dimensions have infinite intersection there is no intersection
 
 		% line and wall parallel?
@@ -85,7 +73,7 @@ for i=range1
 	end
 	%distPointToWalls
 
-	% todo threshold min distances and take of a few the closest one to the CC	
+	% todo threshold min distances and take of a few the closest one to the Cc	
 	% find wall closest to cc
 	% [minVal, minIdx] = min(distToIntSectPoint)
 	% write cube on intersection point
@@ -94,7 +82,7 @@ for i=range1
 	% write a little cube on the intersection point
 	cubeToObj(ispCubesFileName, 1, intSectPoint(minIspToWallDistIdx,:), 0.05);
 	% write a line from cc to intersection point
-	lineToObj(linesFileName, CC, intSectPoint(minIspToWallDistIdx,:), 'black');
+	lineToObj(linesFileName, Cc, intSectPoint(minIspToWallDistIdx,:), 'black');
 
 end
 

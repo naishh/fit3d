@@ -26,7 +26,7 @@ c4 = [Wall(10);Wall(11);Wall(12)];
 inPolygon = pointInPolygon(isp, c1, c2, c3, c4);
 
 if inPolygon
-	disp('point in polygon!');
+	%disp('point in polygon!');
 	d = 0;
 else
 	%disp('point not in polygon');

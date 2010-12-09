@@ -1,1 +1,3 @@
-osgviewer 3dOBJmodels/Buildings_colored.obj 3dOBJmodels/Images.obj lines.obj ispCubes.obj inpolygon.obj ccs.obj
+#osgviewer 3dOBJmodels/Buildings_colored.obj 3dOBJmodels/Images.obj lines.obj ispCubes.obj inpolygon.obj ccs.obj axis.obj
+osgviewer 3dOBJmodels/Buildings_colored.obj 3dOBJmodels/Images.obj ispCubes.obj inpolygon.obj ccs.obj axis.obj
+#osgviewer 3dOBJmodels/Buildings_colored.obj lines.obj ispCubes.obj inpolygon.obj ccs.obj

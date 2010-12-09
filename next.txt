@@ -1,0 +1,4 @@
+
+lines aanzetten in ./o
+cc's zijn getransleerd nu 
+2d coords van images transleren met pcamX 
