@@ -16,10 +16,10 @@ Here comes the abstract
 
 \section{Skyline detection}
 This section describes how the skyline of an image is detected. A skyline
-seperates a building from the sky and is used as an indicator of the building contour.
+separates a building from the sky and is used as an indicator of the building contour.
 \\
 Some previous work on skyline detection is done.\\
-$[9]$ yields a good introduction of different skyline detection techiques.
+$[9]$ yields a good introduction of different skyline detection techniques.
 In $[1]$, a column based approach is used. This method is used in this project.
 \\
 The skyline detector works as follows.
@@ -36,7 +36,7 @@ threshold) and classifies this as a skyline pixel.  This is done for every
 column in the edge image. The result is a set of coordinates of length $W$,
 where $W$ is the width of the image, that represent the skyline.
 \\
-The Skyline detectior has an accuracy of (ABOUT) 90 \% (TODO CHECK THIS PERCENTAGE) 
+The Skyline detector has an accuracy of (ABOUT) 90 \% (TODO CHECK THIS PERCENTAGE) 
 In some cases outliers are detected, these are often a streetlight or a tree. The outliers are
 filtered in the next step.
 
@@ -56,28 +56,28 @@ This line is spanned by two known coordinates:\\
 \end{itemize}
 
 \subsection{Intersect with building}
-A topview image (source:google maps) is used to create a rough indication of the building. The height of the building is estimated.\\
+A top-view image (source:Google maps) is used to create a rough indication of the building. The height of the building is estimated.\\
 To know which part of the building the pixel presents, the building is divided into different walls.  Every wall of the building spans a plane. Intersections are calculated between the line from the previous section and these planes.\\
 \\
-The intersections are used to determine the wall that is has the largest probability of being responsable for the pixel. 
+The intersections are used to determine the wall that is has the largest probability of being responsible for the pixel. 
 If a wall represents that pixel, the intersection (projected pixel) must lie either\\
 \textbf{1)} On the wall (inside the polygonal representation of the wall)
 \\
 or
 \\
-\textbf{2)} On a small distance from the wall, this is treated as an inlier because the 3D model is sparse and the height of the buliding is unknown.
+\textbf{2)} On a small distance from the wall, this is treated as an inlier because the 3D model is sparse and the height of the building is unknown.
 \\
-The first is calculated using an inpolygon algorithm. The later is calculated as follows:
+The first is calculated using an in-polygon algorithm. The later is calculated as follows:
 \\
-First the distances from the intersection to four wall sides are calculated. For every wall the minimum distance is stored. The wall with the smalles distance is the one that most likely presents the pixel. If there are two (or even more) walls that succeded the inpolygon test then the nearest wall (closest to the camera center) is selected. How the distance measure is calculated can be read in the next section.
+First the distances from the intersection to four wall sides are calculated. For every wall the minimum distance is stored. The wall with the smallest distance is the one that most likely presents the pixel. If there are two (or even more) walls that succeeded the in-polygon test then the nearest wall (closest to the camera center) is selected. How the distance measure is calculated can be read in the next section.
 
 \subsection{Calculate the intersection point - wall distance}
-A wall consists of four corner points. Some cornerpoint pairs connect a line segment which represents a side of a wall. There are four line segments.\\
+A wall consists of four corner points. Some corner-point pairs connect a line segment which represents a side of a wall. There are four line segments.\\
 The intersection point (ISP) is projected orthogonally on all four lines that
 are spanned by the line segments.  If the projected ISP lies between the two
 corner points (on the line segment) then the distance from the ISP to the
 projected ISP is returned.  If it lies outside the two corner points the
-euclidean distance to the closest cornerpoint is returned.
+Euclidean distance to the closest corner-point is returned.
 
 [I can explain how I did some clever dot product tricks but I think that is to much detail right?]
 
