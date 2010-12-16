@@ -11,14 +11,14 @@ for imgNr = 1:5
 
 	imRGB = imread(file);
 	imBW = imadjust(rgb2gray(imRGB));
-	%figure; imshow(imBW);
+	figure; imshow(imBW);
 	
 
 	% GAUSSIAN BLUR
 	% todo checken of het wel nut heeft te blurren
 	s = fspecial('gaussian',5,5);
 	imBW=imfilter(imBW,s);
-	%figure; imshow(imBW);
+	figure; imshow(imBW);
 
 	%threshtest
 	% for thresh=0.05:0.05:1
@@ -31,7 +31,7 @@ for imgNr = 1:5
 	% EDGE DETECTION
 	thresh = 0.05;
 	imEdge = im2double(edge(imBW, 'sobel', thresh));
-	%figure; imshow(imEdge)
+	figure; imshow(imEdge)
 
 	% todo close opening proberen
 
@@ -41,5 +41,6 @@ for imgNr = 1:5
 	[SkylineX, SkylineY] = getSkyLine(imRGB, imEdge, xStepSize, skylineThresh);
 
 	Skylines{imgNr} = struct('SkylineX',SkylineX,'SkylineY', SkylineY) 
+	pause;
 
 end
