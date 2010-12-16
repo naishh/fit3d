@@ -1,14 +1,26 @@
+\documentclass[10pt]{article}
+\title{\sc Optimizing 3D models from 2D images}
+
+\author{T. Kostelijk\\mailtjerk@gmail.com}
+
+\date{December 16, 2010}
+
+\begin{document}
+
+\maketitle
+\begin{abstract}
+Here comes the abstract
+\end{abstract}
+
 \section{Introduction}
-Update 3D model
-how modules are connected etc
 
 \section{Skyline detection}
 This section describes how the skyline of an image is detected. A skyline
 seperates a building from the sky and is used as an indicator of the building contour.
 \\
-Some previous work on skyline detection is done.
-\cite{9} yields a good introduction of different skyline detection techiques.
-In \cite{1}, a column based approach is used. This method is used in my implementation.
+Some previous work on skyline detection is done.\\
+$[9]$ yields a good introduction of different skyline detection techiques.
+In $[1]$, a column based approach is used. This method is used in this project.
 \\
 The skyline detector works as follows.
 First the image is preprocessed for the skyline detector algorithm.
@@ -24,59 +36,48 @@ threshold) and classifies this as a skyline pixel.  This is done for every
 column in the edge image. The result is a set of coordinates of length $W$,
 where $W$ is the width of the image, that represent the skyline.
 \\
-The Skyline detectior has an accuracy of (ABOUT) 90% (TODO CHECK THIS PERCENTAGE) 
+The Skyline detectior has an accuracy of (ABOUT) 90 \% (TODO CHECK THIS PERCENTAGE) 
 In some cases outliers are detected, these are often a streetlight or a tree. The outliers are
 filtered in the next step.
 
-\section{}
-motivation
-(dis)advantages
-
-motivation:
-"To update the 3D model at the right place we need to know for every pixel 
-which wall it most likely presents.  
-
 \section{Skyline in 3D as a contour of the building}
-The 3D building contour is necessary to update the sparse 3D model of the buliding.
+The 3D building contour is used to update the sparse 3D model of the building.
 This section describes how the 2D images are used to get the 3D contour of the
 building. This is done in several distinct steps.  
 
 \subsection{Project to 3D space}
-Every 2D pixel of an input image presents a 3D point in space. Because no
-information is known about the distance from the point to the camera, it
-presents an infinite line of possible points in space.
-
-
-This line is spanned by two known coordinates:
+Every 2D pixel of an input image presents a 3D point in space. No
+information is known about the distance from the 3D point to the camera.
+Therefore the algorithm starts with an infinite line of possible points in space.
+This line is spanned by two known coordinates:\\
 \begin{itemize}
-\item The camera center, for the first camera $[0 0 0]\transpose$, the second %TODOOOOO
-\item $K'p$, where $K$ is the Calibration matrix of the camera and $p$ is the homogeneous pixel coordinate.
+	\item The camera center (camera centers are annotated for every image)
+	\item $K'p$, where $K$ is the Calibration matrix of the camera and $p$ is the homogeneous pixel coordinate.
 \end{itemize}
 
-
-\textbf{Intersect with walls of building}
-To know which part of the building the pixel presents, the building is divided into different walls.
-Every wall of the building spans a plane. Intersections are calculated between the line from the previous section and these planes.
-The most propable intersection, the wall that is most likely responsable for the pixel, is calculated in the next.
-
-\subsection{Select the right wall}
-To find the right wall, the projected pixel must lie either
-1) On the wall (inside the polygonal representation of the wall)
-or
-2) On a small distance from the wall
-
-The first is calculated using an inpolygon algorithm.
-The later is calculated as follows:
+\subsection{Intersect with building}
+A topview image (source:google maps) is used to create a rough indication of the building. The height of the building is estimated.\\
+To know which part of the building the pixel presents, the building is divided into different walls.  Every wall of the building spans a plane. Intersections are calculated between the line from the previous section and these planes.\\
 \\
-First the distances from the intersection to all wall sides are calculated. For every wall the minimum of the four wall sides is used as its intersection point wall distance.
-The wall with the smalles distance is the one that most likely presents the pixel. If there are two (or even more) walls that succeded the inpolygon test then the wall closest to the camera is selected.
+The intersections are used to determine the wall that is has the largest probability of being responsable for the pixel. 
+If a wall represents that pixel, the intersection (projected pixel) must lie either\\
+\textbf{1)} On the wall (inside the polygonal representation of the wall)
+\\
+or
+\\
+\textbf{2)} On a small distance from the wall, this is treated as an inlier because the 3D model is sparse and the height of the buliding is unknown.
+\\
+The first is calculated using an inpolygon algorithm. The later is calculated as follows:
+\\
+First the distances from the intersection to four wall sides are calculated. For every wall the minimum distance is stored. The wall with the smalles distance is the one that most likely presents the pixel. If there are two (or even more) walls that succeded the inpolygon test then the nearest wall (closest to the camera center) is selected. How the distance measure is calculated can be read in the next section.
 
-\subsection{calculating the ISP wall distance}
-A wall consists of four corner points. Two cornerpoints connect a line segment which represents a side of a wall. There are four line segments.
-
-The ISP is projected on all four lines that are spanned by the line segments.
-If the projected ISP lies between the two corner points (on the line segment) then the distance from the ISP to the projected ISP is returned.
-If it lies outside the two corner points the euclidean distance to the closest cornerpoint is returned.
+\subsection{Calculate the intersection point - wall distance}
+A wall consists of four corner points. Some cornerpoint pairs connect a line segment which represents a side of a wall. There are four line segments.\\
+The intersection point (ISP) is projected orthogonally on all four lines that
+are spanned by the line segments.  If the projected ISP lies between the two
+corner points (on the line segment) then the distance from the ISP to the
+projected ISP is returned.  If it lies outside the two corner points the
+euclidean distance to the closest cornerpoint is returned.
 
 [I can explain how I did some clever dot product tricks but I think that is to much detail right?]
 
@@ -84,6 +85,10 @@ If it lies outside the two corner points the euclidean distance to the closest c
 \section{Update 3D model}
 
 
-\section{Citations}
-[1] Castano, Automatic detection of dust devils and clouds on Mars
-[9] Cozman, Outdoor visual position estimation for planetary rovers.
+\section{References}
+\begin{itemize}
+\item $[1]$ Castano, Automatic detection of dust devils and clouds on Mars.
+\item $[9]$ Cozman, Outdoor visual position estimation for planetary rovers.
+\end{itemize}
+
+\end{document}
