@@ -26,6 +26,9 @@ load('mats/WALLS.mat')
 % determine samplesize and range of skyline pixels
 minI = 900; maxI = 1000; stepSize = 10;
 range1 = minI:stepSize:maxI;
+
+updatedWallCoords = cell(maxI, 3);
+
 imNr = 1;
 
 Ccs = getCameraCentersFromP(PcamX)
@@ -55,6 +58,7 @@ end
 
 %- R*(T)
 
+j = 1;
 % loop through skyline pixels
 for i=range1
 	%clear file
@@ -102,12 +106,21 @@ for i=range1
 	isp = intSectPoint(minIspToWallDistIdx,:);
 	cubeToObj(ispCubesFileName, 1, isp, 0.05);
 
-	%updatedWallCoords(i) = intSectPoint(minIspToWallDistIdx,:)
+	updatedWallCoords{j} = intSectPoint(minIspToWallDistIdx,:)
 	
 	% write a line from cc to intersection point
 	lineToObj(linesFileName, Cc, intSectPoint(minIspToWallDistIdx,:), 'black');
 
+	j = j + 1;
 end
+
+% generate Buildings_colored.obj from .mat file
+% STRUCTURED every wall independend index
+% update with given wall index and updatetWallCoords
+%
+
+wallToObj('walls.obj', WALLS, updatedWallCoords, 7, 'black')
+
 
 % open the osgviewer
 %!./o
