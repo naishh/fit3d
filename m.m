@@ -14,9 +14,7 @@ if exist('PcamX') == 0
 	cd ..
 end
 
-% todo make camera center depended of translation in P
-P1 = PcamX(:,:,1); % = [I,0]
-fullFilename = [Files.dir,Files.files(1).name];
+%fullFilename = [Files.dir,Files.files(1).name];
 
 % clear files
 fp = fopen(linesFileName , 'w'); fprintf(fp,'mtllib colors.mtl\n'); fclose(fp);
@@ -26,23 +24,44 @@ fp = fopen(ispCubesFileName, 'w'); fprintf(fp,'mtllib colors.mtl\n'); fclose(fp)
 load('mats/WALLS.mat')
 
 % determine samplesize and range of skyline pixels
-minI = 100; maxI = 1300; stepSize = 10;
+minI = 900; maxI = 1000; stepSize = 10;
 range1 = minI:stepSize:maxI;
 imNr = 1;
 
 Ccs = getCameraCentersFromP(PcamX)
 
 
+% camera center
+Cc = Ccs{imNr};
+
+% retrieve 2 coords of line in 3d
+% todo pcamX times skylines
+
+% letop dit gaat cumulatiev en werkt nu alleen voor 2e
+R = PcamX(:,1:3,imNr);
+T = PcamX(:,4,imNr);
+
+SkylinesXYZ = zeros(maxI,3);
+% todo optimize
+for i=range1
+	R = PcamX(:,1:3,imNr);
+	T = PcamX(:,4,imNr);
+	V = [Skylines{imNr}.SkylineX(i);Skylines{imNr}.SkylineY(i);1]
+	%V = R * -V;
+	%V = V + -T;
+	SkylinesXYZ(i,:) = V;
+	%[Skylines{imNr}.SkylineX(i);Skylines{imNr}.SkylineY(i); 1 ] - (R*T);
+end
+
+%- R*(T)
+
 % loop through skyline pixels
 for i=range1
 	%clear file
 	fp = fopen('inpolygon.obj', 'w'); fclose(fp);
 	i
-	% camera center
-	Cc = Ccs{imNr};
-	% retrieve 2 coords of line in 3d
-	% todo pcamX times skylines
-	lineCoord = pointsTo3DLine([Skylines{imNr}.SkylineX(i);Skylines{imNr}.SkylineY(i)], Cc, Kcanon10GOOD);
+	% TODO:format goed doen
+	lineCoord = pointsTo3DLine(homog22d(SkylinesXYZ(i,:)), Cc, Kcanon10GOOD);
 
 	nrWalls = length(WALLS);
 	% distToIntSectPoint 	= zeros(nrWalls,1);
@@ -80,14 +99,18 @@ for i=range1
 
 	[minIspToWallDist, minIspToWallDistIdx] = min(distPointToWalls);
 	% write a little cube on the intersection point
-	cubeToObj(ispCubesFileName, 1, intSectPoint(minIspToWallDistIdx,:), 0.05);
+	isp = intSectPoint(minIspToWallDistIdx,:);
+	cubeToObj(ispCubesFileName, 1, isp, 0.05);
+
+	%updatedWallCoords(i) = intSectPoint(minIspToWallDistIdx,:)
+	
 	% write a line from cc to intersection point
 	lineToObj(linesFileName, Cc, intSectPoint(minIspToWallDistIdx,:), 'black');
 
 end
 
 % open the osgviewer
-!./o
+%!./o
 
 
 % write the points lines in obj file 

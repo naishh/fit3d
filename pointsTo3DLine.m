@@ -4,8 +4,13 @@ function lineCoord = pointsTo3DLine(xy, CC, K)
 % xy, the 2d pixel coordinate
 % CC, the camera center (for first pic this is [0;0;0]
 
-% the homogeneous pixel coordinate 
-xyH = [xy;1];
+if length(xy) == 2
+	% disp('homog coord not found')
+	xyH = [xy;1];
+else 
+	% disp('homog coord found')
+	xyH = xy'
+end
 
 % the pixel in 3d space
 xy3D = inv(K) * xyH;

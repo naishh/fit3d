@@ -2,3 +2,6 @@
 lines aanzetten in ./o
 cc's zijn getransleerd nu 
 2d coords van images transleren met pcamX 
+Rotatie matrix testen met simpele coords en een simpele R
+
+pcamx even on hold en verder met convex hull
