@@ -23,11 +23,12 @@ fp = fopen(ispCubesFileName, 'w'); fprintf(fp,'mtllib colors.mtl\n'); fclose(fp)
 % load WALL coordinates
 load('mats/WALLS.mat')
 
+WALLS2 = WALLS(:,1:3)
 % determine samplesize and range of skyline pixels
 minI = 900; maxI = 1000; stepSize = 10;
 range1 = minI:stepSize:maxI;
 
-updatedWallCoords = cell(maxI, 3);
+updatedWallCoords = zeros((maxI-minI)/stepSize,3);
 
 imNr = 1;
 
@@ -106,7 +107,7 @@ for i=range1
 	isp = intSectPoint(minIspToWallDistIdx,:);
 	cubeToObj(ispCubesFileName, 1, isp, 0.05);
 
-	updatedWallCoords{j} = intSectPoint(minIspToWallDistIdx,:)
+	updatedWallCoords(j,:) = intSectPoint(minIspToWallDistIdx,:)
 	
 	% write a line from cc to intersection point
 	lineToObj(linesFileName, Cc, intSectPoint(minIspToWallDistIdx,:), 'black');

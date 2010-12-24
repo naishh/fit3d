@@ -12,8 +12,9 @@ for i=1:length(WALLS)
 	end
 
 	if (i==betweenWallNo)
-		for k=1:length(updatedWallCoords)
-			fprintf(fp, 'v %d %d %d\n', updatedWallCoords{k}, updatedWallCoords{k+1}, updatedWallCoords{k+2});
+		for k=1:length(updatedWallCoords)-1
+			k
+			fprintf(fp, 'v %d %d %d\n', updatedWallCoords(k,1), updatedWallCoords(k,2), updatedWallCoords(k,4));
 			fprintf(fp, 'vt 1 0 0\n')
 		end
 		dataPoints = dataPoints+length(updatedWallCoords)
