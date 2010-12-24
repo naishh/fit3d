@@ -23,16 +23,24 @@ fp = fopen(ispCubesFileName, 'w'); fprintf(fp,'mtllib colors.mtl\n'); fclose(fp)
 % load WALL coordinates
 load('mats/WALLS.mat')
 
-WALLS2 = WALLS(:,1:3)
+% change order of wall line segments
+%order = [1,3,4,2];
+Xorder = [3,1,2,4];
+Xorder = Xorder * 3 - 2;
+%Yorder = [1,2,3,4,5,6,8,9,10,11,12,7];
+Yorder = [1,2,3,4,5,6,7,8,9,10,11,12];
+WALLS = [ WALLS(:,Xorder(1):Xorder(1)+2), WALLS(:,Xorder(2):Xorder(2)+2), WALLS(:,Xorder(3):Xorder(3)+2), WALLS(:,Xorder(4):Xorder(4)+2)]
+WALLS = [ WALLS(Yorder(1),:); WALLS(Yorder(2),:); WALLS(Yorder(3),:); WALLS(Yorder(4),:); WALLS(Yorder(5),:); WALLS(Yorder(6),:); WALLS(Yorder(7),:); WALLS(Yorder(8),:); WALLS(Yorder(9),:); WALLS(Yorder(10),:); WALLS(Yorder(11),:); WALLS(Yorder(12),:)]
+
 % determine samplesize and range of skyline pixels
-minI = 900; maxI = 1000; stepSize = 10;
+minI = 950; maxI = 1000; stepSize = 10;
 range1 = minI:stepSize:maxI;
 
 updatedWallCoords = zeros((maxI-minI)/stepSize,3);
 
 imNr = 1;
 
-Ccs = getCameraCentersFromP(PcamX)
+Ccs = getCameraCentersFromP(PcamX);
 
 
 % camera center
@@ -50,7 +58,7 @@ SkylinesXYZ = zeros(maxI,3);
 for i=range1
 	R = PcamX(:,1:3,imNr);
 	T = PcamX(:,4,imNr);
-	V = [Skylines{imNr}.SkylineX(i);Skylines{imNr}.SkylineY(i);1]
+	V = [Skylines{imNr}.SkylineX(i);Skylines{imNr}.SkylineY(i);1];
 	%V = R * -V;
 	%V = V + -T;
 	SkylinesXYZ(i,:) = V;
@@ -107,7 +115,7 @@ for i=range1
 	isp = intSectPoint(minIspToWallDistIdx,:);
 	cubeToObj(ispCubesFileName, 1, isp, 0.05);
 
-	updatedWallCoords(j,:) = intSectPoint(minIspToWallDistIdx,:)
+	updatedWallCoords(j,:) = intSectPoint(minIspToWallDistIdx,:);
 	
 	% write a line from cc to intersection point
 	lineToObj(linesFileName, Cc, intSectPoint(minIspToWallDistIdx,:), 'black');
@@ -120,7 +128,7 @@ end
 % update with given wall index and updatetWallCoords
 %
 
-wallToObj('walls.obj', WALLS, updatedWallCoords, 7, 'black')
+wallToObj('walls.obj', WALLS, updatedWallCoords, 7, [1,4],'black')
 
 
 % open the osgviewer

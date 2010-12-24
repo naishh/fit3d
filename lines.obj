@@ -1,31 +1,6 @@
 mtllib colors.mtl
 usemtl black
 v 0 0 0
-v 4.915107e-01 -2.208326e+00 1.379550e+01
-l -2 -1
-usemtl black
-usemtl black
-v 0 0 0
-v 6.780056e-01 -2.198612e+00 1.406433e+01
-l -2 -1
-usemtl black
-usemtl black
-v 0 0 0
-v 8.718381e-01 -2.170394e+00 1.434260e+01
-l -2 -1
-usemtl black
-usemtl black
-v 0 0 0
-v 1.073590e+00 -2.159518e+00 1.463339e+01
-l -2 -1
-usemtl black
-usemtl black
-v 0 0 0
-v 1.283577e+00 -2.129329e+00 1.493488e+01
-l -2 -1
-usemtl black
-usemtl black
-v 0 0 0
 v 1.502399e+00 -2.097870e+00 1.524905e+01
 l -2 -1
 usemtl black
