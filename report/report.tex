@@ -13,32 +13,73 @@ Here comes the abstract
 \end{abstract}
 
 \section{Introduction}
+% TODO Heerlijk de todos zijn niet leesbaar ff ander kleurtje geven ouwe, syntax=tex configgen in vim
 
 \section{Skyline detection}
+% TODO MOTIVATION 
 This section describes how the skyline of an image is detected. A skyline
 separates a building from the sky and is used as an indicator of the building contour.
 \\
+% It is interesting to denote that the skyline detector a stand alone method and
+% can be optimized individually without any knowledge of the other parts of the
+% project.
+
 Some previous work on skyline detection is done.\\
 $[9]$ yields a good introduction of different skyline detection techniques.
-In $[1]$, a column based approach is used. This method is used in this project.
-\\
-The skyline detector works as follows.
-First the image is preprocessed for the skyline detector algorithm.
-The contrast of the image is maximized. Then the image undertakes a Gaussian blur.  On this image a
-\textit{sobel} edge detector with a manual threshold is applied.
-The result is feed to the skyline detector.
-\\
-The Skyline Detector uses an assumption: the first sharp edge (seen
-from top to bottom) is always a skyline/building edge. The algorithm works as
-follows: The value of a pixel in a column is evaluated. Iterating from top to
-bottom, the system takes the first sharp edge (a pixel that is above a certain
-threshold) and classifies this as a skyline pixel.  This is done for every
-column in the edge image. The result is a set of coordinates of length $W$,
+
+A comparison is done of the different skyline techniques as described in $[9]$
+and $[1]$ is most suitable as a basis for the purpose of this project.  This
+method is used as an inspiration. A custom algorithm is made. First
+the original method is explained. Then the custom algorithm with respect to the
+original algorithm is explained.
+
+The skyline detection algorithm as described in $[1]$ analyzes every column of
+the image separately.  The smoothed intensity gradient is calculated from top
+to bottom.  The system takes the first pixel with gradient higher then a threshold to be
+classified as a skyline element.  This is done for every column in the smoothed
+intensity gradient image. The result is a set of coordinates of length $W$,
 where $W$ is the width of the image, that represent the skyline.
+\textit{Should I elaborate (with a footnote?) on the smoothed
+intensity gradient or could I assume this as common knowledge?}. 
+
+Taking the smoothed intensity gradient is the most basic method of edge detection
+and has a disadvantage. The method will not be robust to more vague edges.
+Instead of the smoothed intensity gradient in this thesis a smoothed edge intensity image is
+used.  A practical study is done on the different Matlab build in edge
+detection techniques. The Sobel edge detector came with the most promising
+results.  Details on this study lie without the bound of this thesis.\\
+
+As a purpose of making the algorithm more precise, two other preprocessing
+steps are introduced. First the contrast of the image is increased, this makes
+sharp edges stand out more.  Secondly the image undertakes a Gaussian blur,
+this removes a large part of the noise.
+
+The system has no several parameters which has to be set manually by the user:
+\begin{itemize}
+\item contrast parameter, 
+\item intensity (window size) of Gaussian blur,
+\item Sobel edge detector threshold
+\item column based inlier threshold
+\end{itemize}
+\textit{Should I write down what parameter values I used or is this of too much
+detail}
+
+(Automatic parameter estimation based on the image would be interesting future
+work but lies without the scope of this research.)
+
+The column based approach from $[1]$ seem to be very useful and is therefor
+used as described above but on the preprocessed image.
+
+Some results from the Floriande dataset:
+% TODO Results images
+% TODO make UML scheme skyline -> 3d -> etc.
 \\
-The Skyline detector has an accuracy of (ABOUT) 90 \% (TODO CHECK THIS PERCENTAGE) 
-In some cases outliers are detected, these are often a streetlight or a tree. The outliers are
-filtered in the next step.
+The system assumes that the first sharp edge (seen from top to bottom) is
+always a skyline/building edge. This gives raise to some outliers, these are
+for example a streetlight or a tree. The outliers are removed in as described in
+the next section.  The Skyline detector without outlier removal has an
+accuracy of (ABOUT) 90 \% (TODO CHECK THIS PERCENTAGE) 
+
 
 \section{Skyline in 3D as a contour of the building}
 The 3D building contour is used to update the sparse 3D model of the building.
