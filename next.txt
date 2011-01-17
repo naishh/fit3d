@@ -10,3 +10,9 @@ rand boven wall voor elke wall doen en generiek
 bug fixen met rare connectie andere walls
 osgviewer installeren
 i openscenegraph?
+
+nieuwe muur bouwen voor wall7
+uitvinden waarom rare vorm als je onderpunten aanzet r17 r18 in wallToObj.m
+bij verveling ff andere wall proberen
+
+generiek voor alle walls

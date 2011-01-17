@@ -1,12 +1,27 @@
 mtllib colors.mtl
 usemtl black
 v 0 0 0
-v 3.866391e-01 -1.737144e+00 1.085201e+01
+v 6.780056e-01 -2.198612e+00 1.406433e+01
 l -2 -1
 usemtl black
 usemtl black
 v 0 0 0
-v 6.780056e-01 -2.198612e+00 1.406433e+01
+v 7.161559e-01 -2.189489e+00 1.411887e+01
+l -2 -1
+usemtl black
+usemtl black
+v 0 0 0
+v 7.546033e-01 -2.180295e+00 1.417385e+01
+l -2 -1
+usemtl black
+usemtl black
+v 0 0 0
+v 7.934190e-01 -2.189004e+00 1.423047e+01
+l -2 -1
+usemtl black
+usemtl black
+v 0 0 0
+v 8.324747e-01 -2.179736e+00 1.428631e+01
 l -2 -1
 usemtl black
 usemtl black
@@ -16,7 +31,47 @@ l -2 -1
 usemtl black
 usemtl black
 v 0 0 0
+v 9.115129e-01 -2.160978e+00 1.439933e+01
+l -2 -1
+usemtl black
+usemtl black
+v 0 0 0
+v 9.515029e-01 -2.151487e+00 1.445651e+01
+l -2 -1
+usemtl black
+usemtl black
+v 0 0 0
+v 9.918981e-01 -2.160254e+00 1.451542e+01
+l -2 -1
+usemtl black
+usemtl black
+v 0 0 0
+v 1.032534e+00 -2.150684e+00 1.457353e+01
+l -2 -1
+usemtl black
+usemtl black
+v 0 0 0
 v 1.073590e+00 -2.159518e+00 1.463339e+01
+l -2 -1
+usemtl black
+usemtl black
+v 0 0 0
+v 1.114887e+00 -2.149867e+00 1.469245e+01
+l -2 -1
+usemtl black
+usemtl black
+v 0 0 0
+v 1.156518e+00 -2.140137e+00 1.475199e+01
+l -2 -1
+usemtl black
+usemtl black
+v 0 0 0
+v 1.198488e+00 -2.130328e+00 1.481202e+01
+l -2 -1
+usemtl black
+usemtl black
+v 0 0 0
+v 1.240802e+00 -2.120439e+00 1.487253e+01
 l -2 -1
 usemtl black
 usemtl black
@@ -26,7 +81,47 @@ l -2 -1
 usemtl black
 usemtl black
 v 0 0 0
+v 1.326593e+00 -2.119354e+00 1.499641e+01
+l -2 -1
+usemtl black
+usemtl black
+v 0 0 0
+v 1.369965e+00 -2.109296e+00 1.505844e+01
+l -2 -1
+usemtl black
+usemtl black
+v 0 0 0
+v 1.413697e+00 -2.099154e+00 1.512099e+01
+l -2 -1
+usemtl black
+usemtl black
+v 0 0 0
+v 1.457927e+00 -2.108102e+00 1.518544e+01
+l -2 -1
+usemtl black
+usemtl black
+v 0 0 0
 v 1.502399e+00 -2.097870e+00 1.524905e+01
+l -2 -1
+usemtl black
+usemtl black
+v 0 0 0
+v 1.547244e+00 -2.087552e+00 1.531320e+01
+l -2 -1
+usemtl black
+usemtl black
+v 0 0 0
+v 1.592468e+00 -2.077146e+00 1.537789e+01
+l -2 -1
+usemtl black
+usemtl black
+v 0 0 0
+v 1.638076e+00 -2.066652e+00 1.544312e+01
+l -2 -1
+usemtl black
+usemtl black
+v 0 0 0
+v 1.684229e+00 -2.075650e+00 1.551036e+01
 l -2 -1
 usemtl black
 usemtl black
@@ -36,21 +131,26 @@ l -2 -1
 usemtl black
 usemtl black
 v 0 0 0
+v 1.777585e+00 -2.074128e+00 1.564514e+01
+l -2 -1
+usemtl black
+usemtl black
+v 0 0 0
+v 1.093339e+00 -1.236328e+00 9.414391e+00
+l -2 -1
+usemtl black
+usemtl black
+v 0 0 0
+v 1.115196e+00 -1.222555e+00 9.398986e+00
+l -2 -1
+usemtl black
+usemtl black
+v 0 0 0
+v 1.136982e+00 -1.208828e+00 9.383631e+00
+l -2 -1
+usemtl black
+usemtl black
+v 0 0 0
 v 1.968874e+00 -2.030807e+00 1.591880e+01
-l -2 -1
-usemtl black
-usemtl black
-v 0 0 0
-v 2.217823e+00 -1.995017e+00 1.627622e+01
-l -2 -1
-usemtl black
-usemtl black
-v 0 0 0
-v 2.478455e+00 -1.978595e+00 1.665174e+01
-l -2 -1
-usemtl black
-usemtl black
-v 0 0 0
-v 2.751116e+00 -1.939890e+00 1.704324e+01
 l -2 -1
 usemtl black

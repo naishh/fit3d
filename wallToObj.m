@@ -3,35 +3,35 @@ fp = fopen(fileName, 'w');
 fprintf(fp, 'mtllib colors.mtl\n');
 fprintf(fp, 'usemtl %s\n', color);
 
-for i=1:length(WALLS)
-	dataPoints = length(WALLS(i,:))/3;
+dataPoints = length(updatedWallCoords)
 
-	for j=1:3:length(WALLS)
-		% check if j has an alement that is in replaceWallCoord
-		% [1,4] are replaced
-		if (i==betweenWallNo && sum(((j+2)/3)==replaceWallCoord)>=1)
-			disp('skip')
-			for k=1:length(updatedWallCoords)-1
-				fprintf(fp, 'v %d %d %d\n', updatedWallCoords(k,1), updatedWallCoords(k,2), updatedWallCoords(k,3));
-				fprintf(fp, 'vt 1 0 0\n');
-			end
-			dataPoints = dataPoints+length(updatedWallCoords);
-		else
-			fprintf(fp, 'v %d %d %d\n', WALLS(i,j), WALLS(i,j+1), WALLS(i,j+2));
-			fprintf(fp, 'vt 1 0 0\n');
-		end
-	end
+% print  first two lowest coords of building
+m=3;
+fprintf(fp, 'v 11.799408 -1.842093 30.10915\n');
+fprintf(fp, 'vt 1 0 0\n');
+fprintf(fp, 'v -1.366259 -2.812347 11.149166\n');
+fprintf(fp, 'vt 1 0 0\n');
+
+fprintf(fp, 'v -1.339032 1.182091 10.940056\n');
+fprintf(fp, 'vt 1 0 0\n');
+%fprintf(fp, 'v 11.826635 2.152345 29.900041\n');
+%fprintf(fp, 'vt 1 0 0\n');
 
 
-	fprintf(fp, 'f ');
-
-	for n=1:dataPoints 
-		fprintf(fp, ' %d/%d', -n, -n);
-	end
-
-	fprintf(fp, '\n\n');
-	%fprintf(fp, 'usemtl black\n\n', color);
 
 
+for k=1:dataPoints-1
+	fprintf(fp, 'v %d %d %d\n', updatedWallCoords(k,1), updatedWallCoords(k,2), updatedWallCoords(k,3));
+	fprintf(fp, 'vt 1 0 0\n');
 end
+
+fprintf(fp, 'f ');
+
+for n=1:dataPoints-1 + m
+	fprintf(fp, ' %d/%d', -n, -n);
+end
+
+fprintf(fp, '\n\n');
+%fprintf(fp, 'usemtl black\n\n', color);
+
 fclose(fp);

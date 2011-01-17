@@ -20,6 +20,7 @@ end
 fp = fopen(linesFileName , 'w'); fprintf(fp,'mtllib colors.mtl\n'); fclose(fp);
 fp = fopen(ispCubesFileName, 'w'); fprintf(fp,'mtllib colors.mtl\n'); fclose(fp);
 
+
 % load WALL coordinates
 load('mats/WALLS.mat')
 
@@ -33,7 +34,8 @@ WALLS = [ WALLS(:,Xorder(1):Xorder(1)+2), WALLS(:,Xorder(2):Xorder(2)+2), WALLS(
 WALLS = [ WALLS(Yorder(1),:); WALLS(Yorder(2),:); WALLS(Yorder(3),:); WALLS(Yorder(4),:); WALLS(Yorder(5),:); WALLS(Yorder(6),:); WALLS(Yorder(7),:); WALLS(Yorder(8),:); WALLS(Yorder(9),:); WALLS(Yorder(10),:); WALLS(Yorder(11),:); WALLS(Yorder(12),:)]
 
 % determine samplesize and range of skyline pixels
-minI = 900; maxI = 1000; stepSize = 10;
+%ergens tussen 950 en 970 zit raar datapoint
+minI = 910; maxI = 950; stepSize = 2;
 range1 = minI:stepSize:maxI;
 
 updatedWallCoords = zeros((maxI-minI)/stepSize,3);
