@@ -8,6 +8,7 @@ for i=1:length(WALLS)
 
 	for j=1:3:length(WALLS)
 		% check if j has an alement that is in replaceWallCoord
+		% [1,4] are replaced
 		if (i==betweenWallNo && sum(((j+2)/3)==replaceWallCoord)>=1)
 			disp('skip')
 			for k=1:length(updatedWallCoords)-1

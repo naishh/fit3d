@@ -8,3 +8,5 @@ pcamx even on hold en verder met convex hull
 
 rand boven wall voor elke wall doen en generiek
 bug fixen met rare connectie andere walls
+osgviewer installeren
+i openscenegraph?
