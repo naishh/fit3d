@@ -16,3 +16,8 @@ uitvinden waarom rare vorm als je onderpunten aanzet r17 r18 in wallToObj.m
 bij verveling ff andere wall proberen
 
 generiek voor alle walls
+
+
+ipv 0,0,0, coord onderste coords van walls erbij doen
+kleurtjes walls updated walls
+password vrij sshen 

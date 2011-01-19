@@ -35,10 +35,14 @@ WALLS = [ WALLS(Yorder(1),:); WALLS(Yorder(2),:); WALLS(Yorder(3),:); WALLS(Yord
 
 % determine samplesize and range of skyline pixels
 %ergens tussen 950 en 970 zit raar datapoint
-minI = 910; maxI = 950; stepSize = 2;
+%minI = 910; maxI = 950; stepSize = 5;
+minI = 10; maxI = 950; stepSize = 10;
 range1 = minI:stepSize:maxI;
+nDatapoints = (maxI-minI)/stepSize;
 
-updatedWallCoords = zeros((maxI-minI)/stepSize,3);
+%updatedWallCoords = zeros((maxI-minI)/stepSize,3);
+nrWalls = length(WALLS);
+ispsPerWall = cell(nrWalls, nDatapoints);
 
 imNr = 1;
 
@@ -69,7 +73,7 @@ end
 
 %- R*(T)
 
-j = 1;
+skylinePixNo = 1;
 % loop through skyline pixels
 for i=range1
 	%clear file
@@ -78,7 +82,6 @@ for i=range1
 	% TODO:format goed doen
 	lineCoord = pointsTo3DLine(homog22d(SkylinesXYZ(i,:)), Cc, Kcanon10GOOD);
 
-	nrWalls = length(WALLS);
 	% distToIntSectPoint 	= zeros(nrWalls,1);
 	intSectPoint 		= zeros(nrWalls,3);
 	distPointToWalls 	= inf(nrWalls,1);
@@ -117,20 +120,37 @@ for i=range1
 	isp = intSectPoint(minIspToWallDistIdx,:);
 	cubeToObj(ispCubesFileName, 1, isp, 0.05);
 
-	updatedWallCoords(j,:) = intSectPoint(minIspToWallDistIdx,:);
+	% updatedWallCoords(j,:) = intSectPoint(minIspToWallDistIdx,:);
+
+	% store isps together with closest wall
+	ispsPerWall{minIspToWallDistIdx,skylinePixNo} = intSectPoint(minIspToWallDistIdx,:);
+
 	
 	% write a line from cc to intersection point
 	lineToObj(linesFileName, Cc, intSectPoint(minIspToWallDistIdx,:), 'black');
 
-	j = j + 1;
+	skylinePixNo = skylinePixNo + 1;
 end
+
+
+% TODO
+% % remove zero entries
+% ispsPerWallSingle = zeros(1,nDatapoints);
+% for wall=1:nrWalls
+% 	ispsPerWallSingle(:,1) 		= ispsPerWall{wall,:}
+% 	ispsPerWallSingleNoZero = ispsPerWallSingle(ispsPerWallSingle~=0);
+% 	ispsPerWall2{wall,:} 	= ispsPerWallSingle; 
+% end
+
+
+
 
 % generate Buildings_colored.obj from .mat file
 % STRUCTURED every wall independend index
 % update with given wall index and updatetWallCoords
 %
 
-wallToObj('walls.obj', WALLS, updatedWallCoords, 7, [1,4],'black')
+wallToObj('walls.obj', ispsPerWall, 'red');
 
 
 % open the osgviewer
