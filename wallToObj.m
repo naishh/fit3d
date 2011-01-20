@@ -1,16 +1,15 @@
-%function wallToObj(fileName, WALLS, updatedWallCoords, betweenWallNo, replaceWallCoord, color)
 function wallToObj(fileName, ispsPerWall, color)
-
-fp = fopen(fileName, 'w');
-fprintf(fp, 'mtllib colors.mtl\n');
-fprintf(fp, 'usemtl %s\n', color);
-
-%dataPoints = length(updatedWallCoords)
-
+%colorList = {'white', 'red', 'darkred', 'green', 'blue', 'yellow', 'cyan', 'magenta','white', 'red', 'darkred', 'green'}
 
 [nrWalls, nrPix] = size(ispsPerWall)
 
 for wall=1:nrWalls
+	%color = colorList{wall}; %fprintf(fp, 'usemtl %s\n', color);
+
+	fp = fopen(['wall',int2str(wall),'.obj'], 'w');
+	fprintf(fp, 'mtllib colors.mtl\n');
+	fprintf(fp, 'usemtl %s\n', color);
+
 	foundDataPoint=false;
 	nrDataPoints  = 0;
 	for pix=1:length(ispsPerWall(wall,:))
@@ -19,6 +18,7 @@ for wall=1:nrWalls
 		if length(dataPoint)>=3
 			foundDataPoint=true;
 			ispsPerWall{wall,pix}
+			% print 3 times so there is always a face with minimum of three vertices
 			fprintf(fp, 'v %d %d %d\n', dataPoint(1),dataPoint(2),dataPoint(3));
 			fprintf(fp, 'vt 1 0 0\n');
 			nrDataPoints = nrDataPoints + 1
@@ -27,12 +27,12 @@ for wall=1:nrWalls
 	end
 
 	if foundDataPoint
-		fprintf(fp, 'v 0 0 0\n');
-		fprintf(fp, 'vt 1 0 0\n');
-		nrDataPoints  = nrDataPoints + 1;
-		fprintf(fp, 'v 0 0 0\n');
-		fprintf(fp, 'vt 1 0 0\n');
-		nrDataPoints  = nrDataPoints + 1;
+		% fprintf(fp, 'v 0 0 0\n');
+		% fprintf(fp, 'vt 1 0 0\n');
+		% nrDataPoints  = nrDataPoints + 1;
+		% fprintf(fp, 'v 0 0 0\n');
+		% fprintf(fp, 'vt 1 0 0\n');
+		% nrDataPoints  = nrDataPoints + 1;
 		% connect datapoints to polygon
 		fprintf(fp, 'f ');
 		for n=1:nrDataPoints
@@ -41,10 +41,10 @@ for wall=1:nrWalls
 		fprintf(fp, '\n\n');
 	end
 
+	fclose(fp);
 
 end
 
 
 %fprintf(fp, 'usemtl black\n\n', color);
 
-fclose(fp);

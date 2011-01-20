@@ -25,8 +25,8 @@ fp = fopen(ispCubesFileName, 'w'); fprintf(fp,'mtllib colors.mtl\n'); fclose(fp)
 load('mats/WALLS.mat')
 
 % change order of wall line segments
-%order = [1,3,4,2];
-Xorder = [3,1,2,4];
+%Xorder = [3,1,2,4];
+Xorder = [1,2,3,4];
 Xorder = Xorder * 3 - 2;
 %Yorder = [1,2,3,4,5,6,8,9,10,11,12,7];
 Yorder = [1,2,3,4,5,6,7,8,9,10,11,12];
@@ -36,7 +36,7 @@ WALLS = [ WALLS(Yorder(1),:); WALLS(Yorder(2),:); WALLS(Yorder(3),:); WALLS(Yord
 % determine samplesize and range of skyline pixels
 %ergens tussen 950 en 970 zit raar datapoint
 %minI = 910; maxI = 950; stepSize = 5;
-minI = 10; maxI = 950; stepSize = 10;
+minI = 100; maxI = 1700; stepSize = 5;
 range1 = minI:stepSize:maxI;
 nDatapoints = (maxI-minI)/stepSize;
 
@@ -44,7 +44,7 @@ nDatapoints = (maxI-minI)/stepSize;
 nrWalls = length(WALLS);
 ispsPerWall = cell(nrWalls, nDatapoints);
 
-imNr = 1;
+imNr = 2;
 
 Ccs = getCameraCentersFromP(PcamX);
 
@@ -150,6 +150,7 @@ end
 % update with given wall index and updatetWallCoords
 %
 
+ispsPerWall = addGroundCoords(WALLS, ispsPerWall);
 wallToObj('walls.obj', ispsPerWall, 'red');
 
 

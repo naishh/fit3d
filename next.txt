@@ -1,23 +1,15 @@
-
 lines aanzetten in ./o
+
 cc's zijn getransleerd nu 
 2d coords van images transleren met pcamX 
 Rotatie matrix testen met simpele coords en een simpele R
 
 pcamx even on hold en verder met convex hull
 
-rand boven wall voor elke wall doen en generiek
-bug fixen met rare connectie andere walls
-osgviewer installeren
-i openscenegraph?
+kleurtjes walls, werkt niet op meshlab
+cubes on isps
 
-nieuwe muur bouwen voor wall7
-uitvinden waarom rare vorm als je onderpunten aanzet r17 r18 in wallToObj.m
-bij verveling ff andere wall proberen
-
-generiek voor alle walls
+output skyline verschillende aanzichten regelen
+plaatjes opslaan ter vergelijkingsmateriaal
 
 
-ipv 0,0,0, coord onderste coords van walls erbij doen
-kleurtjes walls updated walls
-password vrij sshen 
