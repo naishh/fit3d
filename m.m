@@ -36,7 +36,7 @@ WALLS = [ WALLS(Yorder(1),:); WALLS(Yorder(2),:); WALLS(Yorder(3),:); WALLS(Yord
 % determine samplesize and range of skyline pixels
 %ergens tussen 950 en 970 zit raar datapoint
 %minI = 910; maxI = 950; stepSize = 5;
-minI = 100; maxI = 1700; stepSize = 5;
+minI = 260; maxI = 1235; stepSize = 5;
 range1 = minI:stepSize:maxI;
 nDatapoints = (maxI-minI)/stepSize;
 
