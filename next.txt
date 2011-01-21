@@ -13,3 +13,5 @@ output skyline verschillende aanzichten regelen
 plaatjes opslaan ter vergelijkingsmateriaal
 
 uitzoeken waarom ik outd1 gebruik ipv outd0
+
+clean code
