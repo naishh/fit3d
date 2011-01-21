@@ -41,7 +41,6 @@ for imgNr = 1:5
 	[SkylineX, SkylineY] = getSkyLine(imgNr, imRGB, imEdge, xStepSize, skylineThresh);
 
 	Skylines{imgNr} = struct('SkylineX',SkylineX,'SkylineY', SkylineY, 'SkylineXY', cell(2000,3) )
-	pause;
 
 end
-save ../Skylines Skylines
+%save ../Skylines Skylines
