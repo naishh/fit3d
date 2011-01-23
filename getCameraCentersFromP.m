@@ -14,8 +14,8 @@ for i = 2:maxP
 	Ccs{i} = Ccs{i-1} - R*(T)
 end
 
-cubeToObj('ccs.obj', 1, Ccs{1}, 0.05);
-cubeToObj('ccs.obj', 1, Ccs{2}, 0.05);
-cubeToObj('ccs.obj', 1, Ccs{3}, 0.05);
-cubeToObj('ccs.obj', 1, Ccs{4}, 0.05);
-cubeToObj('ccs.obj', 1, Ccs{5}, 0.05);
+writeObjCube('ccs.obj', 1, Ccs{1}, 0.05);
+writeObjCube('ccs.obj', 1, Ccs{2}, 0.05);
+writeObjCube('ccs.obj', 1, Ccs{3}, 0.05);
+writeObjCube('ccs.obj', 1, Ccs{4}, 0.05);
+writeObjCube('ccs.obj', 1, Ccs{5}, 0.05);

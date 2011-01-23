@@ -92,13 +92,13 @@ for i=range1
 	[minIspToWallDist, minIspToWallDistIdx] = min(distPointToWalls);
 	% write a little cube on the intersection point
 	isp = intSectPoint(minIspToWallDistIdx,:);
-	cubeToObj(ispCubesFileName, 1, isp, 0.1);
+	writeObjCube(ispCubesFileName, 1, isp, 0.1);
 
 	% store isps together with closest wall
 	ispsPerWall{minIspToWallDistIdx,skylinePixNo} = intSectPoint(minIspToWallDistIdx,:);
 	
 	% write a line from cc to intersection point
-	lineToObj(linesFileName, Cc, intSectPoint(minIspToWallDistIdx,:), 'black');
+	writeObjLine(linesFileName, Cc, intSectPoint(minIspToWallDistIdx,:), 'black');
 
 	skylinePixNo = skylinePixNo + 1;
 end
@@ -117,7 +117,7 @@ end
 % adds 2 ground coords wraped arround the ispsPerWall
 % this is because the skyline detection doesn't detect the cornerpoints on the ground
 ispsPerWall = addGroundCoords(WALLS, ispsPerWall);
-wallToObj('walls.obj', ispsPerWall, 'red');
+writeObjWall('walls.obj', ispsPerWall, 'red');
 
 
 % open the osgviewer
