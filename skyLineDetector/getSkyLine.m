@@ -27,5 +27,5 @@ function [SkylineX, SkylineY] = getSkyLine(imgNr, imRGB, imBW, xStepSize, skylin
 		end
 	end
 
-	fh = figure;imshow(imRGB);
-	saveas(fh, ['outputSkylineIm',int2str(imgNr),'.jpg'],'jpg');
+	%fh = figure;imshow(imRGB);
+	%saveas(fh, ['outputSkylineIm',int2str(imgNr),'.jpg'],'jpg');
