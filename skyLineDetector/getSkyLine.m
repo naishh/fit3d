@@ -1,4 +1,4 @@
-function [SkylineX, SkylineY] = getSkyLine(imgNr, imRGB, imBW, xStepSize, skylineThresh)
+function [SkylineX, SkylineY] = getSkyLine(imgNr, imRGB, imBW, xStepSize, skylineThresh, bMatlabGui)
 %Skyline
 % walks columnwise down from the top and breaks when finding a building
 % returns the y value (where the building starts) of every column
@@ -26,6 +26,8 @@ function [SkylineX, SkylineY] = getSkyLine(imgNr, imRGB, imBW, xStepSize, skylin
 			end
 		end
 	end
-
-	%fh = figure;imshow(imRGB);
+	if bMatlabGui
+		fh = figure;
+		imshow(imRGB);
+	end
 	%saveas(fh, ['outputSkylineIm',int2str(imgNr),'.jpg'],'jpg');

@@ -1,4 +1,4 @@
-function lineCoord = pointsTo3DLine(xy, CC, K)
+function lineCoord = pointsTo3DLine(xy, CC, K, PcamX, imNr)
 %% input vars:
 
 % xy, the 2d pixel coordinate
@@ -14,6 +14,18 @@ end
 
 % the pixel in 3d space
 xy3D = inv(K) * xyH;
+
+
+% add world rotations translations from P 
+%for i=2:imNr
+	xy3D = rotateTranslateCoord(xy3D, PcamX(:,:,imNr));
+%end
+
+
+
+% remove homogenity
+%xy3D = xy3D/xy3D(4)
+%xy3D = xy3D(1:3)
 
 % the direction vector
 xyzDirection = xy3D - CC;

@@ -1,5 +1,6 @@
 % todo if isp lies within line segment stop evaluating other line segments because they can never have shorter distance
 
+clear;
 close all;
 
 % if workspace vars are not loaded
@@ -23,8 +24,9 @@ fp = fopen(linesFileName   , 'w'); fprintf(fp,'mtllib colors.mtl\n'); fclose(fp)
 fp = fopen(ispCubesFileName, 'w'); fclose(fp);
 
 
-imNr 		= 1;
+imNr 		= 2;
 Ccs 		= getCameraCentersFromP(PcamX); Cc = Ccs{imNr};
+
 % determine samplesize and range of skyline pixels
 minI = 260; maxI = 1235; stepSize = 5; range1 = minI:stepSize:maxI;
 % calc number of datapoints
@@ -56,7 +58,9 @@ skylinePixNo = 1;
 for i=range1
 	i
 	% TODO:format goed doen
-	lineCoord = pointsTo3DLine(homog22d(SkylinesXYZ(i,:)), Cc, Kcanon10GOOD);
+
+	coord2D = homog22d(SkylinesXYZ(i,:));
+	lineCoord = pointsTo3DLine(coord2D, Cc, Kcanon10GOOD, PcamX, imNr);
 
 	% distToIntSectPoint 	= zeros(nWalls,1);
 	intSectPoint 		= zeros(nWalls,3);
@@ -98,8 +102,7 @@ for i=range1
 	ispsPerWall{minIspToWallDistIdx,skylinePixNo} = intSectPoint(minIspToWallDistIdx,:);
 	
 	% write a line from cc to intersection point
-	writeObjLine(linesFileName, Cc, intSectPoint(minIspToWallDistIdx,:), 'black');
-
+	%writeObjLineThick(linesFileName, Cc, intSectPoint(minIspToWallDistIdx,:),'black',1);
 	skylinePixNo = skylinePixNo + 1;
 end
 

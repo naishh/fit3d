@@ -8,4 +8,7 @@ pcamx even on hold en verder met convex hull
 
 output skyline verschillende aanzichten regelen
 
-alles als een bakbrommer omgooien naar writeObjFace writeObjVertex etc zie wallToObj onderin
+
+grep op nDatapoints zodat echo weg gaat
+
+op linux computers bij uva zitten
