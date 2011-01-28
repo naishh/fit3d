@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 function lineCoord = pointsTo3DLine(xy, CC, K, PcamXAbs, imNr)
+=======
+function lineCoord = pointsTo3DLine(xy, CC, K, PcamX, imNr)
+>>>>>>> origin/master
 %% input vars:
 
 % xy, the 2d pixel coordinate
@@ -21,6 +25,18 @@ xy3D = PcamXAbs(:,1:3,imNr)*inv(K)*xyH+PcamXAbs(:,4,imNr);
 	%xy3D = rotateTranslateCoord(xy3D, PcamX(:,:,imNr));
 %end
 
+
+
+
+% remove homogenity
+%xy3D = xy3D/xy3D(4)
+%xy3D = xy3D(1:3)
+
+
+% add world rotations translations from P 
+%for i=2:imNr
+	xy3D = rotateTranslateCoord(xy3D, PcamX(:,:,imNr));
+%end
 
 
 

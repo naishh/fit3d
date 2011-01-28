@@ -1,8 +1,13 @@
 % todo if isp lies within line segment stop evaluating other line segments because they can never have shorter distance
 
+<<<<<<< HEAD
     
 %clear;
 %close all;
+=======
+clear;
+close all;
+>>>>>>> origin/master
 
 % if workspace vars are not loaded
 if exist('PcamX') == 0
@@ -28,12 +33,18 @@ fp = fopen(linesFileName   , 'w'); fprintf(fp,'mtllib colors.mtl\n'); fclose(fp)
 fp = fopen(ispCubesFileName, 'w'); fclose(fp);
 
 
+<<<<<<< HEAD
 imNr 		= im;
 Ccs 		= getCameraCentersFromP(PcamX); Cc = Ccs{imNr};
 
 PcamAbs = getTrajectory3DNorm(invertMotion(normalizePcam(PcamX)));
 Cc = PcamAbs(1:3,4,imNr);
 
+=======
+imNr 		= 2;
+Ccs 		= getCameraCentersFromP(PcamX); Cc = Ccs{imNr};
+
+>>>>>>> origin/master
 % determine samplesize and range of skyline pixels
 minI = 260; maxI = 1235; stepSize = 5; range1 = minI:stepSize:maxI;
 % calc number of datapoints
@@ -67,7 +78,11 @@ for i=range1
 	% TODO:format goed doen
 
 	coord2D = homog22d(SkylinesXYZ(i,:));
+<<<<<<< HEAD
 	lineCoord = pointsTo3DLine(coord2D, Cc, Kcanon10GOOD, PcamAbs, imNr);
+=======
+	lineCoord = pointsTo3DLine(coord2D, Cc, Kcanon10GOOD, PcamX, imNr);
+>>>>>>> origin/master
 
 	% distToIntSectPoint 	= zeros(nWalls,1);
 	intSectPoint 		= zeros(nWalls,3);
