@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 function lineCoord = pointsTo3DLine(xy, CC, K, PcamXAbs, imNr)
-=======
-function lineCoord = pointsTo3DLine(xy, CC, K, PcamX, imNr)
->>>>>>> origin/master
 %% input vars:
 
 % xy, the 2d pixel coordinate
