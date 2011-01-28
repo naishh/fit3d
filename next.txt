@@ -7,5 +7,3 @@ Rotatie matrix testen met simpele coords en een simpele R
 pcamx even on hold en verder met convex hull
 
 output skyline verschillende aanzichten regelen
-
-alles als een bakbrommer omgooien naar writeObjFace writeObjVertex etc zie wallToObj onderin

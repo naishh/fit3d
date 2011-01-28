@@ -1,4 +1,4 @@
-function writeObjWall(fileName, ispsPerWall, color)
+function writeObjWall(fileName, ispsPerWall, color, imNr)
 %colorList = {'white', 'red', 'darkred', 'green', 'blue', 'yellow', 'cyan', 'magenta','white', 'red', 'darkred', 'green'}
 
 [nrWalls, nrPix] = size(ispsPerWall)
@@ -8,7 +8,7 @@ for wall=1:nrWalls
 	%color = colorList{wall}; %fprintf(fp, 'usemtl %s\n', color);
 
 	% instantiate file
-	fp = fopen(['wall',int2str(wall),'.obj'], 'w');
+	fp = fopen(['wall',int2str(imNr),'-',int2str(wall),'.obj'], 'w');
 	fprintf(fp, 'mtllib colors.mtl\n');
 	fprintf(fp, 'usemtl %s\n', color);
 
