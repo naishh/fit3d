@@ -20,6 +20,7 @@ end
 
 for(im=1:5)
 
+
 % flush and instantiate files
 linesFileName 		= 'lines.obj';
 ispCubesFileName	= ['ispCubes',int2str(im),'.obj'];
