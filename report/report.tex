@@ -1,4 +1,8 @@
 \documentclass[10pt]{article}
+
+%functions
+\setlength{\parindent}{0in}
+
 \title{\sc Optimizing 3D models from 2D images}
 
 \author{T. Kostelijk\\mailtjerk@gmail.com}
@@ -17,7 +21,7 @@ Here comes the abstract
 % introduction that says we have different images taken from a bulinding etc
 
 \section{Skyline detection}
-% TODO MOTIVATION 
+\textit{ TODO MOTIVATION}
 This section describes how the skyline of an image is detected. A skyline
 separates a building from the sky and is used as an indicator of the building contour.
 \\
@@ -72,145 +76,153 @@ The column based approach from $[1]$ seem to be very useful and is therefor
 used as described above but on the preprocessed image.
 
 Some results from the Floriande dataset:
-% TODO Results images
-% TODO make UML scheme skyline -> 3d -> etc.
+\textit{ TODO Results images}
+\textit{ TODO make UML scheme skyline -> 3d -> etc.}
 \\
 The system assumes that the first sharp edge (seen from top to bottom) is
 always a skyline/building edge. This gives raise to some outliers, these are
-for example a streetlight or a tree. The outliers are removed in as described in
+for example a streetlight or a tree. The outliers are removed as described in
 the next section.  The Skyline detector without outlier removal has an
 accuracy of (ABOUT) 90 \% (TODO CHECK THIS PERCENTAGE) 
-
-% todo check if I can describe above with formulas?
+% this is not true, i do not do outtlier removal yet!
 
 
 \section{Skyline in 3D as a contour of the building}
-The 3D building contour is used to update the sparse 3D model of the building.
-This section describes how the 2D images are used to get the 3D contour of the
-building. This is done in several distinct steps.  
+The retrieved skyline is used to update a sparse 3D model of the building.
+This section describes how the skyline of the 2D images are used to get the 3D contour of the
+building. 
 
 \subsection{Project to 3D space}
-% situation scheme
+\textit{ TODO situation scheme}
 Every 2D pixel of an input image presents a 3D point in space. No
 information is known about the distance from the 3D point to the camera. What
 is known is de 2D location of the pixel, this reduces the possible points in 3D
-space to an infinite line.  This line is spanned by two known
+space to an infinite line.  This line is known and spanned by two 
 coordinates:\\ 
 \begin{itemize}
 	\item The camera center %(camera centers are annotated for every image)
 	\item $K'p$, where $K$ is the Calibration matrix of the camera and $p$ is the homogeneous pixel coordinate.
 \end{itemize}
 
-% todo why K'p,I don't remember the theory behind it and can't find it in Isaac's paper 
-% just let an image explain it? 
+\textit{ TODO why K'p,I don't remember the theory behind it and can't find it in Isaac's paper }
+For every skyline pixel a line spanned by the above two coordinates is derived.
 
 \subsection{Intersect with building}
+The line is reduced to a point in 3D by intersecting it with a rough indication
+of the building. This point is used to update the 3D model.\\
 To create a rough indication of the building a top-view photograph of the
 building is used together with an estimate of the height of the building.\\ 
-The idea is to refine this model using the output of the skyline detector.
-In order to refine this sparse 3D model we need to know which skyline part of belongs to which part of
-the 3D model. This goes as follows.\\
-The model is first divided into different walls.  Every wall of the building spans a plane. 
+In order to refine this sparse 3D model we need to know which skyline part belongs to which part of
+the 3D model. This is done as follows.\\
+The building is first divided into different walls.  Every wall of the building spans a plane. 
 As described in the previous section every part (pixel) of the skyline presents an infinite line in 3D.
-The intersections are calculated between these infinite lines the planes of the buildingwalls.\\
-% Isaac, should I put a intersection formula down here or is this trivial?
+Intersections are calculated between these infinite lines and the planes of the building walls.\\
+\textit{ Isaac, should I put a intersection formula down here or is this trivial?}\\
 Because the lines and the planes are both infinite and they have a very low change
 of being exactly parallel, the algorithm returns $w$ intersections for every
 skylinepixel (where $w$ is the number of walls).\\
 Next challenge is to reduce the number of intersection for every skylinepixel
-to one. In other words determine the wall that has the largest probability of
-being responsible for that pixel.\\
+to one. In other words, to determine the wall that has the largest probability of
+being responsible for that pixel. This is ofcourse needed to update the 3D
+model at the right place.
 
-Let's define the intersection between the projected skylinepixel line and the
-plane of the wall as intersection point $isp$. And the wall sides as {w1, w2,
-w3, w4 \in W}. And $d$ as a distance measure which is explained later on.\\ If
+\subsection{Find most likely wall}
+\subsubsection{When is a wall responsible?}
+Lets define the intersection between the projected skylinepixel line and the
+plane of the wall as intersection point $isp$. And the wall sides as ${w1, w2,
+w3, w4 \in W}$. And $d$ as a distance measure which is explained later on.\\ If
 we assume that a certain wall was responsible for that pixel, the intersection
 (i.e. projected pixel) must lie either\\
 
-\textbf{1)} Somewhere on the wall 
+\textbf{(1)} Somewhere on the wall 
 \\
 or
 \\
-\textbf{2)} On a small distance $s$ from that wall
+\textbf{(2)} On a small distance $d$ from that wall
 (1) is calculated by testing if the pixel lies inside the polygonal
-representation of the wall. This is done using an in-polygon algorithm. If this
-test succeeds we consider $d$ to be 0.\\
+representation of the wall. This is done using the Matlabs buildin in-polygon
+algorithm. If this test succeeds we consider $d$ to be 0.\\
 
-(2) is treated as an inlier because the 3D model is sparse and the height of
+(2) Note that this is treated as an inlier because the 3D model is sparse and the height of
 the building is estimated. It is calculated as follows: \\
-
-First the distances from the intersection to four wall sides are calculated.
+First the distances from $isp$ to four wall sides are calculated.
 For every wall the minimum distance is stored.\\
 $min_{w\in W} d(isp, w)$\\
-The wall with the smallest distance is the one that most likely presents the pixel.\\
+This is done for every wall. The wall with the smallest distance is the one that most likely presents the pixel.\\
 $arg min_{W \in Walls} ( min_{w\in W} d(isp, w) )$\\
-% do I write this down correctly?
+\textit{ do I write this down correctly?}
 
 %threshold..
 
 If there are two (or even more) walls that are classified equally well to
-represent the pixel that is if they succeed the in-polygon or have exactly the
-same $d$ value, then the nearest wall is selected. This is the wall that is
-closest to the camera center. 
-% formula here? or: trivial?
+present the pixel (that is if they succeed the in-polygon or have exactly the
+same $d$ value) then the nearest wall is selected. The nearest wall is
+calculated by taking the wall with the smallest distance from the $isp$ to the
+camera center.
+\textit{ formula here? or: trivial?}\\
+How this intersection point - wall distance $d$ is calculated is explained in
+the next section.
 
-How the distance measure $d$ is calculated can be read in the next section.
-% also the formula?
-
-\subsection{Calculate the intersection point - wall distance}
+\subsubsection{Calculate the intersection point - wall distance}
 A wall consists of four corner points. The corner-point pairs that are on a
 side of the wall connect line segments, there are four line segments. These
-line segments span an infinite line.\\
+line segments span infinite lines.\\
 
-The intersection point (isp) is projected orthogonally on these four lines.
-This projected point is called isp_proj.
-% todo image?
+The intersection point ($isp$) is projected orthogonally on these four lines, a
+projected $isp$ is called $isp_{proj}$.
+\textit{ todo image?}
+\textit{ todo projection formula?}
 
-$e$ is defined as the euclidean distance. 
+If $isp$ is close to a wallside, $e(isp, isp_{proj})$ (where $e$ is defined as
+the Euclidean distance) is small.  But this doesn't mean that if
+$e(isp,isp_{proj})$ is small $isp$ is always close to the wall. In fact there are
+some candidates that happen to have a very small $d(isp, isp_{proj})$ but in fact
+lie far away from the wall. This is because $isp$ is projected to an infinite
+line spanned by the wallside and could be projected far next to the wallside.
+\textit{ An example can be seen in figure:}
+\textit{ TODO Figure}
+Because of this artefact, it is not robust to calculate the perpendicular
+projection distance.  Instead $d$ is calculated differently if $isp_{proj}$
+doesn't lie on the wallside.  In this case the Euclidean distance between
+$isp_{proj}$ and the closest corner-point of the wallside is returned.
 
-If the isp is close to the wallside, d(isp, isp_proj) is small. 
-But this doesn't mean that if d(isp,isp_proj) is small the isp is always close to the wall.
-There are some candidates that happen to have a very small d(isp, isp
-_proj) but in fact lie far away from the wall. This is because the isp
-is projected to an infinite line spanned by the wallside.
-An example can be seen in figure:
-% TODO Figure
-
-% todo example image
-Because of this artefact, $d$ is calculated differently if isp_proj lies
-outside two corner points of a wallside. If this is the facetthe Euclidean distance between isp_proj and 
-the closest corner-point is returned.
-%todo bruggetje naar volgende sectie
-
-Define $e$ as Euclidean distance.
-
-
-e(isp, isp_proj)
-otherwise
-e(isp, c)
-
-
-
-{c1,c2} \in wallside
-
-cornerpoint
-W
-min_{
-
-\subsection{Determine whether isp_proj lies in or outside a wallsegment}
+Formally:
+Let $c1,c2,c3,c4 \in Cornerpoints$ be the corners of a wall.\\
+Let $between(a,b,c)$ be a function that returns true if a lies between b and c.\\
+if $between(isp_{proj}, c1, c2)$\\
+$d = e(isp, isp_{proj})$\\
+otherwise\\
+$d = min_{c \in Cornerpoints} e(isp, c)$\\
+\\
+\textit{TODO nice latex code with large \} sign}\\
 
 
+\subsubsection{Appendix?: Determine whether $isp_{proj}$ lies on or next to a wallsegment}
 
-% todo insert http://softsurfer.com/Archive/algorithm_0102/Pic_segment.gif here
 
 % todo ref: http://softsurfer.com/Archive/algorithm_0102/algorithm_0102.htm
 
+% todo P -> $P$
+To determine whether the $isp_{proj}$ lies on or next to a wallsegment the
+projection calculation is skipped and $isp$ is used instead together with a
+computational cheap trick.\\
+\textit{ todo insert http://softsurfer.com/Archive/algorithm\_0102/Pic\_segment.gif here}\\
+First consider Figure ?? , the angles between the segment P0P1 and the vectors P0P and P1P
+from the segment endpoints to P. If both angles are equal to or less than
+$90^{\circ}$ then the $isp_{proj}$ wil be on the line segment P0 P1.  If not,
+the $isp_{proj}$ lies to the left or to the right of segment P according to
+whether one of the angles is acute or obtuse.  The angles are acute or obtuse
+if the dot product of the vectors involved are respectively positive or
+	negative.\\
+To summarize: determining in which region the $isp_{proj}$ lies is boiled down to
+two dot product calculations with the advantage that the actual projection
+calculation can be skipped.
+%Again this result determines if the distance should be computed to one of the
+%corner points P0 or P1, or as the perpendicular distance to the line L (the
+%wallside) itself.
 
-One could just compute both distances and use the shortest, but this is not very efficient.  Also, one must first determine that P's perpendicular base is actually outside the segment's range.  An easy way to do this is to consider the angles between the segment P0P1 and the vectors P0P and P1P from the segment endpoints to P.  If either of these angles is 90º , then the corresponding endpoint is the perpendicular base P(b).  If the angle is not a right angle, then the base lies to one side or the other of the endpoint according to whether the angle is acute or obtuse.  These conditions are easily tested by computing the dot product of the vectors involved and testing whether it is positive, negative, or zero.  The result determines if the distance should be computed to one of the points P0 or P1, or as the perpendicular distance to the line L itself.  This technique, which works in any n-dimensional space, is illustrated in the diagram:
 
-
-[I can explain how I did some clever dot product tricks but I think that is to much detail right?]
-
+\textit{Todo come back on outlier removal}
 
 \section{Update 3D model}
 
@@ -222,4 +234,5 @@ One could just compute both distances and use the shortest, but this is not very
 \end{itemize}
 
 \end{document}
+
 
