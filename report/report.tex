@@ -16,11 +16,31 @@
 Here comes the abstract
 \end{abstract}
 
+% todo
+% new structure of paper
+% explain food nodde
+% explain algo's
+% smooth intensity gradient
+% pictures
+% write introductions
+% explain motivation behind decisions
+% explain what is new or what is unique
+
+
+
 \section{Introduction}
-% TODO Heerlijk de todos zijn niet leesbaar ff ander kleurtje geven ouwe, syntax=tex configgen in vim
-% introduction that says we have different images taken from a bulinding etc
+ \subsection{Related work}
+ \subsection{FIT3D toolbox}
+ \subsection{Organization of this thesis}
+
+\section{Projective Geometry}
+	% get inspiration and/or copy from Isaacs paper 
+	% introduce K
+	% introduce 2d to 3d projection
 
 \section{Skyline detection}
+ \subsection{Introduction}
+
 \textit{ TODO MOTIVATION}
 This section describes how the skyline of an image is detected. A skyline
 separates a building from the sky and is used as an indicator of the building contour.
@@ -28,15 +48,16 @@ separates a building from the sky and is used as an indicator of the building co
 % It is interesting to denote that the skyline detector a stand alone method and
 % can be optimized individually without any knowledge of the other parts of the
 % project.
+ \subsection{Related work}
 
 Some previous work on skyline detection is done.\\
-$[9]$ yields a good introduction of different skyline detection techniques.
+$[9]$ yields a good introduction of different skyline detection techniques.  The technique described by $[1]$ seemed to be most suitable for this project.  
+\textit{todo why?}
+The method is used as an inspiration but a custom algorithm is made. First
+the original method is explained. Then the custom algorithm with respect to the original algorithm is explained.
 
-A comparison is done of the different skyline techniques as described in $[9]$
-and $[1]$ is most suitable as a basis for the purpose of this project.  This
-method is used as an inspiration. A custom algorithm is made. First
-the original method is explained. Then the custom algorithm with respect to the
-original algorithm is explained.
+
+ \subsection{The Algorithm}
 
 The skyline detection algorithm as described in $[1]$ analyzes every column of
 the image separately.  The smoothed intensity gradient is calculated from top
@@ -75,23 +96,28 @@ work but lies without the scope of this research.)
 The column based approach from $[1]$ seem to be very useful and is therefor
 used as described above but on the preprocessed image.
 
+The system assumes that the first sharp edge (seen from top to bottom) is
+always a skyline/building edge. This gives raise to some outliers, these are
+for example a streetlight or a tree. The outliers are removed as described in
+the next section.  
+
+ \subsection{Results}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+The Skyline detector without outlier removal has an
+accuracy of (ABOUT) 90 \% (TODO CHECK THIS PERCENTAGE) 
+% this is not true, i do not do outtlier removal yet!
+
 Some results from the Floriande dataset:
 \textit{ TODO Results images}
 \textit{ TODO make UML scheme skyline -> 3d -> etc.}
 \\
-The system assumes that the first sharp edge (seen from top to bottom) is
-always a skyline/building edge. This gives raise to some outliers, these are
-for example a streetlight or a tree. The outliers are removed as described in
-the next section.  The Skyline detector without outlier removal has an
-accuracy of (ABOUT) 90 \% (TODO CHECK THIS PERCENTAGE) 
-% this is not true, i do not do outtlier removal yet!
 
-
-\section{Skyline in 3D as a contour of the building}
+\section{Skyline projection}
+ \subsection{Introduction}
 The retrieved skyline is used to update a sparse 3D model of the building.
-This section describes how the skyline of the 2D images are used to get the 3D contour of the
-building. 
+This section describes how the skyline of the 2D images are used to get the 3D contour of the building. 
 
+\textit{TODO convert to algorithm or method }
+ 
 \subsection{Project to 3D space}
 \textit{ TODO situation scheme}
 Every 2D pixel of an input image presents a 3D point in space. No
@@ -223,6 +249,7 @@ calculation can be skipped.
 
 
 \textit{Todo come back on outlier removal}
+\subsection{Results}
 
 \section{Update 3D model}
 
