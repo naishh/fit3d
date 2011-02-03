@@ -6,7 +6,7 @@ close all;
 if exist('PcamX') == 0
 	disp('load PcamX');
 	cd mats
-	%load outputVars_scriptComputeCameraMotion.mat
+	load outputVars_scriptComputeCameraMotion.mat
 	  %[SkylineX, SkylineY] = getSkyLineMain();
 	%load Skylines.mat
 	load SkylinesX.mat

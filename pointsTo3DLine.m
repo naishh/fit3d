@@ -31,7 +31,7 @@ xy3D = PcamXAbs(:,1:3,imNr)*inv(K)*xyH+PcamXAbs(:,4,imNr);
 
 % add world rotations translations from P 
 %for i=2:imNr
-	xy3D = rotateTranslateCoord(xy3D, PcamX(:,:,imNr));
+	xy3D = rotateTranslateCoord(xy3D, PcamXAbs(:,:,imNr));
 %end
 
 
