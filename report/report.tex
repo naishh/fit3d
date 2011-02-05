@@ -3,6 +3,8 @@
 %functions
 \setlength{\parindent}{0in}
 
+\include{commands}
+
 \title{\sc Optimizing 3D models from 2D images}
 
 \author{T. Kostelijk\\mailtjerk@gmail.com}
@@ -232,6 +234,9 @@ $d = min_{c \in Cornerpoints} e(isp, c)$\\
 To determine whether the $isp_{proj}$ lies on or next to a wallsegment the
 projection calculation is skipped and $isp$ is used instead together with a
 computational cheap trick.\\
+
+\fig{shortestProjection.gif}{TODO caption}{1}
+
 \textit{ todo insert http://softsurfer.com/Archive/algorithm\_0102/Pic\_segment.gif here}\\
 First consider Figure ?? , the angles between the segment P0P1 and the vectors P0P and P1P
 from the segment endpoints to P. If both angles are equal to or less than
