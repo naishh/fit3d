@@ -52,51 +52,53 @@ separates a building from the sky and is used as an indicator of the building co
 % can be optimized individually without any knowledge of the other parts of the
 % project.
  \subsection{Related work}
-A lot of related work on skyline detection is done.\\
-$[9]$ yields a good introduction of different skyline detection techniques. 
-Skyline detection apears to be used in a wide range of domains.
+A lot of related work on skyline detection is done and it is used in a wide
+range of domains. $[9]$ yields a good introduction of different skyline
+detection techniques which are listed below.
 
 \subsubsection{Cloud detection for Mars Exploration Rovers (MER)}
 Mars Exploration Rovers (MER) are used to detect clouds and dust devils on Mars.
-In [9] their approach is to to first identify the sky (equivalentl, the skyline)
+In [9] their approach is to first identify the sky (equivalentl, the skyline)
 and then determine if there are clouds in the region segmented as sky.
-%todo interesting for this thesis?
+%todo why or why not interesting for this thesis?
 
 \subsubsection{Horizon detection for Unmaned Air Vehicles (UAV)}
-In this domain, the horizon detectior for UAVs can take advantage of the high
+In this domain, the horizon detector for UAVs can take advantage of the high
 altitude of the vehicle and therefor the horizon can be approximated to be a
 straigt line.  This turns the detection problem into a line-fitting problem.
 Ofcourse this work is not applicable for detecting a building countour as the
-straight line assumption doesn't work since a detailed skyline is required.
-There has to be mentioned that from this idea some inspiration on line fitting
-is done because the building countour has straight line segments.
+straight line assumption doesn't work. There has to be mentioned that from this
+idea some inspiration on line fitting is done because the building countour has
+straight line segments.
 
 \subsubsection{Planetary Rover localisation}
-In combination with a given map of the landscape (hills, roads) it is used for
-planetary rovers to detect their current location.
-The idea is simple, the location is estimated based on the contour of the
-skyline
-the horizon is mapped on 
+In [1] they use the skyline detection in planetary rovers, their approach is to
+combine the detected skyline with a given map of the landscape (hills, roads) to
+detect the current location. 
+The advantage of their technique is the simplicity and effectiveness which make
+it suitable for this project.  As it is part of an interactive system where an
+operator refines the skyline, the system is geared toward speed over extremely
+high accuracy which is a drawback. 
 
 
-The algorithm is designed to be a tool for teleoperation, aiding the human
-operators by giving them an initial horizon delineation which could then be
-easily refined manually by the operator. The system is geared toward speed over
-extremely high accuracy as it is part of an interactive system.
 
+%So far there is no skyline detection used to optimize 3D models.
+In this project we use the skyline to extract the building contour to eventually
+update a 3D model which is a brand new purpose of skyline detection.  There is
+no user interaction present, and the accuracy is a matter of high importance.
+This makes it different from existing skyline techniques and caution should be
+taken by using existing algorithms.
+The Planetary Rover localisation [1] seemed to fit most on this project.
+The method [1] is used as a basis but a custom algorithm is made. 
+In the next section the basic method of [1] is explained. Then a custom algorithm
+with respect to the original algorithm is explained.  
 
-there are always this assumptions??
-but what can we (not) assume?
+% talk about assumptions
+%there are always this assumptions??
+%but what can we (not) assume?
+%Furthermore we can assume that some straight lines 
 
-
-%Nothing is done on 3D landscape shizzle so this is new, isn't that fucking
-%fantastic.
-
-
-The technique described by $[1]$ seemed to be most suitable for this project.  
 \textit{todo why?}
-The method is used as an inspiration but a custom algorithm is made. First
-the original method is explained. Then the custom algorithm with respect to the original algorithm is explained.
 
 
  \subsection{The Algorithm}
