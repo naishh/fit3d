@@ -53,12 +53,12 @@ separates a building from the sky and is used as an indicator of the building co
 % project.
  \subsection{Related work}
 A lot of related work on skyline detection is done and it is used in a wide
-range of domains. $[9]$ yields a good introduction of different skyline
+range of domains. $[1]$ yields a good introduction of different skyline
 detection techniques which are listed below.
 
 \subsubsection{Cloud detection for Mars Exploration Rovers (MER)}
 Mars Exploration Rovers (MER) are used to detect clouds and dust devils on Mars.
-In [9] their approach is to first identify the sky (equivalentl, the skyline)
+In [1] their approach is to first identify the sky (equivalentl, the skyline)
 and then determine if there are clouds in the region segmented as sky.
 %todo why or why not interesting for this thesis?
 
@@ -72,7 +72,7 @@ idea some inspiration on line fitting is done because the building countour has
 straight line segments.
 
 \subsubsection{Planetary Rover localisation}
-In [1] they use the skyline detection in planetary rovers, their approach is to
+In [9] they use the skyline detection in planetary rovers, their approach is to
 combine the detected skyline with a given map of the landscape (hills, roads) to
 detect the current location. 
 The advantage of their technique is the simplicity and effectiveness which make
@@ -88,11 +88,9 @@ update a 3D model which is a brand new purpose of skyline detection.  There is
 no user interaction present, and the accuracy is a matter of high importance.
 This makes it different from existing skyline techniques and caution should be
 taken by using existing algorithms.
-The Planetary Rover localisation [1] seemed to fit most on this project.
-The method [1] is used as a basis but a custom algorithm is made. 
-In the next section the basic method of [1] is explained. Then a custom algorithm
-with respect to the original algorithm is explained.  
-
+From the related work the Planetary Rover localisation [9] seemed to fit most on this project.
+The method [9] is used as a basis but a custom algorithm with higher accuracy is
+made. This is explained in the next section.
 % talk about assumptions
 %there are always this assumptions??
 %but what can we (not) assume?
@@ -102,21 +100,28 @@ with respect to the original algorithm is explained.
 
 
  \subsection{The Algorithm}
-The skyline detection algorithm as described in $[1]$ work as follows:
+ %TODO lezen: Map-based localization using the panoramic horizon
 
-analyzes every column of
-the image separately.  The smoothed intensity gradient is calculated from top
-to bottom.  The system takes the first pixel with gradient higher then a threshold to be
-classified as a skyline element.  This is done for every column in the smoothed
-intensity gradient image. The result is a set of coordinates of length $W$,
+The skyline detection algorithm as described in $[9]$ works as follows:
+The frames are first preprocessed by converting them to Gaussian smoothed images.
+The skyline of a frame is then detected by analysing the the image columns
+seperately.
+The smoothed intensity gradient is calculated from top to bottom. This is done
+by taking the derivative of the gaussian smoothed image.
+The system takes the first pixel with gradient higher then a threshold to be
+classified as a skyline element.  This is done for every column in the image.
+The result is a set of coordinates of length $W$,
 where $W$ is the width of the image, that represent the skyline.
-\textit{Should I elaborate (with a footnote?) on the smoothed
-intensity gradient or could I assume this as common knowledge?}. 
 
 Taking the smoothed intensity gradient is the most basic method of edge detection
 and has a disadvantage. The method will not be robust to more vague edges.
 Instead of the smoothed intensity gradient in this thesis a smoothed edge intensity image is
-used.  A practical study is done on the different Matlab build in edge
+used.  
+ % page 15/16
+ % new idea: adaptive thresholding wrt average intensity!
+
+%bullshit:
+A practical study is done on the different Matlab build in edge
 detection techniques. The Sobel edge detector came with the most promising
 results.  Details on this study lie without the bound of this thesis.\\
 
@@ -125,7 +130,7 @@ steps are introduced. First the contrast of the image is increased, this makes
 sharp edges stand out more.  Secondly the image undertakes a Gaussian blur,
 this removes a large part of the noise.
 
-The system has no several parameters which has to be set manually by the user:
+The system has several parameters which has to be set manually by the user:
 \begin{itemize}
 \item contrast parameter, 
 \item intensity (window size) of Gaussian blur,
