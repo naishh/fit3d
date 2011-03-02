@@ -50,7 +50,11 @@ for imgNr = 1:endRange
 	% GET SKYLINE
 	xStepSize = 1;
 	skylineThresh = 0.9;
-	[SkylineX, SkylineY] = getSkyLine(imgNr, imRGB, imEdge, xStepSize, skylineThresh, bMatlabGui);
+	[SkylineX, SkylineY, imBWSkyline] = getSkyLine(imgNr, imRGB, imEdge, xStepSize, skylineThresh, bMatlabGui);
+    % TODO
+    %imBWSkyline = struct('imBWSkyline1',imBWSkyline1,'imBWSkyline2',imBWSkyline2,'imBWSkyline3',imBWSkyline3,'imBWSkyline4',imBWSkyline4,'imBWSkyline5',imBWSkyline5,'imBWSkyline6',imBWSkyline6]
+    s = ['imBWSkyline',int2str(imgNr)]
+    save(s,'imBWSkyline')
 
 	%Skylines{imgNr} = struct('SkylineX',SkylineX,'SkylineY', SkylineY, 'SkylineXY', cell(2000,endRange) )
 	SkylinesX{imgNr} = SkylineX
