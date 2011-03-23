@@ -1,20 +1,11 @@
 function lines = houghlinesMain(BW)
-% todo struct maken men imBWskyline shizzlemenizzle
-
 %close all;
-imshow(BW);
-%figure;
 [H,T,R] = hough(BW);
-%imshow(H,[],'XData',T,'YData',R,...
-%            'InitialMagnification','fit');
-xlabel('\theta'), ylabel('\rho');
-axis on, axis normal, hold on;
+
 P  = houghpeaks(H,5,'threshold',ceil(0.3*max(H(:))));
 x = T(P(:,2)); y = R(P(:,1));
-%plot(x,y,'s','color','white');
-% Find lines and plot them
 lines = houghlines(BW,T,R,P,'FillGap',25,'MinLength',7);
-figure, imshow(BW), hold on
+figure,imshow(BW), hold on
 max_len = 0;
 for k = 1:length(lines)
    xy = [lines(k).point1; lines(k).point2];
@@ -33,4 +24,4 @@ for k = 1:length(lines)
 end
 
 % highlight the longest line segment
-plot(xy_long(:,1),xy_long(:,2),'LineWidth',2,'Color','blue');
+% plot(xy_long(:,1),xy_long(:,2),'LineWidth',2,'Color','blue');
