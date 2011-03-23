@@ -1,4 +1,8 @@
 function writeObjLine(fileName, c1, c2, color)
+if exist(fileName) == 0
+	fp = fopen(fileName, 'w'); fprintf(fp,'mtllib colors.mtl\n'); fclose(fp);
+end
+
 fp = fopen(fileName, 'a');
 
 fprintf(fp, 'usemtl %s\n', color);

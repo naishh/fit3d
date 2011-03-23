@@ -1,3 +1,5 @@
-grep op nDatapoints zodat echo weg gaat
+van houghlines output coordinaten maken
+coordinaten van eindstukken lijnen opzoeken uit hough
+deze coords intersecten
+het resultaat plotten in 3d door punten te verbinden en lijn te drawen
 
-op linux computers bij uva zitten
