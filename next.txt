@@ -1,5 +1,15 @@
-van houghlines output coordinaten maken
-coordinaten van eindstukken lijnen opzoeken uit hough
-deze coords intersecten
-het resultaat plotten in 3d door punten te verbinden en lijn te drawen
+lines worden niet goed weergegeven door meshlab
+volgende stap is om de line endpoints van alle  views te verzamelen
+de grote vraag is wat we kunnen met losse lijnstukken in 3d
+en of het niet handiger is het te projecteren in de andere plaatjes
+
+onnodig herhalen en loaden van pcamx eruithalen vertraagd de zooi
+
+
+
+en een mail op te stellen naar Isaac, met daarin wat papers en een hamvraag en
+een afspr
+
+nieuwste meshlab downloaden
+laatste versie gitten!!
 
