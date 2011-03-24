@@ -4,8 +4,9 @@
 
 
     %close all;
-    imgNr = 1
-    load ['imBWSkyline',imgNr,'.mat'];
+    %imgNr = 1
+    %load ['imBWSkyline',imgNr,'.mat'];
+    load 'imBWSkyline1.mat';
     BW = imBWSkyline;
     imshow(BW);
     %figure;
