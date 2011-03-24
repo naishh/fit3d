@@ -1,4 +1,5 @@
 function writeObjCube(file, lastF, center, r)
+	
 % todo lastF inbouwen
 %fp = fopen(file, 'a');
 fp = fopen(file, 'a');

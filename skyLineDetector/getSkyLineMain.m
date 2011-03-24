@@ -4,12 +4,12 @@ bMatlabGui = true;
 endRange = 6;
 SkylinesX = cell(endRange,1);
 SkylinesY = cell(endRange,1);
-for imgNr = 1:endRange
+for imNr = 1:endRange
 
 	% READ IMAGE 
 	% starts with outd0 not with outd1
-	imgNrFile = imgNr - 1
-	file = sprintf('../dataset/FloriandeSet1/img/outd%d.jpg', imgNrFile)
+	imNrFile = imNr - 1
+	file = sprintf('../dataset/FloriandeSet1/img/outd%d.jpg', imNrFile)
 
 	imRGB = imread(file);
 	imBW = imadjust(rgb2gray(imRGB));
@@ -50,17 +50,15 @@ for imgNr = 1:endRange
 	% GET SKYLINE
 	xStepSize = 1;
 	skylineThresh = 0.9;
-	[SkylineX, SkylineY, imBWSkyline] = getSkyLine(imgNr, imRGB, imEdge, xStepSize, skylineThresh, bMatlabGui);
-    % TODO
-    %imBWSkyline = struct('imBWSkyline1',imBWSkyline1,'imBWSkyline2',imBWSkyline2,'imBWSkyline3',imBWSkyline3,'imBWSkyline4',imBWSkyline4,'imBWSkyline5',imBWSkyline5,'imBWSkyline6',imBWSkyline6]
-    s = ['imBWSkyline',int2str(imgNr)]
-    save(s,'imBWSkyline')
+	[SkylineX, SkylineY, imBWSkyline] = getSkyLine(imNr, imRGB, imEdge, xStepSize, skylineThresh, bMatlabGui);
 
-	%Skylines{imgNr} = struct('SkylineX',SkylineX,'SkylineY', SkylineY, 'SkylineXY', cell(2000,endRange) )
-	SkylinesX{imgNr} = SkylineX
-	SkylinesY{imgNr} = SkylineY
+	%store per image the result
+	imBWSkylines{imNr} = imBWSkyline
+
+	SkylinesX{imNr} = SkylineX
+	SkylinesY{imNr} = SkylineY
 
 end
-%save ../mats/Skylines Skylines
 save ../mats/SkylinesX SkylinesX
 save ../mats/SkylinesY SkylinesY
+save ../mats/imBWSkylines imBWSkylines
