@@ -1,6 +1,9 @@
-startPath = 'C:/Temp/tkosteli/fit3d/'
-path(path,startPath);
-path(path,[startPath, 'fit3d_includes']);
+startPathUva = 'C:/Temp/tkosteli/fit3d/'
+startPathHome = '/mnt/linuxoldDocs/documents/studie/scriptie/git/'
+path(path,startPathUva);
+path(path,[startPathUva, 'fit3d_includes']);
+path(path,startPathHome);
+path(path,[startPathHome, 'fit3d_includes']);
 
 % todo give PcamX to function as a param
 % if workspace vars are not loaded
@@ -28,7 +31,8 @@ for imNr=1:length(imBWSkylines)
 		HoughLineEndpoint2  = get3Dfrom2D(lines(i).point2', imNr, PcamX,Kcanon10GOOD, WALLS);
 		writeObjCube(houghEndpointsFileName, 1, HoughLineEndpoint1, 0.1);
 		writeObjCube(houghEndpointsFileName, 1, HoughLineEndpoint2, 0.1);
-		writeObjLineThick(houghLinesFileName, HoughLineEndpoint1,HoughLineEndpoint2,'black', 1);
+		% writeObjLineThick(houghLinesFileName, HoughLineEndpoint1,HoughLineEndpoint2,'black', 1);
+		writeObjLine(houghLinesFileName, HoughLineEndpoint1,HoughLineEndpoint2, 'black');
 	end
 
 end
