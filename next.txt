@@ -1,12 +1,6 @@
-van houghlines pixels projecten en intersecten
-die 3d pixels overhouden en voor elk plaatje bij elkaar gooien in 1 3d frame
-kijken of lines wel in osg worden weergegeven
 
+handmatige dataset maken van de lijnen en dan twee dakstukken pakken voor de
+makkelijkheid.
 
-lines worden niet goed weergegeven door meshlab
-volgende stap is om de line endpoints van alle  views te verzamelen
-de grote vraag is wat we kunnen met losse lijnstukken in 3d
-en of het niet handiger is het te projecteren in de andere plaatjes
+aant. Bram doornemen en over nadenken
 
-en een mail op te stellen naar Isaac, met daarin wat papers en een hamvraag en
-een afspr

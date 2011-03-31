@@ -45,4 +45,4 @@ isp = intSectPoint(minIspToWallDistIdx,:);
 % store isps together with closest wall
 %ispsPerWall{minIspToWallDistIdx,skylinePixNo} = intSectPoint(minIspToWallDistIdx,:);
 
-coord3D = isp
+coord3D = isp;
