@@ -1,7 +1,11 @@
 function coord3D = get3Dfrom2D(coord2D, imNr, PcamX, Kcanon10GOOD, WALLS)
 
+% DELETE THIS----------------------------------
+%imNr = 1
+
+
 PcamAbs 	= getTrajectory3DNorm(invertMotion(normalizePcam(PcamX)));
-Cc = PcamAbs(1:3,4,imNr);
+Cc 			= PcamAbs(1:3,4,imNr);
 nWalls 		= length(WALLS);
 	
 projectionLine = getProjectionLine(coord2D, Cc, Kcanon10GOOD, PcamAbs, imNr);
@@ -11,18 +15,15 @@ intSectPoint 		= zeros(nWalls,3);
 distPointToWalls 	= inf(nWalls,1);
 % loop through walls of building
 for w=1:nWalls
-	% todo feed Wall as an argument of interSectPointFromLinePlane
 	PlanePoint0 = [WALLS(w,1) WALLS(w,2) WALLS(w,3)];
 	PlanePoint1 = [WALLS(w,4) WALLS(w,5) WALLS(w,6)];
 	PlanePoint2 = [WALLS(w,7) WALLS(w,8) WALLS(w,9)];
 	intSectPoint(w,:) = interSectPointFromLinePlane(projectionLine(1,:), projectionLine(2,:), PlanePoint0, PlanePoint1, PlanePoint2);
 
-	
 	% % camera center
 	% Cc = LinePoint0;
 	% distToIntSectPoint(w) = norm(intSectPoint(w) - Cc)
 	% % if the three dimensions have infinite intersection there is no intersection
-
 	% line and wall parallel?
 	if(sum(isnan(intSectPoint(w,:))) == 3)
 		sprintf('no  intersection found for line %d and wall %d (line and wall are parallel)', i,w)
@@ -33,11 +34,25 @@ for w=1:nWalls
 	end
 end
 
+distPointToWalls
+
 % todo threshold min distances and take of a few the closest one to the Cc	
 % find wall closest to cc
 % [minVal, minIdx] = min(distToIntSectPoint)
 
 [minIspToWallDist, minIspToWallDistIdx] = min(distPointToWalls);
+
+
+
+% Delete -------------------------------------------- 
+% temp hard coded the right wall because it doesnt work
+minIspToWallDistIdx = 7
+
+
+
+
+
+
 % write a little cube on the intersection point
 isp = intSectPoint(minIspToWallDistIdx,:);
 %writeObjCube(ispCubesFileName, 1, isp, 0.1);
