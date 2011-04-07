@@ -2,7 +2,7 @@
 close all;
 
 % config
-windowsPlot = 0
+windowsPlot = 1;
 useFakeHoughlines=1;
 loadFromCache=1;
 
@@ -34,15 +34,16 @@ fp = fopen(houghEndpointsFileName, 'w'); fclose(fp);
 fp = fopen(houghLinesFileName    , 'w'); fclose(fp);
 
 
+if windowsPlot
+	figure;
+	hold on;
+	plotBuilding();
+end
+
+
 % loop through different views
 for imNr=1:length(imBWSkylines)
 	imNr
-
-	if windowsPlot
-		figure;
-		hold on;
-		plotBuilding();
-	end
 
 	if useFakeHoughlines ~= 1
 		Houghlines{imNr} = getHoughlines(imBWSkylines{imNr})

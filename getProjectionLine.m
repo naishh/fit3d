@@ -5,7 +5,6 @@ function lineCoord = getProjectionLine(xy, CC, K, PcamXAbs, imNr)
 % xy, the 2d pixel coordinate
 % CC, the camera center (for first pic this is [0;0;0]
 
-
 if length(xy) == 2
 	% disp('homog coord not found')
 	xyH = [xy;1];
@@ -14,33 +13,17 @@ else
 	xyH = xy'
 end
 
+disp('test')
 % the pixel in 3d space
-xy3D = PcamXAbs(:,1:3,imNr)*inv(K)*xyH+PcamXAbs(:,4,imNr);
+R = PcamXAbs(:,1:3,imNr);
+T = PcamXAbs(:,4,imNr);
 
+xy3D = R*inv(K)*xyH+T;
 
-% add world rotations translations from P 
-%for i=2:imNr
-	%xy3D = rotateTranslateCoord(xy3D, PcamX(:,:,imNr));
-%end
+% to transfer back to 2d i do this:
+%xyH = inv(R) * K * (xy3D - T) 
 
-
-
-
-% remove homogenity
-%xy3D = xy3D/xy3D(4)
-%xy3D = xy3D(1:3)
-
-
-% add world rotations translations from P 
-%for i=2:imNr
-	xy3D = rotateTranslateCoord(xy3D, PcamXAbs(:,:,imNr));
-%end
-
-
-
-% remove homogenity
-%xy3D = xy3D/xy3D(4)
-%xy3D = xy3D(1:3)
+pause;
 
 % the direction vector
 xyzDirection = xy3D - CC;

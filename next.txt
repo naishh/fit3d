@@ -1,20 +1,40 @@
-<<<<<<< HEAD
+eerst bugje fixen
+hoe? 
+twee mogelijkheden
+1) afkijken van skyline hoe ik het deed
+2) lukt 1 niet dan nieuwe methode in skyline hangen oftewel skylinepixels
+simuleren met lijnstukken
 
-handmatige dataset maken van de lijnen en dan twee dakstukken pakken voor de
-makkelijkheid.
+yes gelukt yes yes yes yes yes yes yes 1a yes yes yes yes
 
-aant. Bram doornemen en over nadenken
-
-=======
-
-handmatige dataset maken van de lijnen en dan twee dakstukken pakken voor de
-makkelijkheid.
-
-aant. Bram doornemen en over nadenken
+next:
+houghlines
 
 
-getFakeHoughlines
+hoe van lijnstukken een echte lijn maken?
+eerst projecteren naar 2d zodat er in 2d gewerkt kan worden.
+projectie is het mooist loodrecht op wall waarom het gaat
 
-mainHoughlines3d
+P bestaat uit R en T
+% to transfer back to 2d i do this:
+%xyH = inv(R) * K * (xy3D - T) 
 
->>>>>>> f9fefa629ddf0c75a1d049ad82e3c133d3ed233e
+
+uitzoeken waarom houghlines zo een gekke lijnen onderin weergeeft, uitzoeken
+door originele houghlines 1 voor 1 te plotten
+
+
+least squares,
+
+ransac voor outlierremoval of om er achter te komen of er twee lijnen, b.v. een
+dak in een vlak ligt
+
+het is een 2d probleem omdat ik al een intersectie doe met muur
+
+
+daarna object detectie doen met
+deuren ramen en autos
+gaat frans groen mischien wel doen
+
+
+
