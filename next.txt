@@ -1,6 +1,20 @@
+<<<<<<< HEAD
 
 handmatige dataset maken van de lijnen en dan twee dakstukken pakken voor de
 makkelijkheid.
 
 aant. Bram doornemen en over nadenken
 
+=======
+
+handmatige dataset maken van de lijnen en dan twee dakstukken pakken voor de
+makkelijkheid.
+
+aant. Bram doornemen en over nadenken
+
+
+getFakeHoughlines
+
+mainHoughlines3d
+
+>>>>>>> f9fefa629ddf0c75a1d049ad82e3c133d3ed233e
