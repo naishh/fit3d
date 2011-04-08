@@ -1,12 +1,3 @@
-eerst bugje fixen
-hoe? 
-twee mogelijkheden
-1) afkijken van skyline hoe ik het deed
-2) lukt 1 niet dan nieuwe methode in skyline hangen oftewel skylinepixels
-simuleren met lijnstukken
-
-yes gelukt yes yes yes yes yes yes yes 1a yes yes yes yes
-
 next:
 houghlines
 
@@ -18,6 +9,12 @@ projectie is het mooist loodrecht op wall waarom het gaat
 P bestaat uit R en T
 % to transfer back to 2d i do this:
 %xyH = inv(R) * K * (xy3D - T) 
+
+3d coordinaten opslaan als mat
+3d coordinaten projecteren naar 2d
+2d coordinaten plotten
+checken of dit klopt
+dan algo bedenken
 
 
 uitzoeken waarom houghlines zo een gekke lijnen onderin weergeeft, uitzoeken
@@ -38,3 +35,4 @@ gaat frans groen mischien wel doen
 
 
 
+todo kijken of alles in 1 matrix multiplicatie kan zoals de projecties

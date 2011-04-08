@@ -2,7 +2,7 @@
 close all;
 
 % config
-windowsPlot = 1;
+windowsPlot = 0;
 useFakeHoughlines=1;
 loadFromCache=1;
 
@@ -19,6 +19,7 @@ end
 
 if loadFromCache == 1
 	if useFakeHoughlines == 1
+		disp('loaded fake houghlines from cache')
 		load fakeHoughlines
 		Houghlines = fakeHoughlines
 	else
@@ -42,7 +43,7 @@ end
 
 
 % loop through different views
-for imNr=1:length(imBWSkylines)
+for imNr=1:length(Houghlines)
 	imNr
 
 	if useFakeHoughlines ~= 1
@@ -65,6 +66,11 @@ for imNr=1:length(imBWSkylines)
 			plot3(X, Y, Z, '-');
 		end
 
+		Houghlines3d{imNr}(i).point1 = HoughLineEndpoint1;
+		Houghlines3d{imNr}(i).point2 = HoughLineEndpoint2;
+
+		
+
 		% writeObjLineThick(houghLinesFileName, HoughLineEndpoint1,HoughLineEndpoint2,'black', 1);
 		writeObjLine(houghLinesFileName, HoughLineEndpoint1,HoughLineEndpoint2, 'black');
 	end
@@ -72,3 +78,4 @@ for imNr=1:length(imBWSkylines)
 end
 
 save Houghlines
+save Houghlines3d
