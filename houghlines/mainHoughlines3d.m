@@ -2,7 +2,7 @@
 close all;
 
 % config
-windowsPlot = 0;
+windowsPlot = 1;
 useFakeHoughlines=1;
 loadFromCache=1;
 

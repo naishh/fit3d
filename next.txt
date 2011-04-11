@@ -2,7 +2,6 @@ next:
 houghlines
 
 
-hoe van lijnstukken een echte lijn maken?
 eerst projecteren naar 2d zodat er in 2d gewerkt kan worden.
 projectie is het mooist loodrecht op wall waarom het gaat
 
@@ -10,29 +9,35 @@ P bestaat uit R en T
 % to transfer back to 2d i do this:
 %xyH = inv(R) * K * (xy3D - T) 
 
-3d coordinaten opslaan als mat
-3d coordinaten projecteren naar 2d
-2d coordinaten plotten
-checken of dit klopt
-dan algo bedenken
 
 
-uitzoeken waarom houghlines zo een gekke lijnen onderin weergeeft, uitzoeken
-door originele houghlines 1 voor 1 te plotten
+normaalvector van wall berekenen 
+
+uitvinden welke punten een hoek spannen
+dan relatieve vectoren van maken
+dat crossen voor normal vector
+
+normaalvector tekenen
+
+
+normaalvector en zaxis vector  crossen voor rotatierichting
+hoek tussen normaalvector en zaxis vector  bepalen
+
 
 
 least squares,
-
 ransac voor outlierremoval of om er achter te komen of er twee lijnen, b.v. een
 dak in een vlak ligt
 
-het is een 2d probleem omdat ik al een intersectie doe met muur
 
+TODOS:
+hoe van lijnstukken een echte lijn maken?
+uitzoeken waarom houghlines zo een gekke lijnen onderin weergeeft, uitzoeken
+door originele houghlines 1 voor 1 te plotten
+kijken of alles in 1 matrix multiplicatie kan zoals de projecties
 
-daarna object detectie doen met
+NEXT lange termijn:
+object detectie 
 deuren ramen en autos
-gaat frans groen mischien wel doen
+gaat frans groen mischien wel begeleiden
 
-
-
-todo kijken of alles in 1 matrix multiplicatie kan zoals de projecties
