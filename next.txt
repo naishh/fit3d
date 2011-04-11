@@ -10,18 +10,10 @@ P bestaat uit R en T
 %xyH = inv(R) * K * (xy3D - T) 
 
 
-
-normaalvector van wall berekenen 
-
-uitvinden welke punten een hoek spannen
-dan relatieve vectoren van maken
-dat crossen voor normal vector
-
-normaalvector tekenen
-
-
-normaalvector en zaxis vector  crossen voor rotatierichting
-hoek tussen normaalvector en zaxis vector  bepalen
+get2dfrom3d
+goed testen met nieuwe fake houghlines, ff figuurtje tekenen
+werkt nu op image 1 maar nu nog de andere images
+kijken waar K bij moet
 
 
 

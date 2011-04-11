@@ -1,9 +1,9 @@
 function plotBuilding()
 
-load 'Walls.mat'
+load Walls
 
 % change order of the cornerpoints of the wall so the polygons (walls) are plotted right
-WallsNew = [WALLS(:,1:3),WALLS(:,7:9),WALLS(:,10:12),WALLS(:,4:6)];
+WallsNew = [Walls(:,1:3),Walls(:,7:9),Walls(:,10:12),Walls(:,4:6)];
 
 % loop through walls
 for wall=1:12
