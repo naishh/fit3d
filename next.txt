@@ -16,6 +16,10 @@ werkt nu op image 1 maar nu nog de andere images
 kijken waar K bij moet
 
 
+doorgaan met herstructureren
+waarom laat project22d een oude buildingoutline zien en niet mn fakehoughline??
+
+
 
 least squares,
 ransac voor outlierremoval of om er achter te komen of er twee lijnen, b.v. een

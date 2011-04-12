@@ -5,3 +5,8 @@ path(path,[startPath, '/mats']);
 path(path,[startPath, '/projections']);
 path(path,[startPath, '/houghlines']);
 path(path,[startPath, '/plot']);
+path(path,[startPath, '/houghlines']);
+path(path,[startPath, '/houghlines3d']);
+path(path,[startPath, '/project22d']);
+
+load outputVars_scriptComputeCameraMotion
