@@ -1,4 +1,4 @@
-function lines = getHoughlines(BW)
+function Houghlines = getHoughlines(BW)
 %close all;
 [H,T,R] = hough(BW);
 
@@ -25,3 +25,4 @@ end
 
 % highlight the longest line segment
 % plot(xy_long(:,1),xy_long(:,2),'LineWidth',2,'Color','blue');
+save Houghlines

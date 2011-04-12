@@ -3,7 +3,7 @@ close all;
 
 % config
 windowsPlot = 1;
-useFakeHoughlines=1;
+useFakeHoughlines=0;
 loadFromCache=1;
 
 
@@ -23,6 +23,7 @@ if loadFromCache == 1
 		load fakeHoughlines
 		Houghlines = fakeHoughlines
 	else
+		disp('loaded real houghlines from cache')
 		load Houghlines
 	end
 end
@@ -42,8 +43,10 @@ if windowsPlot
 end
 
 
+length(Houghlines)
 % loop through different views
-for imNr=1:length(Houghlines)
+for imNr=1:1
+%for imNr=1:length(Houghlines)
 	imNr
 
 	if useFakeHoughlines ~= 1
@@ -51,9 +54,10 @@ for imNr=1:length(Houghlines)
 	end
 
 	% loop through found houghlines endpoints and project to 3D
+	%for i=1:length(Houghlines{imNr})
 	for i=1:length(Houghlines{imNr})
-		HoughLineEndpoint1 = get3Dfrom2D(Houghlines{imNr}(i).point1', imNr, PcamX,Kcanon10GOOD, WALLS);
-		HoughLineEndpoint2  = get3Dfrom2D(Houghlines{imNr}(i).point2', imNr, PcamX,Kcanon10GOOD, WALLS);
+		HoughLineEndpoint1 = get3Dfrom2D(Houghlines{imNr}(i).point1', imNr, PcamX,Kcanon10GOOD, Walls);
+		HoughLineEndpoint2  = get3Dfrom2D(Houghlines{imNr}(i).point2', imNr, PcamX,Kcanon10GOOD, Walls);
 
 		writeObjCube(houghEndpointsFileName, 1, HoughLineEndpoint1, 0.1);
 		writeObjCube(houghEndpointsFileName, 1, HoughLineEndpoint2, 0.1);
@@ -69,13 +73,11 @@ for imNr=1:length(Houghlines)
 		Houghlines3d{imNr}(i).point1 = HoughLineEndpoint1;
 		Houghlines3d{imNr}(i).point2 = HoughLineEndpoint2;
 
-		
-
 		% writeObjLineThick(houghLinesFileName, HoughLineEndpoint1,HoughLineEndpoint2,'black', 1);
 		writeObjLine(houghLinesFileName, HoughLineEndpoint1,HoughLineEndpoint2, 'black');
 	end
 
 end
 
-save Houghlines
+%save Houghlines
 save Houghlines3d

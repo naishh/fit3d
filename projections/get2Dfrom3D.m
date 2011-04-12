@@ -6,7 +6,7 @@ load Walls
 close all;
 
 % todo do this in setup
-PcamAbs 	= getTrajectory3DNorm(invertMotion(normalizePcam(PcamX)));
+PcamAbs 		= getTrajectory3DNorm(invertMotion(normalizePcam(PcamX)));
 Cc 			= PcamAbs(1:3,4,imNr);
 K			= Kcanon10GOOD;
 

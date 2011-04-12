@@ -23,6 +23,9 @@ dak in een vlak ligt
 
 
 TODOS:
+nieuwe dataset maken van gebouw, maar hoe annoteer ik de projectie matrices...
+allicht met toolbox van isaac en feature detectio?
+
 hoe van lijnstukken een echte lijn maken?
 uitzoeken waarom houghlines zo een gekke lijnen onderin weergeeft, uitzoeken
 door originele houghlines 1 voor 1 te plotten
