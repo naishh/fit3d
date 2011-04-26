@@ -1,13 +1,6 @@
 next:
-houghlines
-
-
 eerst projecteren naar 2d zodat er in 2d gewerkt kan worden.
 projectie is het mooist loodrecht op wall waarom het gaat
-
-P bestaat uit R en T
-% to transfer back to 2d i do this:
-%xyH = inv(R) * K * (xy3D - T) 
 
 
 get2dfrom3d
@@ -18,7 +11,6 @@ kijken waar K bij moet
 
 doorgaan met herstructureren
 waarom laat project22d een oude buildingoutline zien en niet mn fakehoughline??
-
 
 
 least squares,

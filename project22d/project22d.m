@@ -1,4 +1,22 @@
 load Houghlines3d
+disp('v4')
+pause;
+
+
+% A = [2 0 1]
+% B = [2 2 1]
+% C = [2 0 2]
+% 
+% Houghlines3d{1}(1).point1 = A;
+% Houghlines3d{1}(1).point2 = B;
+% Houghlines3d{1}(2).point1 = A;
+% Houghlines3d{1}(2).point2 = C;
+% Houghlines3d{1}(3).point1 = B;
+% Houghlines3d{1}(3).point2 = C;
+
+
+imNr = 1
+
 % todo cleanup the loaded vars
 load Walls
 
@@ -12,7 +30,7 @@ K			= Kcanon10GOOD;
 
 wallNr = 4;
 wallNormal = getNormalFromWall(Walls, wallNr)
-pause;
+wallNormal = [1 0 0]
 figure;
 hold on;
 
@@ -28,31 +46,36 @@ Y = []
 		% xyPoint1 = inv(R) * K * (Houghlines3d{imNr}(i).point1' - T) 
 		% xyPoint2 = inv(R) * K * (Houghlines3d{imNr}(i).point2' - T) 
 
-		zAxis = [0 0 1];
-		rotationVector = cross(zAxis, wallNormal)
-		angle = acos(dot(zAxis, wallNormal))
+		for anglePercentage=0.2:0.2:1
+			anglePercentage
 
-		% could also be -R!!
-		R = getRotationMatrix(rotationVector, angle)
-		T = [0 0 0]
+			zAxis = [0 0 1];
+			rotationVector = cross(zAxis, wallNormal)
 
-		xyPoint1 = inv(R) * Houghlines3d{imNr}(i).point1';
-		xyPoint2 = inv(R) * Houghlines3d{imNr}(i).point2';
-		% xyPoint1 = inv(R) * K * Houghlines3d{imNr}(i).point1';
-		% xyPoint2 = inv(R) * K * Houghlines3d{imNr}(i).point2';
+			%angle = acos(dot(zAxis, wallNormal))
+			angle = acos(dot(zAxis, wallNormal))*anglePercentage
 
-		% todo remove homognity
-		xyPoint1 = homog22D(xyPoint1)
-		xyPoint2 = homog22D(xyPoint2)
+			% could also be -R!!
+			R = getRotationMatrix(rotationVector, angle)
+			T = [0 0 0]
 
-		X
-		Y
-		
-		X = [X,xyPoint1(1),xyPoint2(1)]
-		Y = [Y,xyPoint1(2),xyPoint2(2)]
+			xyPoint1 = inv(R) * Houghlines3d{imNr}(i).point1';
+			xyPoint2 = inv(R) * Houghlines3d{imNr}(i).point2';
+			% xyPoint1 = inv(R) * K * Houghlines3d{imNr}(i).point1';
+			% xyPoint2 = inv(R) * K * Houghlines3d{imNr}(i).point2';
 
-		plot(X,Y,'-')
-		hold on;
+			% todo remove homognity
+			xyPoint1 = homog22D(xyPoint1);
+			xyPoint2 = homog22D(xyPoint2);
+
+			X = [X,xyPoint1(1),xyPoint2(1)];
+			Y = [Y,xyPoint1(2),xyPoint2(2)];
+
+			plot(X,Y,'-')
+			hold on;
+			pause;
+
+		end
 	end
 	disp('a')
 %end
