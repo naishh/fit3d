@@ -1,18 +1,26 @@
-load Houghlines3d
-disp('v4')
-pause;
+%load Houghlines3d
+clear Houghlines3d
+clear Point
+
+disp('v5')
 
 
-% A = [2 0 1]
-% B = [2 2 1]
-% C = [2 0 2]
-% 
-% Houghlines3d{1}(1).point1 = A;
-% Houghlines3d{1}(1).point2 = B;
-% Houghlines3d{1}(2).point1 = A;
-% Houghlines3d{1}(2).point2 = C;
-% Houghlines3d{1}(3).point1 = B;
-% Houghlines3d{1}(3).point2 = C;
+% the letter T on wall 4 in coords
+
+Point{1} = [2 3 5];
+Point{2} = [2 3 0];
+Point{3} = [2 2 0];
+Point{4} = [2 2 1];
+Point{5} = [2 0 1];
+Point{6} = [2 0 2];
+Point{7} = [2 2 2];
+Point{8} = [2 2 5];
+
+%connect the dots
+for i=1:length(Point)-1
+	Houghlines3d{1}(i).point1 = Point{i}
+	Houghlines3d{1}(i).point2 = Point{i+1}
+end
 
 
 imNr = 1
@@ -29,8 +37,10 @@ K			= Kcanon10GOOD;
 
 
 wallNr = 4;
-wallNormal = getNormalFromWall(Walls, wallNr)
-wallNormal = [1 0 0]
+%wallNormal = getNormalFromWall(Walls, wallNr)
+% z y x
+% its the viewing and projection direction
+wallNormal = [1 0 0.4]
 figure;
 hold on;
 
@@ -46,14 +56,14 @@ Y = []
 		% xyPoint1 = inv(R) * K * (Houghlines3d{imNr}(i).point1' - T) 
 		% xyPoint2 = inv(R) * K * (Houghlines3d{imNr}(i).point2' - T) 
 
-		for anglePercentage=0.2:0.2:1
-			anglePercentage
+		%for anglePercentage=0.2:0.2:1
 
 			zAxis = [0 0 1];
 			rotationVector = cross(zAxis, wallNormal)
 
-			%angle = acos(dot(zAxis, wallNormal))
-			angle = acos(dot(zAxis, wallNormal))*anglePercentage
+			%angle = acos(dot(zAxis, wallNormal))*anglePercentage
+			angle = acos(dot(zAxis, wallNormal))
+
 
 			% could also be -R!!
 			R = getRotationMatrix(rotationVector, angle)
@@ -73,9 +83,9 @@ Y = []
 
 			plot(X,Y,'-')
 			hold on;
-			pause;
+			%pause;
 
-		end
+		%end
 	end
 	disp('a')
 %end

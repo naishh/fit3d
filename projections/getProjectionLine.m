@@ -20,6 +20,11 @@ T = PcamAbs(:,4,imNr);
 
 xy3D = R*inv(K)*xyH+T;
 
+
+xyH
+xy3D
+pause;
+
 % to transfer back to 2d i do this:
 %xyH = inv(R) * K * (xy3D - T) 
 
