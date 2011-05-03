@@ -4,13 +4,17 @@ projectie is het mooist loodrecht op wall waarom het gaat
 
 
 get2dfrom3d
-goed testen met nieuwe fake houghlines, ff figuurtje tekenen
 werkt nu op image 1 maar nu nog de andere images
 kijken waar K bij moet
 
 
-doorgaan met herstructureren
-waarom laat project22d een oude buildingoutline zien en niet mn fakehoughline??
+project22d
+echte houghlines projecten naar 2d met wallnormal van wall 7
+en dan door naar 2d klus
+
+het lijkt of projectie op zn kop is 
+uitzoeken door y te inverten 
+als dat niet werkt y al inverten bij invoer of andere plot (obj) doen?
 
 
 least squares,

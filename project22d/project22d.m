@@ -1,46 +1,24 @@
-%load Houghlines3d
-clear Houghlines3d
-clear Point
-
-disp('v5')
+%close all;
+load Houghlines3d
 
 
-% the letter T on wall 4 in coords
-
-Point{1} = [2 3 5];
-Point{2} = [2 3 0];
-Point{3} = [2 2 0];
-Point{4} = [2 2 1];
-Point{5} = [2 0 1];
-Point{6} = [2 0 2];
-Point{7} = [2 2 2];
-Point{8} = [2 2 5];
-
-%connect the dots
-for i=1:length(Point)-1
-	Houghlines3d{1}(i).point1 = Point{i}
-	Houghlines3d{1}(i).point2 = Point{i+1}
-end
-
-
-imNr = 1
-
-% todo cleanup the loaded vars
 load Walls
-
-close all;
 
 % todo do this in setup
 PcamAbs 		= getTrajectory3DNorm(invertMotion(normalizePcam(PcamX)));
-Cc 			= PcamAbs(1:3,4,imNr);
-K			= Kcanon10GOOD;
+Cc 				= PcamAbs(1:3,4,imNr);
+K				= Kcanon10GOOD;
 
+imNr = 1
+wallNr = 7;
 
-wallNr = 4;
-%wallNormal = getNormalFromWall(Walls, wallNr)
-% z y x
+% % the y axis is inverted because matlab plots upside down
+% % this is to flip the y axis 
+yHeight = 200;
+
+wallNormal = getNormalFromWall(Walls, wallNr)
 % its the viewing and projection direction
-wallNormal = [1 0 0.4]
+%wallNormal = [0.1 0.1 1]
 figure;
 hold on;
 
@@ -59,6 +37,9 @@ Y = []
 		%for anglePercentage=0.2:0.2:1
 
 			zAxis = [0 0 1];
+
+			% normalise wall normal
+			wallNormal = wallNormal/norm(wallNormal)
 			rotationVector = cross(zAxis, wallNormal)
 
 			%angle = acos(dot(zAxis, wallNormal))*anglePercentage
@@ -79,14 +60,17 @@ Y = []
 			xyPoint2 = homog22D(xyPoint2);
 
 			X = [X,xyPoint1(1),xyPoint2(1)];
+			Y = [Y,yHeight-xyPoint1(2),yHeight-xyPoint2(2)];
 			Y = [Y,xyPoint1(2),xyPoint2(2)];
 
-			plot(X,Y,'-')
+			% plot individual line segments
+			for xi=1:2:length(X)
+				plot(X(xi:xi+1), Y(xi:xi+1), '-')
+			end
 			hold on;
 			%pause;
 
 		%end
 	end
-	disp('a')
 %end
 
