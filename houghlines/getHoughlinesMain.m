@@ -4,4 +4,5 @@ for imNr=1:3
 	imNr
 	Houghlines{imNr} = getHoughlines(imBWSkylines{imNr}, 1);
 end
+disp('saving Houghlines...');
 save Houghlines

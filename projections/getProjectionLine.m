@@ -10,20 +10,15 @@ if length(xy) == 2
 	xyH = [xy;1];
 else 
 	% disp('homog coord found')
-	xyH = xy'
+	xyH = xy';
 end
 
-disp('test')
 % the pixel in 3d space
 R = PcamAbs(:,1:3,imNr);
 T = PcamAbs(:,4,imNr);
 
 xy3D = R*inv(K)*xyH+T;
 
-
-xyH
-xy3D
-pause;
 
 % to transfer back to 2d i do this:
 %xyH = inv(R) * K * (xy3D - T) 

@@ -4,14 +4,16 @@ function Houghlines = getHoughlines(BW, plotme)
 
 P  = houghpeaks(H,5,'threshold',ceil(0.3*max(H(:))));
 x = T(P(:,2)); y = R(P(:,1));
-Houghlines = houghlines(BW,T,R,P,'FillGap',25,'MinLength',7);
+Houghlines = houghlines(BW,T,R,P,'FillGap',25,'MinLength',40);
 if plotme
    figure,imshow(BW), hold on
 end
 max_len = 0;
 for k = 1:length(Houghlines)
+	k
+	pause
    xy = [Houghlines(k).point1; Houghlines(k).point2];
-   %plot(xy(:,1),xy(:,2),'LineWidth',2,'Color','green');
+   plot(xy(:,1),xy(:,2),'LineWidth',2,'Color','green');
 
    % Plot beginnings and ends of Houghlines
 if plotme

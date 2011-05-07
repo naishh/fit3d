@@ -1,4 +1,5 @@
-function coord3D = get3Dfrom2D(coord2D, imNr, PcamX, Kcanon10GOOD, WALLS)
+% returns the coord in 3d and the belongig wall
+function [coord3D, minIspToWallDistIdx] = get3Dfrom2D(coord2D, imNr, PcamX, Kcanon10GOOD, WALLS)
 
 PcamAbs 	= getTrajectory3DNorm(invertMotion(normalizePcam(PcamX)));
 Cc 			= PcamAbs(1:3,4,imNr);

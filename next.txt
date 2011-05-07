@@ -1,6 +1,20 @@
 next:
-eerst projecteren naar 2d zodat er in 2d gewerkt kan worden.
-projectie is het mooist loodrecht op wall waarom het gaat
+houghlines meerdere views samenvoegen en dan ff handmatig croppen
+en vie verschillende aanzichten met project22d laten zien
+
+houghlines3d per wall selecteren
+gemiddelde houghline selecteren
+gemiddelde lijn berekenen per wall
+breedste punten als leading nemen
+evt nog outlier iets bedenken maar kan later (ransac)
+
+
+weer overgaan op osgviewer plot?
+waar het op lijkt is dat bij sommige houghlines twee coordinaten hebben waarvan elke op een andere wall zit
+
+dit fixen
+fire is hl3dcombine
+
 
 
 get2dfrom3d
@@ -11,10 +25,6 @@ kijken waar K bij moet
 project22d
 echte houghlines projecten naar 2d met wallnormal van wall 7
 en dan door naar 2d klus
-
-het lijkt of projectie op zn kop is 
-uitzoeken door y te inverten 
-als dat niet werkt y al inverten bij invoer of andere plot (obj) doen?
 
 
 least squares,

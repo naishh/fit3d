@@ -3,18 +3,12 @@ close all;
 
 % config
 windowsPlot = 1;
-useFakeHoughlines=1;
 
 load Walls
 
-if useFakeHoughlines == 1
-	disp('loaded fake houghlines from cache')
-	load fakeHoughlines
-	Houghlines = fakeHoughlines
-else
-	disp('loaded real houghlines from cache')
-	load Houghlines
-end
+disp('loaded real houghlines from cache')
+clear Houghlines
+load Houghlines
 
 houghEndpointsFileName 	= 'hough-endpoints.obj';
 houghLinesFileName     	= 'hough-lines.obj';
@@ -29,15 +23,20 @@ if windowsPlot
 end
 
 
+for w=1:length(Walls)
+	Houghlines3dWall{w} = struct();
+end
+
 % loop through different views
-for imNr=1:1
-%for imNr=1:length(Houghlines)
+for imNr=1:length(Houghlines)
 	imNr
+	pause;
 
 	% loop through found houghlines endpoints and project to 3D
 	for i=1:length(Houghlines{imNr})
-		HoughLineEndpoint1  = get3Dfrom2D(Houghlines{imNr}(i).point1', imNr, PcamX,Kcanon10GOOD, Walls);
-		HoughLineEndpoint2  = get3Dfrom2D(Houghlines{imNr}(i).point2', imNr, PcamX,Kcanon10GOOD, Walls);
+		i
+		[HoughLineEndpoint1, wallNo]  = get3Dfrom2D(Houghlines{imNr}(i).point1', imNr, PcamX,Kcanon10GOOD, Walls);
+		[HoughLineEndpoint2, wallNo]  = get3Dfrom2D(Houghlines{imNr}(i).point2', imNr, PcamX,Kcanon10GOOD, Walls);
 
 		writeObjCube(houghEndpointsFileName, 1, HoughLineEndpoint1, 0.1);
 		writeObjCube(houghEndpointsFileName, 1, HoughLineEndpoint2, 0.1);
@@ -52,6 +51,18 @@ for imNr=1:1
 
 		Houghlines3d{imNr}(i).point1 = HoughLineEndpoint1;
 		Houghlines3d{imNr}(i).point2 = HoughLineEndpoint2;
+		Houghlines3d{imNr}(i).wallNo = wallNo;
+
+		wallNo
+		length(Houghlines3dWall{wallNo})
+
+		% calc index 
+		idx = length(Houghlines3dWall{wallNo})
+		idx = idx+1
+
+		% saving content on wall index
+		Houghlines3dWall{wallNo}(idx).point1 = HoughLineEndpoint1
+		Houghlines3dWall{wallNo}(idx).point2 = HoughLineEndpoint2
 
 		% writeObjLineThick(houghLinesFileName, HoughLineEndpoint1,HoughLineEndpoint2,'black', 1);
 		writeObjLine(houghLinesFileName, HoughLineEndpoint1,HoughLineEndpoint2, 'black');
@@ -59,4 +70,6 @@ for imNr=1:1
 
 end
 
+disp('saving Houghlines3d...');
 save Houghlines3d
+save Houghlines3dWall
