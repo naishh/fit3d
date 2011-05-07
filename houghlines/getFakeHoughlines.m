@@ -1,7 +1,7 @@
 function fakeHoughlines = getFakeHoughlines()
 
 endRange = 1;
-totLines = 7
+totLines = 15 
 for imNr = 1:endRange
 
 	% READ IMAGE 

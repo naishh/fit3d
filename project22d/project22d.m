@@ -18,7 +18,7 @@ yHeight = 200;
 
 wallNormal = getNormalFromWall(Walls, wallNr)
 % its the viewing and projection direction
-%wallNormal = [0.1 0.1 1]
+wallNormal = [1 0.1 0.1]
 figure;
 hold on;
 
@@ -60,7 +60,7 @@ Y = []
 			xyPoint2 = homog22D(xyPoint2);
 
 			X = [X,xyPoint1(1),xyPoint2(1)];
-			Y = [Y,yHeight-xyPoint1(2),yHeight-xyPoint2(2)];
+			%Y = [Y,yHeight-xyPoint1(2),yHeight-xyPoint2(2)];
 			Y = [Y,xyPoint1(2),xyPoint2(2)];
 
 			% plot individual line segments
