@@ -18,7 +18,7 @@ yHeight = 200;
 
 wallNormal = getNormalFromWall(Walls, wallNr)
 % its the viewing and projection direction
-wallNormal = [1 0.1 0.1]
+%wallNormal = [1 0.1 0.1]
 figure;
 hold on;
 
