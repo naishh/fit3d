@@ -10,7 +10,16 @@ evt nog outlier iets bedenken maar kan later (ransac)
 
 
 weer overgaan op osgviewer plot?
+
+
 waar het op lijkt is dat bij sommige houghlines twee coordinaten hebben waarvan elke op een andere wall zit
+de lijn lijkt dan opgeslagen te worden op de verkeerde  wall echter wordt hij opgeslagen bij dewall waal een eindstuk wel op past
+dus aannamen maken ook in report schrijven
+quickfix is dit handmatig aanpassen
+mooie fix is b.v. lijn opdelen in 10 stukken en laten voten waarbij de lijn het best past
+over nadenken
+eerst maar ff de quickfix meest rechter eindstuk is leading voor de wallNo
+
 
 dit fixen
 fire is hl3dcombine
