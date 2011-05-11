@@ -7,6 +7,10 @@ clear Houghlines
 load Houghlines
 load Walls
 
+colors = {'r', 'g', 'b', 'c', 'm', 'y', 'k'};
+
+
+
 % config
 windowsPlot = 1;
 
@@ -42,7 +46,9 @@ for imNr=1:length(Houghlines)
 		pause;
 
 
+		figure(figPhoto);
 		plotHoughline(Houghlines, imNr, i);
+		pause;
 
 		[HoughLineEndpoint1, wallNo]  = get3Dfrom2D(Houghlines{imNr}(i).point1', imNr, PcamX,Kcanon10GOOD, Walls);
 		[HoughLineEndpoint2, wallNo]  = get3Dfrom2D(Houghlines{imNr}(i).point2', imNr, PcamX,Kcanon10GOOD, Walls);
@@ -57,7 +63,7 @@ for imNr=1:length(Houghlines)
 			Z = [HoughLineEndpoint1(3), HoughLineEndpoint2(3)];
 			% activate fig
 			figure(figBuilding);
-			plot3(X, Y, Z, '-');
+			plot3(X, Y, Z, ['-',colors{mod(i,7)+1}]);
 		end
 
 
