@@ -28,6 +28,10 @@ LIJNSTUKKEN compleet maken, b.v. door ze aan te sluiten door ze op de hele wall 
 
 
 
+mooie plots bouwen zodat ik zie wat wat is
+
+
+
 
 get2dfrom3d
 werkt nu op image 1 maar nu nog de andere images

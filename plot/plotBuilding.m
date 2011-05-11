@@ -1,4 +1,6 @@
-function plotBuilding()
+function figBuilding = plotBuilding()
+figBuilding = figure();
+hold on;
 
 load Walls
 
@@ -22,3 +24,8 @@ for wall=1:12
 	hold on;
 end
 
+
+% rotate, somehow doesnt work
+%rotateDir = [0 1 0];
+%center = [0 0 0];
+%rotate(h, rotateDir, 180, center);

@@ -11,7 +11,7 @@ end
 max_len = 0;
 for k = 1:length(Houghlines)
 	k
-	pause
+	%pause
    xy = [Houghlines(k).point1; Houghlines(k).point2];
    plot(xy(:,1),xy(:,2),'LineWidth',2,'Color','green');
 
@@ -28,6 +28,3 @@ end
 	  xy_long = xy;
    end
 end
-
-% highlight the longest line segment
-% plot(xy_long(:,1),xy_long(:,2),'LineWidth',2,'Color','blue');

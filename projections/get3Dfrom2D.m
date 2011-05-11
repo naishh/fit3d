@@ -30,12 +30,13 @@ for w=1:nWalls
 		distPointToWalls(w) = distPointToWall(intSectPoint(w,:)', WALLS(w,:));
 	end
 end
+distPointToWalls
 
 % todo threshold min distances and take of a few the closest one to the Cc	
 % find wall closest to cc
 % [minVal, minIdx] = min(distToIntSectPoint)
 
-[minIspToWallDist, minIspToWallDistIdx] = min(distPointToWalls);
+[minIspToWallDist, minIspToWallDistIdx] = min(distPointToWalls)
 
 
 % write a little cube on the intersection point
