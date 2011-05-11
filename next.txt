@@ -6,7 +6,7 @@ houghlines3d per wall selecteren
 gemiddelde houghline selecteren
 gemiddelde lijn berekenen per wall
 breedste punten als leading nemen
-evt nog outlier iets bedenken maar kan later (ransac)
+e vt nog outlier iets bedenken maar kan later (ransac)
 
 
 weer overgaan op osgviewer plot?
