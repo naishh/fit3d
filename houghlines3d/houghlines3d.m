@@ -7,7 +7,7 @@ clear Houghlines
 load Houghlines
 load Walls
 
-colors = {'r', 'g', 'b', 'c', 'm', 'y', 'k'};
+colors = {'r', 'b', 'c', 'm', 'y', 'k'};
 
 
 
@@ -24,17 +24,31 @@ if windowsPlot
 	figBuilding = plotBuilding();
 end
 
-figPhoto = figure();
 
 for w=1:length(Walls)
 	Houghlines3dWall{w} = struct();
 end
 
 % todo cache functie bouwe ouwe
-%imgs = loadImgs(startPath,1,6);
+if exist('imgs') == 0
+	imgs = loadImgs(startPath,1,6);
+end
+
+
+% select interesting houghlines (by hand)
+HoughlinesSelecta{1} = [Houghlines{1}(1), Houghlines{1}(2), Houghlines{1}(3)];
+HoughlinesSelecta{2} = [Houghlines{2}(1), Houghlines{2}(3), Houghlines{2}(5)];
+HoughlinesSelecta{3} = [Houghlines{3}(1), Houghlines{3}(2), Houghlines{3}(3),Houghlines{3}(4)];
+HoughlinesSelecta{4} = [Houghlines{4}(1), Houghlines{4}(2), Houghlines{4}(3),Houghlines{3}(4)];
+HoughlinesSelecta{5} = [Houghlines{5}(1), Houghlines{5}(2)];
+HoughlinesSelecta{6} = [Houghlines{6}(1)];
+
+% use new selecion
+Houghlines = HoughlinesSelecta;
 
 % loop through different views
 for imNr=1:length(Houghlines)
+	figPhoto = figure();
 	figure(figPhoto);
 	imshow(imgs{imNr});
 	hold on;
@@ -48,7 +62,6 @@ for imNr=1:length(Houghlines)
 
 		figure(figPhoto);
 		plotHoughline(Houghlines, imNr, i);
-		pause;
 
 		[HoughLineEndpoint1, wallNo]  = get3Dfrom2D(Houghlines{imNr}(i).point1', imNr, PcamX,Kcanon10GOOD, Walls);
 		[HoughLineEndpoint2, wallNo]  = get3Dfrom2D(Houghlines{imNr}(i).point2', imNr, PcamX,Kcanon10GOOD, Walls);
@@ -63,7 +76,7 @@ for imNr=1:length(Houghlines)
 			Z = [HoughLineEndpoint1(3), HoughLineEndpoint2(3)];
 			% activate fig
 			figure(figBuilding);
-			plot3(X, Y, Z, ['-',colors{mod(i,7)+1}]);
+			plot3(X, Y, Z, ['-',colors{mod(i,length(colors))+1}],'LineWidth', 2);
 		end
 
 

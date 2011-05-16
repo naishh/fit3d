@@ -1,3 +1,5 @@
+% calcs average houghline
+
 % config
 close all;
 windowsPlot = 1;

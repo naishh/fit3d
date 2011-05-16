@@ -12,6 +12,10 @@ e vt nog outlier iets bedenken maar kan later (ransac)
 weer overgaan op osgviewer plot?
 
 
+
+2 bugjes:
+1) dichtsbijzijnste muur lijkt boven de inpolygon test te gaan
+2) 
 waar het op lijkt is dat bij sommige houghlines twee coordinaten hebben waarvan elke op een andere wall zit
 de lijn lijkt dan opgeslagen te worden op de verkeerde  wall echter wordt hij opgeslagen bij dewall waal een eindstuk wel op past
 dus aannamen maken ook in report schrijven
@@ -20,15 +24,21 @@ mooie fix is b.v. lijn opdelen in 10 stukken en laten voten waarbij de lijn het 
 over nadenken
 eerst maar ff de quickfix meest rechter eindstuk is leading voor de wallNo
 
-
-file is hl3dcombine
+steeds bedenken dat enkel de hoogte van het gebouw moet worden geschat.
+hoogte gebouw veranderen adhv gemiddelde lijn
 
 
 LIJNSTUKKEN compleet maken, b.v. door ze aan te sluiten door ze op de hele wall neer te boeken
 
-
-
 mooie plots bouwen zodat ik zie wat wat is
+
+houghlines sorteren op coordinaat
+
+outlier removal not nec if data is right from the beginning
+ 
+nu alvast mail opstellen
+ff handmatig wat lijnen selecteren :-)
+
 
 
 
