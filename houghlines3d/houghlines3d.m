@@ -9,8 +9,6 @@ load Walls
 
 colors = {'r', 'b', 'c', 'm', 'y', 'k'};
 
-
-
 % config
 windowsPlot = 1;
 
@@ -57,7 +55,7 @@ for imNr=1:length(Houghlines)
 	for i=1:length(Houghlines{imNr})
 		imNr
 		i
-		pause;
+		%pause;
 
 
 		figure(figPhoto);

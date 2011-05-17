@@ -1,21 +1,13 @@
 next:
-houghlines meerdere views samenvoegen en dan ff handmatig croppen
-en vie verschillende aanzichten met project22d laten zien
-
-houghlines3d per wall selecteren
-gemiddelde houghline selecteren
-gemiddelde lijn berekenen per wall
-breedste punten als leading nemen
-e vt nog outlier iets bedenken maar kan later (ransac)
-
-
-weer overgaan op osgviewer plot?
+** costins thesis lezen
+gemiddelde hoogte gebouw berekenen, per wall
+plotbuilding aanpassen ( hooghte doorvoeren per wall)
+interactief vanaf begin tot eind alles aan elkaar plakken
+bedenken hoe het visueel leuk kan worden getoond
 
 
 
-2 bugjes:
-1) dichtsbijzijnste muur lijkt boven de inpolygon test te gaan
-2) 
+bugjes:
 waar het op lijkt is dat bij sommige houghlines twee coordinaten hebben waarvan elke op een andere wall zit
 de lijn lijkt dan opgeslagen te worden op de verkeerde  wall echter wordt hij opgeslagen bij dewall waal een eindstuk wel op past
 dus aannamen maken ook in report schrijven
@@ -29,18 +21,7 @@ hoogte gebouw veranderen adhv gemiddelde lijn
 
 
 LIJNSTUKKEN compleet maken, b.v. door ze aan te sluiten door ze op de hele wall neer te boeken
-
-mooie plots bouwen zodat ik zie wat wat is
-
-houghlines sorteren op coordinaat
-
-outlier removal not nec if data is right from the beginning
  
-nu alvast mail opstellen
-ff handmatig wat lijnen selecteren :-)
-
-
-
 
 
 get2dfrom3d
@@ -52,10 +33,6 @@ project22d
 echte houghlines projecten naar 2d met wallnormal van wall 7
 en dan door naar 2d klus
 
-
-least squares,
-ransac voor outlierremoval of om er achter te komen of er twee lijnen, b.v. een
-dak in een vlak ligt
 
 
 TODOS:
