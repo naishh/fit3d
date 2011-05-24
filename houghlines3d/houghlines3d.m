@@ -19,7 +19,7 @@ fp = fopen(houghEndpointsFileName, 'w'); fclose(fp);
 fp = fopen(houghLinesFileName    , 'w'); fclose(fp);
 
 if windowsPlot
-	figBuilding = plotBuilding();
+	figBuilding = plotBuilding(Walls,[]);
 end
 
 
