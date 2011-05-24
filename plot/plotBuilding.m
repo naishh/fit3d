@@ -1,8 +1,6 @@
-function figBuilding = plotBuilding()
+function figBuilding = plotBuilding(Walls)
 figBuilding = figure();
 hold on;
-
-load Walls
 
 % change order of the cornerpoints of the wall so the polygons (walls) are plotted right
 WallsNew = [Walls(:,1:3),Walls(:,7:9),Walls(:,10:12),Walls(:,4:6)];

@@ -2,6 +2,8 @@ next:
 ** costins thesis lezen
 gemiddelde hoogte gebouw berekenen, per wall
 plotbuilding aanpassen ( hooghte doorvoeren per wall)
+adhv dist point to line segment
+
 interactief vanaf begin tot eind alles aan elkaar plakken
 bedenken hoe het visueel leuk kan worden getoond
 
