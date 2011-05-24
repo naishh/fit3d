@@ -1,4 +1,4 @@
-function figBuilding = plotBuilding(Walls)
+function figBuilding = plotBuilding(Walls, interestingWalls)
 figBuilding = figure();
 hold on;
 
@@ -18,8 +18,17 @@ for wall=1:12
 	end
 	C = ones(1,4);
 	% draw wall
-	fill3(X,Y,Z,C);
+	if wall==7
+		fill3(X,Y,Z,C*2);
+	elseif wall==9
+		fill3(X,Y,Z,C*2);
+	elseif wall==10
+		fill3(X,Y,Z,C*2);
+	else
+		fill3(X,Y,Z,C);
+	end
 	hold on;
+	%pause;
 end
 
 
