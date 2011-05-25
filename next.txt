@@ -4,7 +4,11 @@ costins thesis lezen
 build one houghline can only be on one wall contraint
 search for 1/4 and 3/4 point and vote for wall
 
-
+todo inlezen plaatjes vanuit andere dir moet ook goed werken regelen
+wat te doen met:
+wallNos =
+    11    10    10     9     9
+en wat te doen met wall verlengen?
 
 
 

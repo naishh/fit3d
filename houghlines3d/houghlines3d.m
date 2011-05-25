@@ -4,7 +4,11 @@ clear Houghlines3dWall
 clear Houghlines3d
 disp('loaded real houghlines from cache')
 clear Houghlines
-load Houghlines
+
+% todo fix quickfix because Houghlines overwrites the startpath
+%startPath2 = startPath;
+load Houghlines;
+%startPath = startPath2;
 load Walls
 
 colors = {'r', 'b', 'c', 'm', 'y', 'k'};
@@ -27,7 +31,6 @@ for w=1:length(Walls)
 	Houghlines3dWall{w} = struct();
 end
 
-% todo cache functie bouwe ouwe
 if exist('imgs') == 0
 	imgs = loadImgs(startPath,1,6);
 end
@@ -70,11 +73,16 @@ for imNr=1:length(Houghlines)
 		for s = 1:length(subCoords)
 			s
 			[Dummy, wallNo]  = get3Dfrom2D(subCoords{s}', imNr, PcamX,Kcanon10GOOD, Walls);
-			wallNo
-			pause;
+			wallNos(s) = wallNo;
 			% todo visualize this? with distance arrows and stuff
 		end
 		% todo compare results with wall voting and without
+		wallNos 
+		for w = 1:length(wallNos)
+			wallNosOccured.wall = wallNos(w)
+			wallNosOccured.occs = sum(wallNos=wallNos(w))
+		end
+		wallNosOccured
 
 		[HoughLineEndpoint1, wallNo]  = get3Dfrom2D(Houghlines{imNr}(i).point1', imNr, PcamX,Kcanon10GOOD, Walls);
 		[HoughLineEndpoint2, wallNo]  = get3Dfrom2D(Houghlines{imNr}(i).point2', imNr, PcamX,Kcanon10GOOD, Walls);

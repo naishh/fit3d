@@ -36,7 +36,7 @@ distPointToWalls
 % find wall closest to cc
 % [minVal, minIdx] = min(distToIntSectPoint)
 
-[minIspToWallDist, minIspToWallDistIdx] = min(distPointToWalls)
+[minIspToWallDist, minIspToWallDistIdx] = min(distPointToWalls);
 
 
 % write a little cube on the intersection point
