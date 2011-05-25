@@ -1,11 +1,10 @@
 next:
-** costins thesis lezen
-gemiddelde hoogte gebouw berekenen, per wall
-plotbuilding aanpassen ( hooghte doorvoeren per wall)
-adhv dist point to line segment
+costins thesis lezen
 
-interactief vanaf begin tot eind alles aan elkaar plakken
-bedenken hoe het visueel leuk kan worden getoond
+build one houghline can only be on one wall contraint
+search for 1/4 and 3/4 point and vote for wall
+
+
 
 
 

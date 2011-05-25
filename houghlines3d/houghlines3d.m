@@ -57,9 +57,24 @@ for imNr=1:length(Houghlines)
 		i
 		%pause;
 
-
 		figure(figPhoto);
 		plotHoughline(Houghlines, imNr, i);
+
+
+		
+		Houghline = Houghlines{imNr}(i);
+		subCoords = calcLineSubCoords(Houghline)
+		disp('start heuristic voting');
+		% the houghline is assocated with the wall where the most in between
+		% points are close to
+		for s = 1:length(subCoords)
+			s
+			[Dummy, wallNo]  = get3Dfrom2D(subCoords{s}', imNr, PcamX,Kcanon10GOOD, Walls);
+			wallNo
+			pause;
+			% todo visualize this? with distance arrows and stuff
+		end
+		% todo compare results with wall voting and without
 
 		[HoughLineEndpoint1, wallNo]  = get3Dfrom2D(Houghlines{imNr}(i).point1', imNr, PcamX,Kcanon10GOOD, Walls);
 		[HoughLineEndpoint2, wallNo]  = get3Dfrom2D(Houghlines{imNr}(i).point2', imNr, PcamX,Kcanon10GOOD, Walls);
@@ -108,11 +123,13 @@ for imNr=1:length(Houghlines)
 
 		% writeObjLineThick(houghLinesFileName, HoughLineEndpoint1,HoughLineEndpoint2,'black', 1);
 		writeObjLine(houghLinesFileName, HoughLineEndpoint1,HoughLineEndpoint2, 'black');
+
+		pause;
 	end
 
 end
 
-disp('saving Houghlines3d in directory ...');
+disp('saving Houghlines3d in directory ...[temp NOT]');
 pwd
-save Houghlines3d
-save Houghlines3dWall
+%save Houghlines3d
+%save Houghlines3dWall
