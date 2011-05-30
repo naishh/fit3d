@@ -11,6 +11,16 @@ wallNos =
 en wat te doen met wall verlengen?
 
 
+drawback van deze methode in verslag opnemen
+goede plots maken voor in verslag
+
+rough building in plaatjes projecteren
+get3Dfrom2D with given wallNo
+WERKT NOG NIET
+houghlines3d nog ff checken
+****maar vooral ook aan report writen!!
+
+
 
 bugjes:
 waar het op lijkt is dat bij sommige houghlines twee coordinaten hebben waarvan elke op een andere wall zit
