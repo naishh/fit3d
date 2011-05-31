@@ -63,34 +63,39 @@ for imNr=1:length(Houghlines)
 		figure(figPhoto);
 		plotHoughline(Houghlines, imNr, i);
 
-
 		
 		Houghline = Houghlines{imNr}(i);
 		subCoords = calcLineSubCoords(Houghline)
 		disp('start heuristic voting');
 		% the houghline is assocated with the wall where the most in between
 		% points are close to
-		for s = 1:length(subCoords)
-			s
-			[Dummy, wallNo]  = get3Dfrom2D(subCoords{s}', imNr, PcamX,Kcanon10GOOD, Walls);
-			wallNos(s) = wallNo;
+		for subCoord = 1:length(subCoords)
+			subCoord
+			[Dummy, wallNo]  = get3Dfrom2D(subCoords{subCoord}', imNr, PcamX,Kcanon10GOOD, Walls, 0);
+			wallNos(subCoord) = wallNo;
 			% todo visualize this? with distance arrows and stuff
 		end
 		% todo compare results with wall voting and without
 		wallNos 
+		wallNosOccured = zeros(1,length(wallNos));
+		% for each wall store the number of times this wall was the closest candidate
 		for w = 1:length(wallNos)
-			wallNosOccured.wall = wallNos(w)
-			wallNosOccured.occs = sum(wallNos=wallNos(w))
+			wallNosOccured(wallNos(w)) = sum(wallNos==wallNos(w));
 		end
 		wallNosOccured
+		% note with a set of 0 0 0 0 4 4, there are two maximums, it takes the first it finds
+		[dummy, closestWall] = max(wallNosOccured)
 
-		[HoughLineEndpoint1, wallNo]  = get3Dfrom2D(Houghlines{imNr}(i).point1', imNr, PcamX,Kcanon10GOOD, Walls);
-		[HoughLineEndpoint2, wallNo]  = get3Dfrom2D(Houghlines{imNr}(i).point2', imNr, PcamX,Kcanon10GOOD, Walls);
 
-		writeObjCube(houghEndpointsFileName, 1, HoughLineEndpoint1, 0.1);
-		writeObjCube(houghEndpointsFileName, 1, HoughLineEndpoint2, 0.1);
 
+
+		% plot
 		if windowsPlot
+			[HoughLineEndpoint1, wallNo]  = get3Dfrom2D(Houghlines{imNr}(i).point1', imNr, PcamX,Kcanon10GOOD, Walls, closestWall);
+			[HoughLineEndpoint2, wallNo]  = get3Dfrom2D(Houghlines{imNr}(i).point2', imNr, PcamX,Kcanon10GOOD, Walls, closestWall);
+			% writeObjCube(houghEndpointsFileName, 1, HoughLineEndpoint1, 0.1);
+			% writeObjCube(houghEndpointsFileName, 1, HoughLineEndpoint2, 0.1);
+
 			% matlab plot for windows computers
 			X = [HoughLineEndpoint1(1), HoughLineEndpoint2(1)];
 			Y = [HoughLineEndpoint1(2), HoughLineEndpoint2(2)];
@@ -101,43 +106,47 @@ for imNr=1:length(Houghlines)
 		end
 
 
-		% quickfix, for houghlines that are classified as wrong wall 
-		if (imNr  == 1 && i == 1) || (imNr == 3 && i == 2)
-			wallNo = 10;
-		end
-		if (imNr  == 1 && i == 5) || (imNr == 1 && i == 6) || (imNr == 2 && i == 7)
-			wallNo = 4;
-		end
-		if (imNr == 2 && i == 6) 
-			wallNo = 7;
+		% % quickfix, for houghlines that are classified as wrong wall 
+		% if (imNr  == 1 && i == 1) || (imNr == 3 && i == 2)
+		% 	closestWall = 10;
+		% end
+		% if (imNr  == 1 && i == 5) || (imNr == 1 && i == 6) || (imNr == 2 && i == 7)
+		% 	closestWall = 4;
+		% end
+		% if (imNr == 2 && i == 6) 
+		% 	closestWall = 7;
+		% end
+		if (imNr  == 3 && i == 1)
+		 	closestWall = 10 
 		end
 
-		Houghlines3d{imNr}(i).point1 = HoughLineEndpoint1;
-		Houghlines3d{imNr}(i).point2 = HoughLineEndpoint2;
-		Houghlines3d{imNr}(i).wallNo = wallNo;
 
-		wallNo
-		length(Houghlines3dWall{wallNo})
+		%Houghlines3d{imNr}(i).point1 = HoughLineEndpoint1;
+		%Houghlines3d{imNr}(i).point2 = HoughLineEndpoint2;
+		%Houghlines3d{imNr}(i).wallNo = closestWall;
+
+		closestWall
+		length(Houghlines3dWall{closestWall})
 
 		% calc index 
-		idx = length(Houghlines3dWall{wallNo});
+		idx = length(Houghlines3dWall{closestWall});
 		idx = idx+1;
 
 		% saving content on wall index
-		Houghlines3dWall{wallNo}(idx).point1 = HoughLineEndpoint1;
-		Houghlines3dWall{wallNo}(idx).point2 = HoughLineEndpoint2;
-		Houghlines3dWall{wallNo}(idx).wallNo = wallNo;
-		Houghlines3dWall{wallNo}(idx).test1 = 1;
+		Houghlines3dWall{closestWall}(idx).point1 = HoughLineEndpoint1;
+		Houghlines3dWall{closestWall}(idx).point2 = HoughLineEndpoint2;
+		Houghlines3dWall{closestWall}(idx).closestWall = closestWall;
 
-		% writeObjLineThick(houghLinesFileName, HoughLineEndpoint1,HoughLineEndpoint2,'black', 1);
-		writeObjLine(houghLinesFileName, HoughLineEndpoint1,HoughLineEndpoint2, 'black');
+		%% writeObjLineThick(houghLinesFileName, HoughLineEndpoint1,HoughLineEndpoint2,'black', 1);
+		%writeObjLine(houghLinesFileName, HoughLineEndpoint1,HoughLineEndpoint2, 'black');
+
 
 		pause;
 	end
 
 end
 
-disp('saving Houghlines3d in directory ...[temp NOT]');
+disp('saving Houghlines3dWall in directory ...[temp NOT]');
 pwd
-%save Houghlines3d
+%%save Houghlines3d
 %save Houghlines3dWall
