@@ -39,7 +39,8 @@ end
 % select interesting houghlines (by hand)
 HoughlinesSelecta{1} = [Houghlines{1}(1), Houghlines{1}(2), Houghlines{1}(3)];
 HoughlinesSelecta{2} = [Houghlines{2}(1), Houghlines{2}(3), Houghlines{2}(5)];
-HoughlinesSelecta{3} = [Houghlines{3}(1), Houghlines{3}(2), Houghlines{3}(3),Houghlines{3}(4)];
+%HoughlinesSelecta{3} = [Houghlines{3}(1), Houghlines{3}(2), Houghlines{3}(3),Houghlines{3}(4)];
+HoughlinesSelecta{3} = [Houghlines{3}(2), Houghlines{3}(3),Houghlines{3}(4)];
 HoughlinesSelecta{4} = [Houghlines{4}(1), Houghlines{4}(2), Houghlines{4}(3),Houghlines{3}(4)];
 HoughlinesSelecta{5} = [Houghlines{5}(1), Houghlines{5}(2)];
 HoughlinesSelecta{6} = [Houghlines{6}(1)];
@@ -65,7 +66,7 @@ for imNr=1:length(Houghlines)
 
 		
 		Houghline = Houghlines{imNr}(i);
-		subCoords = calcLineSubCoords(Houghline)
+		subCoords = calcLineSubCoords(Houghline, 7)
 		disp('start heuristic voting');
 		% the houghline is assocated with the wall where the most in between
 		% points are close to
@@ -84,7 +85,7 @@ for imNr=1:length(Houghlines)
 		end
 		wallNosOccured
 		% note with a set of 0 0 0 0 4 4, there are two maximums, it takes the first it finds
-		[dummy, closestWall] = max(wallNosOccured)
+		[dummy, closestWall] = max(wallNosOccured);
 
 
 
@@ -116,9 +117,9 @@ for imNr=1:length(Houghlines)
 		% if (imNr == 2 && i == 6) 
 		% 	closestWall = 7;
 		% end
-		if (imNr  == 3 && i == 1)
-		 	closestWall = 10 
-		end
+		% if (imNr  == 3 && i == 1)
+		%  	closestWall = 10 
+		% end
 
 
 		%Houghlines3d{imNr}(i).point1 = HoughLineEndpoint1;

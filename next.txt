@@ -17,7 +17,17 @@ goede plots maken voor in verslag
 rough building in plaatjes projecteren
 get3Dfrom2D with given wallNo
 WERKT NOG NIET
+setup runnen 
 houghlines3d nog ff checken
+en projections/get3Dfrom2D.m
+make subCoords
+het gaat fout bij im = 3,i = 1 
+omdat de hoogte rough building te laag is en wall 9 net zovaak voorkomt als wall 10
+oplossing is allicht resolutie subCoords hoger maken
+Maar misschien first things first en eerst mooie plots maken
+Sowieso eerst gaan schrijven, en als ik dat zat ben dan pas proggen
+
+
 ****maar vooral ook aan report writen!!
 
 
