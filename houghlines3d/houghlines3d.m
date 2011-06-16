@@ -66,44 +66,56 @@ for imNr=1:length(Houghlines)
 
 		
 		Houghline = Houghlines{imNr}(i);
-		subCoords = calcLineSubCoords(Houghline, 7)
-		disp('start heuristic voting');
-		% the houghline is assocated with the wall where the most in between
-		% points are close to
-		for subCoord = 1:length(subCoords)
-			subCoord
-			[Dummy, wallNo]  = get3Dfrom2D(subCoords{subCoord}', imNr, PcamX,Kcanon10GOOD, Walls, 0);
-			wallNos(subCoord) = wallNo;
-			% todo visualize this? with distance arrows and stuff
+
+
+
+		% intersect left right en mid point houghline
+		[HoughLineEndpoint1, wallNoP1]  = get3Dfrom2D(Houghline.point1', imNr, PcamX,Kcanon10GOOD, Walls, 0);
+		[HoughLineEndpoint2, wallNoP2]  = get3Dfrom2D(Houghline.point2', imNr, PcamX,Kcanon10GOOD, Walls, 0);
+		% writeObjCube(houghEndpointsFileName, 1, HoughLineEndpoint1, 0.1);
+		% writeObjCube(houghEndpointsFileName, 1, HoughLineEndpoint2, 0.1);
+		HoughlineMidpoint = (Houghline.point1 + Houghline.point2)/2;
+		[Dummy, closestWall]  = get3Dfrom2D(HoughlineMidpoint', imNr, PcamX,Kcanon10GOOD, Walls, 0);
+		[wallNoP1, closestWall, wallNoP2]
+		if (wallNoP1 == closestWall) && (wallNoP2 == closestWall) 
+			correction=0
+		else 
+			correction=1
 		end
-		% todo compare results with wall voting and without
-		wallNos 
-		wallNosOccured = zeros(1,length(wallNos));
-		% for each wall store the number of times this wall was the closest candidate
-		for w = 1:length(wallNos)
-			wallNosOccured(wallNos(w)) = sum(wallNos==wallNos(w));
-		end
-		wallNosOccured
-		% note with a set of 0 0 0 0 4 4, there are two maximums, it takes the first it finds
-		[dummy, closestWall] = max(wallNosOccured);
+
+		%TODO
+		% plot the original houghline 
+		% calc midpoint select wall
+		% plot the line with that wall as voorkennis
+		% in a different color
 
 
 
-
-		% plot
+		% matlab plot 
 		if windowsPlot
-			[HoughLineEndpoint1, wallNo]  = get3Dfrom2D(Houghlines{imNr}(i).point1', imNr, PcamX,Kcanon10GOOD, Walls, closestWall);
-			[HoughLineEndpoint2, wallNo]  = get3Dfrom2D(Houghlines{imNr}(i).point2', imNr, PcamX,Kcanon10GOOD, Walls, closestWall);
-			% writeObjCube(houghEndpointsFileName, 1, HoughLineEndpoint1, 0.1);
-			% writeObjCube(houghEndpointsFileName, 1, HoughLineEndpoint2, 0.1);
-
-			% matlab plot for windows computers
 			X = [HoughLineEndpoint1(1), HoughLineEndpoint2(1)];
 			Y = [HoughLineEndpoint1(2), HoughLineEndpoint2(2)];
 			Z = [HoughLineEndpoint1(3), HoughLineEndpoint2(3)];
 			% activate fig
 			figure(figBuilding);
-			plot3(X, Y, Z, ['-',colors{mod(i,length(colors))+1}],'LineWidth', 2);
+			%plot3(X, Y, Z, ['-',colors{mod(i,length(colors))+1}],'LineWidth', 2);
+			% if no correction is needed	
+			if(correction==0)
+				plot3(X, Y, Z, ['-','k'],'LineWidth', 2);
+			else 
+				% red means before correction
+				plot3(X, Y, Z, ['-','r'],'LineWidth', 2);
+
+				% calc corrected houghline
+				[HoughLineEndpoint1corrected, wallNoP1]  = get3Dfrom2D(Houghline.point1', imNr, PcamX,Kcanon10GOOD, Walls, closestWall);
+				[HoughLineEndpoint2corrected, wallNoP2]  = get3Dfrom2D(Houghline.point2', imNr, PcamX,Kcanon10GOOD, Walls, closestWall);
+
+				X = [HoughLineEndpoint1corrected(1), HoughLineEndpoint2corrected(1)];
+				Y = [HoughLineEndpoint1corrected(2), HoughLineEndpoint2corrected(2)];
+				Z = [HoughLineEndpoint1corrected(3), HoughLineEndpoint2corrected(3)];
+				% green means after correction
+				plot3(X, Y, Z, ['-','g'],'LineWidth', 2);
+			end
 		end
 
 
@@ -142,8 +154,9 @@ for imNr=1:length(Houghlines)
 		%writeObjLine(houghLinesFileName, HoughLineEndpoint1,HoughLineEndpoint2, 'black');
 
 
-		pause;
+		%pause;
 	end
+	pause;
 
 end
 

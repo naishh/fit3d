@@ -17,16 +17,19 @@ for wall=1:12
 		Z = [Z;WallsNew(wall,coord+2)];
 	end
 	C = ones(1,4);
+	colorSpec = 'y';
 	% draw wall
 	if wall==7
-		fill3(X,Y,Z,C*2);
+		fill3(X,Y,Z,'y');
 	elseif wall==9
-		fill3(X,Y,Z,C*2);
+		fill3(X,Y,Z,'r');
 	elseif wall==10
-		fill3(X,Y,Z,C*2);
+		fill3(X,Y,Z,'g');
 	else
-		fill3(X,Y,Z,C);
+		fill3(X,Y,Z,'m');
 	end
+
+
 	hold on;
 	%pause;
 end
