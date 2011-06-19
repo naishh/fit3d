@@ -1,18 +1,6 @@
-next:
-costins thesis lezen
-
-build one houghline can only be on one wall contraint
-search for 1/4 and 3/4 point and vote for wall
-
 todo inlezen plaatjes vanuit andere dir moet ook goed werken regelen
-wat te doen met:
-wallNos =
-    11    10    10     9     9
 en wat te doen met wall verlengen?
 
-
-drawback van deze methode in verslag opnemen
-goede plots maken voor in verslag
 
 rough building in plaatjes projecteren
 get3Dfrom2D with given wallNo
@@ -20,47 +8,18 @@ WERKT NOG NIET
 setup runnen 
 houghlines3d nog ff checken
 en projections/get3Dfrom2D.m
-make subCoords
-het gaat fout bij im = 3,i = 1 
-
-omdat de hoogte rough building te laag is en wall 9 net zovaak voorkomt als wall 10
-oplossing is allicht resolutie subCoords hoger maken
-
-idee testen met meerdere subCoord resolutios
-want met 7 nu goed maar 5 niet=
-
 
 Maar misschien first things first en eerst mooie plots maken
 Sowieso eerst gaan schrijven, en als ik dat zat ben dan pas proggen
 
-%TODO
-% plot the original houghline 
-% calc midpoint select wall
-% plot the line with that wall as voorkennis
-% in a different color
-
-
+TODO
+ plot the original houghline 
+ calc midpoint select wall
+ plot the line with that wall as voorkennis
+ in a different color
 
 
 ****maar vooral ook aan report writen!!
-
-
-
-bugjes:
-waar het op lijkt is dat bij sommige houghlines twee coordinaten hebben waarvan elke op een andere wall zit
-de lijn lijkt dan opgeslagen te worden op de verkeerde  wall echter wordt hij opgeslagen bij dewall waal een eindstuk wel op past
-dus aannamen maken ook in report schrijven
-quickfix is dit handmatig aanpassen
-mooie fix is b.v. lijn opdelen in 10 stukken en laten voten waarbij de lijn het best past
-over nadenken
-eerst maar ff de quickfix meest rechter eindstuk is leading voor de wallNo
-
-steeds bedenken dat enkel de hoogte van het gebouw moet worden geschat.
-hoogte gebouw veranderen adhv gemiddelde lijn
-
-
-LIJNSTUKKEN compleet maken, b.v. door ze aan te sluiten door ze op de hele wall neer te boeken
- 
 
 
 get2dfrom3d
@@ -68,23 +27,4 @@ werkt nu op image 1 maar nu nog de andere images
 kijken waar K bij moet
 
 
-project22d
-echte houghlines projecten naar 2d met wallnormal van wall 7
-en dan door naar 2d klus
-
-
-
-TODOS:
-nieuwe dataset maken van gebouw, maar hoe annoteer ik de projectie matrices...
-allicht met toolbox van isaac en feature detectio?
-
-hoe van lijnstukken een echte lijn maken?
-uitzoeken waarom houghlines zo een gekke lijnen onderin weergeeft, uitzoeken
-door originele houghlines 1 voor 1 te plotten
-kijken of alles in 1 matrix multiplicatie kan zoals de projecties
-
-NEXT lange termijn:
-object detectie 
-deuren ramen en autos
-gaat frans groen mischien wel begeleiden
 
