@@ -1,3 +1,21 @@
+sommige lijnen zijn scheef, dit heeft niet met de correctie te maken
+maar met een andere bug, iets met K missch.
+hier ff helder naar kijken
+maar eerst alle plaatjes maken en verslag af zonder de correctie
+
+
+misschien moet ik 1 plaatje later beginnen en klopt dan alles wel!!
+want plaatje 0 en plaatje 1 zit vette zoom verschil
+bovendien was er gedoe met img0 etc.
+
+meer plaatjes processen met houghlines
+
+
+allich is de code goed maar klopt het 3d model niet
+dit checken door 3d model in 2d plaatjes te projecten
+
+
+
 todo inlezen plaatjes vanuit andere dir moet ook goed werken regelen
 en wat te doen met wall verlengen?
 

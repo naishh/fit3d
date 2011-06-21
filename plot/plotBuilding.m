@@ -19,14 +19,15 @@ for wall=1:12
 	C = ones(1,4);
 	colorSpec = 'y';
 	% draw wall
+	color1 = 'w';
 	if wall==7
-		fill3(X,Y,Z,'y');
+		fill3(X,Y,Z,color1);
 	elseif wall==9
-		fill3(X,Y,Z,'r');
+		fill3(X,Y,Z,color1);
 	elseif wall==10
-		fill3(X,Y,Z,'g');
+		fill3(X,Y,Z,color1);
 	else
-		fill3(X,Y,Z,'m');
+		fill3(X,Y,Z,color1);
 	end
 
 

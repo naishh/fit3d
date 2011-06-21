@@ -41,7 +41,7 @@ HoughlinesSelecta{1} = [Houghlines{1}(1), Houghlines{1}(2), Houghlines{1}(3)];
 HoughlinesSelecta{2} = [Houghlines{2}(1), Houghlines{2}(3), Houghlines{2}(5)];
 %HoughlinesSelecta{3} = [Houghlines{3}(1), Houghlines{3}(2), Houghlines{3}(3),Houghlines{3}(4)];
 HoughlinesSelecta{3} = [Houghlines{3}(2), Houghlines{3}(3),Houghlines{3}(4)];
-HoughlinesSelecta{4} = [Houghlines{4}(1), Houghlines{4}(2), Houghlines{4}(3),Houghlines{3}(4)];
+HoughlinesSelecta{4} = [Houghlines{4}(1), Houghlines{4}(2), Houghlines{4}(3)];
 HoughlinesSelecta{5} = [Houghlines{5}(1), Houghlines{5}(2)];
 HoughlinesSelecta{6} = [Houghlines{6}(1)];
 
@@ -77,18 +77,12 @@ for imNr=1:length(Houghlines)
 		HoughlineMidpoint = (Houghline.point1 + Houghline.point2)/2;
 		[Dummy, closestWall]  = get3Dfrom2D(HoughlineMidpoint', imNr, PcamX,Kcanon10GOOD, Walls, 0);
 		[wallNoP1, closestWall, wallNoP2]
-		if (wallNoP1 == closestWall) && (wallNoP2 == closestWall) 
-			correction=0
-		else 
-			correction=1
-		end
-
-		%TODO
-		% plot the original houghline 
-		% calc midpoint select wall
-		% plot the line with that wall as voorkennis
-		% in a different color
-
+		
+		% if (wallNoP1 == closestWall) && (wallNoP2 == closestWall) 
+		% 	correction=0;
+		% else 
+		% 	correction=1;
+		% end
 
 
 		% matlab plot 
@@ -99,47 +93,21 @@ for imNr=1:length(Houghlines)
 			% activate fig
 			figure(figBuilding);
 			%plot3(X, Y, Z, ['-',colors{mod(i,length(colors))+1}],'LineWidth', 2);
-			% if no correction is needed	
-			if(correction==0)
-				plot3(X, Y, Z, ['-','k'],'LineWidth', 2);
-			else 
-				% red means before correction
-				plot3(X, Y, Z, ['-','r'],'LineWidth', 2);
+			%plot3(X, Y, Z, ['-','b'],'LineWidth', 2);
+			% calc corrected houghline
+			[HoughLineEndpoint1corrected, wallNoP1]  = get3Dfrom2D(Houghline.point1', imNr, PcamX,Kcanon10GOOD, Walls, closestWall);
+			[HoughLineEndpoint2corrected, wallNoP2]  = get3Dfrom2D(Houghline.point2', imNr, PcamX,Kcanon10GOOD, Walls, closestWall);
 
-				% calc corrected houghline
-				[HoughLineEndpoint1corrected, wallNoP1]  = get3Dfrom2D(Houghline.point1', imNr, PcamX,Kcanon10GOOD, Walls, closestWall);
-				[HoughLineEndpoint2corrected, wallNoP2]  = get3Dfrom2D(Houghline.point2', imNr, PcamX,Kcanon10GOOD, Walls, closestWall);
+			X = [HoughLineEndpoint1corrected(1), HoughLineEndpoint2corrected(1)];
+			Y = [HoughLineEndpoint1corrected(2), HoughLineEndpoint2corrected(2)];
+			Z = [HoughLineEndpoint1corrected(3), HoughLineEndpoint2corrected(3)];
+			% after correction
+			plot3(X, Y, Z, ['-','k'],'LineWidth', 2);
 
-				X = [HoughLineEndpoint1corrected(1), HoughLineEndpoint2corrected(1)];
-				Y = [HoughLineEndpoint1corrected(2), HoughLineEndpoint2corrected(2)];
-				Z = [HoughLineEndpoint1corrected(3), HoughLineEndpoint2corrected(3)];
-				% green means after correction
-				plot3(X, Y, Z, ['-','g'],'LineWidth', 2);
-			end
+			% plot midpoint
+			Xmidpoint = (X(1)+X(2))/2; Ymidpoint = (Y(1)+Y(2))/2; Zmidpoint = (Z(1)+Z(2))/2;
+			plot3(Xmidpoint, Ymidpoint, Zmidpoint, ['+' ,'r'], 'LineWidth', 2)
 		end
-
-
-		% % quickfix, for houghlines that are classified as wrong wall 
-		% if (imNr  == 1 && i == 1) || (imNr == 3 && i == 2)
-		% 	closestWall = 10;
-		% end
-		% if (imNr  == 1 && i == 5) || (imNr == 1 && i == 6) || (imNr == 2 && i == 7)
-		% 	closestWall = 4;
-		% end
-		% if (imNr == 2 && i == 6) 
-		% 	closestWall = 7;
-		% end
-		% if (imNr  == 3 && i == 1)
-		%  	closestWall = 10 
-		% end
-
-
-		%Houghlines3d{imNr}(i).point1 = HoughLineEndpoint1;
-		%Houghlines3d{imNr}(i).point2 = HoughLineEndpoint2;
-		%Houghlines3d{imNr}(i).wallNo = closestWall;
-
-		closestWall
-		length(Houghlines3dWall{closestWall})
 
 		% calc index 
 		idx = length(Houghlines3dWall{closestWall});
@@ -154,7 +122,6 @@ for imNr=1:length(Houghlines)
 		%writeObjLine(houghLinesFileName, HoughLineEndpoint1,HoughLineEndpoint2, 'black');
 
 
-		%pause;
 	end
 	pause;
 
