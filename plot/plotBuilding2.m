@@ -16,9 +16,8 @@ for wall=1:length(WallsNew)
 		Z = [Z;WallsNew(wall,coord+2)];
 	end
 	C = ones(1,4);
-	colorSpec = 'y';
 	% draw wall
-	color1 = 'w';
+	color1 = 'g';
 	if wall==7
 		fill3(X,Y,Z,color1);
 	elseif wall==9
