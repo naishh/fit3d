@@ -6,7 +6,7 @@ clear HeightBuildingWall
 load Houghlines3dWall
 load Walls
 
-
+WallsNew = Walls;
 plotBuilding(Walls, []);
 
 
@@ -27,7 +27,7 @@ for i = 1:length(interestingWalls)
 	if nrHoughlines>=2
 		HeightBuildingWall{wall}=sum/((nrHoughlines-1)*2);
 		% plot a cross on the average height
-		plot3(HeightBuildingWall{wall}(1),HeightBuildingWall{wall}(2),HeightBuildingWall{wall}(3),'r+');
+		plot3(HeightBuildingWall{wall}(1),HeightBuildingWall{wall}(2),HeightBuildingWall{wall}(3),'b+', 'LineWidth', 2);
 	end
 			
 
@@ -47,17 +47,20 @@ for i = 1:length(interestingWalls)
 	p1 = p1 - [0, d, 0]
 	p2 = p2 - [0, d, 0]
 	hold on;
-	plot3([p1(1),p2(1)],[p1(2),p2(2)],[p1(3),p2(3)], 'c-');
+	plot3([p1(1),p2(1)],[p1(2),p2(2)],[p1(3),p2(3)], 'r-', 'LineWidth',2);
 
 	% update wall
-	Walls(wall,7:9) = p1;
-	Walls(wall,10:12) = p2;
+	WallsNew(wall,7:9) = p1;
+	WallsNew(wall,10:12) = p2;
 
-	pause;
+	%pause;
 
 end
 
 
 figure;
 plotBuilding(Walls, interestingWalls)
+hold on;
+plotBuilding2(WallsNew, interestingWalls)
+
 

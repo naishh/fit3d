@@ -16,6 +16,7 @@ dit checken door 3d model in 2d plaatjes te projecten
 
 
 
+
 todo inlezen plaatjes vanuit andere dir moet ook goed werken regelen
 en wat te doen met wall verlengen?
 
@@ -46,3 +47,7 @@ kijken waar K bij moet
 
 
 
+
+nieuwe walls maken adhv updated en oude punten 
+plotbuilding2 of 3 maken
+apparte case als buildingwall lager wordt of hoger
