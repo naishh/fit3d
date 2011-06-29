@@ -63,6 +63,6 @@ for imNr = 1:endRange
 
 end
 disp('saving mats..')
-save ../mats/SkylinesX SkylinesX
-save ../mats/SkylinesY SkylinesY
-save ../mats/imBWSkylines imBWSkylines
+save('../mats/SkylinesX.mat', SkylinesX);
+save('../mats/SkylinesY.mat', SkylinesY);
+save('../mats/imBWSkylines.mat', imBWSkylines);

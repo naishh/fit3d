@@ -25,5 +25,5 @@ for imNr = 1:endRange
 end
 
 
-save fakeHoughlines
+save('fakeHoughlines.mat','fakeHoughlines')
 

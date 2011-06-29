@@ -129,5 +129,5 @@ end
 
 disp('saving Houghlines3dWall in directory ...[temp NOT]');
 pwd
-%%save Houghlines3d
-%save Houghlines3dWall
+%%save('../mats/Houghlines3d.mat', 'Houghlines3d');
+%save('../mats/Houghlines3dWall.mat', 'Houghlines3dWall');

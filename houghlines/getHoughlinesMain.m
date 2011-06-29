@@ -5,4 +5,4 @@ for imNr=1:length(imBWSkylines)
 	Houghlines{imNr} = getHoughlines(imBWSkylines{imNr}, 1);
 end
 disp('saving Houghlines...');
-save Houghlines
+save('../mats/Houghlines.mat','Houghlines')
