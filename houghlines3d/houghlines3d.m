@@ -2,12 +2,16 @@
 close all;
 clear Houghlines3dWall
 clear Houghlines3d
-disp('loaded real houghlines from cache')
-clear Houghlines
+%clear Houghlines
 
 % todo fix quickfix because Houghlines overwrites the startpath
 %startPath2 = startPath;
-load Houghlines;
+if exist('Houghlines') == 0
+	disp('loaded real houghlines from mat file')
+	load Houghlines;
+else
+	disp('loaded real houghlines from cache')
+end
 %startPath = startPath2;
 load Walls
 
@@ -32,7 +36,11 @@ for w=1:length(Walls)
 end
 
 if exist('imgs') == 0
-	imgs = loadImgs(startPath,1,6);
+	%imgs = loadImgs(startPath,1,6);
+	disp('loading images from images')
+	imgs = loadImgs(startPath,1 ,6);
+else
+	disp('loading images not needed');
 end
 
 
