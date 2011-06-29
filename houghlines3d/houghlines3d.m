@@ -6,9 +6,9 @@ clear Houghlines3d
 
 % todo fix quickfix because Houghlines overwrites the startpath
 %startPath2 = startPath;
-if exist('Houghlines') == 0
+if exist('Houghlines2d') == 0
 	disp('loaded real houghlines from mat file')
-	load Houghlines;
+	load Houghlines2d;
 else
 	disp('loaded real houghlines from cache')
 end
@@ -38,44 +38,43 @@ end
 if exist('imgs') == 0
 	%imgs = loadImgs(startPath,1,6);
 	disp('loading images from images')
-	imgs = loadImgs(startPath,1 ,6);
+	%imgs = loadImgs(startPath,1 ,6); 
+	imgs = loadImgs(startPath, 5432 , 5470); 
 else
 	disp('loading images not needed');
 end
 
 
-% select interesting houghlines (by hand)
-HoughlinesSelecta{1} = [Houghlines{1}(1), Houghlines{1}(2), Houghlines{1}(3)];
-HoughlinesSelecta{2} = [Houghlines{2}(1), Houghlines{2}(3), Houghlines{2}(5)];
-%HoughlinesSelecta{3} = [Houghlines{3}(1), Houghlines{3}(2), Houghlines{3}(3),Houghlines{3}(4)];
-HoughlinesSelecta{3} = [Houghlines{3}(2), Houghlines{3}(3),Houghlines{3}(4)];
-HoughlinesSelecta{4} = [Houghlines{4}(1), Houghlines{4}(2), Houghlines{4}(3)];
-HoughlinesSelecta{5} = [Houghlines{5}(1), Houghlines{5}(2)];
-HoughlinesSelecta{6} = [Houghlines{6}(1)];
-
-% use new selecion
-Houghlines = HoughlinesSelecta;
+% % select interesting houghlines (by hand)
+% HoughlinesSelecta{1} = [Houghlines{1}(1), Houghlines{1}(2), Houghlines{1}(3)];
+% HoughlinesSelecta{2} = [Houghlines{2}(1), Houghlines{2}(3), Houghlines{2}(5)];
+% %HoughlinesSelecta{3} = [Houghlines{3}(1), Houghlines{3}(2), Houghlines{3}(3),Houghlines{3}(4)];
+% HoughlinesSelecta{3} = [Houghlines{3}(2), Houghlines{3}(3),Houghlines{3}(4)];
+% HoughlinesSelecta{4} = [Houghlines{4}(1), Houghlines{4}(2), Houghlines{4}(3)];
+% HoughlinesSelecta{5} = [Houghlines{5}(1), Houghlines{5}(2)];
+% HoughlinesSelecta{6} = [Houghlines{6}(1)];
+% 
+% % use new selecion
+% Houghlines = HoughlinesSelecta;
 
 % loop through different views
-for imNr=1:length(Houghlines)
+%for imNr=1:length(Houghlines2d)
+for imNr=1:8;
 	figPhoto = figure();
 	figure(figPhoto);
 	imshow(imgs{imNr});
 	hold on;
 
 	% loop through found houghlines endpoints and project to 3D
-	for i=1:length(Houghlines{imNr})
+	for i=1:length(Houghlines2d{imNr})
 		imNr
 		i
 		%pause;
 
 		figure(figPhoto);
-		plotHoughline(Houghlines, imNr, i);
+		plotHoughline(Houghlines2d, imNr, i);
 
-		
-		Houghline = Houghlines{imNr}(i);
-
-
+		Houghline = Houghlines2d{imNr}(i);
 
 		% intersect left right en mid point houghline
 		[HoughLineEndpoint1, wallNoP1]  = get3Dfrom2D(Houghline.point1', imNr, PcamX,Kcanon10GOOD, Walls, 0);
