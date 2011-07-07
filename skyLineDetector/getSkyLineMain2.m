@@ -1,7 +1,10 @@
 function getSkyLineMain()
 close all;
 
-bMatlabGui = true; endRange = 5470-5432; imStartNr = 5432;
+bMatlabGui = true; 
+%endRange = 5470-5432; 
+endRange = 8;
+imStartNr = 5432;
 
 SkylinesX = cell(endRange,1);
 SkylinesY = cell(endRange,1);
@@ -53,7 +56,7 @@ for imNr = 1:endRange
 	% GET SKYLINE
 	xStepSize = 1;
 	skylineThresh = 0.9;
-	[SkylineX, SkylineY, imBWSkyline] = getSkyLine(imNr, imRGB, imEdge, xStepSize, skylineThresh, bMatlabGui);
+	[SkylineX, SkylineY, imBWSkyline] = getSkyLine2(imNr, imRGB, imEdge, xStepSize, skylineThresh, bMatlabGui);
 
 	%store per image the result
 	imBWSkylines{imNr} = imBWSkyline
@@ -63,6 +66,6 @@ for imNr = 1:endRange
 
 end
 disp('saving mats..')
-save('../mats/SkylinesX.mat', SkylinesX);
-save('../mats/SkylinesY.mat', SkylinesY);
-save('../mats/imBWSkylines.mat', imBWSkylines);
+save('../mats/SkylinesX.mat', 'SkylinesX');
+save('../mats/SkylinesY.mat', 'SkylinesY');
+save('../mats/imBWSkylines.mat', 'imBWSkylines');

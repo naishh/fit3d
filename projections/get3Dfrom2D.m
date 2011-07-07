@@ -7,6 +7,7 @@ nWalls 		= length(WALLS);
 	
 projectionLine = getProjectionLine(coord2D, Cc, Kcanon10GOOD, PcamAbs, imNr);
 
+
 % distToIntSectPoint 	= zeros(nWalls,1);
 intSectPoint 		= zeros(nWalls,3);
 distPointToWalls 	= inf(nWalls,1);
