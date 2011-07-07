@@ -54,3 +54,6 @@ apparte case als buildingwall lager wordt of hoger
 
 
 next: mail isaac afwachten en alvast met door window shizzle kutten
+
+Building van 3d naar 2d projecten en kijken wat er fout gaat 
+
