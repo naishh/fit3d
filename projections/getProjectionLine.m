@@ -18,6 +18,8 @@ R = PcamAbs(:,1:3,imNr);
 T = PcamAbs(:,4,imNr);
 
 xy3D = R*inv(K)*xyH+T;
+xy3D = R*xyH;
+
 
 
 % to transfer back to 2d i do this:

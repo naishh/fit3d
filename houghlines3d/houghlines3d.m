@@ -77,14 +77,14 @@ for imNr=1:8;
 		Houghline = Houghlines2d{imNr}(i);
  
 		% plots projection line
-		%PcamAbs 	= getTrajectory3DNorm(invertMotion(normalizePcam(PcamX)));
-		load PcamScaled
-		PcamAbs = PcamScaled
-		PcamScaled2 = getTrajectory3DNorm(invertmotion(normalizePcam(PcamScaled)))
-		PcamAbs = PcamScaled2
-		
-		%weghalen:
 		PcamAbs 	= getTrajectory3DNorm(invertMotion(normalizePcam(PcamX)));
+		% load PcamScaled
+		% PcamAbs = PcamScaled
+		% PcamScaled2 = getTrajectory3DNorm(invertmotion(normalizePcam(PcamScaled)))
+		% PcamAbs = PcamScaled2
+		% 
+		% %weghalen:
+		% PcamAbs 	= getTrajectory3DNorm(invertMotion(normalizePcam(PcamX)));
 
 		Cc 			= PcamAbs(:,4,imNr);
 
