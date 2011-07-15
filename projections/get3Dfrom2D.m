@@ -1,11 +1,11 @@
 % returns the coord in 3d and the belongig wall
-function [coord3D, minIspToWallDistIdx] = get3Dfrom2D(coord2D, imNr, PcamX, Kcanon10GOOD, WALLS, wallNo)
+function [coord3D, minIspToWallDistIdx] = get3Dfrom2D(coord2D, imNr, PcamAbs, Kcanon10GOOD, WALLS, wallNo)
 
-PcamAbs 	= getTrajectory3DNorm(invertMotion(normalizePcam(PcamX)));
-Cc 			= PcamAbs(1:3,4,imNr);
+Cc 			= PcamAbs(:,4,imNr);
 nWalls 		= length(WALLS);
 	
 projectionLine = getProjectionLine(coord2D, Cc, Kcanon10GOOD, PcamAbs, imNr);
+
 
 % distToIntSectPoint 	= zeros(nWalls,1);
 intSectPoint 		= zeros(nWalls,3);

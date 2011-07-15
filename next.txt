@@ -55,5 +55,15 @@ apparte case als buildingwall lager wordt of hoger
 
 next: mail isaac afwachten en alvast met door window shizzle kutten
 
+<<<<<<< HEAD
+via skylineprojector kijken waarom het fout gaat
+stap voor stap projectie berekeningen doen
+
+is pcamx zelfde als bij fit3d toolbox?
+formules opschrijven en narekenen
+neusen in zn toolbox
+ook om over proggen te leren
+=======
 Building van 3d naar 2d projecten en kijken wat er fout gaat 
 
+>>>>>>> 1561aea0348ed1a81fa180993c3ee87af751209c

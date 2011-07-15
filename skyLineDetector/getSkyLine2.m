@@ -1,4 +1,4 @@
-function [SkylineX, SkylineY, imBWSkyline] = getSkyLine(imgNr, imRGB, imBW, xStepSize, skylineThresh, bMatlabGui)
+function [SkylineX, SkylineY, imBWSkyline] = getSkyLine2(imgNr, imRGB, imBW, xStepSize, skylineThresh, bMatlabGui)
 %Skyline
 % walks columnwise down from the top and breaks when finding a building
 % returns the y value (where the building starts) of every column

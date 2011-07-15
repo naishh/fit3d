@@ -75,10 +75,31 @@ for imNr=1:8;
 		plotHoughline(Houghlines2d, imNr, i);
 
 		Houghline = Houghlines2d{imNr}(i);
+ 
+		% plots projection line
+		%PcamAbs 	= getTrajectory3DNorm(invertMotion(normalizePcam(PcamX)));
+		load PcamScaled
+		PcamAbs = PcamScaled
+		PcamScaled2 = getTrajectory3DNorm(invertmotion(normalizePcam(PcamScaled)))
+		PcamAbs = PcamScaled2
+		
+		%weghalen:
+		PcamAbs 	= getTrajectory3DNorm(invertMotion(normalizePcam(PcamX)));
 
+		Cc 			= PcamAbs(:,4,imNr);
+
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%  why is this PcamX??
 		% intersect left right en mid point houghline
-		[HoughLineEndpoint1, wallNoP1]  = get3Dfrom2D(Houghline.point1', imNr, PcamX,Kcanon10GOOD, Walls, 0);
-		[HoughLineEndpoint2, wallNoP2]  = get3Dfrom2D(Houghline.point2', imNr, PcamX,Kcanon10GOOD, Walls, 0);
+		[HoughLineEndpoint1, wallNoP1]  = get3Dfrom2D(Houghline.point1', imNr, PcamAbs,Kcanon10GOOD, Walls, 0);
+		[HoughLineEndpoint2, wallNoP2]  = get3Dfrom2D(Houghline.point2', imNr, PcamAbs,Kcanon10GOOD, Walls, 0);
+
+
+		pause;
+		hold on;
+		plot3( [Cc(1), HoughLineEndpoint1(1)], [Cc(2), HoughLineEndpoint1(2)], [Cc(3), HoughLineEndpoint1(3)],'r-');
+		plot3( [Cc(1), HoughLineEndpoint2(1)], [Cc(2), HoughLineEndpoint2(2)], [Cc(3), HoughLineEndpoint2(3)],'r-');
+
 		% writeObjCube(houghEndpointsFileName, 1, HoughLineEndpoint1, 0.1);
 		% writeObjCube(houghEndpointsFileName, 1, HoughLineEndpoint2, 0.1);
 		HoughlineMidpoint = (Houghline.point1 + Houghline.point2)/2;
@@ -101,14 +122,16 @@ for imNr=1:8;
 			figure(figBuilding);
 			%plot3(X, Y, Z, ['-',colors{mod(i,length(colors))+1}],'LineWidth', 2);
 			%plot3(X, Y, Z, ['-','b'],'LineWidth', 2);
-			% calc corrected houghline
-			[HoughLineEndpoint1corrected, wallNoP1]  = get3Dfrom2D(Houghline.point1', imNr, PcamX,Kcanon10GOOD, Walls, closestWall);
-			[HoughLineEndpoint2corrected, wallNoP2]  = get3Dfrom2D(Houghline.point2', imNr, PcamX,Kcanon10GOOD, Walls, closestWall);
 
-			X = [HoughLineEndpoint1corrected(1), HoughLineEndpoint2corrected(1)];
-			Y = [HoughLineEndpoint1corrected(2), HoughLineEndpoint2corrected(2)];
-			Z = [HoughLineEndpoint1corrected(3), HoughLineEndpoint2corrected(3)];
-			% after correction
+
+			% % CALC CORRECTED HOUGHLINE
+			% [HoughLineEndpoint1corrected, wallNoP1]  = get3Dfrom2D(Houghline.point1', imNr, PcamX,Kcanon10GOOD, Walls, closestWall);
+			% [HoughLineEndpoint2corrected, wallNoP2]  = get3Dfrom2D(Houghline.point2', imNr, PcamX,Kcanon10GOOD, Walls, closestWall);
+
+			% X = [HoughLineEndpoint1corrected(1), HoughLineEndpoint2corrected(1)];
+			% Y = [HoughLineEndpoint1corrected(2), HoughLineEndpoint2corrected(2)];
+			% Z = [HoughLineEndpoint1corrected(3), HoughLineEndpoint2corrected(3)];
+			% % after correction
 			plot3(X, Y, Z, ['-','k'],'LineWidth', 2);
 
 			% plot midpoint
