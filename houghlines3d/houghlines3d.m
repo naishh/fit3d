@@ -76,13 +76,24 @@ for imNr=1:8;
 
 		Houghline = Houghlines2d{imNr}(i);
  
-		% intersect left right en mid point houghline
-		[HoughLineEndpoint1, wallNoP1]  = get3Dfrom2D(Houghline.point1', imNr, PcamX,Kcanon10GOOD, Walls, 0);
-		[HoughLineEndpoint2, wallNoP2]  = get3Dfrom2D(Houghline.point2', imNr, PcamX,Kcanon10GOOD, Walls, 0);
-
 		% plots projection line
+		%PcamAbs 	= getTrajectory3DNorm(invertMotion(normalizePcam(PcamX)));
+		load PcamScaled
+		PcamAbs = PcamScaled
+		PcamScaled2 = getTrajectory3DNorm(invertmotion(normalizePcam(PcamScaled)))
+		PcamAbs = PcamScaled2
+		
+		%weghalen:
 		PcamAbs 	= getTrajectory3DNorm(invertMotion(normalizePcam(PcamX)));
-		Cc 			= PcamAbs(1:3,4,imNr);
+
+		Cc 			= PcamAbs(:,4,imNr);
+
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%  why is this PcamX??
+		% intersect left right en mid point houghline
+		[HoughLineEndpoint1, wallNoP1]  = get3Dfrom2D(Houghline.point1', imNr, PcamAbs,Kcanon10GOOD, Walls, 0);
+		[HoughLineEndpoint2, wallNoP2]  = get3Dfrom2D(Houghline.point2', imNr, PcamAbs,Kcanon10GOOD, Walls, 0);
+
 
 		pause;
 		hold on;
