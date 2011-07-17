@@ -1,9 +1,9 @@
 % calculates the line spanned by the camera center and the 2d image coord
-function lineCoord = getProjectionLine(xy, CC, K, PcamAbs, imNr)
+function lineCoord = getProjectionLine(xy, Ccs, K, PcamAbs, imNr)
 %% input vars:
 
 % xy, the 2d pixel coordinate
-% CC, the camera center (for first pic this is [0;0;0]
+% Ccs(imNr), the camera center (for first pic this is [0;0;0]
 
 if length(xy) == 2
 	% disp('homog coord not found')
@@ -26,11 +26,11 @@ xy3D = R*xyH;
 %xyH = inv(R) * K * (xy3D - T) 
 
 % the direction vector
-xyzDirection = xy3D - CC;
+xyzDirection = xy3D - Ccs(imNr);
 
-% v presents the position on the line (v = 0 => CC, v = 1 => xy3D)
-% 3dLineEq = CC + v * xyzDirection
+% v presents the position on the line (v = 0 => Ccs(imNr), v = 1 => xy3D)
+% 3dLineEq = Ccs(imNr) + v * xyzDirection
 
 lineCoord = zeros(2, 3);
-lineCoord(1,:) = CC;
-lineCoord(2,:) = CC + xyzDirection;
+lineCoord(1,:) = Ccs(imNr);
+lineCoord(2,:) = Ccs(imNr) + xyzDirection;

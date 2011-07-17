@@ -74,3 +74,6 @@ nieuw prog project om met muis coord aan te klikken en dan in 3d model te zien
 en dan lekker formulies testen en uitproberen om te kijken wat er gebeurd
 ook even wat makkelijke rotatien matrices maken
 
+
+waarom is de projectionLine zo lang?
+dat klopt niet

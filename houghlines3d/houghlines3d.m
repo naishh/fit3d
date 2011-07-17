@@ -91,6 +91,7 @@ for imNr=1:8;
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		%  why is this PcamX??
 		% intersect left right en mid point houghline
+		figure(figBuilding)
 		[HoughLineEndpoint1, wallNoP1]  = get3Dfrom2D(Houghline.point1', imNr, PcamAbs,Kcanon10GOOD, Walls, 0);
 		[HoughLineEndpoint2, wallNoP2]  = get3Dfrom2D(Houghline.point2', imNr, PcamAbs,Kcanon10GOOD, Walls, 0);
 
