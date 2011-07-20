@@ -22,6 +22,8 @@ figBuilding = plotBuilding(Walls,[]);
 
 % retriev proj line
 projectionLine 		= getProjectionLine([mouseX, imHeight-mouseY]', Ccs, Kcanon10GOOD, PcamAbs, imNr);
+projectionLine
+pause;
 
 plotProjectionLine(projectionLine, 'r-')
 
@@ -32,7 +34,7 @@ fixedWall 			= 10;
 [coord3d, wallNo]  	= get3Dfrom2D([mouseX, mouseY]', imNr, PcamAbs,Kcanon10GOOD, Walls, fixedWall) ;
 
 
-plot3( [Ccs{imNr}(1), coord3d(1)], [Ccs{imNr}(2), coord3d(2)], [Ccs{imNr}(3), coord3d(3)],'r-'); 
+plot3( [Ccs(1,1,imNr), coord3d(1)], [Ccs(2,1,2), coord3d(2)], [Ccs(3,1,3), coord3d(3)],'b-'); 
 
 % draw line
 

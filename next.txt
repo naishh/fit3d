@@ -75,7 +75,9 @@ en dan lekker formulies testen en uitproberen om te kijken wat er gebeurd
 ook even wat makkelijke rotatien matrices maken
 
 
-waarom is de projectionLine zo lang?
-dat klopt niet
+aan report werken!
+simba interactief maken lekker kunnen blijven klikken vanuit loop
 
-simba opgeven en coords handmatig hacken in houghlines3d
+en dan kloten met de formule want die was w.s. niet helemaal goed
+testen als ik 3d model beetje verplaats of het dan allemaal wel klopt
+
