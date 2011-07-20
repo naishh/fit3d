@@ -77,3 +77,5 @@ ook even wat makkelijke rotatien matrices maken
 
 waarom is de projectionLine zo lang?
 dat klopt niet
+
+simba opgeven en coords handmatig hacken in houghlines3d

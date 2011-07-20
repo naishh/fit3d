@@ -18,6 +18,8 @@ imshow(imgs{imNr});
 
 figBuilding = plotBuilding(Walls,[]);
 
+
+
 % retriev proj line
 projectionLine 		= getProjectionLine([mouseX, imHeight-mouseY]', Ccs, Kcanon10GOOD, PcamAbs, imNr);
 
@@ -27,9 +29,10 @@ plotProjectionLine(projectionLine, 'r-')
 fixedWall 			= 10;
 % use formula to get xy3d , given a wall
 
-%[coord3d, wallNo]  	= get3Dfrom2D([mouseX, mouseY], imNr, PcamAbs,Kcanon10GOOD, Walls, fixedWall) ;
+[coord3d, wallNo]  	= get3Dfrom2D([mouseX, mouseY]', imNr, PcamAbs,Kcanon10GOOD, Walls, fixedWall) ;
 
 
+plot3( [Ccs{imNr}(1), coord3d(1)], [Ccs{imNr}(2), coord3d(2)], [Ccs{imNr}(3), coord3d(3)],'r-'); 
 
 % draw line
 

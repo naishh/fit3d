@@ -5,7 +5,8 @@ Cc 			= PcamAbs(:,4,imNr);
 nWalls 		= length(WALLS);
 	
 projectionLine = getProjectionLine(coord2D, Cc, Kcanon10GOOD, PcamAbs, imNr);
-plotProjectionLine(projectionLine, 'r-')
+
+%plotProjectionLine(projectionLine, 'r-')
 pause;
 
 

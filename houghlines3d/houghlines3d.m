@@ -92,6 +92,8 @@ for imNr=1:8;
 		%  why is this PcamX??
 		% intersect left right en mid point houghline
 		figure(figBuilding)
+Houghline.point1'
+pause;
 		[HoughLineEndpoint1, wallNoP1]  = get3Dfrom2D(Houghline.point1', imNr, PcamAbs,Kcanon10GOOD, Walls, 0);
 		[HoughLineEndpoint2, wallNoP2]  = get3Dfrom2D(Houghline.point2', imNr, PcamAbs,Kcanon10GOOD, Walls, 0);
 
@@ -133,6 +135,7 @@ for imNr=1:8;
 			% Y = [HoughLineEndpoint1corrected(2), HoughLineEndpoint2corrected(2)];
 			% Z = [HoughLineEndpoint1corrected(3), HoughLineEndpoint2corrected(3)];
 			% % after correction
+
 			plot3(X, Y, Z, ['-','k'],'LineWidth', 2);
 
 			% plot midpoint
