@@ -81,3 +81,10 @@ simba interactief maken lekker kunnen blijven klikken vanuit loop
 en dan kloten met de formule want die was w.s. niet helemaal goed
 testen als ik 3d model beetje verplaats of het dan allemaal wel klopt
 
+lwa:
+
+% bedenken of ik wil blijven kutten met coords of dat ik een tekenprogramma erbij pak
+% ook ivm cuts van de lijnen mooi weergeven
+% ff testen hoe snel het met  paint gaat ofzo?
+% of de cuts niet weergeven en 
+% trouwens cuts zijn makkeljk ik heb de coords! dus kan nog wel ff met matlab 
