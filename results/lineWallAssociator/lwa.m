@@ -1,10 +1,38 @@
+close all;
 load Walls
+
+
+wall10 = [-1.4525   , 1.0394   , 7.0732 ,  -1.4797  , -2.9551   , 7.2823  , -7.3021 ,  -2.9420  , 11.0830,  -7.2749 ,   1.0524 ,  10.8739];
+
+p1=wall10(4:6)
+p2=wall10(7:9)
+
+% adjust Y
+p1(2) = p1(2)+1; 
+p2(2) = p2(2)+1; 
+
+%adjust Z
+%p1(3) = p1(3)-1; 
+%p2(3) = p2(3)-1; 
+
+
+% full overlap
+%plotBuilding(Walls,[]);
+%plot3([p1(1),p2(1)],[p1(2),p2(2)],[p1(3),p2(3)],'r+-');
 
 plotBuilding(Walls,[]);
 
+% adjust X
+p1(1) = p1(1)+3; 
+p2(1) = p2(1)+1; 
 
-% plot (no partial an full overlapping) lines with the buidling
+%adjust Z
+p1(3) = p1(3)-3; 
+p2(3) = p2(3)-1; 
 
-	% search for the front coords
-	% by plotting the lines in plotBuilding one by one
-	% copy coords and change them 
+plot3([p1(1),p2(1)],[p1(2),p2(2)],[p1(3),p2(3)],'r+-');
+
+%-1.4525    1.0394    7.0732   -1.4797   -2.9551    7.2823   -7.3021   -2.9420   11.0830 -7.2749    1.0524   10.8739
+
+
+
