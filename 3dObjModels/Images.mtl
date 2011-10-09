@@ -4,46 +4,46 @@ Kd 1 1 1
 Ks 1 1 1
 d 1.0
 Ns 0.0
-map_Kd ../dataset/FloriandeSet1/img/outd0.jpg
+map_Kd ../dataset/FloriandeSet1/small/outd0.jpg
 newmtl Image2
 Ka 1 1 1
 Kd 1 1 1
 Ks 1 1 1
 d 1.0
 Ns 0.0
-map_Kd ../dataset/FloriandeSet1/img/outd1.jpg
+map_Kd ../dataset/FloriandeSet1/small/outd1.jpg
 newmtl Image3
 Ka 1 1 1
 Kd 1 1 1
 Ks 1 1 1
 d 1.0
 Ns 0.0
-map_Kd ../dataset/FloriandeSet1/img/outd2.jpg
+map_Kd ../dataset/FloriandeSet1/small/outd2.jpg
 newmtl Image4
 Ka 1 1 1
 Kd 1 1 1
 Ks 1 1 1
 d 1.0
 Ns 0.0
-map_Kd ../dataset/FloriandeSet1/img/outd3.jpg
+map_Kd ../dataset/FloriandeSet1/small/outd3.jpg
 newmtl Image5
 Ka 1 1 1
 Kd 1 1 1
 Ks 1 1 1
 d 1.0
 Ns 0.0
-map_Kd ../dataset/FloriandeSet1/img/outd4.jpg
+map_Kd ../dataset/FloriandeSet1/small/outd4.jpg
 newmtl Image6
 Ka 1 1 1
 Kd 1 1 1
 Ks 1 1 1
 d 1.0
 Ns 0.0
-map_Kd ../dataset/FloriandeSet1/img/outd5.jpg
+map_Kd ../dataset/FloriandeSet1/small/outd5.jpg
 newmtl Image7
 Ka 1 1 1
 Kd 1 1 1
 Ks 1 1 1
 d 1.0
 Ns 0.0
-map_Kd ../dataset/FloriandeSet1/img/outd6.jpg
+map_Kd ../dataset/FloriandeSet1/small/outd6.jpg
