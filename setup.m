@@ -9,5 +9,6 @@ path(path,[startPath, '/houghlines']);
 path(path,[startPath, '/houghlines3d']);
 path(path,[startPath, '/project22d']);
 path(path,[startPath, '/misc']);
+path(path,[startPath, '/cameraCalibration/toolbox_calib']);
 
-load outputVars_scriptComputeCameraMotion
+%load outputVars_scriptComputeCameraMotion
