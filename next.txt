@@ -91,3 +91,22 @@ lwa:
 % ff testen hoe snel het met  paint gaat ofzo?
 % of de cuts niet weergeven en 
 % trouwens cuts zijn makkeljk ik heb de coords! dus kan nog wel ff met matlab 
+
+
+dataset todo:
+fotos selecten
+fotos uppen picasaweb
+isaac mailen 
+	nwe fotos
+	w.b. google streetview idee, daar fotos van rippen?
+met een vb image?
+schaakbord fotograferen
+
+
+wild idee:
+automatisch script voor google streetview maken, vetttt
+
+
+
+
+
