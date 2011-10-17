@@ -6,9 +6,7 @@
 
 function getSkyLineMain()
 close all;
-
-bMatlabGui = true; 
-
+bShowImages = 1; 
 
 % % FLORIANDE DATASET:
 % sPathToDataset = '../dataset/FloriandeSet1/small/'
@@ -25,18 +23,19 @@ sBaseFile = 'P';
 sExtention = 'JPG';
 
 %endRange = 44;
-endRange = 1;
+endRange = 20;
 imStartNr = 1120555;
 
 
 
 % imsRGB is var in workspace
-if exist('imsSkyLine') == 1
+% TODO imsSkyLineRGB staat niet in workspace, howcome?
+if exist('imsSkyLineRGB') == 1 && exist('imsSkyLineBW'==1) && exist('imsSkyLineEdge') == 1
 	disp('using imsRGB from workspace..');
 % if imsRGB.mat is present
-elseif exist('imsSkyLine.mat') == 2
-	disp('loading imsRGB from imsRGB.mat..');
-	load('imsSkyLine.mat')
+elseif exist('../mats/imsSkyLine.mat') == 2
+	disp('loading from ../mats/imsSkyLine.mat..');
+	load('../mats/imsSkyLine.mat')
 	% no caching possible reading, raw files
 else
 	disp('loading dataset images from JPGs..');
@@ -59,21 +58,18 @@ else
 
 			% BLACK AND WHITE
 			imBW = imadjust(rgb2gray(imRGB));
-			if bMatlabGui
-				figure; 
-				imshow(imBW);
-			end
 			imsSkyLineBW{imNrNetto}  = imBW;
 			
 
-			% GAUSSIAN BLUR
-			% floriande 5,5
-			s = fspecial('gaussian',20,20);
-			imBWblurred=imfilter(imBW,s);
-			if bMatlabGui
-				figure; 
-				imshow(imBWblurred);
-			end
+			% % GAUSSIAN BLUR
+			% % floriande 5,5
+			% s = fspecial('gaussian',20,20);
+			% imBWblurred=imfilter(imBW,s);
+			% if bShowImages == 1
+			% 	figure; 
+			% 	imshow(imBWblurred);
+			% end
+			imBWblurred = imBW;
 
 			% % threshtest
 			% %for thresh=0.00:0.05:1
@@ -93,10 +89,10 @@ else
 			%thresh = 0.05;
 			thresh = 0.10;
 			imEdge = im2double(edge(imBWblurred, 'canny', thresh));
-			if bMatlabGui
-				figure; 
-				imshow(imEdge);
-			end
+			% if bShowImages
+			% 	figure; 
+			% 	imshow(imEdge);
+			% end
 
 			imsSkyLineEdge{imNrNetto}  = imEdge;
 
@@ -106,7 +102,10 @@ else
 		% save images
 	end
 	disp('saving into imsSkyLine.mat...')
-	%save('imsSkyLine.mat','imsSkyLineBW','imsSkyLineEdge')
+	save('../mats/imsSkyLine.mat','imsSkyLineRGB','imsSkyLineBW','imsSkyLineEdge')
+	global imsSkyLineRGB;
+	global imsSkyLineBW;
+	global imsSkyLineEdge;
 	disp('done')
 end
 
@@ -125,7 +124,7 @@ for imNr = 1:length(imsSkyLineBW)
 	xStepSize = 1;
 	skylineThresh = 0.9;
 	disp('starting skyline detection..');
-	[SkylineX, SkylineY, imRGBmarked, imBinary] = getSkyLine(imNr, imRGB, imEdge, xStepSize, skylineThresh, bMatlabGui);
+	[SkylineX, SkylineY, imRGBmarked, imBinary] = getSkyLine(imNr, imRGB, imEdge, xStepSize, skylineThresh, bShowImages);
 	disp('done');
 
 	%store per image the result
@@ -134,10 +133,10 @@ for imNr = 1:length(imsSkyLineBW)
 	SkylinesX{imNr} = SkylineX
 	SkylinesY{imNr} = SkylineY
 
-	pause;
 end
 disp('saving mats..')
 % save('../mats/SkylinesX.mat', 'SkylinesX');
 % save('../mats/SkylinesY.mat', 'SkylinesY');
 save('../mats/imsSkyLineBinary.mat', 'imsSkyLineBinary');
+global imsSkyLineBinary;
 

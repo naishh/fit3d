@@ -1,4 +1,4 @@
-function [SkylineX, SkylineY, imRGBmarked, imBinary] = getSkyLine(imgNr, imRGB, imEdge, xStepSize, skylineThresh, bMatlabGui)
+function [SkylineX, SkylineY, imRGBmarked, imBinary] = getSkyLine(imgNr, imRGB, imEdge, xStepSize, skylineThresh, bShowImages)
 %Skyline
 % walks columnwise down from the top and breaks when finding a building
 % returns the y value (where the building starts) of every column
@@ -21,7 +21,7 @@ function [SkylineX, SkylineY, imRGBmarked, imBinary] = getSkyLine(imgNr, imRGB, 
 			SkylineY(x) = y;
 			% building detected, break
 			if(imEdge(y,x) == 1)
-				fprintf('edge found at x,y %d, %d\n', x,y);
+				% fprintf('edge found at x,y %d, %d\n', x,y);
 				% make skyline pixel red red
 				%TODO evt in rgb
 				imRGBmarked(y-2,x,:) = [255,0,0];
@@ -41,10 +41,10 @@ function [SkylineX, SkylineY, imRGBmarked, imBinary] = getSkyLine(imgNr, imRGB, 
 			end
 		end
 	end
-	if bMatlabGui
+	if bShowImages
 		fh = figure;
 		imshow(imRGBmarked);
-		figure;
-		imshow(imBinary,[]);
+		%figure;
+		%imshow(imBinary,[]);
     end
 	%saveas(fh, ['outputSkylineIm',int2str(imgNr),'.jpg'],'jpg');
