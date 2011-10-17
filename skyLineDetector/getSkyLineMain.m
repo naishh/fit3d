@@ -44,19 +44,16 @@ else
 	imNrNetto = 1;
 	for imNr = 1:endRange
 
-		% READ IMAGE 
 		% starts with outd0 not with outd1
 		imNrFile = imNr - 1;
 
-		%file = sprintf('../dataset/FloriandeSet1/medium/undist__MG_%d.jpg', imStartNr + imNrFile)
 		file = [sPathToDataset, sBaseFile, int2str(imStartNr + imNrFile), '.', sExtention]
 
 		% break loop if file doesn't exist
 		if exist(file) ~= 2
 			break;
 		else
-
-			% read file
+			% READ FILE
 			imRGB = imread(file);
 			imsSkyLineRGB{imNrNetto}  = imRGB;
 
@@ -140,8 +137,7 @@ for imNr = 1:length(imsSkyLineBW)
 	pause;
 end
 disp('saving mats..')
-save('../mats/SkylinesX.mat', 'SkylinesX');
-save('../mats/SkylinesY.mat', 'SkylinesY');
-%save('../mats/imsBWSkyline.mat', 'imsBWSkyline');
+% save('../mats/SkylinesX.mat', 'SkylinesX');
+% save('../mats/SkylinesY.mat', 'SkylinesY');
 save('../mats/imsSkyLineBinary.mat', 'imsSkyLineBinary');
 

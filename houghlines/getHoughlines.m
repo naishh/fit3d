@@ -2,9 +2,17 @@ function Houghlines = getHoughlines(BW, plotme)
 %close all;
 [H,T,R] = hough(BW);
 
-P  = houghpeaks(H,5,'threshold',ceil(0.3*max(H(:))));
+%P  = houghpeaks(H,5,'threshold',ceil(0.3*max(H(:))));
+thresh = 0.2;
+P  = houghpeaks(H,5,'threshold',ceil(thresh*max(H(:))));
+figure;
+imshow(P)
+figure;
 x = T(P(:,2)); y = R(P(:,1));
-Houghlines = houghlines(BW,T,R,P,'FillGap',25,'MinLength',40);
+%Houghlines = houghlines(BW,T,R,P,'FillGap',25,'MinLength',40);
+
+%TODO make minimum length depended of the width of the image
+Houghlines = houghlines(BW,T,R,P,'FillGap',10,'MinLength',70);
 if plotme
    figure,imshow(BW), hold on
 end
