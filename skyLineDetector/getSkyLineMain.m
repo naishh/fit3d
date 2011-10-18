@@ -23,15 +23,15 @@ sBaseFile = 'P';
 sExtention = 'JPG';
 
 %endRange = 44;
-endRange = 20;
+endRange = 1;
 imStartNr = 1120555;
 
 
 
 % imsRGB is var in workspace
 % TODO imsSkyLineRGB staat niet in workspace, howcome?
-if exist('imsSkyLineRGB') == 1 && exist('imsSkyLineBW'==1) && exist('imsSkyLineEdge') == 1
-	disp('using imsRGB from workspace..');
+if exist('imsSkyLineBW') == 1 && exist('imsSkyLineEdge') == 1
+	disp('using ims from workspace..');
 % if imsRGB.mat is present
 elseif exist('../mats/imsSkyLine.mat') == 2
 	disp('loading from ../mats/imsSkyLine.mat..');
@@ -54,7 +54,7 @@ else
 		else
 			% READ FILE
 			imRGB = imread(file);
-			imsSkyLineRGB{imNrNetto}  = imRGB;
+			%imsSkyLineRGB{imNrNetto}  = imRGB;
 
 			% BLACK AND WHITE
 			imBW = imadjust(rgb2gray(imRGB));
@@ -102,8 +102,7 @@ else
 		% save images
 	end
 	disp('saving into imsSkyLine.mat...')
-	save('../mats/imsSkyLine.mat','imsSkyLineRGB','imsSkyLineBW','imsSkyLineEdge')
-	global imsSkyLineRGB;
+	save('../mats/imsSkyLine.mat','imsSkyLineBW','imsSkyLineEdge')
 	global imsSkyLineBW;
 	global imsSkyLineEdge;
 	disp('done')
@@ -115,7 +114,8 @@ SkylinesY = cell(endRange,1);
 
 for imNr = 1:length(imsSkyLineBW)
 	
-	imRGB  = imsSkyLineRGB{imNr};
+	%imRGB  = imsSkyLineRGB{imNr};
+	imBW  = imsSkyLineBW{imNr};
 	imEdge = imsSkyLineEdge{imNr};
 
 	% TODO close opening proberen
@@ -124,7 +124,7 @@ for imNr = 1:length(imsSkyLineBW)
 	xStepSize = 1;
 	skylineThresh = 0.9;
 	disp('starting skyline detection..');
-	[SkylineX, SkylineY, imRGBmarked, imBinary] = getSkyLine(imNr, imRGB, imEdge, xStepSize, skylineThresh, bShowImages);
+	[SkylineX, SkylineY, imMarked, imBinary] = getSkyLine(imNr, imBW, imEdge, xStepSize, skylineThresh, bShowImages);
 	disp('done');
 
 	%store per image the result
@@ -132,6 +132,10 @@ for imNr = 1:length(imsSkyLineBW)
 
 	SkylinesX{imNr} = SkylineX
 	SkylinesY{imNr} = SkylineY
+	
+	imSkylineDrawed = drawSkyline(imBW, imBinary)
+	figure;
+	imshow(imSkylineDrawed);
 
 end
 disp('saving mats..')
