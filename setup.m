@@ -1,4 +1,4 @@
-startPath = pwd()
+startPath = pwd();
 path(path,startPath);
 path(path,[startPath, '/fit3d_includes']);
 path(path,[startPath, '/mats']);
@@ -10,5 +10,5 @@ path(path,[startPath, '/houghlines3d']);
 path(path,[startPath, '/project22d']);
 path(path,[startPath, '/misc']);
 path(path,[startPath, '/cameraCalibration/toolbox_calib']);
-
+disp('added paths succesfully, good luck dude!')
 %load outputVars_scriptComputeCameraMotion
