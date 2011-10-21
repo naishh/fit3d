@@ -1,4 +1,4 @@
-function [SkylineX, SkylineY, imMarked, imBinary] = getSkyLine(imNr, imBW, imEdge, xStepSize, skylineThresh, bShowImages)
+function [SkylineX, SkylineY, imMarked, imBinary] = getSkyLine(imNr, imRGB, imEdge, xStepSize, skylineThresh)
 %Skyline
 % walks columnwise down from the top and breaks when finding a building
 % returns the y value (where the building starts) of every column
@@ -8,7 +8,7 @@ function [SkylineX, SkylineY, imMarked, imBinary] = getSkyLine(imNr, imBW, imEdg
 %	skylineThresh = 0.9;
 	[h,w] = size(imEdge);
     imBinary = zeros(h,w);
-    imMarked = imBW;
+    imMarked = imRGB;
     
 	SkylineX = 1:w;
 	SkylineY = zeros(1,w);
@@ -24,11 +24,13 @@ function [SkylineX, SkylineY, imMarked, imBinary] = getSkyLine(imNr, imBW, imEdg
 				% fprintf('edge found at x,y %d, %d\n', x,y);
 				% make skyline pixel red red
 				%TODO evt in rgb
-				imMarked(y-2,x,:) = 1;
-				imMarked(y-1,x,:) = 1;
-				imMarked(y,x,:)   = 1;
-				imMarked(y+1,x,:) = 1;
-				imMarked(y+2,x,:) = 1;
+				imMarked(y-3,x,:) = [255, 0, 0];
+				imMarked(y-2,x,:) = [255, 0, 0];
+				imMarked(y-1,x,:) = [255, 0, 0];
+				imMarked(y,x,:)   = [255, 0, 0];
+				imMarked(y+1,x,:) = [255, 0, 0];
+				imMarked(y+2,x,:) = [255, 0, 0];
+				imMarked(y+3,x,:) = [255, 0, 0];
 
 				% TODO make line width param
                 imBinary(y-2,x) = 1;
@@ -41,10 +43,4 @@ function [SkylineX, SkylineY, imMarked, imBinary] = getSkyLine(imNr, imBW, imEdg
 			end
 		end
 	end
-	if bShowImages
-		fh = figure;
-		imshow(imMarked);
-		%figure;
-		%imshow(imBinary,[]);
-    end
-	%saveas(fh, ['outputSkylineIm',int2str(imgNr),'.jpg'],'jpg');
+	%saveas(fh, ['outputSkylineIm',int2str(imNr),'.jpg'],'jpg');

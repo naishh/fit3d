@@ -1,6 +1,7 @@
 %TODO
-% make file reader who reads in memory
+% out of memory bug at 5 images fixen
 % use min and max threshold
+
 
 % i = rgb2gray(imread('../dataset/datasetSpil/P1120555.JPG'));
 
@@ -18,19 +19,24 @@ bShowImages = 1;
 % imStartNr = 5432;
 
 %SPIL DATASET
+sDatasetName = 'Spil';
 sPathToDataset = '../dataset/datasetSpil/';
 sBaseFile = 'P';
 sExtention = 'JPG';
 
 %endRange = 44;
-endRange = 1;
-imStartNr = 1120555;
+endRange = 25;
+%endRange = 1;
+imStartNr = 1120561;
+%imStartNr = 1120555;
+%imStartNr = 1120567;
 
 
 
 % imsRGB is var in workspace
 % TODO imsSkyLineRGB staat niet in workspace, howcome?
 if exist('imsSkyLineBW') == 1 && exist('imsSkyLineEdge') == 1
+	% doesn't work
 	disp('using ims from workspace..');
 % if imsRGB.mat is present
 elseif exist('../mats/imsSkyLine.mat') == 2
@@ -54,7 +60,7 @@ else
 		else
 			% READ FILE
 			imRGB = imread(file);
-			%imsSkyLineRGB{imNrNetto}  = imRGB;
+			imsSkyLineRGB{imNrNetto}  = imRGB;
 
 			% BLACK AND WHITE
 			imBW = imadjust(rgb2gray(imRGB));
@@ -102,9 +108,11 @@ else
 		% save images
 	end
 	disp('saving into imsSkyLine.mat...')
-	save('../mats/imsSkyLine.mat','imsSkyLineBW','imsSkyLineEdge')
-	global imsSkyLineBW;
-	global imsSkyLineEdge;
+	save('../mats/imsSkyLine.mat','imsSkyLineRGB','imsSkyLineBW','imsSkyLineEdge')
+	% doesnt work:
+	%global imsSkyLineRGB;
+	%global imsSkyLineBW;
+	%global imsSkyLineEdge;
 	disp('done')
 end
 
@@ -114,8 +122,8 @@ SkylinesY = cell(endRange,1);
 
 for imNr = 1:length(imsSkyLineBW)
 	
-	%imRGB  = imsSkyLineRGB{imNr};
-	imBW  = imsSkyLineBW{imNr};
+	imRGB  = imsSkyLineRGB{imNr};
+	%imBW  = imsSkyLineBW{imNr};
 	imEdge = imsSkyLineEdge{imNr};
 
 	% TODO close opening proberen
@@ -124,23 +132,26 @@ for imNr = 1:length(imsSkyLineBW)
 	xStepSize = 1;
 	skylineThresh = 0.9;
 	disp('starting skyline detection..');
-	[SkylineX, SkylineY, imMarked, imBinary] = getSkyLine(imNr, imBW, imEdge, xStepSize, skylineThresh, bShowImages);
+	[SkylineX, SkylineY, imMarked, imBinary] = getSkyLine(imNr, imRGB, imEdge, xStepSize, skylineThresh);
 	disp('done');
 
 	%store per image the result
 	imsSkyLineBinary{imNr} = imBinary
 
-	SkylinesX{imNr} = SkylineX
-	SkylinesY{imNr} = SkylineY
-	
-	imSkylineDrawed = drawSkyline(imBW, imBinary)
-	figure;
-	imshow(imSkylineDrawed);
+	%imSkylineDrawed = drawSkyline(imBW, imBinary)
+	%figure;
+	%imshow(imSkylineDrawed);
+
+	%figure;
+	%imshow(imMarked);
+	disp('saving..');
+	disp(int2str(imNr));
+	fh=figure();
+	imshow(imMarked);
+	saveas(fh, ['outputSkyline', sDatasetName,'-Im',int2str(imNr),'.jpg'],'jpg');
 
 end
-disp('saving mats..')
-% save('../mats/SkylinesX.mat', 'SkylinesX');
-% save('../mats/SkylinesY.mat', 'SkylinesY');
+disp('saving mats /mats/imsSkyLineBinary.m...')
 save('../mats/imsSkyLineBinary.mat', 'imsSkyLineBinary');
 global imsSkyLineBinary;
 

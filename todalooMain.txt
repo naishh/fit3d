@@ -3,6 +3,8 @@ skyline.mat rgb appart saven ivm speed?
 met 10 imgs testen
 
 
+skyline result other dataset in result images plaatsen en in report zetten
+zie ook todaloomatlab fit3dreport
 
 
 
