@@ -7,12 +7,12 @@
 
 function getSkyLineMain()
 close all;
-bShowImages = 1; 
+bShowImages = 0; 
 
 % % FLORIANDE DATASET:
 % sPathToDataset = '../dataset/FloriandeSet1/small/'
 % sBaseFile = 'outd'
-% sExtention = 'jpg'
+% sPostfix = 'jpg'
 % 
 % %endRange = 5470-5432; 
 % endRange = 8;
@@ -22,24 +22,19 @@ bShowImages = 1;
 sDatasetName = 'Spil';
 sPathToDataset = '../dataset/datasetSpil/';
 sBaseFile = 'P';
-sExtention = 'JPG';
+%sPostfix = '_small.JPG';
+sPostfix = '.JPG';
 
 %endRange = 44;
-endRange = 25;
-%endRange = 1;
-imStartNr = 1120561;
+endRange = 1;
+%imStartNr = 1120561;
 %imStartNr = 1120555;
 %imStartNr = 1120567;
+imStartNr = 1120573;
 
 
 
-% imsRGB is var in workspace
-% TODO imsSkyLineRGB staat niet in workspace, howcome?
-if exist('imsSkyLineBW') == 1 && exist('imsSkyLineEdge') == 1
-	% doesn't work
-	disp('using ims from workspace..');
-% if imsRGB.mat is present
-elseif exist('../mats/imsSkyLine.mat') == 2
+if exist('../mats/imsSkyLine.mat') == 2
 	disp('loading from ../mats/imsSkyLine.mat..');
 	load('../mats/imsSkyLine.mat')
 	% no caching possible reading, raw files
@@ -52,7 +47,7 @@ else
 		% starts with outd0 not with outd1
 		imNrFile = imNr - 1;
 
-		file = [sPathToDataset, sBaseFile, int2str(imStartNr + imNrFile), '.', sExtention]
+		file = [sPathToDataset, sBaseFile, int2str(imStartNr + imNrFile), sPostfix]
 
 		% break loop if file doesn't exist
 		if exist(file) ~= 2
@@ -64,7 +59,7 @@ else
 
 			% BLACK AND WHITE
 			imBW = imadjust(rgb2gray(imRGB));
-			imsSkyLineBW{imNrNetto}  = imBW;
+			%imsSkyLineBW{imNrNetto}  = imBW;
 			
 
 			% % GAUSSIAN BLUR
@@ -93,12 +88,14 @@ else
 			% EDGE DETECTION
 			%floriande 0.05, sobel
 			%thresh = 0.05;
-			thresh = 0.10;
-			imEdge = im2double(edge(imBWblurred, 'canny', thresh));
-			% if bShowImages
-			% 	figure; 
-			% 	imshow(imEdge);
-			% end
+			%thresh = 0.10;
+			thresh = 0.7;
+			%imEdge = im2double(edge(imBWblurred, 'canny', thresh));
+			imEdge = edge(imBWblurred, 'canny', thresh);
+			if bShowImages
+				figure; 
+				imshow(imEdge);
+			end
 
 			imsSkyLineEdge{imNrNetto}  = imEdge;
 
@@ -108,17 +105,14 @@ else
 		% save images
 	end
 	disp('saving into imsSkyLine.mat...')
-	save('../mats/imsSkyLine.mat','imsSkyLineRGB','imsSkyLineBW','imsSkyLineEdge')
-	% doesnt work:
-	%global imsSkyLineRGB;
-	%global imsSkyLineBW;
-	%global imsSkyLineEdge;
+	%save('../mats/imsSkyLine.mat','imsSkyLineRGB','imsSkyLineBW','imsSkyLineEdge')
+	save('../mats/imsSkyLine.mat','imsSkyLineRGB','imsSkyLineEdge')
 	disp('done')
 end
 
 
 
-for imNr = 1:length(imsSkyLineBW)
+for imNr = 1:length(imsSkyLineRGB)
 	
 	imRGB  = imsSkyLineRGB{imNr};
 	%imBW  = imsSkyLineBW{imNr};
@@ -128,9 +122,8 @@ for imNr = 1:length(imsSkyLineBW)
 
 	% GET SKYLINE
 	xStepSize = 1;
-	skylineThresh = 0.9;
 	disp('starting skyline detection..');
-	[SkylineX, SkylineY, imMarked, imBinary] = getSkyLine(imNr, imRGB, imEdge, xStepSize, skylineThresh);
+	[SkylineX, SkylineY, imMarked, imBinary] = getSkyLine(imNr, imRGB, imEdge, xStepSize);
 	disp('done');
 
 	%store per image the result
@@ -144,12 +137,12 @@ for imNr = 1:length(imsSkyLineBW)
 	%imshow(imMarked);
 	disp('saving..');
 	disp(int2str(imNr));
-	fh=figure();
+	fh=figure(1);
 	imshow(imMarked);
-	saveas(fh, ['outputSkyline', sDatasetName,'-Im',int2str(imNr),'.jpg'],'jpg');
+	saveas(fh, ['outputSkyline', sDatasetName,'-Im',int2str(imNr),'-thresh',int2str(thresh*100),'.jpg'],'jpg');
+	% werkt niet hij doet het zwart wit
+	%saveas(fh, ['outputSkyline', sDatasetName,'-Im',int2str(imNr),'.eps'], 'eps', 'psc2');
 
 end
 disp('saving mats /mats/imsSkyLineBinary.m...')
 save('../mats/imsSkyLineBinary.mat', 'imsSkyLineBinary');
-global imsSkyLineBinary;
-

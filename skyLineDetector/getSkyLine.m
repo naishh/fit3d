@@ -1,11 +1,10 @@
-function [SkylineX, SkylineY, imMarked, imBinary] = getSkyLine(imNr, imRGB, imEdge, xStepSize, skylineThresh)
+function [SkylineX, SkylineY, imMarked, imBinary] = getSkyLine(imNr, imRGB, imEdge, xStepSize)
 %Skyline
 % walks columnwise down from the top and breaks when finding a building
 % returns the y value (where the building starts) of every column
 %
 % default params:
 % 	xStepSize = 1;
-%	skylineThresh = 0.9;
 	[h,w] = size(imEdge);
     imBinary = zeros(h,w);
     imMarked = imRGB;
