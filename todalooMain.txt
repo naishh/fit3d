@@ -1,3 +1,10 @@
+images resizen (gimp?) zodat het sneller gaat
+kijken wat er zoveel ruimte neemt
+alles naar zwartwit ombouwen, evt googlen hoe!
+
+andere threshold zodat tramlijnen niet gezien worden
+
+
 skyline.mat size checken
 skyline.mat rgb appart saven ivm speed?
 met 10 imgs testen

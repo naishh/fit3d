@@ -117,8 +117,6 @@ else
 end
 
 
-SkylinesX = cell(endRange,1);
-SkylinesY = cell(endRange,1);
 
 for imNr = 1:length(imsSkyLineBW)
 	
