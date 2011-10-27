@@ -1,4 +1,12 @@
+
 perform radial distortion with matlab calib toolbox
+	rename first 6 images manually, remove the small in 
+	/media/SAMSUNG/scriptie/fit3d/dataset/datasetSpil
+	then go to fit3d, run setup, go to above dir and run calib
+	undist images
+
+	go to toolbox and use indist images
+
 
 perform scale estimation fdit3d toolbox to get 3d model
 
