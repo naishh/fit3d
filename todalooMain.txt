@@ -1,8 +1,10 @@
-images resizen (gimp?) zodat het sneller gaat
-kijken wat er zoveel ruimte neemt
-alles naar zwartwit ombouwen, evt googlen hoe!
+perform radial distortion with matlab calib toolbox
 
-andere threshold zodat tramlijnen niet gezien worden
+perform scale estimation fdit3d toolbox to get 3d model
+
+use googliemaps to make 3d model
+
+try Motion estimation scriptTjerk with what I think is K
 
 
 skyline.mat size checken
@@ -12,9 +14,6 @@ met 10 imgs testen
 
 skyline result other dataset in result images plaatsen en in report zetten
 zie ook todaloomatlab fit3dreport
-
-
-
 
 
 
