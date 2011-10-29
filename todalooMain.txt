@@ -7,18 +7,23 @@ perform radial distortion with matlab calib toolbox
 
 	go to toolbox and use indist images
 
-
-perform scale estimation fdit3d toolbox to get 3d model
+perform scale estimation fit3d toolbox to get 3d model
 
 use googliemaps to make 3d model
+find interesting building on googlemaps
+make tool to plot camera's (search in code, didn't i do this before)
 
-try Motion estimation scriptTjerk with what I think is K
+SUPERVET IDEE
+googlemaps houghlines en auto 3dmap generenern
+
 
 
 skyline.mat size checken
 skyline.mat rgb appart saven ivm speed?
 met 10 imgs testen
 
+
+houghlines
 
 skyline result other dataset in result images plaatsen en in report zetten
 zie ook todaloomatlab fit3dreport

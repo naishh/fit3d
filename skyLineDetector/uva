@@ -1,2 +1,0 @@
-#!/bin/bash
-scp $1 $2 $3 $4 $5 tkosteli@sremote.science.uva.nl:~/public_html/scriptie
