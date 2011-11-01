@@ -1,16 +1,11 @@
+check how pointcloud 3dmap is for floriande dataset
+compair 3dmap floriande, datasetspil and spilpost
 
-perform radial distortion with matlab calib toolbox
-	rename first 6 images manually, remove the small in 
-	/media/SAMSUNG/scriptie/fit3d/dataset/datasetSpil
-	then go to fit3d, run setup, go to above dir and run calib
-	undist images
-
-	go to toolbox and use indist images
-
-perform scale estimation fit3d toolbox to get 3d model
+perform scale estimation fit3d toolbox to get 3d model of datasetSpilPost
+	make script generic for other datasets
 
 use googliemaps to make 3d model
-find interesting building on googlemaps
+find interesting buildings on googlemaps
 make tool to plot camera's (search in code, didn't i do this before)
 
 SUPERVET IDEE
