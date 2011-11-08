@@ -1,10 +1,9 @@
+
 check how pointcloud 3dmap is for floriande dataset
 compair 3dmap floriande, datasetspil and spilpost
 
 perform scale estimation fit3d toolbox to get 3d model of datasetSpilPost
-	make script generic for other datasets
 
-use googliemaps to make 3d model
 find interesting buildings on googlemaps
 make tool to plot camera's (search in code, didn't i do this before)
 
