@@ -1,63 +1,45 @@
-
-check how pointcloud 3dmap is for floriande dataset
-compair 3dmap floriande, datasetspil and spilpost
-
-perform scale estimation fit3d toolbox to get 3d model of datasetSpilPost
-
-find interesting buildings on googlemaps
-make tool to plot camera's (search in code, didn't i do this before)
-
-SUPERVET IDEE
-googlemaps houghlines en auto 3dmap generenern
-
-
-
-skyline.mat size checken
-skyline.mat rgb appart saven ivm speed?
-met 10 imgs testen
-
-
-houghlines
-
-skyline result other dataset in result images plaatsen en in report zetten
-zie ook todaloomatlab fit3dreport
-
-
-
-
-
-sommige lijnen zijn scheef, dit heeft niet met de correctie te maken
-maar met een andere bug, iets met K missch.
-hier ff helder naar kijken
-maar eerst alle plaatjes maken en verslag af zonder de correctie
-
+PCAMX bug:
+check in fit3d toolbox for pcamx code
 
 misschien moet ik 1 plaatje later beginnen en klopt dan alles wel!!
 want plaatje 0 en plaatje 1 zit vette zoom verschil
 bovendien was er gedoe met img0 etc.
 
-meer plaatjes processen met houghlines
-
-
-allich is de code goed maar klopt het 3d model niet
+positionering 3d model klopt niet?
 dit checken door 3d model in 2d plaatjes te projecten
 
 
 
 
-todo inlezen plaatjes vanuit andere dir moet ook goed werken regelen
-en wat te doen met wall verlengen?
 
 
-rough building in plaatjes projecteren
+
+
+
+NEW DATASET:
+spilpost
+
+perform scale estimation fit3d toolbox to get 3d model of datasetSpilPost
+ask isaac for next steps (position 3d model)
+see mail
+
+
+
+find interesting buildings on googlemaps
+make tool to plot camera's (search in code, didn't i do this before)
+
+
+houghlines
+skyline result other dataset in result images plaatsen en in report zetten
+zie ook todaloomatlab fit3dreport
+
+
 get3Dfrom2D with given wallNo
 WERKT NOG NIET
 setup runnen 
 houghlines3d nog ff checken
 en projections/get3Dfrom2D.m
 
-Maar misschien first things first en eerst mooie plots maken
-Sowieso eerst gaan schrijven, en als ik dat zat ben dan pas proggen
 
 TODO
  plot the original houghline 
@@ -65,8 +47,6 @@ TODO
  plot the line with that wall as voorkennis
  in a different color
 
-
-****maar vooral ook aan report writen!!
 
 
 get2dfrom3d
@@ -81,7 +61,8 @@ plotbuilding2 of 3 maken
 apparte case als buildingwall lager wordt of hoger
 
 
-next: mail isaac afwachten en alvast met door window shizzle kutten
+
+
 
 via skylineprojector kijken waarom het fout gaat
 stap voor stap projectie berekeningen doen
@@ -110,30 +91,15 @@ en dan kloten met de formule want die was w.s. niet helemaal goed
 testen als ik 3d model beetje verplaats of het dan allemaal wel klopt
 
 
+
+
 results/lineWallassociator images report afmaken
-
 lwa:
-
 % bedenken of ik wil blijven kutten met coords of dat ik een tekenprogramma erbij pak
 % ook ivm cuts van de lijnen mooi weergeven
 % ff testen hoe snel het met  paint gaat ofzo?
 % of de cuts niet weergeven en 
 % trouwens cuts zijn makkeljk ik heb de coords! dus kan nog wel ff met matlab 
-
-
-dataset todo:
-fotos selecten
-fotos uppen picasaweb
-isaac mailen 
-	nwe fotos
-	w.b. google streetview idee, daar fotos van rippen?
-met een vb image?
-schaakbord fotograferen
-
-
-wild idee:
-automatisch script voor google streetview maken, vetttt
-
 
 
 

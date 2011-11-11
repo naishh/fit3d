@@ -1,4 +1,4 @@
-% simba is the new test platform
+% simba is the new test platform for the pcamx bug
 close all;
 load Walls
 load imgs
