@@ -1,15 +1,13 @@
 % returns the coord in 3d and the belongig wall
 function [coord3D, minIspToWallDistIdx] = get3Dfrom2D(coord2D, imNr, PcamAbs, Kcanon10GOOD, WALLS, wallNo)
 
-Cc 			= PcamAbs(:,4,imNr);
+Ccs 		= PcamAbs(:,4,:);
+%Cc 			= PcamAbs(:,4,imNr);
 nWalls 		= length(WALLS);
 	
-projectionLine = getProjectionLine(coord2D, Cc, Kcanon10GOOD, PcamAbs, imNr);
+projectionLine = getProjectionLine(coord2D, Ccs, Kcanon10GOOD, PcamAbs, imNr);
 
-plotProjectionLine(projectionLine, 'r-')
-
-pause;
-
+plotProjectionLine(projectionLine, 'g-')
 
 % distToIntSectPoint 	= zeros(nWalls,1);
 intSectPoint 		= zeros(nWalls,3);
@@ -43,13 +41,13 @@ if (wallNo==0)
 
 	[minIspToWallDist, minIspToWallDistIdx] = min(distPointToWalls);
 else % associated wall is known
-	w = wallNo
+	w = wallNo;
 	PlanePoint0 = [WALLS(w,1) WALLS(w,2) WALLS(w,3)];
 	PlanePoint1 = [WALLS(w,4) WALLS(w,5) WALLS(w,6)];
 	PlanePoint2 = [WALLS(w,7) WALLS(w,8) WALLS(w,9)];
 	intSectPoint(w,:) = interSectPointFromLinePlane(projectionLine(1,:), projectionLine(2,:), PlanePoint0, PlanePoint1, PlanePoint2);
 	distPointToWalls(w) = distPointToWall(intSectPoint(w,:)', WALLS(w,:));
-	minIspToWallDistIdx = wallNo
+	minIspToWallDistIdx = wallNo;
 end
 
 distPointToWalls

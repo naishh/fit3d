@@ -1,43 +1,64 @@
 % simba is the new test platform for the pcamx bug
 close all;
-load Walls
-load imgs
+
+bScriptFirstTime=false
+if (bScriptFirstTime)
+	load Walls
+	load imgs
+	load outputVars_scriptComputeCameraMotion
+end
+
 PcamAbs 		= getTrajectory3DNorm(invertMotion(normalizePcam(PcamX)));
 Ccs 			= PcamAbs(:,4,:);
-imNr 			= 1;
 
+% current image
+imNr 			= 4;
+fixedWall 		= 10;
+
+% get imgHeight
+[imHeight,dummy,dummy2] = size(imgs{imNr});
 
 % start figures
-figPhoto = figure(); figure(figPhoto);
+figPhoto = figure(); 
+movegui(figPhoto, 'east');
 
-[imHeight,dummy,dummy2] = size(imgs{imNr})
-
-imshow(imgs{imNr});
-% klik on figure
-[mouseX, mouseY]  	= ginput(1)
-
-figBuilding = plotBuilding(Walls,[]);
+% activate 3d model figure and show 3d model
+fig3dModel = plotBuilding(Walls,[]);
+movegui(fig3dModel, 'west');
 
 
+mouseLeft = 3;
+mouseButton = 1;
 
-% retriev proj line
-projectionLine 		= getProjectionLine([mouseX, imHeight-mouseY]', Ccs, Kcanon10GOOD, PcamAbs, imNr);
-projectionLine
-pause;
+while(mouseButton~=mouseLeft)
+	% activate photo window and show image
+	figure(figPhoto); imshow(imgs{imNr});
 
-plotProjectionLine(projectionLine, 'r-')
+	% click on figure
+	[mouseX, mouseY, mouseButton]  	= ginput(1);
+	%plot(mouseX,mouseY,'rx');
 
-
-fixedWall 			= 10;
-% use formula to get xy3d , given a wall
-
-[coord3d, wallNo]  	= get3Dfrom2D([mouseX, mouseY]', imNr, PcamAbs,Kcanon10GOOD, Walls, fixedWall) ;
+	% activate 3d model
+	figure(fig3dModel);
 
 
-plot3( [Ccs(1,1,imNr), coord3d(1)], [Ccs(2,1,2), coord3d(2)], [Ccs(3,1,3), coord3d(3)],'b-'); 
 
-% draw line
+	% TODO doesnt work, something with Ccs??
+	% retriev proj line
+	%projectionLine 		= getProjectionLine([mouseX, imHeight-mouseY]', Ccs, Kcanon10GOOD, PcamAbs, imNr);
+	%projectionLine
+	% plot short red projection line
+	%plotProjectionLine(projectionLine, 'r-')
 
-% do projection algo
+	%10 is front and then it increases clockwise
+	[coord3d, wallNo]  	= get3Dfrom2D([mouseX, mouseY]', imNr, PcamAbs,Kcanon10GOOD, Walls, fixedWall) ;
 
-% plot and write cross in 3d model
+	% plot short red projection line
+	% plot long blue projection line till building
+	plot3( [Ccs(1,1,imNr), coord3d(1)], [Ccs(2,1,2), coord3d(2)], [Ccs(3,1,3), coord3d(3)],'b-'); 
+end
+
+if (mouseButton == mouseLeft)
+	simba
+end
+

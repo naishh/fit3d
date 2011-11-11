@@ -1,4 +1,26 @@
 PCAMX bug:
+
+
+possible bugs:
+3d model is not placed right? to far from cc?
+try different walls different views (1 and 4)
+because 3d model is upside down, back wall is front wall?
+
+
+play with simba.m
+put all calculations in 1 file, (no function calls )
+test what PcamAbs function calls do 
+
+inverse projection:
+	project 3d model in 2d images
+
+imgs.mat 
+	retrieve from git
+	search in files
+	generate from fit3dtoolbox
+
+study the effect of different home made P matrices 
+
 check in fit3d toolbox for pcamx code
 
 misschien moet ik 1 plaatje later beginnen en klopt dan alles wel!!

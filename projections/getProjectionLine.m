@@ -17,20 +17,17 @@ end
 R = PcamAbs(:,1:3,imNr);
 T = PcamAbs(:,4,imNr);
 
+%xy3D = R*inv(K)*xyH+T;
 xy3D = R*inv(K)*xyH+T;
-%xy3D = R*xyH;
 
 
-
-% to transfer back to 2d i do this:
+% to transfer back to 2d:
 %xyH = inv(R) * K * (xy3D - T) 
 
 % the direction vector
-xyzDirection = xy3D - Ccs(imNr);
 
-% v presents the position on the line (v = 0 => Ccs(imNr), v = 1 => xy3D)
-% 3dLineEq = Ccs(imNr) + v * xyzDirection
+xyzDirection = xy3D - Ccs(:,:,imNr);
 
 lineCoord = zeros(2, 3);
-lineCoord(1,:) = Ccs(imNr);
-lineCoord(2,:) = Ccs(imNr) + xyzDirection;
+lineCoord(1,:) = Ccs(:,:,imNr);
+lineCoord(2,:) = Ccs(:,:,imNr) + xyzDirection;
