@@ -1,9 +1,11 @@
 PCAMX bug:
 
 
+uitzoeken en uitleggen hoe PcamX gegenereerd is
+
 possible bugs:
 3d model is not placed right? to far from cc?
-try different walls different views (1 and 4)
+
 because 3d model is upside down, back wall is front wall?
 
 
@@ -31,6 +33,12 @@ positionering 3d model klopt niet?
 dit checken door 3d model in 2d plaatjes te projecten
 
 
+gefaalde oplossingen:
+verschillen pcamx 1 2 3 etc uitzoeken om zo te kijken of het realtief/absoluut bug is
+	update dit is het niet
+
+normalizePcam gebeurt 2 x, zowel in getTraj3dnorm als in mijn code
+	1tje weggehaalt maakt niet uit
 
 
 

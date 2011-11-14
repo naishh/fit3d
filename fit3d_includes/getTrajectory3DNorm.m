@@ -20,7 +20,11 @@ function [PcamABS] = getTrajectory3DNorm(Pcam)
     PcamABS = zeros(4,4,size(Pcam,3));
     
     % Normalize
-    PcamN = normalizePcam(Pcam);
+    %PcamN = normalizePcam(Pcam);
+
+	% TJERK
+	disp('t')
+    PcamN = Pcam;
     
     PcamABS(:,:,1) = PcamN(:,:,1);
     
