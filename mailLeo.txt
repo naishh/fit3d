@@ -14,6 +14,7 @@ Ik heb al een aantal dingen ge
 Het kan aan van alles liggen:
 Bijvoorbeeld in de projectie berekening 
 Mijn hypothese is dat het 3D model niet goed in de wereld geplaatst is.
+wil ik zeker weten
 
 
 Bijgaand: mijn thesis, dusver, Isaacs thesis , TODO
@@ -30,5 +31,18 @@ deltaT = 0.4710    0.3366    0.5643    0.4870    0.5831    0.5124    0.3987
 
 uitleggen resultaat:
 je ziet dat er ongeveer evenveel rotatie 
+
+
+
+hoe een 3d model op de goede plek in de ruimte plaatsen
+
+
+Ik Quote Isaac:
+Placing the 3D model in the right location is done manually. This means that you
+want to obtain the 3D reconstruction with FIT3D, then manually register it with
+the model that you create. There a few methods for this, but before we go into
+that, Id like to see the 3D model that you obtain from google and the 3D
+reconstruction from fit3d.
+
 
 

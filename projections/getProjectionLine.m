@@ -17,9 +17,8 @@ end
 R = PcamAbs(:,1:3,imNr);
 T = PcamAbs(:,4,imNr);
 
-%xy3D = R*inv(K)*xyH+T;
+%as in ReconstructionModeling/build3dcMap.m line 163
 xy3D = R*inv(K)*xyH+T;
-
 
 % to transfer back to 2d:
 %xyH = inv(R) * K * (xy3D - T) 

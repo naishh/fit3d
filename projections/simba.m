@@ -2,58 +2,31 @@
 close all;
 clear coord3dPrev
 
-bScriptFirstTime=false;
+bScriptFirstTime=true;
 if (bScriptFirstTime)
 	load Walls
 	load imgs
-	load outputVars_scriptComputeCameraMotion
+	%load outputVars_scriptComputeCameraMotion
+	load Kcanon10GOOD
+	load PcamScaled
 end
-
-%PcamAbs 		= getTrajectory3DNorm(invertMotion(normalizePcam(PcamX)));
 
 
 % add homogenous coord
-PcamAbs 		= normalizePcam(PcamX);
-% inverses every item in PcamAbs
+PcamAbs 		= normalizePcam(PcamScaled);
+% inverses every item matrix in PcamAbs
 PcamAbs 		= invertMotion(PcamAbs);
 % make relative camera position absolute
 PcamAbs 		= getTrajectory3DNorm(PcamAbs);
 
 
 
-
-% analyse pcamabs
-l = length(PcamAbs)-1;
-deltaR = zeros(1,l);
-deltaR0 = zeros(1,l);
-deltaT = zeros(1,l); 
-deltaT0 = zeros(1,l); 
-
-for i=1:l
-	R0 = PcamAbs(:,1:3,1);
-	R1 = PcamAbs(:,1:3,i);
-	R2 = PcamAbs(:,1:3,i+1);
-	deltaR(i) = sum(sum(abs(R2-R1))) / 9;
-	deltaR0(i) = sum(sum(abs(R2-R0))) / 9;
-
-	T0 = PcamAbs(:,4,1);
-	T1 = PcamAbs(:,4,i);
-	T2 = PcamAbs(:,4,i+1);
-	deltaT(i) = sum(sum(abs(T2-T1))) / 3;
-	deltaT0(i) = sum(sum(abs(T2-T0))) / 3;
-end
-deltaR
-deltaT
-deltaR0
-deltaT0
-pause;
-
 Ccs 			= PcamAbs(:,4,:);
 
 % current image
 imNr 			= 4;
 %fixedWall 		= 10;
-fixedWall 		= 10;
+fixedWall 		= 7;
 
 % get imgHeight
 [imHeight,dummy,dummy2] = size(imgs{imNr});

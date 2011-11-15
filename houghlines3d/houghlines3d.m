@@ -3,21 +3,12 @@ close all;
 clear Houghlines3dWall
 clear Houghlines3d
 %clear Houghlines
-
-% todo fix quickfix because Houghlines overwrites the startpath
-%startPath2 = startPath;
-if exist('Houghlines2d') == 0
-	disp('loaded real houghlines from mat file')
-	load Houghlines2d;
-else
-	disp('loaded real houghlines from cache')
-end
-%startPath = startPath2;
-load Walls
-
-colors = {'r', 'b', 'c', 'm', 'y', 'k'};
+load PcamAbs;	
+load Walls;
+load Kcanon10GOOD;
 
 % config
+colors = {'r', 'b', 'c', 'm', 'y', 'k'};
 windowsPlot = 1;
 
 houghEndpointsFileName 	= 'hough-endpoints.obj';
@@ -25,10 +16,6 @@ houghLinesFileName     	= 'hough-lines.obj';
 % flush and instantiate files
 fp = fopen(houghEndpointsFileName, 'w'); fclose(fp);
 fp = fopen(houghLinesFileName    , 'w'); fclose(fp);
-
-if windowsPlot
-	figBuilding = plotBuilding(Walls,[]);
-end
 
 
 for w=1:length(Walls)
@@ -38,10 +25,24 @@ end
 if exist('imgs') == 0
 	%imgs = loadImgs(startPath,1,6);
 	disp('loading images from images')
-	%imgs = loadImgs(startPath,1 ,6); 
-	imgs = loadImgs(startPath, 5432 , 5470); 
+	%imgs = loadImgs(startPath, 5432 , 5470); 
+	imgs = loadImgs(startPath, 5432 , 5435); 
 else
 	disp('loading images not needed');
+end
+
+% if exist('Houghlines2d') == 0
+% 	disp('loaded real houghlines from mat file')
+% 	load Houghlines2d;
+% else
+% 	disp('loaded real houghlines from cache')
+% end
+load fakeHoughlines4Img3lines
+Houghlines2d = fakeHoughlines
+
+% plot building
+if windowsPlot
+	figBuilding = plotBuilding(Walls,[]);
 end
 
 
@@ -76,27 +77,20 @@ for imNr=1:8;
 
 		Houghline = Houghlines2d{imNr}(i);
  
-		% plots projection line
-		PcamAbs 	= getTrajectory3DNorm(invertMotion(normalizePcam(PcamX)));
-		% load PcamScaled
-		% PcamAbs = PcamScaled
-		% PcamScaled2 = getTrajectory3DNorm(invertmotion(normalizePcam(PcamScaled)))
-		% PcamAbs = PcamScaled2
-		% 
-		% %weghalen:
-		% PcamAbs 	= getTrajectory3DNorm(invertMotion(normalizePcam(PcamX)));
-
 		Cc 			= PcamAbs(:,4,imNr);
 
-		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-		%  why is this PcamX??
 		% intersect left right en mid point houghline
 		figure(figBuilding)
+
+
 		[HoughLineEndpoint1, wallNoP1]  = get3Dfrom2D(Houghline.point1', imNr, PcamAbs,Kcanon10GOOD, Walls, 0);
 		[HoughLineEndpoint2, wallNoP2]  = get3Dfrom2D(Houghline.point2', imNr, PcamAbs,Kcanon10GOOD, Walls, 0);
 
+		% fixedWall 		= 10;
+		% [HoughLineEndpoint1, wallNoP1]  = get3Dfrom2D(Houghline.point1', imNr, PcamAbs,Kcanon10GOOD, Walls, fixedWall);
+		% [HoughLineEndpoint2, wallNoP2]  = get3Dfrom2D(Houghline.point2', imNr, PcamAbs,Kcanon10GOOD, Walls, fixedWall);
 
-		pause;
+
 		hold on;
 		plot3( [Cc(1), HoughLineEndpoint1(1)], [Cc(2), HoughLineEndpoint1(2)], [Cc(3), HoughLineEndpoint1(3)],'r-');
 		plot3( [Cc(1), HoughLineEndpoint2(1)], [Cc(2), HoughLineEndpoint2(2)], [Cc(3), HoughLineEndpoint2(3)],'r-');
@@ -104,7 +98,7 @@ for imNr=1:8;
 		% writeObjCube(houghEndpointsFileName, 1, HoughLineEndpoint1, 0.1);
 		% writeObjCube(houghEndpointsFileName, 1, HoughLineEndpoint2, 0.1);
 		HoughlineMidpoint = (Houghline.point1 + Houghline.point2)/2;
-		[Dummy, closestWall]  = get3Dfrom2D(HoughlineMidpoint', imNr, PcamX,Kcanon10GOOD, Walls, 0);
+		[Dummy, closestWall]  = get3Dfrom2D(HoughlineMidpoint', imNr, PcamAbs,Kcanon10GOOD, Walls, 0);
 		[wallNoP1, closestWall, wallNoP2]
 		
 		% if (wallNoP1 == closestWall) && (wallNoP2 == closestWall) 
@@ -125,14 +119,14 @@ for imNr=1:8;
 			%plot3(X, Y, Z, ['-','b'],'LineWidth', 2);
 
 
-			% % CALC CORRECTED HOUGHLINE
-			% [HoughLineEndpoint1corrected, wallNoP1]  = get3Dfrom2D(Houghline.point1', imNr, PcamX,Kcanon10GOOD, Walls, closestWall);
-			% [HoughLineEndpoint2corrected, wallNoP2]  = get3Dfrom2D(Houghline.point2', imNr, PcamX,Kcanon10GOOD, Walls, closestWall);
+			% CALC CORRECTED HOUGHLINE
+			[HoughLineEndpoint1corrected, wallNoP1]  = get3Dfrom2D(Houghline.point1', imNr, PcamAbs,Kcanon10GOOD, Walls, closestWall);
+			[HoughLineEndpoint2corrected, wallNoP2]  = get3Dfrom2D(Houghline.point2', imNr, PcamAbs,Kcanon10GOOD, Walls, closestWall);
 
-			% X = [HoughLineEndpoint1corrected(1), HoughLineEndpoint2corrected(1)];
-			% Y = [HoughLineEndpoint1corrected(2), HoughLineEndpoint2corrected(2)];
-			% Z = [HoughLineEndpoint1corrected(3), HoughLineEndpoint2corrected(3)];
-			% % after correction
+			X = [HoughLineEndpoint1corrected(1), HoughLineEndpoint2corrected(1)];
+			Y = [HoughLineEndpoint1corrected(2), HoughLineEndpoint2corrected(2)];
+			Z = [HoughLineEndpoint1corrected(3), HoughLineEndpoint2corrected(3)];
+			% after correction
 
 			plot3(X, Y, Z, ['-','k'],'LineWidth', 2);
 
@@ -155,7 +149,6 @@ for imNr=1:8;
 
 
 	end
-	pause;
 
 end
 

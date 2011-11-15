@@ -1,55 +1,16 @@
-PCAMX bug:
+do todos
+watch serie on beamer :)
 
-
-uitzoeken en uitleggen hoe PcamX gegenereerd is
-
-possible bugs:
-3d model is not placed right? to far from cc?
-
-because 3d model is upside down, back wall is front wall?
-
-
-play with simba.m
-put all calculations in 1 file, (no function calls )
-test what PcamAbs function calls do 
 
 inverse projection:
 	project 3d model in 2d images
-
-imgs.mat 
-	retrieve from git
-	search in files
-	generate from fit3dtoolbox
-
-study the effect of different home made P matrices 
-
-check in fit3d toolbox for pcamx code
-
-misschien moet ik 1 plaatje later beginnen en klopt dan alles wel!!
-want plaatje 0 en plaatje 1 zit vette zoom verschil
-bovendien was er gedoe met img0 etc.
-
-positionering 3d model klopt niet?
-dit checken door 3d model in 2d plaatjes te projecten
-
-
-gefaalde oplossingen:
-verschillen pcamx 1 2 3 etc uitzoeken om zo te kijken of het realtief/absoluut bug is
-	update dit is het niet
-
-normalizePcam gebeurt 2 x, zowel in getTraj3dnorm als in mijn code
-	1tje weggehaalt maakt niet uit
-
-
-
-
-
 
 
 NEW DATASET:
 spilpost
 
 perform scale estimation fit3d toolbox to get 3d model of datasetSpilPost
+perform reconstructionModeling and get 'textured' 3d model
 ask isaac for next steps (position 3d model)
 see mail
 
@@ -133,4 +94,10 @@ lwa:
 
 
 
+
+
+DOOR WINDOW DETECTION:
+doordat ik 3d model heb kan ik ramen rekken zodat ze vierkant zijn
+algemene corner finder icm hough transform
+	voordeel hand geanoteerde ramen niet nodig
 

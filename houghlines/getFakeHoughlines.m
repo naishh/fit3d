@@ -1,13 +1,13 @@
 function fakeHoughlines = getFakeHoughlines()
 
-endRange = 1;
-totLines = 15 
+endRange = 4;
+totLines = 3
 for imNr = 1:endRange
 
 	% READ IMAGE 
 	% starts with outd0 not with outd1
 	imNrFile = imNr - 1
-	file = sprintf('../dataset/FloriandeSet1/img/outd%d.jpg', imNrFile)
+	file = sprintf('../dataset/FloriandeSet1/small/outd%d.jpg', imNrFile)
 
 	imRGB = imread(file);
 	[h,w] = size(imRGB)
