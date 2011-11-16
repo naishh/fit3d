@@ -10,29 +10,28 @@ close all;
 bShowImages = 0; 
 
 % % FLORIANDE DATASET:
-% sPathToDataset = '../dataset/FloriandeSet1/small/'
-% sBaseFile = 'outd'
-% sPostfix = 'jpg'
-% 
-% %endRange = 5470-5432; 
-% endRange = 8;
-% imStartNr = 5432;
+oDataset.sDatasetName = 'Floriande';
+oDataset.sPathToDataset = '../dataset/FloriandeSet1/small/';
+oDataset.sBaseFile = 'outd';
+oDataset.sPostfix = '.jpg';
+oDataset.endRange = 8; %endRange = 5470-5432; 
+%oDataset.imStartNr = 5432;
+oDataset.imStartNr = 0;
+oDataset.edgeMethod = 'canny';
+oDataset.thresh = 0.05;
 
-%SPIL DATASET
-sDatasetName = 'Spil';
-sPathToDataset = '../dataset/datasetSpil/';
-sBaseFile = 'P';
-%sPostfix = '_small.JPG';
-sPostfix = '.JPG';
-
-%endRange = 44;
-endRange = 1;
-%imStartNr = 1120561;
-%imStartNr = 1120555;
-%imStartNr = 1120567;
-imStartNr = 1120573;
-
-
+% %SPIL DATASET
+% oDataset.sDatasetName = 'Spil';
+% oDataset.sPathToDataset = '../dataset/datasetSpil/';
+% oDataset.sBaseFile = 'P';
+% oDataset.sPostfix = '.JPG';
+% oDataset.endRange = 1; % use 44 for full
+% %oDataset.imStartNr = 1120561;
+% %oDataset.imStartNr = 1120555;
+% %oDataset.imStartNr = 1120567;
+% oDataset.imStartNr = 1120573;
+% oDataset.edgeMethod = 'canny';
+% oDataset.thresh = 0.7;
 
 if exist('../mats/imsSkyLine.mat') == 2
 	disp('loading from ../mats/imsSkyLine.mat..');
@@ -42,15 +41,17 @@ else
 	disp('loading dataset images from JPGs..');
 	% load and save images
 	imNrNetto = 1;
-	for imNr = 1:endRange
+	for imNr = 1:oDataset.endRange
 
 		% starts with outd0 not with outd1
 		imNrFile = imNr - 1;
 
-		file = [sPathToDataset, sBaseFile, int2str(imStartNr + imNrFile), sPostfix]
+		file = [oDataset.sPathToDataset, oDataset.sBaseFile, int2str(oDataset.imStartNr + imNrFile), oDataset.sPostfix]
 
 		% break loop if file doesn't exist
 		if exist(file) ~= 2
+			disp('file doesnt exist');
+			file
 			break;
 		else
 			% READ FILE
@@ -86,12 +87,9 @@ else
 
 			
 			% EDGE DETECTION
-			%floriande 0.05, sobel
-			%thresh = 0.05;
-			%thresh = 0.10;
-			thresh = 0.7;
+			
 			%imEdge = im2double(edge(imBWblurred, 'canny', thresh));
-			imEdge = edge(imBWblurred, 'canny', thresh);
+			imEdge = edge(imBWblurred, oDataset.edgeMethod, oDataset.thresh);
 			if bShowImages
 				figure; 
 				imshow(imEdge);
@@ -139,7 +137,7 @@ for imNr = 1:length(imsSkyLineRGB)
 	disp(int2str(imNr));
 	fh=figure(1);
 	imshow(imMarked);
-	saveas(fh, ['outputSkyline', sDatasetName,'-Im',int2str(imNr),'-thresh',int2str(thresh*100),'.jpg'],'jpg');
+	saveas(fh, ['outputSkyline', oDataset.sDatasetName,'-Im',int2str(imNr),'-thresh',int2str(oDataset.thresh*100),'.jpg'],'jpg');
 	% werkt niet hij doet het zwart wit
 	%saveas(fh, ['outputSkyline', sDatasetName,'-Im',int2str(imNr),'.eps'], 'eps', 'psc2');
 

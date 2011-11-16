@@ -1,6 +1,6 @@
-do todos
-watch serie on beamer :)
+generate new images for thesis
 
+houghlines, thresh goed doen
 
 inverse projection:
 	project 3d model in 2d images
