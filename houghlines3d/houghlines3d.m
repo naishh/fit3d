@@ -26,7 +26,7 @@ if exist('imgs') == 0
 	%imgs = loadImgs(startPath,1,6);
 	disp('loading images from images')
 	%imgs = loadImgs(startPath, 5432 , 5470); 
-	imgs = loadImgs(startPath, 5432 , 5435); 
+	imgs = loadImgs(startPath, 5432 , 5439); 
 else
 	disp('loading images not needed');
 end
@@ -59,8 +59,7 @@ end
 % Houghlines = HoughlinesSelecta;
 
 % loop through different views
-%for imNr=1:length(Houghlines2d)
-for imNr=1:8;
+for imNr=1:length(Houghlines2d)
 	figPhoto = figure();
 	figure(figPhoto);
 	imshow(imgs{imNr});
@@ -152,7 +151,7 @@ for imNr=1:8;
 
 end
 
-disp('saving Houghlines3dWall in directory ...[temp NOT]');
-pwd
+disp('saving Houghlines3dWall in directory ...');
 %%save('../mats/Houghlines3d.mat', 'Houghlines3d');
-%save('../mats/Houghlines3dWall.mat', 'Houghlines3dWall');
+save('../mats/Houghlines3dWall.mat', 'Houghlines3dWall');
+disp('done');

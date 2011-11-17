@@ -17,7 +17,8 @@ oDataset.sPostfix = '.jpg';
 oDataset.endRange = 8; %endRange = 5470-5432; 
 %oDataset.imStartNr = 5432;
 oDataset.imStartNr = 0;
-oDataset.edgeMethod = 'canny';
+oDataset.edgeMethod = 'sobel';
+%oDataset.edgeMethod = 'canny';
 oDataset.thresh = 0.05;
 
 % %SPIL DATASET
@@ -63,15 +64,16 @@ else
 			%imsSkyLineBW{imNrNetto}  = imBW;
 			
 
-			% % GAUSSIAN BLUR
-			% % floriande 5,5
-			% s = fspecial('gaussian',20,20);
-			% imBWblurred=imfilter(imBW,s);
-			% if bShowImages == 1
-			% 	figure; 
-			% 	imshow(imBWblurred);
-			% end
-			imBWblurred = imBW;
+			
+			% GAUSSIAN BLUR
+			% with spil set not needed
+			% floriande 5,5
+			s = fspecial('gaussian',5,5);
+			imBWblurred=imfilter(imBW,s);
+			if bShowImages == 1
+				figure; 
+				imshow(imBWblurred);
+			end
 
 			% % threshtest
 			% %for thresh=0.00:0.05:1

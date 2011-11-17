@@ -5,9 +5,6 @@ function Houghlines = getHoughlines(BW, plotme)
 %P  = houghpeaks(H,5,'threshold',ceil(0.3*max(H(:))));
 thresh = 0.2;
 P  = houghpeaks(H,5,'threshold',ceil(thresh*max(H(:))));
-figure;
-imshow(P)
-figure;
 x = T(P(:,2)); y = R(P(:,1));
 %Houghlines = houghlines(BW,T,R,P,'FillGap',25,'MinLength',40);
 

@@ -1,6 +1,6 @@
-generate new images for thesis
-
-houghlines, thresh goed doen
+generate new result images for thesis
+update building
+begin at door window detection
 
 inverse projection:
 	project 3d model in 2d images
@@ -98,6 +98,8 @@ lwa:
 
 DOOR WINDOW DETECTION:
 doordat ik 3d model heb kan ik ramen rekken zodat ze vierkant zijn
+	door hoekpunten in 2d model te projecten en uit te rekken
+
 algemene corner finder icm hough transform
 	voordeel hand geanoteerde ramen niet nodig
 
