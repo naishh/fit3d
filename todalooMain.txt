@@ -1,7 +1,12 @@
-begin at door window detection
+DOOR WINDOW:
+	project 3d 2d 
+	read papers about door window detection 
+		combined with houghlines vanishpoints
+	try license plate code
 
-inverse projection:
-	project 3d model in 2d images
+
+
+
 
 
 NEW DATASET:
