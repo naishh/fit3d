@@ -1,5 +1,3 @@
-generate new result images for thesis
-update building
 begin at door window detection
 
 inverse projection:

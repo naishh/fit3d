@@ -22,6 +22,8 @@ xy3D = R*inv(K)*xyH+T;
 
 % to transfer back to 2d:
 %xyH = inv(R) * K * (xy3D - T) 
+% herstel:
+%xyH = K * inv(R) * (xy3D - T) 
 
 % the direction vector
 
