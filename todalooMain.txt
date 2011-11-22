@@ -1,8 +1,30 @@
+pcamxbug:
+	project point cloud to z axis and overlay googlymap model
+	wallheights are not good
+		onderzoek why the cornerpoint of the walls don't have same height
+	read isaacs mail again
+	mail new improved building results
+	project Walls with pointcloud
+	ask new questions to isaac and put pcamxbug in the fridge LET IT GO :)
+
+FITTING THE 3D MODEL
+	see matching2d.ppt
+	see old paper
+	search terms:
+	point matching 2d basic least squares 2D translation rotation scaling
+
+
 DOOR WINDOW:
 	project 3d 2d 
+		test old project2Normal script
+			Z direction from pcam?
+			project pixels, which is nice
+
 	read papers about door window detection 
 		combined with houghlines vanishpoints
 	try license plate code
+	think of how to combine images 
+		increase evidence for certain window 
 
 
 

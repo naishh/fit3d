@@ -6,7 +6,7 @@ clear HeightBuildingWall
 load Houghlines3dWall
 load Walls
 
-WallsNew = Walls;
+WallsImproved = Walls;
 plotBuilding(Walls, []);
 
 
@@ -50,17 +50,18 @@ for i = 1:length(interestingWalls)
 	plot3([p1(1),p2(1)],[p1(2),p2(2)],[p1(3),p2(3)], 'r-', 'LineWidth',2);
 
 	% update wall
-	WallsNew(wall,7:9) = p1;
-	WallsNew(wall,10:12) = p2;
+	WallsImproved(wall,7:9) = p1;
+	WallsImproved(wall,10:12) = p2;
 
 	%pause;
 
 end
 
+save('../mats/WallsImproved','WallsImproved');
 
 figure;
 plotBuilding(Walls, interestingWalls)
 hold on;
-plotBuilding2(WallsNew, interestingWalls)
+plotBuilding2(WallsImproved, interestingWalls)
 
 

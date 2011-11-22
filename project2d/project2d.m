@@ -1,8 +1,10 @@
 % this file transfors 3d coords of the building to a 2d image
 close all;
 load PcamAbs;	
-load Walls;
+load WallsImproved;
+Walls = WallsImproved;
 load Kcanon10GOOD;
+
 
 % config
 colors = {'r', 'b', 'c', 'm', 'y', 'k'};

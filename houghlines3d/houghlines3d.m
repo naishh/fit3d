@@ -1,7 +1,6 @@
 % this file transfers the houghlines to 3d space
 close all;
 clear Houghlines3dWall
-clear Houghlines3d
 %clear Houghlines
 load PcamAbs;	
 load Walls;

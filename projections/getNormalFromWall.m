@@ -25,7 +25,7 @@ wallNormal = cross(v,w);
 wallNormal = wallNormal/norm(wallNormal);
 
 if plotDetails
-	plotBuilding()
+	plotBuilding(Walls)
 
 	hold on;
 
