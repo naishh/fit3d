@@ -1,5 +1,9 @@
 pcamxbug:
 	project point cloud to z axis and overlay googlymap model
+		see align3Dmodel folder
+
+	perform reconstructmodeling with more than 8 images
+
 	wallheights are not good
 		onderzoek why the cornerpoint of the walls don't have same height
 	read isaacs mail again
