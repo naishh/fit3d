@@ -4,7 +4,6 @@ close all;
 clear Houghlines3dWall
 clear HeightBuildingWall
 load Houghlines3dWall
-%load Walls
 load WallsPc
 Walls=WallsPc
 
@@ -17,7 +16,7 @@ interestingWalls = [1, 2, 4];
 
 % all walls
 %for wall = 1:length(Houghlines3dWall)
-for i = 1:size(interestingWalls,1)
+for i = 1:length(interestingWalls)
 	wall = interestingWalls(i);
 	sum = [0 0 0];
 	wall

@@ -1,4 +1,5 @@
-function plotBuilding(Walls, interestingWalls)
+function figBuilding = plotBuilding(Walls, interestingWalls)
+figBuilding  = figure();
 hold on;
 
 % change order of the cornerpoints of the wall so the polygons (walls) are plotted right
@@ -17,7 +18,7 @@ for wall=1:size(WallsNew,1)
 	end
 	C = ones(1,4);
 	% draw wall
-	color1 = 'w';
+	color1 = 'b';
 	if wall==7
 		fill3(X,Y,Z,color1);
 	elseif wall==9

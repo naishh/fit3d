@@ -13,7 +13,7 @@ Z = [11.9792, 7.2957, 9.9875, 11.5275, 19.991];
 %plot(X,Y,'k+-','MarkerSize',10);
 
 yGround = 1;
-yAir = -3.5;	
+yAir = -3;	
 WallsPc = generateWallsFromCornerPoints(X,Z, yGround,yAir);
 save('../mats/WallsPc.mat','WallsPc');
 

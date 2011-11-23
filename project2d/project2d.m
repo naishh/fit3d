@@ -2,10 +2,8 @@
 close all;
 load PcamAbs;	
 
-% load WallsImproved;
-% Walls = WallsImproved;
-load WallsPc
-Walls=WallsPc
+load WallsImproved;
+Walls = WallsImproved;
 
 load Kcanon10GOOD;
 
