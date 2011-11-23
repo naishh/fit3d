@@ -3,7 +3,7 @@ close all;
 clear Houghlines3dWall
 %clear Houghlines
 load PcamAbs;	
-load Walls;
+load WallsPc;
 load Kcanon10GOOD;
 
 % config
@@ -17,7 +17,7 @@ fp = fopen(houghEndpointsFileName, 'w'); fclose(fp);
 fp = fopen(houghLinesFileName    , 'w'); fclose(fp);
 
 
-for w=1:length(Walls)
+for w=1:length(WallsPc)
 	Houghlines3dWall{w} = struct();
 end
 
@@ -41,7 +41,7 @@ Houghlines2d = fakeHoughlines
 
 % plot building
 if windowsPlot
-	figBuilding = plotBuilding(Walls,[]);
+	figBuilding = plotBuilding(WallsPc,[]);
 end
 
 
@@ -81,12 +81,12 @@ for imNr=1:length(Houghlines2d)
 		figure(figBuilding)
 
 
-		[HoughLineEndpoint1, wallNoP1]  = get3Dfrom2D(Houghline.point1', imNr, PcamAbs,Kcanon10GOOD, Walls, 0);
-		[HoughLineEndpoint2, wallNoP2]  = get3Dfrom2D(Houghline.point2', imNr, PcamAbs,Kcanon10GOOD, Walls, 0);
+		[HoughLineEndpoint1, wallNoP1]  = get3Dfrom2D(Houghline.point1', imNr, PcamAbs,Kcanon10GOOD, WallsPc, 0);
+		[HoughLineEndpoint2, wallNoP2]  = get3Dfrom2D(Houghline.point2', imNr, PcamAbs,Kcanon10GOOD, WallsPc, 0);
 
 		% fixedWall 		= 10;
-		% [HoughLineEndpoint1, wallNoP1]  = get3Dfrom2D(Houghline.point1', imNr, PcamAbs,Kcanon10GOOD, Walls, fixedWall);
-		% [HoughLineEndpoint2, wallNoP2]  = get3Dfrom2D(Houghline.point2', imNr, PcamAbs,Kcanon10GOOD, Walls, fixedWall);
+		% [HoughLineEndpoint1, wallNoP1]  = get3Dfrom2D(Houghline.point1', imNr, PcamAbs,Kcanon10GOOD, WallsPc, fixedWall);
+		% [HoughLineEndpoint2, wallNoP2]  = get3Dfrom2D(Houghline.point2', imNr, PcamAbs,Kcanon10GOOD, WallsPc, fixedWall);
 
 
 		hold on;
@@ -96,7 +96,7 @@ for imNr=1:length(Houghlines2d)
 		% writeObjCube(houghEndpointsFileName, 1, HoughLineEndpoint1, 0.1);
 		% writeObjCube(houghEndpointsFileName, 1, HoughLineEndpoint2, 0.1);
 		HoughlineMidpoint = (Houghline.point1 + Houghline.point2)/2;
-		[Dummy, closestWall]  = get3Dfrom2D(HoughlineMidpoint', imNr, PcamAbs,Kcanon10GOOD, Walls, 0);
+		[Dummy, closestWall]  = get3Dfrom2D(HoughlineMidpoint', imNr, PcamAbs,Kcanon10GOOD, WallsPc, 0);
 		[wallNoP1, closestWall, wallNoP2]
 		
 		% if (wallNoP1 == closestWall) && (wallNoP2 == closestWall) 
@@ -118,8 +118,8 @@ for imNr=1:length(Houghlines2d)
 
 
 			% CALC CORRECTED HOUGHLINE
-			[HoughLineEndpoint1corrected, wallNoP1]  = get3Dfrom2D(Houghline.point1', imNr, PcamAbs,Kcanon10GOOD, Walls, closestWall);
-			[HoughLineEndpoint2corrected, wallNoP2]  = get3Dfrom2D(Houghline.point2', imNr, PcamAbs,Kcanon10GOOD, Walls, closestWall);
+			[HoughLineEndpoint1corrected, wallNoP1]  = get3Dfrom2D(Houghline.point1', imNr, PcamAbs,Kcanon10GOOD, WallsPc, closestWall);
+			[HoughLineEndpoint2corrected, wallNoP2]  = get3Dfrom2D(Houghline.point2', imNr, PcamAbs,Kcanon10GOOD, WallsPc, closestWall);
 
 			X = [HoughLineEndpoint1corrected(1), HoughLineEndpoint2corrected(1)];
 			Y = [HoughLineEndpoint1corrected(2), HoughLineEndpoint2corrected(2)];

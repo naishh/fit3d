@@ -1,8 +1,12 @@
 % this file transfors 3d coords of the building to a 2d image
 close all;
 load PcamAbs;	
-load WallsImproved;
-Walls = WallsImproved;
+
+% load WallsImproved;
+% Walls = WallsImproved;
+load WallsPc
+Walls=WallsPc
+
 load Kcanon10GOOD;
 
 
@@ -29,7 +33,7 @@ for imNr=1:4
 	imshow(imgs{imNr});
 	hold on;
 
-	for WallNr=1:length(Walls)
+	for WallNr=1:size(Walls,1)
 		i = 1;
 		xAccu = zeros(length(Walls)/3,1);
 		yAccu = zeros(length(Walls)/3,1);

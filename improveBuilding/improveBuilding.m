@@ -1,20 +1,23 @@
 % this file calculates the average of a bunch houghlines belonging to a wall
 % to eventualy calc and adapt to the height of the building
-
+close all;
 clear Houghlines3dWall
 clear HeightBuildingWall
 load Houghlines3dWall
-load Walls
+%load Walls
+load WallsPc
+Walls=WallsPc
 
 WallsImproved = Walls;
 plotBuilding(Walls, []);
 
 
-interestingWalls = [7, 9, 10];
+%interestingWalls = [7, 9, 10];
+interestingWalls = [1, 2, 4];
 
 % all walls
 %for wall = 1:length(Houghlines3dWall)
-for i = 1:length(interestingWalls)
+for i = 1:size(interestingWalls,1)
 	wall = interestingWalls(i);
 	sum = [0 0 0];
 	wall
@@ -62,6 +65,6 @@ save('../mats/WallsImproved','WallsImproved');
 figure;
 plotBuilding(Walls, interestingWalls)
 hold on;
-plotBuilding2(WallsImproved, interestingWalls)
+plotBuildingImproved(WallsImproved, interestingWalls)
 
 

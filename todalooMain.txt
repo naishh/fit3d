@@ -1,21 +1,19 @@
-pcamxbug:
-	project point cloud to z axis and overlay googlymap model
-		see align3Dmodel folder
+FITTING THE 3D MODEL
+
+	WallsPc lower height
+	gen improve building image
+	send mail to isaac
+
+	binding between WallsPc and Walls is [R S |t], find out which and transform Walls
+		see matching2d.ppt
+		see old paper
+		search terms:
+		point matching 2d basic least squares 2D translation rotation scaling
+	improve building put new result in report
 
 	perform reconstructmodeling with more than 8 images
-
-	wallheights are not good
-		onderzoek why the cornerpoint of the walls don't have same height
-	read isaacs mail again
 	mail new improved building results
-	project Walls with pointcloud
 	ask new questions to isaac and put pcamxbug in the fridge LET IT GO :)
-
-FITTING THE 3D MODEL
-	see matching2d.ppt
-	see old paper
-	search terms:
-	point matching 2d basic least squares 2D translation rotation scaling
 
 
 DOOR WINDOW:

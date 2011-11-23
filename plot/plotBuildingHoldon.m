@@ -5,7 +5,7 @@ hold on;
 WallsNew = [Walls(:,1:3),Walls(:,7:9),Walls(:,10:12),Walls(:,4:6)];
 
 % loop through walls
-for wall=1:length(WallsNew)
+for wall=1:size(WallsNew,1)
 	X = [];
 	Y = [];
 	Z = [];
@@ -16,8 +16,9 @@ for wall=1:length(WallsNew)
 		Z = [Z;WallsNew(wall,coord+2)];
 	end
 	C = ones(1,4);
+	colorSpec = 'y';
 	% draw wall
-	color1 = 'g';
+	color1 = 'w';
 	if wall==7
 		fill3(X,Y,Z,color1);
 	elseif wall==9

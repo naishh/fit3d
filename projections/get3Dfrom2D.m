@@ -1,9 +1,9 @@
 % returns the coord in 3d and the belongig wall
-function [coord3D, minIspToWallDistIdx] = get3Dfrom2D(coord2D, imNr, PcamAbs, Kcanon10GOOD, WALLS, wallNo)
+function [coord3D, minIspToWallDistIdx] = get3Dfrom2D(coord2D, imNr, PcamAbs, Kcanon10GOOD, Walls, wallNo)
 
 Ccs 		= PcamAbs(:,4,:);
 %Cc 			= PcamAbs(:,4,imNr);
-nWalls 		= length(WALLS);
+nWalls 		= size(Walls,1);
 	
 projectionLine = getProjectionLine(coord2D, Ccs, Kcanon10GOOD, PcamAbs, imNr);
 
@@ -17,9 +17,9 @@ distPointToWalls 	= inf(nWalls,1);
 if (wallNo==0)
 	% loop through walls of building
 	for w=1:nWalls
-		PlanePoint0 = [WALLS(w,1) WALLS(w,2) WALLS(w,3)];
-		PlanePoint1 = [WALLS(w,4) WALLS(w,5) WALLS(w,6)];
-		PlanePoint2 = [WALLS(w,7) WALLS(w,8) WALLS(w,9)];
+		PlanePoint0 = [Walls(w,1) Walls(w,2) Walls(w,3)];
+		PlanePoint1 = [Walls(w,4) Walls(w,5) Walls(w,6)];
+		PlanePoint2 = [Walls(w,7) Walls(w,8) Walls(w,9)];
 		intSectPoint(w,:) = interSectPointFromLinePlane(projectionLine(1,:), projectionLine(2,:), PlanePoint0, PlanePoint1, PlanePoint2);
 
 		% % camera center
@@ -32,7 +32,7 @@ if (wallNo==0)
 			dispPointToWalls(w) = inf;
 		else
 			% calculate distance from intersection point to current wall
-			distPointToWalls(w) = distPointToWall(intSectPoint(w,:)', WALLS(w,:));
+			distPointToWalls(w) = distPointToWall(intSectPoint(w,:)', Walls(w,:));
 		end
 	end
 	% todo threshold min distances and take of a few the closest one to the Cc	
@@ -42,11 +42,11 @@ if (wallNo==0)
 	[minIspToWallDist, minIspToWallDistIdx] = min(distPointToWalls);
 else % associated wall is known
 	w = wallNo;
-	PlanePoint0 = [WALLS(w,1) WALLS(w,2) WALLS(w,3)];
-	PlanePoint1 = [WALLS(w,4) WALLS(w,5) WALLS(w,6)];
-	PlanePoint2 = [WALLS(w,7) WALLS(w,8) WALLS(w,9)];
+	PlanePoint0 = [Walls(w,1) Walls(w,2) Walls(w,3)];
+	PlanePoint1 = [Walls(w,4) Walls(w,5) Walls(w,6)];
+	PlanePoint2 = [Walls(w,7) Walls(w,8) Walls(w,9)];
 	intSectPoint(w,:) = interSectPointFromLinePlane(projectionLine(1,:), projectionLine(2,:), PlanePoint0, PlanePoint1, PlanePoint2);
-	distPointToWalls(w) = distPointToWall(intSectPoint(w,:)', WALLS(w,:));
+	distPointToWalls(w) = distPointToWall(intSectPoint(w,:)', Walls(w,:));
 	minIspToWallDistIdx = wallNo;
 end
 
