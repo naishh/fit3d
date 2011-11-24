@@ -1,4 +1,8 @@
 FITTING THE 3D MODEL
+	project2d with basic and with improved model
+	make basic model accurate height and check if improve building step maybe is wrong
+	get last wall removed from Wallpc
+
 	gen improve building image
 	wall 10 doesn look good
 	send mail to isaac

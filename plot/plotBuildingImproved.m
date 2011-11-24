@@ -17,7 +17,7 @@ for wall=1:size(WallsNew,1)
 	end
 	C = ones(1,4);
 	% draw wall
-	color1 = 'g';
+	color1 = 'w';
 	if wall==7
 		fill3(X,Y,Z,color1);
 	elseif wall==9
