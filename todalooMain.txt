@@ -1,23 +1,11 @@
 FITTING THE 3D MODEL
-	project2d with basic and with improved model
-	make basic model accurate height and check if improve building step maybe is wrong
-	get last wall removed from Wallpc
-
-	gen improve building image
-	wall 10 doesn look good
-	send mail to isaac
-
-
 	binding between WallsPc and Walls is [R S |t], find out which and transform Walls
 		see matching2d.ppt
 		see old paper
 		search terms:
 		point matching 2d basic least squares 2D translation rotation scaling
-	improve building put new result in report
-
+	improve building and put new result in report
 	perform reconstructmodeling with more than 8 images
-	mail new improved building results
-	ask new questions to isaac and put pcamxbug in the fridge LET IT GO :)
 
 
 DOOR WINDOW:
@@ -26,11 +14,17 @@ DOOR WINDOW:
 			Z direction from pcam?
 			project pixels, which is nice
 
-	read papers about door window detection 
-		combined with houghlines vanishpoints
+The transformation is a homography, p'=Hp can be solving for using a system of linear equations. p' and p are vectors or correspondence points that in the first part of the project, the user defines. A projective mapping has eight degrees of freedom, thus there must be at least four pairs of correspondence points to solve for eight unknowns. I used the transformation matrix defined in the paper "Projective Mappings for Image Warping". The transformation matrix can be solved for using x = A\b in Matlab. A is the matrix of linear equations and b is a column vector of correspondence points for the left image
+
+
+
 	try license plate code
+		annotate dataset (midle point of window)
+	read papers about door window detection 
 	think of how to combine images 
 		increase evidence for certain window 
+	combine with houghlines vanishpoints
+	harris corner detection?
 
 
 

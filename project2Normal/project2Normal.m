@@ -4,13 +4,13 @@ load Houghlines3dWall
 load Walls
 load PcamAbs
 load Kcanon10GOOD
+imNr = 1
+wallNr = 7;
 
 % todo do this in setup
 Cc 				= PcamAbs(1:3,4,imNr);
 K				= Kcanon10GOOD;
 
-imNr = 1
-wallNr = 7;
 
 % % the y axis is inverted because matlab plots upside down
 % % this is to flip the y axis 
@@ -22,7 +22,6 @@ wallNormal = getNormalFromWall(Walls, wallNr)
 figure;
 hold on;
 
-wallNr = 7
 %for imNr=1:length(Houghlines3dWall)
 	X = []
 	Y = []

@@ -4,7 +4,8 @@ load PcamAbs;
 
 load WallsImproved;
 load WallsPc;
-nWalls = length(WallsPc)/3;
+nWalls = size(Walls,1);
+%nWalls = length(WallsPc)/3;
 
 load Kcanon10GOOD;
 
