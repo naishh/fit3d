@@ -1,5 +1,5 @@
 function wallNormal = getNormalFromWall(Walls, wallNr)
-plotDetails = 1;
+plotDetails = 0;
 
 % corner points wall
 % p2    p1

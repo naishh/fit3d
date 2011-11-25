@@ -1,5 +1,5 @@
 % returns the coord in 3d and the belongig wall
-function [coord3D, minIspToWallDistIdx] = get3Dfrom2D(coord2D, imNr, PcamAbs, Kcanon10GOOD, Walls, wallNo)
+function [coord3D, minIspToWallDistIdx] = get3Dfrom2D(coord2D, imNr, PcamAbs, Kcanon10GOOD, Walls, wallNr)
 
 Ccs 		= PcamAbs(:,4,:);
 %Cc 			= PcamAbs(:,4,imNr);
@@ -13,8 +13,8 @@ plotProjectionLine(projectionLine, 'g-');
 intSectPoint 		= zeros(nWalls,3);
 distPointToWalls 	= inf(nWalls,1);
 
-% if no wallNo set
-if (wallNo==0)
+% if no wallNr set
+if (wallNr==0)
 	% loop through walls of building
 	for w=1:nWalls
 		PlanePoint0 = [Walls(w,1) Walls(w,2) Walls(w,3)];
@@ -41,16 +41,15 @@ if (wallNo==0)
 
 	[minIspToWallDist, minIspToWallDistIdx] = min(distPointToWalls);
 else % associated wall is known
-	w = wallNo;
+	w = wallNr;
 	PlanePoint0 = [Walls(w,1) Walls(w,2) Walls(w,3)];
 	PlanePoint1 = [Walls(w,4) Walls(w,5) Walls(w,6)];
 	PlanePoint2 = [Walls(w,7) Walls(w,8) Walls(w,9)];
 	intSectPoint(w,:) = interSectPointFromLinePlane(projectionLine(1,:), projectionLine(2,:), PlanePoint0, PlanePoint1, PlanePoint2);
 	distPointToWalls(w) = distPointToWall(intSectPoint(w,:)', Walls(w,:));
-	minIspToWallDistIdx = wallNo;
+	minIspToWallDistIdx = wallNr;
 end
 
-distPointToWalls
 
 
 % write a little cube on the intersection point
