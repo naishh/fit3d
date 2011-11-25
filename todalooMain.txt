@@ -10,12 +10,9 @@ FITTING THE 3D MODEL
 
 DOOR WINDOW:
 	project 3d 2d 
-		test old project2Normal script
-			Z direction from pcam?
-			project pixels, which is nice
-
-The transformation is a homography, p'=Hp can be solving for using a system of linear equations. p' and p are vectors or correspondence points that in the first part of the project, the user defines. A projective mapping has eight degrees of freedom, thus there must be at least four pairs of correspondence points to solve for eight unknowns. I used the transformation matrix defined in the paper "Projective Mappings for Image Warping". The transformation matrix can be solved for using x = A\b in Matlab. A is the matrix of linear equations and b is a column vector of correspondence points for the left image
-
+		see project2square
+		als het te lang duurt (1 dag) toch over naar quadri nogwat naar square
+		see paper Projective Mappings for Image Warping
 
 
 	try license plate code
