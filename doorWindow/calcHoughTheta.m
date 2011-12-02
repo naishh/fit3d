@@ -15,3 +15,6 @@ theta = theta * (180/pi);
 % theta = theta - 90 ;
 % % clockwise 
 % theta = -theta;
+theta = -theta;
+theta = 90 - theta;
+theta = -theta;
