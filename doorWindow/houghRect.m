@@ -1,22 +1,21 @@
 % this file extract rectangles based on hough transform
-
+%
 % compose mail to frans with results send on sunday
-% other colormodel,HSV?, derivative image?
-% individual hsv channels
+% other colormodel, derivative image, prewitt
+% other colormodel, rgb independend channels
+% horizontal and vertical image different edgemethod/thresholds 
 % other dataset
-% un blurr  or something to make lines thick
-% sort hough on length houghline
-% transform edge image to square
+% unblurr or something like that to make edgelines more thick
+% apply a houghline length range (max and min), 
+% use a height-width ratio for windows
+% transform edge image to rectangular image
 % detect cornerpoints by houghline intersection
 % 	detect exact intersections
 % 	stretch exact intersection by making all lines just a little bit longer
 %		search old paper for auto connect line parts
 % play with a (harris?) cornerdetector
-% play with fillgap value
 % read paper about implicite shape of window
-%	copy assumptions, like average width height ratio of the window
-%
-% apply horizontal detected lines on higher threshold (less lines found)
+%	use assumptions, like average width height ratio of the window
 %
 % report: say something about angle interval that should depend on height in image but doesnt
 
@@ -27,9 +26,11 @@ imNr = 5447; file = sprintf('../dataset/FloriandeSet1/medium/undist__MG_%d.jpg',
 savePath = 'results/';
 
 fileShort 						= 'Floriande5447';
-%colorModel						= 'RGB';
-colorModel						= 'HSV_Allchannel';
+colorModel						= 'RGB_Bchannel';
+%colorModel						= 'HSV_Allchannel';
 edgeDetectorParam.type 			= 'canny';
+%edgeDetectorParam.typePost 		= 'vertical_horizontal_Combined';
+edgeDetectorParam.typePost 		= '';
 %edgeDetectorParam.thresh		= 0.50;%0.45
 edgeDetectorParam.thresh		= 0.5;%0.45
 % perform different threshold test?
@@ -39,23 +40,23 @@ HoughParam.thresh 				= 0;
 HoughParam.nrPeaks 				= 500;
 %HoughParam.fillGap 			= 30;
 HoughParam.fillGap 				= 15;
-HoughParam.minLength 			= 30;
+HoughParam.minLength 			= 20; 
 % this is the maximum error that a vertical line can have
 maxVertAngleErr 				= 5;
 
 % todo transfer to sprintf 
-paramStr = ['src_',fileShort,'_colorModel_',colorModel,'__edgeDetectorParams_',edgeDetectorParam.type,'_thresh_',num2str(edgeDetectorParam.thresh),'__HoughParams_', 'thresh_',num2str(HoughParam.thresh) , '_nrPeaks_',num2str(HoughParam.nrPeaks) , '_fillGap_',num2str(HoughParam.fillGap) , '_minLength_',num2str(HoughParam.minLength),'__maxVertAngleErr_',num2str(maxVertAngleErr),'.png'];
+paramStr = ['src_',fileShort,'_colorModel_',colorModel,'__edgeDetectorParams_',edgeDetectorParam.type,edgeDetectorParam.typePost,'_thresh_',num2str(edgeDetectorParam.thresh),'__HoughParams_', 'thresh_',num2str(HoughParam.thresh) , '_nrPeaks_',num2str(HoughParam.nrPeaks) , '_fillGap_',num2str(HoughParam.fillGap) , '_minLength_',num2str(HoughParam.minLength),'__maxVertAngleErr_',num2str(maxVertAngleErr),'.png'];
 
 imRGB = imread(file);
 
 
-imHSV = rgb2hsv(imRGB);
+%imHSV = rgb2hsv(imRGB);
 
-%fgRGB = figure();imshow(imRGB);
-fgRGB = figure();imshow(imHSV);
+fgRGB = figure();imshow(imRGB);
+%fgRGB = figure();imshow(imHSV);
 
 %imBW = imadjust(rgb2gray(imRGB));
-imBW = imHSV(:,:,3);
+imBW = imRGB(:,:,3);
 
 fgBW = figure();imshow(imBW);
 % 
@@ -84,16 +85,19 @@ fgBW = figure();imshow(imBW);
 
 
 if edgeTest
-	for thresh=0.1:0.1:0.6
-		imEdge = im2double(edge(imBW, 'canny', thresh));
+	for thresh=0.1:0.02:0.6
+		thresh
+		imEdge = im2double(edge(imBW, edgeDetectorParam.type, thresh));
 		figure(round(thresh*100));
 		imshow(imEdge)
-		%pause;
+		pause;
 	end
 	error('edge test done, ending program')
 end
-% CANNY 
+
+% EDGE DETECTION 
 imEdge = im2double(edge(imBW, edgeDetectorParam.type, edgeDetectorParam.thresh));
+%imEdge = im2double(edge(imBW, edgeDetectorParam.type, edgeDetectorParam.thresh, 'vertical'));
 if plotme
    fgEdge = figure();imshow(imEdge);
 end
@@ -129,8 +133,9 @@ length(Houghlines)
 % plot houghlines and add length
 % TODO Split plot and add length in 2 functions
 
-%Houghlines = plotHoughlines(Houghlines,plotme)
+%Houghlines = plotHoughlines(Houghlines);
 Houghlines = addLengthToHoughlines(Houghlines);
+
 
 
 
@@ -160,16 +165,40 @@ for k = 1:length(Houghlines)
 	thetaH = Houghlines(k).theta;
 	if wallVanishesRight % this only works is for a wall which vanishish to the right >
 		% if is in interval
+		% HORIZONTAL
 		if thetaH<=theta1 && thetaH>=theta2 % todo this doesnt work for vars that are below -90 ! 
 			xy = [Houghlines(k).point1; Houghlines(k).point2];
 			plotHoughline(xy, plotme,'red')
 		end
+		% VERTICAL
 		if (thetaH>=-maxVertAngleErr && thetaH<=maxVertAngleErr )
 			xy = [Houghlines(k).point1; Houghlines(k).point2];
 			plotHoughline(xy, plotme,'green')
 		end
 	end
 end
+
+
+
+% load('HoughlinesPrewittHor')
+% for k = 1:length(Houghlines)
+% 	% if houghline is in horizontal interval
+% 	%if (Houghlines(k).theta<=theta1 && Houghlines(k).theta>=theta2)
+% 	thetaH = Houghlines(k).theta;
+% 	if wallVanishesRight % this only works is for a wall which vanishish to the right >
+% 		% if is in interval
+% 		% HORIZONTAL
+% 		if thetaH<=theta1 && thetaH>=theta2 % todo this doesnt work for vars that are below -90 ! 
+% 			xy = [Houghlines(k).point1; Houghlines(k).point2];
+% 			plotHoughline(xy, plotme,'red')
+% 		end
+% 		% % VERTICAL
+% 		% if (thetaH>=-maxVertAngleErr && thetaH<=maxVertAngleErr )
+% 		% 	xy = [Houghlines(k).point1; Houghlines(k).point2];
+% 		% 	plotHoughline(xy, plotme,'green')
+% 		% end
+% 	end
+% end
 
 
 reply = input('Save result as images? y/n [n]: ', 's');

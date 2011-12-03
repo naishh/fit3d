@@ -1,11 +1,35 @@
+Hi Frans,
 
+I write this mail in English, to practice it and maybe I send it to Leo or Isaac.
+
+I have some first results of my window detector.
 I tried different 
-
 edge detectors,
 edge thresholds,
-colormodels, (unnormalised RGB, HSV, HSV (H channel), HSV (S channel), HSV (V channel))
+on different colormodels, (RGB, R,G,B, HSV, H,S,V,Prewitt (derivative))
+and applied the Houghtransform.
+In addition I filtered the Houghlines by angle.
+For the horizontal lines (red) I took an angleinterval ranging from the angle of the ground plane to the angle of the roof.
+For the vertical lines (green) I discarded every line that was more then 5 degree away from a vertical line. 
+
+Furthermore I did a test where I detected the horizontal houghlines on a different edge images as the vertical houghline (e.g. horizontal lines on horizontal derivative image (prewitt) with a threshold, and vertical a vertical derivative image with another threshold).
+See attachments for results.  
 
 Canny with a (manual) threshold and HSV (V channel) performed best
+While going further on this I'd like to share some ideas.
 
+An idea was to project the wall to remove the perspective and have the windows rectangular shaped.
+This is computational expensive as each pixel needs to be projected, so we discarded this approach. This itches because I discard valuable information, namely the aligned 3D model.
+I have a new idea that is to apply the edge detection on the original image. Then project (transform) only the binary edge image. Or,beter, transform only the Houghlines extracted from it.  This is much cheaper as it is only two coordinates per line segment.
+One downside is that the window detector doesn't work for uncalibrated scenes.
 
-I houghlines
+Furthermore a general downside of the above approaches is that it is very edgedetector threshold sensitive. Althouh I read something about automatically determine a good threshold. I should test this before I can say more on this. What do you know about this?
+
+Another direction is to use features (a corner detector, Adaboost cascading feature classifier) to detect the windows.
+A third method is to combine them. I.e. use the houghlines to decrease the searchspace or to increase evidence for e.g. a corner.
+
+Furthermore I didn't think yet about combining the multiple views, but this can be done in a latter stage (unless you think it has effect on the steps above).
+
+Please let me know what you think of my ideas. 
+
+Tjerk
