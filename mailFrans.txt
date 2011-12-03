@@ -1,5 +1,11 @@
 
-floriande plaatje
-resultaat plaatje
-planning
+I tried different 
 
+edge detectors,
+edge thresholds,
+colormodels, (unnormalised RGB, HSV, HSV (H channel), HSV (S channel), HSV (V channel))
+
+Canny with a (manual) threshold and HSV (V channel) performed best
+
+
+I houghlines
