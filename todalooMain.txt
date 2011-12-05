@@ -9,17 +9,19 @@ FITTING THE 3D MODEL
 
 
 DOOR WINDOW:
+	test houghRect on 3 datasets
+	make window assumptions and mail
+		
+
 	project 3d 2d 
 		see project2square
 		als het te lang duurt (1 dag) toch over naar quadri nogwat naar square
 		see paper Projective Mappings for Image Warping
 
-
 	try license plate code
 		annotate dataset (midle point of window)
 	read papers about door window detection 
 	think of how to combine images 
-		increase evidence for certain window 
 	combine with houghlines vanishpoints
 	harris corner detection?
 

@@ -33,3 +33,8 @@ Furthermore I didn't think yet about combining the multiple views, but this can 
 Please let me know what you think of my ideas. 
 
 Tjerk
+
+List of possible window assumptions
+see papers
+blue color
+
