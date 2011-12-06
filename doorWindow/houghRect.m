@@ -44,7 +44,6 @@ colorModel						= 'HSV_Vchannel';
 %colorModel						= 'RGB';
 HSVmode							= true;
 % rotates image 90 degrees clockwise
-transposeMode 					= true;
 edgeDetectorParam.type 			= 'canny';
 loadEdgeFromCache 				= false;
 %edgeDetectorParam.typePost 		= 'vertical_horizontal_Combined';
@@ -53,15 +52,15 @@ edgeDetectorParam.typePost 		= '';
 edgeDetectorParam.thresh		= 0.4;%0.45
 % perform different threshold test?
 edgeTest 						= 0;
-HoughParam.ThetaStretchAngle	= 10;
+HoughParam.ThetaStretchAngle	= 20;
 HoughParam.ThetaStart 			= 0;
 HoughParam.ThetaStart 			= HoughParam.ThetaStart - HoughParam.ThetaStretchAngle;
 HoughParam.ThetaEnd 			= 0;
 HoughParam.ThetaEnd 			= HoughParam.ThetaEnd + HoughParam.ThetaStretchAngle;
-HoughParam.ThetaResolution  	= 0.1;
+HoughParam.ThetaResolution  	= 0.5;
 HoughParam.thresh 				= 0;
 % sets the max nr of lines hough finds:
-HoughParam.nrPeaks 				= 10;
+HoughParam.nrPeaks 				= 200;
 %HoughParam.fillGap 			= 30;
 % the bigger this value the more lines are found
 HoughParam.fillGap 				= 10;
@@ -69,12 +68,9 @@ HoughParam.fillGap 				= 10;
 % select smallest windowglas width from left to right
 %[Xwin,Ywin] = ginput(2); XYwin1 = [Xwin(1),Ywin(1)]; XYwin2 = [Xwin(2),Ywin(2)];norm(XYwin1,XYwin2)
 HoughParam.minLength 			= 40; 
-vertAngleOffset 				= 0;
-% this is the maximum error that a vertical line can have
-maxVertAngleErr 				= 15;
 
 % todo transfer to sprintf 
-paramStr = ['src_',fileShort,'_colorModel_',colorModel,'__edgeDetectorParams_',edgeDetectorParam.type,edgeDetectorParam.typePost,'_thresh_',num2str(edgeDetectorParam.thresh),'__HoughParams_', 'thresh_',num2str(HoughParam.thresh) , '_nrPeaks_',num2str(HoughParam.nrPeaks) , '_fillGap_',num2str(HoughParam.fillGap) , '_minLength_',num2str(HoughParam.minLength),'__ThetaRange',num2str(HoughParam.ThetaStart),':',num2str(HoughParam.ThetaResolution),':',num2str(HoughParam.ThetaEnd),'__maxVertAngleErr_',num2str(maxVertAngleErr),'.png'];
+paramStr = ['src_',fileShort,'_colorModel_',colorModel,'__edgeDetectorParams_',edgeDetectorParam.type,edgeDetectorParam.typePost,'_thresh_',num2str(edgeDetectorParam.thresh),'__HoughParams_', 'thresh_',num2str(HoughParam.thresh) , '_nrPeaks_',num2str(HoughParam.nrPeaks) , '_fillGap_',num2str(HoughParam.fillGap) , '_minLength_',num2str(HoughParam.minLength),'__ThetaRange',num2str(HoughParam.ThetaStart),':',num2str(HoughParam.ThetaResolution),':',num2str(HoughParam.ThetaEnd),'.png'];
 
 if loadEdgeFromCache == false
 	imRGB = imread(file);
@@ -87,7 +83,8 @@ if loadEdgeFromCache == false
 		%fgRGB = figure();imshow(imRGB);
 	end
 end
-fgBW = figure();imshow(imBW);
+%fgBW = figure();imshow(imBW);
+h = size(imBW,1);
 
 
 %  % crop image by rectangle
@@ -122,66 +119,41 @@ end
 if loadEdgeFromCache == false
 	imEdge = im2double(edge(imBW, edgeDetectorParam.type, edgeDetectorParam.thresh));
 end
+fgEdge = figure();imshow(imEdge);
 
 
-
-imEdgeOri = imEdge;
-if transposeMode
-	disp('transposeMode');
-	imEdge    = rot90(imEdge,-1);
-end
+imEdgeRot    = rot90(imEdge,-1);
 if plotme
-   fgHough = figure();imshow(imEdgeOri);hold on
+   fgHough = figure();imshow(imEdge);hold on
 end
 
 % HOUGHLINES:
-%[H,Theta,Rho] = hough(imEdge,'Theta', -20:0.5:-1 );
-% het gaat fout als je interval over het omrolpunt beslaat -90 % ,quickfix is checken of het bij omslagpunt ligt, % indien ja imEdge 90 graden draaien en hough op verschoven interval uitvoeren
-% hmm is er niet een equivalent die +180 is? nee...
-%[H,Theta,Rho] = hough(imEdge,'Theta',-9:0.1:12);
-%[H,Theta,Rho] = hough(imEdge,'Theta',-9:0.05:12);
-
 [H,Theta,Rho] = hough(imEdge,'Theta',HoughParam.ThetaStart:HoughParam.ThetaResolution:HoughParam.ThetaEnd);
-%[H,Theta,Rho] = hough(imEdge);
-
 Peaks  = houghpeaks(H,HoughParam.nrPeaks,'threshold',ceil(HoughParam.thresh*max(H(:))));
 x = Theta(Peaks(:,2)); y = Rho(Peaks(:,1));
 Houghlines = houghlines(imEdge,Theta,Rho,Peaks,'FillGap',HoughParam.fillGap,'MinLength',HoughParam.minLength);
-Houghlines = addLengthToHoughlines(Houghlines);
-
-
-
-
-
-% FILTER HOUGHLINES
-% 1---2
-% |   |
-% 4---3
-% '../dataset/FloriandeSet1/medium/undist__MG_%d.jpg', 5432
-% X = [679.5000, 871.5000, 871.5000, 677.5000];
-% Y = [185.5000, 301.5000, 675.5000, 699.5000];
-% use [X,Y] =  ginput(4) and store XY in a mat format
-
-wallVanishesRight = true;
-
-% calculates the angle of the upper and bottom wallline segment
-% (in orde to provide the angle interval)
-h = size(imBW,1);
-theta1 = calcHoughTheta(X(1),Y(1),X(2),Y(2),h)
-theta2 = calcHoughTheta(X(3),Y(3),X(4),Y(4),h)
-
+%Houghlines = addLengthToHoughlines(Houghlines);
 
 for k = 1:length(Houghlines)
-	%if wallVanishesRight 
-% TODO calc wallVanishesRight val automaticly (crossing the building horizontal edges and check if its right or left from center of image?)
-	if transposeMode
-		% TODO make matrix calculation
-		yxFlipped = [invertCoordFlipY(Houghlines(k).point2,h); invertCoordFlipY(Houghlines(k).point1,h)];
-		plotHoughline(yxFlipped, plotme,'green')
-	else
-		xy = [Houghlines(k).point1; Houghlines(k).point2];
-		plotHoughline(xy, plotme,'red')
-	end
+	xy = [Houghlines(k).point1; Houghlines(k).point2];
+	plotHoughline(xy, plotme,'green')
+end
+
+
+HoughParam.minLength 			= 30; 
+% HOUGHLINES ROTATED (HORIZONTAL):
+imEdge = imEdgeRot;
+[H,Theta,Rho] = hough(imEdge,'Theta',HoughParam.ThetaStart:HoughParam.ThetaResolution:HoughParam.ThetaEnd);
+Peaks  = houghpeaks(H,HoughParam.nrPeaks,'threshold',ceil(HoughParam.thresh*max(H(:))));
+x = Theta(Peaks(:,2)); y = Rho(Peaks(:,1));
+Houghlines = houghlines(imEdge,Theta,Rho,Peaks,'FillGap',HoughParam.fillGap,'MinLength',HoughParam.minLength);
+%Houghlines = addLengthToHoughlines(Houghlines);
+
+for k = 1:length(Houghlines)
+	%xy = [Houghlines(k).point1; Houghlines(k).point2];
+	% TODO get xy from Theta(..) above, calc as matrix
+	xy = [invertCoordFlipY(Houghlines(k).point2,h); invertCoordFlipY(Houghlines(k).point1,h)];
+	plotHoughline(xy, plotme,'red')
 end
 
 
@@ -198,3 +170,20 @@ if reply=='y'
 	saveas(fgHough,[savePath,'result_hough__',paramStr],'png');
 	disp('done');
 end
+
+
+
+% OLD CODE:
+%
+% FILTER HOUGHLINES
+% 1---2
+% |   |
+% 4---3
+% '../dataset/FloriandeSet1/medium/undist__MG_%d.jpg', 5432
+% X = [679.5000, 871.5000, 871.5000, 677.5000];
+% Y = [185.5000, 301.5000, 675.5000, 699.5000];
+% use [X,Y] =  ginput(4) and store XY in a mat format
+% calculates the angle of the upper and bottom wallline segment
+% (in orde to provide the angle interval)
+% theta1 = calcHoughTheta(X(1),Y(1),X(2),Y(2),h)
+% theta2 = calcHoughTheta(X(3),Y(3),X(4),Y(4),h)

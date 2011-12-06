@@ -1,53 +1,40 @@
-Hi Frans,
+Hoi Frans en Leo,
 
-I write this mail in English, to practice it and maybe I send it to Leo or Isaac.
+Hierbij wat eerste resultaten van mijn window detector.
+Ik heb verschillende edgedetectors en thresholds 
+toegepast op verschillende  
+kleurmodelen (RGB, R,G,B, HSV, H,S,V,Prewitt (derivative))
+Daarna heb ik de Matlab Houghtransform toegepast.
 
-I have some first results of my window detector.
-I tried different 
-edge detectors,
-edge thresholds,
-on different colormodels, (RGB, R,G,B, HSV, H,S,V,Prewitt (derivative))
-and applied the Houghtransform.
-In addition I filtered the Houghlines by angle.
-For the horizontal lines (red) I took an angleinterval ranging from the angle of the ground plane to the angle of the roof.
-For the vertical lines (green) I discarded every line that was more then 5 degree away from a vertical line. 
+Hierbij heb ik de Theta interval voor horizontale en verticale lijnen appart ingevoerd.
 
-Furthermore I did a test where I detected the horizontal houghlines on a different edge images as the vertical houghline (e.g. horizontal lines on horizontal derivative image (prewitt) with a threshold, and vertical a vertical derivative image with another threshold).
-See attachments for results.  
+Omdat ik de hoekpunten van de muur weet heb ik de horizontale lijnen 
+een Theta interval gegeven die tussen de stoep en de dakgoot vallen.
+De verticale lijnen (groen) mogen max 10 graden afwijken dan een perfect verticale lijn.
 
-Canny with a (manual) threshold and HSV (V channel) performed best
-While going further on this I'd like to share some ideas.
+Verder heb ik een test gedaan waarbij ik voor horizontale en verticale
+Houghtransform een ander edge plaatje mee geef.
 
-An idea was to project the wall to remove the perspective and have the windows rectangular shaped.
-This is computational expensive as each pixel needs to be projected, so we discarded this approach. This itches because I discard valuable information, namely the aligned 3D model.
-I have a new idea that is to apply the edge detection on the original image. Then project (transform) only the binary edge image. Or,beter, transform only the Houghlines extracted from it.  This is much cheaper as it is only two coordinates per line segment.
-One downside is that the window detector doesn't work for uncalibrated scenes.
+Canny met een handmatige threshold en HSV (V kanaal) gaf het mooiste resultaat.
 
-Furthermore a general downside of the above approaches is that it is very edgedetector threshold sensitive. Althouh I read something about automatically determine a good threshold. I should test this before I can say more on this. What do you know about this?
+Graag jullie advies voor de volgende stap:
+Omdat ik kamp met perspectief zijn de hoeken in het plaatje niet echt 90 graden
+en zijn de ramen rechts kleiner dan links. 
+De scene is inmiddels gecalibreerd en ik ben in het bezit van het 3D model.
+Dus ik kan het perspectief naar vierkant projecteren.
+Dit had ik met Frans besproken maar omdat elke pixel moet worden geprojecteerd en geinterpoleerd hebben we besloten dat dit te duur is.
+Nu had ik het idee om de projectie alleen voor de Hough lijnen te doen. Dit is veel goedkoper dan voor elke pixel want dit zijn maar twee coordinaten per line segment. Wat vinden jullie hiervan?
 
-Another direction is to use features (a corner detector, Adaboost cascading feature classifier) to detect the windows.
-A third method is to combine them. I.e. use the houghlines to decrease the searchspace or to increase evidence for e.g. a corner.
+Ik kan de projectie op twee manieren doen had ik bedacht:
+1) Een affine matrix berekenen door de hoekpunten van de perspectieve muur met een vierkant te vergelijken.
+2) Een rotatie matrix berekenen door de hoek te berekenen tussen de kijkrichting en de normaal van de muur 
+(axis angle representation)
 
-Furthermore I didn't think yet about combining the multiple views, but this can be done in a latter stage (unless you think it has effect on the steps above).
+Het nadeel van muur vierkant maken dat mijn window detector niet zal werken voor ongecalibreerde scenes.
+Dan is er verder nog een nadeel van de gehele aanpak en dat is dat het erg afhankelijk is van de edge threshold. Ik heb ergens gelezen dat je een automatische threshold kan berekenen, weten jullie hier iets van?
+Nog een heel ander idee is de feature kant op gaan. B.v. een corner detector of een adaboost cascading classifier op onderscheidende features.
+En/of idee'en combineren.
 
-Please let me know what you think of my ideas. 
+Graag jullie advies.
 
 Tjerk
-
-List of possible window assumptions
-see papers
-blue color
-
-
-choices:
-feature detection
-	corner detection 
-	aoe
-have to make a choice i cant figure them out all in the time
-
-hough rectangle detection
-(attachment)
-
-
-hough interesting method
-
