@@ -39,7 +39,7 @@ fileShort 						= 'aalsmeer6680';
 colorModel						= 'HSV_Vchannel';
 %colorModel						= 'RGB';
 HSVmode							= true;
-transposeMode 					= true;
+transposeMode 					= false;
 edgeDetectorParam.type 			= 'canny';
 loadEdgeFromCache 				= false;
 %edgeDetectorParam.typePost 		= 'vertical_horizontal_Combined';
@@ -48,22 +48,28 @@ edgeDetectorParam.typePost 		= '';
 edgeDetectorParam.thresh		= 0.4;%0.45
 % perform different threshold test?
 edgeTest 						= 0;
-HoughParam.thresh 				= 0;
+HoughParam.ThetaStart 			= -9;
+HoughParam.ThetaStretchAngle	= 10;
+HoughParam.ThetaStart 			= HoughParam.ThetaStart - HoughParam.ThetaStretchAngle;
+HoughParam.ThetaEnd 			= 12;
+HoughParam.ThetaEnd 			= HoughParam.ThetaEnd + HoughParam.ThetaStretchAngle;
+HoughParam.ThetaResolution  	= 0.1;
+HoughParam.thresh 				= 0.2;
 % sets the max nr of lines hough finds:
-HoughParam.nrPeaks 				= 150;
+HoughParam.nrPeaks 				= 500;
 %HoughParam.fillGap 			= 30;
 % the bigger this value the more lines are found
-HoughParam.fillGap 				= 30;
+HoughParam.fillGap 				= 10;
 
 % select smallest windowglas width from left to right
 %[Xwin,Ywin] = ginput(2); XYwin1 = [Xwin(1),Ywin(1)]; XYwin2 = [Xwin(2),Ywin(2)];norm(XYwin1,XYwin2)
-HoughParam.minLength 			= 55; 
+HoughParam.minLength 			= 40; 
 vertAngleOffset 				= 0;
 % this is the maximum error that a vertical line can have
 maxVertAngleErr 				= 15;
 
 % todo transfer to sprintf 
-paramStr = ['src_',fileShort,'_colorModel_',colorModel,'__edgeDetectorParams_',edgeDetectorParam.type,edgeDetectorParam.typePost,'_thresh_',num2str(edgeDetectorParam.thresh),'__HoughParams_', 'thresh_',num2str(HoughParam.thresh) , '_nrPeaks_',num2str(HoughParam.nrPeaks) , '_fillGap_',num2str(HoughParam.fillGap) , '_minLength_',num2str(HoughParam.minLength),'__maxVertAngleErr_',num2str(maxVertAngleErr),'.png'];
+paramStr = ['src_',fileShort,'_colorModel_',colorModel,'__edgeDetectorParams_',edgeDetectorParam.type,edgeDetectorParam.typePost,'_thresh_',num2str(edgeDetectorParam.thresh),'__HoughParams_', 'thresh_',num2str(HoughParam.thresh) , '_nrPeaks_',num2str(HoughParam.nrPeaks) , '_fillGap_',num2str(HoughParam.fillGap) , '_minLength_',num2str(HoughParam.minLength),'__ThetaRange',num2str(HoughParam.ThetaStart),':',num2str(HoughParam.ThetaResolution),':',num2str(HoughParam.ThetaEnd),'__maxVertAngleErr_',num2str(maxVertAngleErr),'.png'];
 
 if loadEdgeFromCache == false
 	imRGB = imread(file);
@@ -76,7 +82,6 @@ if loadEdgeFromCache == false
 		else
 			imBW  = imHSV(:,:,3);
 		end
-		%fgRGB = figure();imshow(imHSV);
 	else
 		%imBW = imRGB(:,:,3);
 		imBW = imadjust(rgb2gray(imRGB));
@@ -117,10 +122,6 @@ end
 % EDGE DETECTION 
 if loadEdgeFromCache == false
 	imEdge = im2double(edge(imBW, edgeDetectorParam.type, edgeDetectorParam.thresh));
-	%imEdge = im2double(edge(imBW, edgeDetectorParam.type, edgeDetectorParam.thresh, 'vertical'));
-end
-if plotme
-   fgEdge = figure();imshow(imEdge);
 end
 
 
@@ -129,16 +130,26 @@ end
 %[H,Theta,Rho] = hough(imEdge,'Theta', -20:0.5:-1 );
 % het gaat fout als je interval over het omrolpunt beslaat -90 % ,quickfix is checken of het bij omslagpunt ligt, % indien ja imEdge 90 graden draaien en hough op verschoven interval uitvoeren
 % hmm is er niet een equivalent die +180 is? nee...
-[H,Theta,Rho] = hough(imEdge,'Theta',-9:0.5:12);
+%[H,Theta,Rho] = hough(imEdge,'Theta',-9:0.1:12);
+%[H,Theta,Rho] = hough(imEdge,'Theta',-9:0.05:12);
+
+[H,Theta,Rho] = hough(imEdge,'Theta',HoughParam.ThetaStart:HoughParam.ThetaResolution:HoughParam.ThetaEnd);
+%[H,Theta,Rho] = hough(imEdge);
 
 Peaks  = houghpeaks(H,HoughParam.nrPeaks,'threshold',ceil(HoughParam.thresh*max(H(:))));
 x = Theta(Peaks(:,2)); y = Rho(Peaks(:,1));
 Houghlines = houghlines(imEdge,Theta,Rho,Peaks,'FillGap',HoughParam.fillGap,'MinLength',HoughParam.minLength);
 Houghlines = addLengthToHoughlines(Houghlines);
+
+if plotme
+	if transposeMode
+		imEdge = rot90(imEdge,1);
+	end
+   fgEdge = figure();imshow(imEdge);
+end
 if plotme
    fgHough = figure();imshow(imEdge);hold on
 end
-max_len = 0;
 
 
 % FILTER HOUGHLINES
@@ -176,15 +187,20 @@ for k = 1:length(Houghlines)
 	if wallVanishesRight 
 		% if is in interval
 		% HORIZONTAL
-		if thetaH<=theta1 && thetaH>=theta2 % todo this doesnt work for vars that are below -90 ! 
+		%if thetaH<=theta1 && thetaH>=theta2 % todo this doesnt work for vars that are below -90 ! 
+		if transposeMode
+			yx = [invertCoord(Houghlines(k).point2); invertCoord(Houghlines(k).point1)];
+			plotHoughline(yx, plotme,'green')
+		else
 			xy = [Houghlines(k).point1; Houghlines(k).point2];
 			plotHoughline(xy, plotme,'red')
 		end
-		% VERTICAL
-		if (thetaH>=vertAngleOffset-maxVertAngleErr && thetaH<=vertAngleOffset+maxVertAngleErr )
-			xy = [Houghlines(k).point1; Houghlines(k).point2];
-			plotHoughline(xy, plotme,'green')
-		end
+		%end
+		% % VERTICAL
+		% if (thetaH>=vertAngleOffset-maxVertAngleErr && thetaH<=vertAngleOffset+maxVertAngleErr )
+		% 	xy = [Houghlines(k).point1; Houghlines(k).point2];
+		% 	plotHoughline(xy, plotme,'green')
+		% end
 	end
 	% TODO treat vanishleft case
 	% else
@@ -200,7 +216,7 @@ end
 if reply=='y'
 	disp('saving images..');
 	% save images
-	saveas(fgRGB,[savePath,'result_raw__',paramStr],'png');
+	%saveas(fgBW,[savePath,'result_raw__',paramStr],'png');
 	saveas(fgEdge,[savePath,'result_edge__',paramStr],'png');
 	saveas(fgHough,[savePath,'result_hough__',paramStr],'png');
 	disp('done');
