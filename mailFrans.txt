@@ -38,3 +38,16 @@ List of possible window assumptions
 see papers
 blue color
 
+
+choices:
+feature detection
+	corner detection 
+	aoe
+have to make a choice i cant figure them out all in the time
+
+hough rectangle detection
+(attachment)
+
+
+hough interesting method
+
