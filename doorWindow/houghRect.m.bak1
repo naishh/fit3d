@@ -128,7 +128,7 @@ end
 imEdgeOri = imEdge;
 if transposeMode
 	disp('transposeMode');
-	imEdge    = rot90(imEdge,-1);
+	imEdge    = rot90(imEdge,1);
 end
 if plotme
    fgHough = figure();imshow(imEdgeOri);hold on
@@ -174,10 +174,11 @@ theta2 = calcHoughTheta(X(3),Y(3),X(4),Y(4),h)
 for k = 1:length(Houghlines)
 	%if wallVanishesRight 
 % TODO calc wallVanishesRight val automaticly (crossing the building horizontal edges and check if its right or left from center of image?)
+	xy = [Houghlines(k).point1; Houghlines(k).point2];
+	plotHoughline(xy, plotme,'yellow')
 	if transposeMode
-		% TODO make matrix calculation
-		yxFlipped = [invertCoordFlipY(Houghlines(k).point2,h); invertCoordFlipY(Houghlines(k).point1,h)];
-		plotHoughline(yxFlipped, plotme,'green')
+		yx = [invertCoord(Houghlines(k).point2); invertCoord(Houghlines(k).point1)];
+		plotHoughline(yx, plotme,'green')
 	else
 		xy = [Houghlines(k).point1; Houghlines(k).point2];
 		plotHoughline(xy, plotme,'red')
