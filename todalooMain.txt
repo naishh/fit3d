@@ -1,29 +1,44 @@
 FITTING THE 3D MODEL
-	binding between WallsPc and Walls is [R S |t], find out which and transform Walls
-		see matching2d.ppt
-		see old paper
-		search terms:
-		point matching 2d basic least squares 2D translation rotation scaling
-	improve building and put new result in report
+	align 3d model by projecting in z direction
+	see mail isaac
 	perform reconstructmodeling with more than 8 images
 
 
 DOOR WINDOW:
-	test houghRect on 3 datasets
-	make window assumptions and mail
-		
+	rectify facade
+		by rotation matrix
+			see projectsquareHough
+	
+		affine square transformation
+			search terms:
+				point matching 2d basic least squares 2D translation rotation scaling
+				Computing Affine Transformations between Sets of Matching Points
+				four point correspondences
+				H matrix
+				search in old uva computer visions assignments 
+			see project2square
+			als het te lang duurt (1 dag) toch over naar quadri nogwat naar square
+			see paper Projective Mappings for Image Warping
 
-	project 3d 2d 
-		see project2square
-		als het te lang duurt (1 dag) toch over naar quadri nogwat naar square
-		see paper Projective Mappings for Image Warping
+	rectangle detection by hough
+		find out what probabilistic houghtransform is	
 
-	try license plate code
-		annotate dataset (midle point of window)
-	read papers about door window detection 
-	think of how to combine images 
-	combine with houghlines vanishpoints
-	harris corner detection?
+		intensity variantie:
+			als je met een lijn door de ramen snijd is er veel variantie in intensiteit
+
+		vertical density function:
+			op een horizontale coordinaat het aantal verticale lijnen tellen 
+			maakt gebruik van de assumptie dat er veel lijnen bij een kozijn zitten
+
+
+
+	FEATURE 
+		harris corner detection?
+		try license plate code
+			annotate dataset (midle point of window)
+		read papers about door window detection 
+		think of how to combine images 
+		combine with houghlines vanishpoints
 
 
 
