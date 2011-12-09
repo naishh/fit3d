@@ -4,19 +4,9 @@
 % transform edge image to rectangular image
 %	apply hough rectangul detection based on hough transform (paper)
 % make dummy image where some rectangles are present
-
-% compose mail to frans with results send on sunday
-% other dataset
-% a priori theta ratio 
-	% for vertical and horizontal lines differently
-% perform hough on rotated image
-% unrotate results
-% set results in unrotated image
-% houghlines must be spread
 % unblurr or something like that to make edgelines more thick
 % apply a houghline length range (max and min), 
 % use a height-width ratio for windows
-% transform edge image to rectangular image
 % detect cornerpoints by houghline intersection
 % 	detect exact intersections
 % 	stretch exact intersection by making all lines just a little bit longer
@@ -24,8 +14,6 @@
 % play with a (harris?) cornerdetector
 % read paper about implicite shape of window
 %	use assumptions, like average width height ratio of the window
-%
-% report: say something about angle interval that should depend on height in image but doesnt
 
 
 close all;
@@ -45,11 +33,11 @@ colorModel						= 'HSV_Vchannel';
 HSVmode							= true;
 % rotates image 90 degrees clockwise
 edgeDetectorParam.type 			= 'canny';
-loadEdgeFromCache 				= true;
+loadEdgeFromCache 				= false;
 %edgeDetectorParam.typePost 		= 'vertical_horizontal_Combined';
 edgeDetectorParam.typePost 		= '';
 %edgeDetectorParam.thresh		= 0.50;%0.45
-edgeDetectorParam.thresh		= 0.55;%0.45
+edgeDetectorParam.thresh		= 0.45;%0.45
 % perform different threshold test?
 edgeTest 						= 0;
 HoughParam.ThetaStretchAngle	= 30;
@@ -83,13 +71,12 @@ if loadEdgeFromCache == false
 		%fgRGB = figure();imshow(imRGB);
 	end
 end
-%fgBW = figure();imshow(imBW);
 h = size(imBW,1);
 
 
 load('XYcropRegionFloriande5435.mat');
 imBW = cropImage(imBW, X,Y);
-figure; imshow(imBW)
+fgBW = figure();imshow(imBW);
 
 if edgeTest
 	for thresh=0.1:0.05:0.8
@@ -131,13 +118,15 @@ end
 [H,Theta,Rho] = hough(imEdgeRot,'Theta',HoughParam.ThetaStart:HoughParam.ThetaResolution:HoughParam.ThetaEnd);
 Peaks  = houghpeaks(H,HoughParam.nrPeaks,'threshold',ceil(HoughParam.thresh*max(H(:))));
 x = Theta(Peaks(:,2)); y = Rho(Peaks(:,1));
-Houghlines = houghlines(imEdgeRot,Theta,Rho,Peaks,'FillGap',HoughParam.fillGap,'MinLength',HoughParam.minLength);
+HoughlinesRot = houghlines(imEdgeRot,Theta,Rho,Peaks,'FillGap',HoughParam.fillGap,'MinLength',HoughParam.minLength);
 %Houghlines = addLengthToHoughlines(Houghlines);
 
-for k = 1:length(Houghlines)
-	%xy = [Houghlines(k).point1; Houghlines(k).point2];
+for k = 1:length(HoughlinesRot)
+	%xy = [HoughlinesRot(k).point1; HoughlinesRot(k).point2];
 	% TODO get xy from Theta(..) above, calc as matrix
-	xy = [invertCoordFlipY(Houghlines(k).point2,h); invertCoordFlipY(Houghlines(k).point1,h)];
+	xy = [invertCoordFlipY(HoughlinesRot(k).point2,h); invertCoordFlipY(HoughlinesRot(k).point1,h)];
+	% save inverted coord on HoughlinesRot
+	HoughlinesRot(k).point1 = xy(1,:); HoughlinesRot(k).point2 = xy(2,:);
 	plotHoughline(xy, plotme,'red')
 end
 
@@ -150,9 +139,11 @@ end
 if reply=='y'
 	disp('saving images..');
 	% save images
-	%saveas(fgBW,[savePath,'result_raw__',paramStr],'png');
+	saveas(fgBW,[savePath,'result_raw__',paramStr],'png');
 	saveas(fgEdge,[savePath,'result_edge__',paramStr],'png');
 	saveas(fgHough,[savePath,'result_hough__',paramStr],'png');
+	save(['Houghlines_',fileShort,'.mat'],'Houghlines');
+	save(['HoughlinesRot_',fileShort,'.mat'],'HoughlinesRot');
 	disp('done');
 end
 

@@ -11,7 +11,9 @@ DOOR WINDOW:
 			load houghlines  and walls of floriande set
 			set houghline coords in loop
 			plot
-			square? yes? happy?
+			stapsgewijs debuggen: 
+				handmatige houghlines
+				alleen image 1 doen
 	
 		affine square transformation
 			search terms:
