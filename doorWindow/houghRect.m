@@ -45,7 +45,7 @@ colorModel						= 'HSV_Vchannel';
 HSVmode							= true;
 % rotates image 90 degrees clockwise
 edgeDetectorParam.type 			= 'canny';
-loadEdgeFromCache 				= false;
+loadEdgeFromCache 				= true;
 %edgeDetectorParam.typePost 		= 'vertical_horizontal_Combined';
 edgeDetectorParam.typePost 		= '';
 %edgeDetectorParam.thresh		= 0.50;%0.45
