@@ -1,4 +1,13 @@
+Allereerst opschonen 
+	houghRect etc nieuwe naamgeven
+	projectNormal en houghRect in 1 dir
+	code becomentariseren
+	generieker maken, alle mat files in de mat directory
+	experimenteren met corner detector
+	aan report beginnen
+
 FITTING THE 3D MODEL
+	align 3d model by clicking on cornerpoints 
 	align 3d model by projecting in z direction
 	see mail isaac
 	perform reconstructmodeling with more than 8 images
@@ -6,25 +15,6 @@ FITTING THE 3D MODEL
 
 DOOR WINDOW:
 	rectify facade
-		by rotation matrix
-			see projectsquareHough
-			load houghlines  and walls of floriande set
-			set houghline coords in loop
-			plot
-			stapsgewijs debuggen: 
-				handmatige houghlines
-				alleen image 1 doen
-	
-		affine square transformation
-			search terms:
-				point matching 2d basic least squares 2D translation rotation scaling
-				Computing Affine Transformations between Sets of Matching Points
-				four point correspondences
-				H matrix
-				search in old uva computer visions assignments 
-			see project2square
-			als het te lang duurt (1 dag) toch over naar quadri nogwat naar square
-			see paper Projective Mappings for Image Warping
 
 	rectangle detection by hough
 		do hough trasnform on different areas of image (prevent overkill on houghlines on 1 window)

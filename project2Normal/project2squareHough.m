@@ -1,7 +1,7 @@
 %TODO Cleanup this file  and make comments
 close all;
-load('../doorWindow/Houghlines_floriande5435.mat')
-load('../doorWindow/HoughlinesRot_floriande5435.mat')
+load('../doorWindow/Houghlines_floriande5435.mat'); load('../doorWindow/HoughlinesRot_floriande5435.mat');
+%load('../doorWindow/Houghlines_floriande5447.mat'); load('../doorWindow/HoughlinesRot_floriande5447.mat');
 %Houghlines = mergeHoughlines(Houghlines,HoughlinesRot);
 
 load Walls
@@ -53,7 +53,7 @@ figure;
 hold on;
 % plot individual line segments
 for i=1:2:length(X)
-	plot(X(i:i+1), Y(i:i+1), 'g-','lineWidth',2);
+	plot(X(i:i+1), -Y(i:i+1), 'g-','lineWidth',2);
 end
 
 
@@ -81,7 +81,7 @@ end
 
 % plot individual line segments
 for i=1:2:length(X)
-	plot(X(i:i+1), Y(i:i+1), 'r-','lineWidth',2);
+	plot(X(i:i+1), -Y(i:i+1), 'r-','lineWidth',2);
 end
 
 

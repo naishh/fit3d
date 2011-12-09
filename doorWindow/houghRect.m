@@ -18,8 +18,13 @@
 
 close all;
 tic;
-imNr = 5435; file = sprintf('../dataset/FloriandeSet1/medium/undist__MG_%d.jpg', imNr); load('XYangleFilter_floriande_5447.mat');
-%imNr = 5447; file = sprintf('../dataset/FloriandeSet1/medium/undist__MG_%d.jpg', imNr); load('XYangleFilter_floriande_5447.mat');
+%imNr = 5435; file = sprintf('../dataset/FloriandeSet1/medium/undist__MG_%d.jpg', imNr); load('XYangleFilter_floriande_5447.mat'); load('XYcropRegionFloriande5435.mat'); edgeDetectorParam.thresh		= 0.45; HoughParam.ThetaStretchAngle	= 30;
+imNr = 5447; file = sprintf('../dataset/FloriandeSet1/medium/undist__MG_%d.jpg', imNr); 
+	load('XYangleFilter_floriande_5447.mat'); 
+	load('XYcropRegionFloriande5447.mat'); 
+	edgeDetectorParam.thresh		= 0.35; 
+	HoughParam.ThetaH.StretchAngle	= 30;
+	HoughParam.ThetaV.StretchAngle	= 10;
 %imNR = 6; file = sprintf('../dataset/datasetSpil/datasetSpilRect/P_rect6.jpg')
 % imNr = 6680; file = sprintf('../dataset/fullDatasets/aalsmeer/undist__MG_%d.jpg', imNr); load('XYangleFilter_aalsmeer6680.mat');
 
@@ -27,25 +32,27 @@ imNr = 5435; file = sprintf('../dataset/FloriandeSet1/medium/undist__MG_%d.jpg',
 plotme							= 1;
 savePath 						= 'results/';
 %fileShort 						= 'aalsmeer6680';
-fileShort 						= 'floriande5435';
+fileShort 						= 'floriande5447';
 colorModel						= 'HSV_Vchannel';
 %colorModel						= 'RGB';
 HSVmode							= true;
 % rotates image 90 degrees clockwise
 edgeDetectorParam.type 			= 'canny';
-loadEdgeFromCache 				= false;
+loadEdgeFromCache 				= 0;
 %edgeDetectorParam.typePost 		= 'vertical_horizontal_Combined';
 edgeDetectorParam.typePost 		= '';
-%edgeDetectorParam.thresh		= 0.50;%0.45
-edgeDetectorParam.thresh		= 0.45;%0.45
 % perform different threshold test?
 edgeTest 						= 0;
-HoughParam.ThetaStretchAngle	= 30;
-HoughParam.ThetaStart 			= 0;
-HoughParam.ThetaStart 			= HoughParam.ThetaStart - HoughParam.ThetaStretchAngle;
-HoughParam.ThetaEnd 			= 0;
-HoughParam.ThetaEnd 			= HoughParam.ThetaEnd + HoughParam.ThetaStretchAngle;
-HoughParam.ThetaResolution  	= 0.5;
+HoughParam.ThetaV.Start 		= 0;
+HoughParam.ThetaV.Start 		= HoughParam.ThetaH.Start - HoughParam.ThetaH.StretchAngle;
+HoughParam.ThetaH.Start 		= 0;
+HoughParam.ThetaH.Start 		= HoughParam.ThetaH.Start - HoughParam.ThetaH.StretchAngle;
+HoughParam.ThetaH.End 			= 0;
+HoughParam.ThetaH.End 			= HoughParam.ThetaH.End + HoughParam.ThetaH.StretchAngle;
+HoughParam.ThetaV.End 			= 0;
+HoughParam.ThetaV.End 			= HoughParam.ThetaH.End + HoughParam.ThetaH.StretchAngle;
+HoughParam.ThetaH.Resolution  	= 0.5;
+HoughParam.ThetaV.Resolution  	= HoughParam.ThetaH.Resolution;
 HoughParam.thresh 				= 0;
 % sets the max nr of lines hough finds:
 HoughParam.nrPeaks 				= 200;
@@ -74,12 +81,11 @@ end
 h = size(imBW,1);
 
 
-load('XYcropRegionFloriande5435.mat');
 imBW = cropImage(imBW, X,Y);
 fgBW = figure();imshow(imBW);
 
 if edgeTest
-	for thresh=0.1:0.05:0.8
+	for thresh=0.2:0.05:0.8
 		thresh
 		imEdge = im2double(edge(imBW, edgeDetectorParam.type, thresh));
 		figure(round(thresh*100));
@@ -99,7 +105,7 @@ fgEdge = figure();imshow(imEdge);
 fgHough = figure();imshow(imEdge);hold on
 
 % HOUGHLINES:
-[H,Theta,Rho] = hough(imEdge,'Theta',HoughParam.ThetaStart:HoughParam.ThetaResolution:HoughParam.ThetaEnd);
+[H,Theta,Rho] = hough(imEdge,'Theta',HoughParam.ThetaV.Start:HoughParam.ThetaV.Resolution:HoughParam.ThetaV.End);
 Peaks  = houghpeaks(H,HoughParam.nrPeaks,'threshold',ceil(HoughParam.thresh*max(H(:))));
 x = Theta(Peaks(:,2)); y = Rho(Peaks(:,1));
 Houghlines = houghlines(imEdge,Theta,Rho,Peaks,'FillGap',HoughParam.fillGap,'MinLength',HoughParam.minLength);
@@ -115,7 +121,7 @@ end
 if loadEdgeFromCache == false
 	imEdgeRot    = rot90(imEdge,-1);
 end
-[H,Theta,Rho] = hough(imEdgeRot,'Theta',HoughParam.ThetaStart:HoughParam.ThetaResolution:HoughParam.ThetaEnd);
+[H,Theta,Rho] = hough(imEdgeRot,'Theta',HoughParam.ThetaH.Start:HoughParam.ThetaH.Resolution:HoughParam.ThetaH.End);
 Peaks  = houghpeaks(H,HoughParam.nrPeaks,'threshold',ceil(HoughParam.thresh*max(H(:))));
 x = Theta(Peaks(:,2)); y = Rho(Peaks(:,1));
 HoughlinesRot = houghlines(imEdgeRot,Theta,Rho,Peaks,'FillGap',HoughParam.fillGap,'MinLength',HoughParam.minLength);
