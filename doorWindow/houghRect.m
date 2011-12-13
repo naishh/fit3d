@@ -44,13 +44,13 @@ edgeDetectorParam.typePost 		= '';
 % perform different threshold test?
 edgeTest 						= 0;
 HoughParam.ThetaV.Start 		= 0;
-HoughParam.ThetaV.Start 		= HoughParam.ThetaH.Start - HoughParam.ThetaH.StretchAngle;
+HoughParam.ThetaV.Start 		= HoughParam.ThetaV.Start - HoughParam.ThetaV.StretchAngle;
 HoughParam.ThetaH.Start 		= 0;
 HoughParam.ThetaH.Start 		= HoughParam.ThetaH.Start - HoughParam.ThetaH.StretchAngle;
 HoughParam.ThetaH.End 			= 0;
 HoughParam.ThetaH.End 			= HoughParam.ThetaH.End + HoughParam.ThetaH.StretchAngle;
 HoughParam.ThetaV.End 			= 0;
-HoughParam.ThetaV.End 			= HoughParam.ThetaH.End + HoughParam.ThetaH.StretchAngle;
+HoughParam.ThetaV.End 			= HoughParam.ThetaV.End + HoughParam.ThetaV.StretchAngle;
 HoughParam.ThetaH.Resolution  	= 0.5;
 HoughParam.ThetaV.Resolution  	= HoughParam.ThetaH.Resolution;
 HoughParam.thresh 				= 0;
@@ -65,7 +65,7 @@ HoughParam.fillGap 				= 10;
 HoughParam.minLength 			= 45; 
 
 % todo transfer to sprintf 
-paramStr = ['src_',fileShort,'_colorModel_',colorModel,'__edgeDetectorParams_',edgeDetectorParam.type,edgeDetectorParam.typePost,'_thresh_',num2str(edgeDetectorParam.thresh),'__HoughParams_', 'thresh_',num2str(HoughParam.thresh) , '_nrPeaks_',num2str(HoughParam.nrPeaks) , '_fillGap_',num2str(HoughParam.fillGap) , '_minLength_',num2str(HoughParam.minLength),'__ThetaRange',num2str(HoughParam.ThetaStart),':',num2str(HoughParam.ThetaResolution),':',num2str(HoughParam.ThetaEnd),'.png'];
+paramStr = ['src_',fileShort,'_colorModel_',colorModel,'__edgeDetectorParams_',edgeDetectorParam.type,edgeDetectorParam.typePost,'_thresh_',num2str(edgeDetectorParam.thresh),'__HoughParams_', 'thresh_',num2str(HoughParam.thresh) , '_nrPeaks_',num2str(HoughParam.nrPeaks) , '_fillGap_',num2str(HoughParam.fillGap) , '_minLength_',num2str(HoughParam.minLength),'__ThetaRangeH_',num2str(HoughParam.ThetaH.Start),':',num2str(HoughParam.ThetaH.Resolution),':',num2str(HoughParam.ThetaH.End),'_ThetaRangeV_',num2str(HoughParam.ThetaV.Start),':',num2str(HoughParam.ThetaV.Resolution),':',num2str(HoughParam.ThetaV.End),'.png'];
 
 if loadEdgeFromCache == false
 	imRGB = imread(file);
