@@ -1,27 +1,36 @@
 close all;
-imNr = 5447; file = sprintf('../dataset/FloriandeSet1/medium/undist__MG_%d.jpg', imNr); fileShort = 'floriande5447'; load('XYcropRegionFloriande5447.mat'); 
+% TODO make dateset config
+%imNr = 5447; file = sprintf('../dataset/FloriandeSet1/medium/undist__MG_%d.jpg', imNr); fileShort = 'floriande5447'; load('XYcropRegionFloriande5447.mat'); 
+
+imNR = 6; file = sprintf('../dataset/datasetSpil/datasetSpilRect/P_rect6.jpg'); fileShort = 'spil6';
+load('XYcropRegionSpil6.mat');
 
 % imNr = 6680; file = sprintf('../dataset/fullDatasets/aalsmeer/undist__MG_%d.jpg', imNr); 
 % fileShort = 'aalsmeer6680';
 % load('XYcropRegionAalsmeer6680.mat');
 
 
-imRGB = imread(file);
-imHSV = rgb2hsv(imRGB);
-imBW  = imHSV(:,:,3);
+imBW = imread(file);
+imBW = im2double(imBW);
+
+% imRGB = imread(file);
+% imRGB = imread(file);
+% imHSV = rgb2hsv(imRGB);
+% imBW  = imHSV(:,:,3);
 imBW  = cropImage(imBW, X,Y);
 
 CornerParam.method = 'Harris';
-CornerParam.method = 'MinimumEigenvalue';
-CornerParam.nrCorners = 500;
+%CornerParam.method = 'MinimumEigenvalue';
+CornerParam.nrCorners = 800;
 CornerParam.QualityLevel = 0.15;
 CornerParam.SensitivityFactor = 0.24;
 
-if CornerParam.method == 'MinimumEigenvalue'
-	C = corner(imBW, CornerParam.method, CornerParam.nrCorners,'QualityLevel',CornerParam.QualityLevel);
-else
-	C = corner(imBW, CornerParam.method, CornerParam.nrCorners,'QualityLevel',CornerParam.QualityLevel, 'SensitivityFactor',CornerParam.SensitivityFactor);
-end
+% if CornerParam.method == 'MinimumEigenvalue'
+% 	C = corner(imBW, CornerParam.method, CornerParam.nrCorners,'QualityLevel',CornerParam.QualityLevel);
+% else
+% 	C = corner(imBW, CornerParam.method, CornerParam.nrCorners,'QualityLevel',CornerParam.QualityLevel, 'SensitivityFactor',CornerParam.SensitivityFactor);
+% end
+C = corner(imBW, CornerParam.method, CornerParam.nrCorners);
 
 % TODO REMOVE sensitv @ minim eign val method
 paramStr = sprintf('src_%s_method_%s_nrCorners_%d_butFound_%d_QualityLevel_%s_SensitivityFactor_%s', fileShort, CornerParam.method, CornerParam.nrCorners, size(C,1), num2str(CornerParam.QualityLevel),num2str(CornerParam.SensitivityFactor))
