@@ -14,13 +14,13 @@ FITTING THE 3D MODEL
 
 
 DOOR WINDOW:
-	rectify facade
-
 	rectangle detection by hough
-		do hough trasnform on different areas of image (prevent overkill on houghlines on 1 window)
+		try Harris on multiple scales 
+		count corner on different scales
+
+
 
 		find out what probabilistic houghtransform is	
-
 		intensity variantie:
 			als je met een lijn door de ramen snijd is er veel variantie in intensiteit
 
