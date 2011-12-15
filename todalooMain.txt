@@ -1,24 +1,12 @@
-Allereerst opschonen 
-	houghRect etc nieuwe naamgeven
-	projectNormal en houghRect in 1 dir
-	code becomentariseren
-	generieker maken, alle mat files in de mat directory
-	experimenteren met corner detector
-	aan report beginnen
-
-FITTING THE 3D MODEL
-	align 3d model by clicking on cornerpoints 
-	align 3d model by projecting in z direction
-	see mail isaac
-	perform reconstructmodeling with more than 8 images
-
-
 DOOR WINDOW:
 	rectangle detection by hough
 		try Harris on multiple scales 
-		count corner on different scales
-
-
+			make a corners on different scales counter
+		connect lines 
+			coordinaten zoeken die dicht bij elkaar zitten
+			afstand eindpunt lijn A naar hele lijn B
+		hough parameter space (zie paper)
+		
 
 		find out what probabilistic houghtransform is	
 		intensity variantie:
@@ -39,6 +27,12 @@ DOOR WINDOW:
 		combine with houghlines vanishpoints
 
 
+
+FITTING THE 3D MODEL
+	align 3d model by clicking on cornerpoints 
+	align 3d model by projecting in z direction
+	see mail isaac
+	perform reconstructmodeling with more than 8 images
 
 
 

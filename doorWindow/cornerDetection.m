@@ -1,42 +1,47 @@
 close all;
 % TODO make dateset config
+
+%imNr = 5435; file = sprintf('../dataset/FloriandeSet1/medium/undist__MG_%d.jpg', imNr); load('XYangleFilter_floriande_5447.mat'); load('XYcropRegionFloriande5435.mat'); scaleRange = (1/4):-(1/16):(1/16);
+
 %imNr = 5447; file = sprintf('../dataset/FloriandeSet1/medium/undist__MG_%d.jpg', imNr); fileShort = 'floriande5447'; load('XYcropRegionFloriande5447.mat'); 
+%imNR = 6; file = sprintf('../dataset/datasetSpil/datasetSpilRect/P_rect6.jpg'); fileShort = 'spil6'; load('XYcropRegionSpil6.mat');
 
-imNR = 6; file = sprintf('../dataset/datasetSpil/datasetSpilRect/P_rect6.jpg'); fileShort = 'spil6';
-load('XYcropRegionSpil6.mat');
+imNr = 6680; file = sprintf('../dataset/fullDatasets/aalsmeer/undist__MG_%d.jpg', imNr); 
+fileShort = 'aalsmeer6680';
+load('XYcropRegionAalsmeer6680.mat');
 
-% imNr = 6680; file = sprintf('../dataset/fullDatasets/aalsmeer/undist__MG_%d.jpg', imNr); 
-% fileShort = 'aalsmeer6680';
-% load('XYcropRegionAalsmeer6680.mat');
+CornerParam.blurFactor = 5;
+
+im = imread(file);
+% if image is black and white
+if size(im,3) == 1
+	imBW = im2double(im);
+else
+	imHSV = rgb2hsv(im);
+	imBW  = imHSV(:,:,3);
+end
+imBW     = cropImage(imBW, X,Y);
+
+imBWori  = imBW;
 
 
-imBW = imread(file);
-imBW = im2double(imBW);
-
-% imRGB = imread(file);
-% imRGB = imread(file);
-% imHSV = rgb2hsv(imRGB);
-% imBW  = imHSV(:,:,3);
-imBW  = cropImage(imBW, X,Y);
-
+CornerParam.savePath = 'resultsCornerDet/';
 CornerParam.method = 'Harris';
 %CornerParam.method = 'MinimumEigenvalue';
 CornerParam.nrCorners = 800;
-CornerParam.QualityLevel = 0.15;
-CornerParam.SensitivityFactor = 0.24;
+%CornerParam.QualityLevel = 0.01;
+%CornerParam.SensitivityFactor = 0.04;
 
-% if CornerParam.method == 'MinimumEigenvalue'
-% 	C = corner(imBW, CornerParam.method, CornerParam.nrCorners,'QualityLevel',CornerParam.QualityLevel);
-% else
-% 	C = corner(imBW, CornerParam.method, CornerParam.nrCorners,'QualityLevel',CornerParam.QualityLevel, 'SensitivityFactor',CornerParam.SensitivityFactor);
-% end
-C = corner(imBW, CornerParam.method, CornerParam.nrCorners);
-
-% TODO REMOVE sensitv @ minim eign val method
-paramStr = sprintf('src_%s_method_%s_nrCorners_%d_butFound_%d_QualityLevel_%s_SensitivityFactor_%s', fileShort, CornerParam.method, CornerParam.nrCorners, size(C,1), num2str(CornerParam.QualityLevel),num2str(CornerParam.SensitivityFactor))
-
-fgC = figure;imshow(imBW);hold on;
-hold on;plot(C(:,1),C(:,2),'r+','MarkerSize',10);
-
-savePath = 'resultsCornerDet/';
-saveas(fgC, [savePath,'result_cornerDet__',paramStr],'png');
+scaleRange = (1/4):-(1/16):(1/16);
+for scale=scaleRange;
+	size(imBW)
+	C = corner(imBW, CornerParam.method, CornerParam.nrCorners);
+	CM = cornermetric(imBW);
+	CMadj = imadjust(CM);
+	figure;imshow(CMadj);
+	paramStr = sprintf('src_%s_method_%s_nrCorners_%d_butFound_%d_scale_%s', fileShort, CornerParam.method, CornerParam.nrCorners, size(C,1), num2str(scale));
+	fgC = figure;imshow(imBW);hold on;
+	hold on;plot(C(:,1),C(:,2),'r+','MarkerSize',10);
+	%saveas(fgC, [CornerParam.savePath,'result_cornerDet__',paramStr],'png');
+	imBW = imresize(imBWori, scale, 'bicubic');
+end

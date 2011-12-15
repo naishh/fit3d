@@ -1,7 +1,7 @@
 %TODO Cleanup this file  and make comments
 close all;
-load('../doorWindow/Houghlines_floriande5435.mat'); load('../doorWindow/HoughlinesRot_floriande5435.mat');
-%load('../doorWindow/Houghlines_floriande5447.mat'); load('../doorWindow/HoughlinesRot_floriande5447.mat');
+%load('../doorWindow/mats/Houghlines_floriande5435.mat'); load('../doorWindow/mats/HoughlinesRot_floriande5435.mat');
+load('../doorWindow/mats/Houghlines_floriande5447.mat'); load('../doorWindow/mats/HoughlinesRot_floriande5447.mat');
 %Houghlines = mergeHoughlines(Houghlines,HoughlinesRot);
 
 load Walls
@@ -43,6 +43,9 @@ for k = 1:length(Houghlines)
 	% TODO only works for image 1?
 	xy1Proj = homog22D(inv(R) * xyz1');
 	xy2Proj = homog22D(inv(R) * xyz2');
+
+	Houghlines(k).point1 = xy1Proj';
+	Houghlines(k).point2 = xy2Proj';
 	
 	X = [X,xy1Proj(1),xy2Proj(1)];
 	Y = [Y,xy1Proj(2),xy2Proj(2)];
@@ -75,6 +78,9 @@ for k = 1:length(HoughlinesRot)
 	xy1Proj = homog22D(inv(R) * xyz1');
 	xy2Proj = homog22D(inv(R) * xyz2');
 	
+	HoughlinesRot(k).point1 = xy1Proj';
+	HoughlinesRot(k).point2 = xy2Proj';
+
 	X = [X,xy1Proj(1),xy2Proj(1)];
 	Y = [Y,xy1Proj(2),xy2Proj(2)];
 end
@@ -87,3 +93,5 @@ end
 
 toc;
 
+save Houghlines
+save HoughlinesRot
