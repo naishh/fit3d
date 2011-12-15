@@ -5,6 +5,10 @@ DOOR WINDOW:
 		connect lines 
 			coordinaten zoeken die dicht bij elkaar zitten
 			afstand eindpunt lijn A naar hele lijn B
+		make afine transform
+		horizontale/verticale lijnstukken die op 1 lange lijn zitten groeperen
+			imfilter met een horizontale strook en dan berekenen en aant edge pixels counten
+			snijpunten berekenen, checken met corners
 		hough parameter space (zie paper)
 		
 

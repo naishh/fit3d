@@ -1,4 +1,6 @@
 % calculates the distances from all to all endpoints of the line segments outputed by project2squareHough
+% and plots the ones that have a distance lower then threshold
+close all;
 load('../project2Normal/Houghlines.mat');
 load('../project2Normal/HoughlinesRot.mat');
 
@@ -23,14 +25,30 @@ for j=1:length(Houghlines)
 	[v1min, idxV1min]= min(v1Accu);
 	[v2min, idxV2min]= min(v2Accu);
 	Houghlines(j).point1MinDist    = v1min;
-	Houghlines(j).point1MinDist    = v1min;
+	Houghlines(j).point1MinDistIdx = idxV1min;
 	Houghlines(j).point2MinDist    = v2min;
 	Houghlines(j).point2MinDistIdx = idxV2min;
 end
 
 [vals, idxSort] = sort([Houghlines.point1MinDist])
 
-nrCorners = 4;
-idxSort = idxSort(1:nrCorners)
+% get top nrCorners min houghlines
+%nrCorners = 10;
+%idxSort = idxSort(1:min(nrCorners,length(Houghlines)))
 
-plotHoughlines(Houghlines(idxSort),'blue')
+%size(imBW)
+imVote = zeros(508,368);
+
+minDestThresh = 0.02;
+for i=1:length(Houghlines)
+	if Houghlines(i).point1MinDist <= minDestThresh
+		plot(Houghlines(i).point1(1),-Houghlines(i).point1(2), 'k*')
+		%werkt niet omdat het geen goed coordinaten systeem is ivm de projectie:
+		%imVote(Houghlines(i).point1(1),-Houghlines(i).point1(2)) = 1;
+	end
+end
+
+
+figure;
+imshow(imVote,[]);
+

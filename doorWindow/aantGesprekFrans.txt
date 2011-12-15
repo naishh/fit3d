@@ -12,6 +12,7 @@ voting mechanisme ontwikkelen om vierkanten te herkennen
 		afstand eindpunt lijn A naar hele lijn B
 		afstand eindpunt lijn A naar eindpunt lijn B
 		of een lijn de ander snijd binnen bepaalde afstand
+	aant lijnen vlakbij elkaar (bv horizontale bij kozijn)
 	extract t-junction t-corners
 	hoek tussen twee lijnen (evenwijdig of 90C?)
 	vierkant bestaat uit 2 groepje horizontale en verticale lijnen
