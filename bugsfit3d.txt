@@ -1,8 +1,0 @@
-
-getSIFT doesn't work with black and white images,
-(output of rectification of calibration toolbox are black and white images)
-
-scriptComputeMotion
-Fplus = zeros(1,9);
-must be
-Fplus = zeros(1,maxFrames+1);

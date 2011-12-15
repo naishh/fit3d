@@ -132,11 +132,46 @@ lwa:
 
 
 
+----------------------------------------------------------------
+Todolist after meeting Frans, Tjerk, november 9th
 
-DOOR WINDOW DETECTION:
-doordat ik 3d model heb kan ik ramen rekken zodat ze vierkant zijn
-	door hoekpunten in 2d model te projecten en uit te rekken
+Before our next meeting I will focus on:
+	Fix projection bug 
+	Door/window detection
 
-algemene corner finder icm hough transform
-	voordeel hand geanoteerde ramen niet nodig
 
+Projection
+	Fix projection bug 
+		write down equations and use Leo as consult
+	Add occlusion constraint
+		if more walls are candidate pick most closest to cameracenter
+	consider projecting and measuring in 2D
+	
+Door/window detection
+	Read former research on license plate recognition
+	Apply adaboost cascading classifier on building dataset
+	Check how it can be used and how it is related to detect the skyline
+	Optional:use houghlines of windowbounds to guide the search 
+
+Improve skyline detector
+	Drop thresholdsensitive approach, use classification based on color (HSV)
+		Inform about Arnouds research on skylinedetection (IMAF)
+		take best edge instead of top edge
+		SVM
+	Use nummeric evaluation
+		find out amount of effort of making a ground truth 
+		else:measure width of misclassified area's
+		optional:generate graph threshold versus error
+	
+Thesis
+	Read and process Frans' comments on thesis
+	Process notes of meeting november 9th
+	Rewrite alternative roofs
+		discuss how and why current work can and cannot classify a rooftype
+			discuss view depended issue
+		probably best method is using point cloud and fit in 3D
+
+
+Kind regards,
+
+Tjerk
