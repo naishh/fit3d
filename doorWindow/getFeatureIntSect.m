@@ -48,7 +48,8 @@ for i=1:length(vertexAccu)
 			end
 			%TODO evt -dist als waarde 
 			%TODO rounden is info verlies, interpoleren vanuit crossingAccu?
-			imFeatureIntSect(round(crossing(1)),round(crossing(2))) = 1;
+			imFeatureIntSect(round(crossing(2)),round(crossing(1))) = 1;
+			%figure(2);imshow(imFeatureIntSect); figure(1);
 			crossingAccu = [crossingAccu, crossing];
 		end
 	end
