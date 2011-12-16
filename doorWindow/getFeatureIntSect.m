@@ -7,7 +7,9 @@
 %  horizontal houghlines
 % output
 %
-function crossingAccu = getFeatureIntSect(Houghlines,HoughlinesRot,cornerInlierThreshold, plotme)
+function [crossingAccu,imFeatureIntSect] = getFeatureIntSect(Houghlines,HoughlinesRot,cornerInlierThreshold, plotme)
+% TODO NIET HARD CODED::
+imFeatureIntSect = zeros(508,368); 
 
 if plotme
 	figure;
@@ -26,8 +28,7 @@ for j=1:length(Houghlines)
 	vertexAccu = [vertexAccu, v1, v2];
 end
 
-%for i=1:length(vertexAccu)
-for i=1:5
+for i=1:length(vertexAccu)
 	p3 = vertexAccu(:,i);
 
 	for j=1:length(HoughlinesRot)
@@ -43,9 +44,13 @@ for i=1:5
 			if plotme
 				plot(p3(1), -p3(2), 'r*');
 				plot(crossing(1),-crossing(2), 'r+','MarkerSize', 10);
+				axis equal;
 			end
-			axis equal;
+			%TODO evt -dist als waarde 
+			%TODO rounden is info verlies, interpoleren vanuit crossingAccu?
+			imFeatureIntSect(round(crossing(1)),round(crossing(2))) = 1;
 			crossingAccu = [crossingAccu, crossing];
 		end
 	end
 end
+

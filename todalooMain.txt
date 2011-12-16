@@ -1,17 +1,24 @@
 DOOR WINDOW:
 	rectangle detection by hough
+		spiegeling goed krijgen zie houghRect onderin
+		plaatjes goed optellen
+		corners zoeken die met zn 4en een vierkant vormen
+		hough parameter space (zie paper) nog een keer lezen
+
 		try Harris on multiple scales 
-			make a corners on different scales counter
+			cornermetric plaatjes maken op verschillende scales
+			dan plaatjes weer uitrekken zodat ze allemaal even groot zijn
+			en de plaatjes bij elkaar optellen
+
 		connect lines 
-			coordinaten zoeken die dicht bij elkaar zitten
-			afstand eindpunt lijn A naar hele lijn B
+			nieuwe lijnen updaten met gevonden crossing
+
 		make afine transform
+
 		horizontale/verticale lijnstukken die op 1 lange lijn zitten groeperen
 			imfilter met een horizontale strook en dan berekenen en aant edge pixels counten
 			snijpunten berekenen, checken met corners
-		hough parameter space (zie paper)
 		
-
 		find out what probabilistic houghtransform is	
 		intensity variantie:
 			als je met een lijn door de ramen snijd is er veel variantie in intensiteit
