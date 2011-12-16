@@ -18,7 +18,7 @@
 
 close all;
 tic;
-imNr = 5435; file = sprintf('../dataset/FloriandeSet1/medium/undist__MG_%d.jpg', imNr); load('XYangleFilter_floriande_5447.mat'); load('XYcropRegionFloriande5435.mat'); edgeDetectorParam.thresh		= 0.55; HoughParam.ThetaH.StretchAngle	= 30;HoughParam.ThetaV.StretchAngle	= 10;
+imNr = 5435; file = sprintf('../dataset/FloriandeSet1/medium/undist__MG_%d.jpg', imNr); load('XYangleFilter_floriande_5447.mat'); load('XYcropRegionFloriande5435.mat'); edgeDetectorParam.thresh		= 0.55; HoughParam.ThetaH.StretchAngle	= 30;HoughParam.ThetaV.StretchAngle	= 10; fileShort 						= 'floriande5435';
 %imNr = 5447; file = sprintf('../dataset/FloriandeSet1/medium/undist__MG_%d.jpg', imNr); 
 %	load('XYangleFilter_floriande_5447.mat'); 
 %	load('XYcropRegionFloriande5447.mat'); 
@@ -32,7 +32,6 @@ imNr = 5435; file = sprintf('../dataset/FloriandeSet1/medium/undist__MG_%d.jpg',
 plotme							= 1;
 savePath 						= 'results/';
 %fileShort 						= 'aalsmeer6680';
-fileShort 						= 'floriande5447';
 colorModel						= 'HSV_Vchannel';
 %colorModel						= 'RGB';
 HSVmode							= true;

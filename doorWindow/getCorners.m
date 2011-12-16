@@ -1,3 +1,4 @@
+function cornerScaleAccu = getCorners(plotme)
 close all;
 % TODO make dateset config
 
@@ -32,16 +33,22 @@ CornerParam.nrCorners = 800;
 %CornerParam.QualityLevel = 0.01;
 %CornerParam.SensitivityFactor = 0.04;
 
+i=0;
 scaleRange = (1/4):-(1/16):(1/16);
 for scale=scaleRange;
-	size(imBW)
 	C = corner(imBW, CornerParam.method, CornerParam.nrCorners);
 	CM = cornermetric(imBW);
 	CMadj = imadjust(CM);
-	figure;imshow(CMadj);
-	paramStr = sprintf('src_%s_method_%s_nrCorners_%d_butFound_%d_scale_%s', fileShort, CornerParam.method, CornerParam.nrCorners, size(C,1), num2str(scale));
-	fgC = figure;imshow(imBW);hold on;
-	hold on;plot(C(:,1),C(:,2),'r+','MarkerSize',10);
+	if plotme
+		figure;imshow(CMadj);
+		fgC = figure;imshow(imBW);hold on;
+		hold on;plot(C(:,1),C(:,2),'r+','MarkerSize',10);
+	end
+	%paramStr = sprintf('src_%s_method_%s_nrCorners_%d_butFound_%d_scale_%s', fileShort, CornerParam.method, CornerParam.nrCorners, size(C,1), num2str(scale));
 	%saveas(fgC, [CornerParam.savePath,'result_cornerDet__',paramStr],'png');
 	imBW = imresize(imBWori, scale, 'bicubic');
+	i=i+1
+	cornerScaleAccu(i).C = C;
+	cornerScaleAccu(i).scale = scale;
+	cornerScaleAccu(i).cornerMetricIm = CMadj;
 end
