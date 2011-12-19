@@ -1,5 +1,4 @@
 function cornerScaleAccu = getCorners(plotme)
-close all;
 % TODO make dateset config
 
 imNr = 5435; file = sprintf('../dataset/FloriandeSet1/medium/undist__MG_%d.jpg', imNr); load('XYcropRegionFloriande5435.mat'); scaleRange = (1/4):-(1/16):(1/16);
@@ -30,25 +29,26 @@ CornerParam.savePath = 'resultsCornerDet/';
 CornerParam.method = 'Harris';
 %CornerParam.method = 'MinimumEigenvalue';
 CornerParam.nrCorners = 800;
-%CornerParam.QualityLevel = 0.01;
-%CornerParam.SensitivityFactor = 0.04;
+CornerParam.QualityLevel = 0.3;
+CornerParam.SensitivityFactor = 0.04;
 
 i=0;
-scaleRange = (1/4):-(1/16):(1/16);
+%scaleRange = (1/4):-(1/16):(1/16);
+scaleRange = [1/4];
 for scale=scaleRange;
-	C = corner(imBW, CornerParam.method, CornerParam.nrCorners);
+	Corners = corner(imBW, CornerParam.method, CornerParam.nrCorners,'QualityLevel', CornerParam.QualityLevel);
 	CM = cornermetric(imBW);
 	CMadj = imadjust(CM);
 	if plotme
-		figure;imshow(CMadj);
+		%figure;imshow(CMadj);
 		fgC = figure;imshow(imBW);hold on;
-		hold on;plot(C(:,1),C(:,2),'r+','MarkerSize',10);
+		hold on;plot(Corners(:,1),Corners(:,2),'r+','MarkerSize',10);
 	end
 	%paramStr = sprintf('src_%s_method_%s_nrCorners_%d_butFound_%d_scale_%s', fileShort, CornerParam.method, CornerParam.nrCorners, size(C,1), num2str(scale));
 	%saveas(fgC, [CornerParam.savePath,'result_cornerDet__',paramStr],'png');
 	imBW = imresize(imBWori, scale, 'bicubic');
 	i=i+1
-	cornerScaleAccu(i).C = C;
+	cornerScaleAccu(i).Corners = Corners;
 	cornerScaleAccu(i).scale = scale;
 	cornerScaleAccu(i).cornerMetricIm = CMadj;
 end

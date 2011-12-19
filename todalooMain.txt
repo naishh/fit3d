@@ -1,16 +1,23 @@
 DOOR WINDOW:
 	rectangle detection by hough
-		plaatjes goed optellen
-		corners zoeken die met zn 4en een vierkant vormen
+		east en west erinbouwen
+		gemiddelde raam bouwen
+		gevonden corners combineren met resultaat
+
+		connected Corners koppelen aan corners
+		cCorners connecten aan cCorners
 		hough parameter space (zie paper) nog een keer lezen
+			iets met lijnen groeperen
+		corners groeperen die met zn 4en een vierkant vormen
+
+		connect lines 
+			nieuwe lijnen updaten met gevonden crossing
 
 		try Harris on multiple scales 
 			cornermetric plaatjes maken op verschillende scales
 			dan plaatjes weer uitrekken zodat ze allemaal even groot zijn
 			en de plaatjes bij elkaar optellen
 
-		connect lines 
-			nieuwe lijnen updaten met gevonden crossing
 
 		make afine transform
 
