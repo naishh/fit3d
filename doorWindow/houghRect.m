@@ -9,8 +9,8 @@ plotme = 0;
 %cornerInlierThreshold = 0.025
 
 cornerInlierThreshold = 40;
-%[crossingAccu, imFeatureIntSect] = getFeatureIntSect(Houghlines,HoughlinesRot,cornerInlierThreshold, plotme);
-%cornerScaleAccu = getCorners(plotme);
+% [crossingAccu, imFeatureIntSect] = getFeatureIntSect(Houghlines,HoughlinesRot,cornerInlierThreshold, plotme);
+% cornerScaleAccu = getCorners(plotme);
 
 
 % TODO scale up oid

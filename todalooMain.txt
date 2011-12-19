@@ -1,6 +1,5 @@
 DOOR WINDOW:
 	rectangle detection by hough
-		spiegeling goed krijgen zie houghRect onderin
 		plaatjes goed optellen
 		corners zoeken die met zn 4en een vierkant vormen
 		hough parameter space (zie paper) nog een keer lezen
