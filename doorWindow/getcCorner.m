@@ -28,8 +28,13 @@ for i=1:length(Houghlines)
 	for j=1:length(HoughlinesRot)
 		p1 = HoughlinesRot(j).point1';
 		p2 = HoughlinesRot(j).point2';
-		if plotme
-			plotHoughlineShort(HoughlinesRot(j),1,'black');
+		% get midpoints of line
+		midPointp1p2 = (p1+p2)/2; midPointp3p3b = (p3+p3b)/2;
+		% compare x coord of midpoints to determine direction of horizontal relative to vertical
+		if midPointp3p3b(1)<=midPointp1p2(1)
+			HdirectionRight = 1;
+		else
+			HdirectionRight = 0;
 		end
 		% get distance both points with horizontal line segment
 		[dist1, crossing1] = distAndIntersectionPointLineSegment2d(p3, p1, p2);
@@ -39,6 +44,7 @@ for i=1:length(Houghlines)
 			cCorner.crossing         = crossing1;
 			cCorner.HoughlineRotIdx = j;
 			cCorner.VdirectionUp     = 1;
+			cCorner.HdirectionRight = HdirectionRight;
 			Houghlines(i).cCorners(k) = cCorner;
 			k = k + 1;
 		end
@@ -46,8 +52,12 @@ for i=1:length(Houghlines)
 			cCorner.crossing         = crossing2;
 			cCorner.HoughlineRotIdx = j;
 			cCorner.VdirectionUp = 0;
+			cCorner.HdirectionRight = HdirectionRight;
 			Houghlines(i).cCorners(k) = cCorner;
 			k = k + 1;
+		end
+		if plotme
+			plotHoughlineShort(HoughlinesRot(j),1,'black');
 		end
 	end
 end

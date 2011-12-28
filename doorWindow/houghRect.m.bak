@@ -1,0 +1,73 @@
+close all;
+% load projected
+%load('../project2Normal/Houghlines.mat');
+%load('../project2Normal/HoughlinesRot.mat');
+
+
+load('mats/Houghlines_floriande5447.mat');
+load('mats/HoughlinesRot_floriande5447.mat');
+plotme = 1;
+%cornerInlierThreshold = 0.025
+cornerInlierThreshold = 25;
+Houghlines = getcCorner(Houghlines,HoughlinesRot,cornerInlierThreshold, plotme);
+% TODO fix scaleup for scales =! 1
+cornerScaleAccu = getCorners(plotme);
+
+
+cCornerHarrisThreshold = 30; scale = 1;
+% loop through Harris features and add evidence for close cCorners
+Houghlines = cCornerHarrisEvidence(Houghlines, cornerScaleAccu, scale, cCornerHarrisThreshold)
+%windows = cCornerToWindow(Houghlines,HoughlinesRot)
+
+
+figure(3);clf;hold on;
+
+%i =29 interesting case
+
+
+for i=1:length(Houghlines)
+	for k=1:length(Houghlines(i).cCorners)
+		cCorner = Houghlines(i).cCorners(k);
+		% type is upper right l shape
+		if cCorner.HdirectionRight == 0 && cCorner.VdirectionUp == 1
+			cCorner.harrisEvidence
+			if cCorner.harrisEvidence == true;
+				% plot vertical line
+				plotHoughlineShort(Houghlines(i),1, 'red');
+				% plot horizontally connected lines
+				plotcCorner(i, k, Houghlines, HoughlinesRot, 'red');
+				% plot harris corners
+				i
+				k
+				for h=1:size(Houghlines(i).cCorners(k).harrisCorners,2)
+					h
+					harrisCorner = Houghlines(i).cCorners(k).harrisCorners(:,h);
+					plot(harrisCorner(1), -harrisCorner(2), 'b*');
+				end
+			else
+				plotHoughlineShort(Houghlines(i),1, 'black');
+				% plot horizontally connected lines
+				plotcCorner(i, k, Houghlines, HoughlinesRot, 'black');
+			end
+			pause;
+		end
+	end
+end
+
+
+% figure(4);clf;hold on;
+% for i=1:length(cCorner)
+% 	for j=1:length(cornerScaleAccu(scale).Corners)
+% 		% for crossings...
+% 		v1 = cCorner(i).crossing; 
+% 		v2 = cornerScaleAccu(scale).Corners(j,:)';
+% 		d = euclideanDist(v1,v2);
+% 		if d<cCornerHarrisThreshold;
+% 			cCorner(i).harrisEvidence = true;
+% 			plotcCorner(cCorner(i), Houghlines,HoughlinesRot, 'green');
+% 			plot(v2(1), -v2(2), 'b*');
+% 			j
+% 		end
+% 	end
+% end
+

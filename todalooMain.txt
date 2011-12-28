@@ -1,8 +1,34 @@
+bram
+	distortie/?
+	git opnieuw clonen en meldten met deze git repo
+	gradient / eigen corner detector
+	subsampling is rezizen zonder interpolatie en zonder extra plaatje aanmaken, dus neemt het minder geheugen
+	andere datasets
+
 DOOR WINDOW:
-	rectangle detection by hough
-		east en west erinbouwen
+	rectangle detection by Hough
+		simpel houden, alleen l shapes, later uitbreiden met u shapes
+		l shape middelpunt raam laten schatten en op die locatie voten
+		zie cCornertoWindow
+		een voteobject bevat 
+			coordinaat van vote (middelpunt raam)
+			winkelhaak (cCorner?)	 
+				2 lijnstukken 
+				snijcoord
+		met een soort van imfilter votes verzamelen en tellen
+			alle hoekgegevens middelen en raam tekenen
+			evt eerst outliers verwijderen, 
+				ransac oid
+				kleiner searchwindow imfilter
+
 		gemiddelde raam bouwen
-		gevonden corners combineren met resultaat
+		wat te doen met de feature corner gegevens?
+			cCorner set filteren (kleiner maken) alleen cCorners overhouden die feature corner in de buurt als evidentie hebben
+			verschil met hele set en gefilterde set kan mooi getest worden
+
+		resultaat cCorner opdelen in shapes, b.v l shape of u shape
+			cCornerAddShapeType
+		works with windows that are not at same height in report qnallen
 
 		connected Corners koppelen aan corners
 		cCorners connecten aan cCorners
@@ -46,6 +72,7 @@ DOOR WINDOW:
 
 
 FITTING THE 3D MODEL
+	point cloud not 90C angle?
 	align 3d model by clicking on cornerpoints 
 	align 3d model by projecting in z direction
 	see mail isaac
