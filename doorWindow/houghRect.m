@@ -56,12 +56,12 @@ end
 
 
 % creates X and Y coords for a nxn filter
-n=3; h = ((n-1)/2);
+n=25; h = ((n-1)/2);
 X = repmat(-h:h,1,n);
 Y = reshape(reshape(X,n,n)',1,n*n);
 
 
-stepSize = 3;
+stepSize = 10;
 % generete ranges of x,y position sliding window
 for i=h+1:stepSize:size(Windows,1)-h
 	i
@@ -78,7 +78,9 @@ for i=h+1:stepSize:size(Windows,1)-h
 			end
 		end
 
-		if foundPoints>=1
+		if foundPoints>=3
+			foundPoints
+			pause;
 			avgHW = totHW / foundPoints
 			avgHWhalf = round(avgHW/2)
 			plot(i,-j,'*r');
