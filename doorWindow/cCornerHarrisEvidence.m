@@ -15,7 +15,6 @@ for i=1:length(Houghlines)
 			% if crossing is nearby
 			if d<cCornerHarrisThreshold;
 				harrisCrossingNearby = true;
-				disp('whooep whoep');
 				Houghlines(i).cCorners(k).harrisEvidence = true;
 				% should collect all distances d for every j
 				Houghlines(i).cCorners(k).harrisEvidenceDists = [Houghlines(i).cCorners(k).harrisEvidenceDists,d];

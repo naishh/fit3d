@@ -18,7 +18,8 @@ cCornerHarrisThreshold = 30; scale = 1;
 % loop through Harris features and add evidence for close cCorners
 Houghlines = cCornerHarrisEvidence(Houghlines, cornerScaleAccu, scale, cCornerHarrisThreshold);
 figure(3);clf;hold on;
-Houghlines = cCornerToWindow(Houghlines,HoughlinesRot);
+plotme = 0;
+[Houghlines, Windows, WindowsIm] = cCornerToWindow(Houghlines,HoughlinesRot,plotme);
 
 
 
@@ -43,3 +44,59 @@ for i=1:length(Houghlines)
 		plotcCorner(i, k, Houghlines, HoughlinesRot, 'green');
 	end
 end
+
+
+
+% 1 middelpunt per cluster kiezen
+% van dat cluster adhv nxn filter de gemiddelde height en width berekenen
+% running avg maken per pixel?
+% ixjx3 matrix (pixelY, pixelX, avg width, avg height,vote count)
+
+
+
+
+% creates X and Y coords for a nxn filter
+n=3; h = ((n-1)/2);
+X = repmat(-h:h,1,n);
+Y = reshape(reshape(X,n,n)',1,n*n);
+
+
+stepSize = 3;
+% generete ranges of x,y position sliding window
+for i=h+1:stepSize:size(Windows,1)-h
+	i
+	for j=h+1:stepSize:size(Windows,2)-h
+		foundPoints = 0;
+		totHW = [0;0];
+		% inside sliding window
+		for k=1:n*n
+			% window found
+			if size(Windows{i+X(k),j+Y(k)},1)==1
+				%Windows{i,j}.height
+				foundPoints = foundPoints+1;
+				totHW = totHW + Windows{i+X(k),j+Y(k)}.hw;
+			end
+		end
+
+		if foundPoints>=1
+			avgHW = totHW / foundPoints
+			avgHWhalf = round(avgHW/2)
+			plot(i,-j,'*r');
+			plotWindow(i,j,avgHWhalf(1), avgHWhalf(2));
+		else
+			%plot(i,-j,'+k');
+		end
+	end
+end
+% opzich is een gauss snel maar dan moet je peaks eruithalen en ben je de breedte en hoogte window kwijt
+
+% n = 21;
+% figure;imshow(WindowsIm,[])
+% I2=imfilter(WindowsIm, repmat(1,n,n));
+% figure;imshow(I2,[])
+% 
+% I3=imfilter(WindowsIm, fspecial('gaussian',[n n]));
+% for i=1:70
+% 	I3=imfilter(I3, fspecial('gaussian',[n n]));
+% end
+% figure;imshow(I3,[]);

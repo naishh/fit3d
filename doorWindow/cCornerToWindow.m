@@ -1,5 +1,5 @@
 % calcs the midpoint of a window from a connectedCorner
-function Houghlines = cCornerToWindow(Houghlines,HoughlinesRot)
+function [Houghlines, Windows, WindowsIm] = cCornerToWindow(Houghlines,HoughlinesRot, plotme)
 for i=1:length(Houghlines)
 	for k=1:length(Houghlines(i).cCorners)
 		cCorner = Houghlines(i).cCorners(k);
@@ -18,8 +18,8 @@ for i=1:length(Houghlines)
 			% calc midpoint hor line
 			xyAvgH = (c + d) / 2;
 			% the window is calculated by taking the x of the horizontal line segment and taking the y of the vertical line segment
-			yWindow = xyAvgV(2);
-			xWindow = xyAvgH(1);
+			yWindow = round(xyAvgV(2));
+			xWindow = round(xyAvgH(1));
 
 			xyWindow= [xWindow;yWindow];
 
@@ -27,14 +27,25 @@ for i=1:length(Houghlines)
 			% plot middlepoint of window
 			plot(xWindow, -yWindow, '+r');
 
-			% TODO how to deal with multiple window on same location
-			% TODO faster: make array of window idx'es
-			%Window{xWindow,yWindow}.Height  = h;
-			%Window{xWindow,yWindow}.Width   = w;
 
 			h = abs(a(2) - b(2));
 			w = abs(c(1) - d(1));
-			plotWindow(xWindow,yWindow,h,w)
+
+			% TODO how to deal with multiple window on same location
+			% TODO faster: make array of window idx'es
+			%215,234
+			Windows{xWindow,yWindow}.window  = 1;
+			Windows{xWindow,yWindow}.height  = h;
+			Windows{xWindow,yWindow}.width   = w;
+			Windows{xWindow,yWindow}.hw      = [h;w];
+
+			WindowsIm(yWindow,xWindow) = 1;
+
+
+			if plotme 
+				plotWindow(xWindow,yWindow,h,w)
+			end
+
 		%end
 
 	end
