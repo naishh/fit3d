@@ -7,6 +7,11 @@ bram
 
 DOOR WINDOW:
 	rectangle detection by Hough
+		waarom vind hij sommige ramen (linksonder, rechtsboven)niet?
+		hoe ga ik van heel veel ramen 1 raam maken?
+		andere dataset
+		geprojecteerde plaatje gebruiken (orthogonaal) ipv schuine
+
 		simpel houden, alleen l shapes, later uitbreiden met u shapes
 		l shape middelpunt raam laten schatten en op die locatie voten
 		zie cCornertoWindow
