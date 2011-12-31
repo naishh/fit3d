@@ -1,51 +1,36 @@
 close all;
 clear WindowsMerged
 % load projected
-%load('../project2Normal/Houghlines.mat');
-%load('../project2Normal/HoughlinesRot.mat');
+load('../project2Normal/Houghlines.mat');
+load('../project2Normal/HoughlinesRot.mat');
+% todo remove Y bug in output of project2normal
+Houghlines = scaleHoughlines(Houghlines,1000);
+HoughlinesRot = scaleHoughlines(HoughlinesRot,1000);
+
+%load('mats/Houghlines_floriande5447.mat');
+%load('mats/HoughlinesRot_floriande5447.mat');
 
 
-load('mats/Houghlines_floriande5447.mat');
-load('mats/HoughlinesRot_floriande5447.mat');
 plotme = 1;
 %cornerInlierThreshold = 0.025
 cornerInlierThreshold = 20;
+cornerInlierThreshold = 35;
+disp('getting cCorners..')
 Houghlines = getcCorner(Houghlines,HoughlinesRot,cornerInlierThreshold, plotme);
 % TODO fix scaleup for scales =! 1
-cornerScaleAccu = getCorners(plotme);
-
-
-cCornerHarrisThreshold = 30; scale = 1;
+%disp('getting Harris corners..')
+%cornerScaleAccu = getCorners(plotme);
+%cCornerHarrisThreshold = 30; scale = 1;
 % loop through Harris features and add evidence for close cCorners
-Houghlines = cCornerHarrisEvidence(Houghlines, cornerScaleAccu, scale, cCornerHarrisThreshold);
+%disp('filtering on Harris corners..')
+%Houghlines = cCornerHarrisEvidence(Houghlines, cornerScaleAccu, scale, cCornerHarrisThreshold);
 fg = figure(3);clf;hold on;
 plotme = 0;
+disp('cCornerToWindow..');
 [Houghlines, Windows, WindowsIm] = cCornerToWindow(Houghlines,HoughlinesRot,plotme);
 
-
-
-%i =29 interesting case
-% plot cCorners nicely
-for i=1:length(Houghlines)
-	for k=1:length(Houghlines(i).cCorners)
-		cCorner = Houghlines(i).cCorners(k);
-		% type is upper right l shape
-		%if cCorner.HdirectionRight == 0 && cCorner.VdirectionUp == 1
-		%	% plot vertical line
-		%	plotHoughlineShort(Houghlines(i),1, 'black');
-		%	% plot horizontally connected lines
-		%	plotcCorner(i, k, Houghlines, HoughlinesRot, 'red');
-		%elseif cCorner.HdirectionRight == 0 && cCorner.VdirectionUp == 0
-		%	% plot vertical line
-		%	plotHoughlineShort(Houghlines(i),1, 'black');
-		%	% plot horizontally connected lines
-		%	plotcCorner(i, k, Houghlines, HoughlinesRot, 'green');
-		%end
-		plotHoughlineShort(Houghlines(i),1, 'black');
-		plotcCorner(i, k, Houghlines, HoughlinesRot, 'green');
-	end
-end
-
+disp('plot cCorners..');
+plotcCorners(Houghlines,HoughlinesRot)
 
 
 % creates X and Y coords for a nxn filter
@@ -54,7 +39,7 @@ X = repmat(-h:h,1,n);
 Y = reshape(reshape(X,n,n)',1,n*n);
 
 w = 1;
-stepSize = 5;
+stepSize = 15;
 paramStr = ['slidingWindow_Size_',num2str(n),'_StepSize_',num2str(stepSize)]
 % generete ranges of x,y position sliding window
 % sliding window starts at h+1
@@ -86,8 +71,6 @@ for i=h+1:stepSize:size(Windows,1)-h
 		end
 	end
 end
-
-pause;
 
 % determine max nr of windows
 nrWindowsMax = 0;

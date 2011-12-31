@@ -13,7 +13,6 @@ tic;
 
 % % the y axis is inverted because matlab plots upside down
 % % this is to flip the y axis 
-yHeight = 200;
 % TODO Check wallnr
 wallNr = 7;
 imNr = 3;
@@ -49,7 +48,6 @@ for k = 1:length(Houghlines)
 	
 	X = [X,xy1Proj(1),xy2Proj(1)];
 	Y = [Y,xy1Proj(2),xy2Proj(2)];
-	% TODO save in Houghlines format and plot with plotHoughlines
 end
 
 figure;

@@ -7,10 +7,12 @@ bram
 
 DOOR WINDOW:
 	rectangle detection by Hough
-		waarom vind hij sommige ramen (linksonder, rechtsboven)niet?
-		hoe ga ik van heel veel ramen 1 raam maken?
-		andere dataset
 		geprojecteerde plaatje gebruiken (orthogonaal) ipv schuine
+		uitzoeken waarom ramen gekke groottes hebben
+		kleuren opblazen (meer zwart) ivm png
+		plaatje/raam terugprojecteren
+		gespr frans vragen hoe te clusteren
+		window:ipv avg width height, avg eindpunten nemen?
 
 		simpel houden, alleen l shapes, later uitbreiden met u shapes
 		l shape middelpunt raam laten schatten en op die locatie voten
