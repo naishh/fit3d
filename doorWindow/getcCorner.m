@@ -33,8 +33,11 @@ for i=1:length(Houghlines)
 		% compare x coord of midpoints to determine direction of horizontal relative to vertical
 		if midPointp3p3b(1)<=midPointp1p2(1)
 			HdirectionRight = 1;
+			% TODO maybe p2..
+			cCorner.hlineEnd = p1;
 		else
 			HdirectionRight = 0;
+			cCorner.hlineEnd = p2;
 		end
 		% get distance both points with horizontal line segment
 		[dist1, crossing1] = distAndIntersectionPointLineSegment2d(p3, p1, p2);
@@ -42,6 +45,7 @@ for i=1:length(Houghlines)
 		if dist1<cornerInlierThreshold
 			% store connected corner
 			cCorner.crossing         = crossing1;
+			cCorner.vlineEnd         = p3b;
 			cCorner.HoughlineRotIdx = j;
 			cCorner.VdirectionUp     = 1;
 			cCorner.HdirectionRight = HdirectionRight;
@@ -50,6 +54,7 @@ for i=1:length(Houghlines)
 		end
 		if dist2<cornerInlierThreshold
 			cCorner.crossing         = crossing2;
+			cCorner.vlineEnd         = p3;
 			cCorner.HoughlineRotIdx = j;
 			cCorner.VdirectionUp = 0;
 			cCorner.HdirectionRight = HdirectionRight;

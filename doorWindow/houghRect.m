@@ -33,63 +33,13 @@ disp('plot cCorners..');
 plotcCorners(Houghlines,HoughlinesRot)
 
 
-% creates X and Y coords for a nxn filter
-n=21; h = ((n-1)/2);
-X = repmat(-h:h,1,n);
-Y = reshape(reshape(X,n,n)',1,n*n);
-
-w = 1;
+slidingWindowSize = 21
 stepSize = 15;
-paramStr = ['slidingWindow_Size_',num2str(n),'_StepSize_',num2str(stepSize)]
-% generete ranges of x,y position sliding window
-% sliding window starts at h+1
-for i=h+1:stepSize:size(Windows,1)-h
-	i
-	for j=h+1:stepSize:size(Windows,2)-h
-		nrWindows = 0;
-		totHW = [0;0];
-		% inside sliding window X(k) and Y(k) have coords
-		for k=1:n*n
-			% window found
-			if size(Windows{i+X(k),j+Y(k)},1)==1
-				%Windows{i,j}.height
-				nrWindows = nrWindows+1;
-				% sum height widths of windows
-				totHW = totHW + Windows{i+X(k),j+Y(k)}.hw;
-			end
-		end
+paramStr = ['slidingWindow_Size_',num2str(slidingWindowSize) ,'_StepSize_',num2str(stepSize)]
 
-		% if found a window in the sliding window
-		if nrWindows>=1
-			WindowsMerged{w}.nrWindows = nrWindows;
-			WindowsMerged{w}.avgHWHalf = round((totHW/nrWindows)/2);
-			WindowsMerged{w}.x = i;
-			WindowsMerged{w}.y = j;
-			% update average height width of window
-			avgHW = totHW / nrWindows;
-			w = w + 1;
-		end
-	end
-end
+[WindowsMerged,nrWindowsMax]  = mergeWindows(Windows,slidingWindowSize, stepSize)
+plotWindows(WindowsMerged,nrWindowsMax)
 
-% determine max nr of windows
-nrWindowsMax = 0;
-for w=1:length(WindowsMerged)
-	if WindowsMerged{w}.nrWindows > nrWindowsMax
-		nrWindowsMax = WindowsMerged{w}.nrWindows;
-	end
-end
-
-% plot windows 
-for w=1:length(WindowsMerged)
-	w
-	% amound of black = 1-white, take minimum 0.2 else you dont see it
-	grayScale = max(0.2,1-(WindowsMerged{w}.nrWindows/nrWindowsMax));
-	grayScale = [grayScale, grayScale, grayScale];
-	if WindowsMerged{w}.nrWindows>=1
-		plotWindowColored(WindowsMerged{w}.x,WindowsMerged{w}.y,WindowsMerged{w}.avgHWHalf(1),WindowsMerged{w}.avgHWHalf(2),grayScale);
-	end
-end
 
 reply = input('Save result as images? y/n [n]: ', 's');
 if isempty(reply)
