@@ -24,19 +24,24 @@ Houghlines = getcCorner(Houghlines,HoughlinesRot,cornerInlierThreshold, plotme);
 % loop through Harris features and add evidence for close cCorners
 %disp('filtering on Harris corners..')
 %Houghlines = cCornerHarrisEvidence(Houghlines, cornerScaleAccu, scale, cCornerHarrisThreshold);
-fg = figure(3);clf;hold on;
+%fg = figure(3);clf;hold on;
 plotme = 0;
 disp('cCornerToWindow..');
 [Houghlines, Windows, WindowsIm] = cCornerToWindow(Houghlines,HoughlinesRot,plotme);
 
 disp('plot cCorners..');
-plotcCorners(Houghlines,HoughlinesRot)
+%plotcCorners(Houghlines,HoughlinesRot)
+
+disp('plotting windows ccorner style');
+%figure;
+%hold on;
+%plotcCornerWindows(Houghlines, HoughlinesRot)
+
 
 
 slidingWindowSize = 21
 stepSize = 15;
 paramStr = ['slidingWindow_Size_',num2str(slidingWindowSize) ,'_StepSize_',num2str(stepSize)]
-
 [WindowsMerged,nrWindowsMax]  = mergeWindows(Windows,slidingWindowSize, stepSize)
 plotWindows(WindowsMerged,nrWindowsMax)
 

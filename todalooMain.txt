@@ -8,12 +8,20 @@ bram
 DOOR WINDOW:
 	rectangle detection by Hough
 		kleuren opblazen (meer zwart) ivm png
-		letterlijke coords ipv vierkant gebruiken
-		getccorner distandintersectpoint verkeerde end segment wordt geprojecteerd
 		niet middelen maar grootste oid pakken
+		harris corner detectie inliers kleuren
+		crossing meenemen bij plotten middelpunt raam
+
+		windows
+		plot all
+		plot avg done
+		plot biggest
+		plot random
 
 		plaatje/raam terugprojecteren
 		gespr frans vragen hoe te clusteren
+			punten groeperen adhv inter cluster distance
+
 		window:ipv avg width height, avg eindpunten nemen?
 
 		simpel houden, alleen l shapes, later uitbreiden met u shapes

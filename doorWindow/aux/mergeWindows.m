@@ -12,7 +12,8 @@ for i=h+1:stepSize:size(Windows,1)-h
 	i
 	for j=h+1:stepSize:size(Windows,2)-h
 		nrWindows = 0;
-		totHW = [0;0];
+		totHW = [0;0]; totvlineEnd=0; tothlineEnd=0; totcrossing=0;
+
 		% inside sliding window X(k) and Y(k) have coords
 		for k=1:slidingWindowSize*slidingWindowSize
 			% window found
@@ -21,6 +22,10 @@ for i=h+1:stepSize:size(Windows,1)-h
 				nrWindows = nrWindows+1;
 				% sum height widths of windows
 				totHW = totHW + Windows{i+X(k),j+Y(k)}.hw;
+
+				totvlineEnd=totvlineEnd+ Windows{i+X(k),j+Y(k)}.vlineEnd;
+				tothlineEnd=tothlineEnd+ Windows{i+X(k),j+Y(k)}.hlineEnd;
+				totcrossing=totcrossing+ Windows{i+X(k),j+Y(k)}.crossing;
 			end
 		end
 
@@ -30,6 +35,11 @@ for i=h+1:stepSize:size(Windows,1)-h
 			WindowsMerged{w}.avgHWHalf = round((totHW/nrWindows)/2);
 			WindowsMerged{w}.x = i;
 			WindowsMerged{w}.y = j;
+
+			WindowsMerged{w}.vlineEnd = round(totvlineEnd/nrWindows);
+			WindowsMerged{w}.hlineEnd = round(tothlineEnd/nrWindows);
+			WindowsMerged{w}.crossing = round(totcrossing/nrWindows);
+
 			% update average height width of window
 			avgHW = totHW / nrWindows;
 			w = w + 1;

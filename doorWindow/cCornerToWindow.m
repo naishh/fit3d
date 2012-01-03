@@ -25,7 +25,7 @@ for i=1:length(Houghlines)
 
 		Houghlines(i).cCorners(k).xyWindow = [xWindow, yWindow];
 		% plot middlepoint of window
-		plot(xWindow, -yWindow, '+r');
+		plot(xWindow, -yWindow, '+b');
 
 		h = abs(a(2) - b(2));
 		w = abs(c(1) - d(1));
@@ -37,6 +37,11 @@ for i=1:length(Houghlines)
 		Windows{xWindow,yWindow}.height  = h;
 		Windows{xWindow,yWindow}.width   = w;
 		Windows{xWindow,yWindow}.hw      = [h;w];
+
+
+		Windows{xWindow,yWindow}.vlineEnd= cCorner.vlineEnd;
+		Windows{xWindow,yWindow}.hlineEnd= cCorner.hlineEnd;
+		Windows{xWindow,yWindow}.crossing= cCorner.crossing;
 
 		WindowsIm(yWindow,xWindow) = 1;
 

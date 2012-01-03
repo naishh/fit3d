@@ -18,7 +18,6 @@ if plotme
 end
 
 
-
 % loop through vertical houghlines
 for i=1:length(Houghlines)
 	k = 1;
@@ -31,7 +30,7 @@ for i=1:length(Houghlines)
 		% get midpoints of line
 		midPointp1p2 = (p1+p2)/2; midPointp3p3b = (p3+p3b)/2;
 		% compare x coord of midpoints to determine direction of horizontal relative to vertical
-		if midPointp3p3b(1)<=midPointp1p2(1)
+		if midPointp3p3b(1)>=midPointp1p2(1)
 			HdirectionRight = 1;
 			% TODO maybe p2..
 			cCorner.hlineEnd = p1;
@@ -46,23 +45,23 @@ for i=1:length(Houghlines)
 			% store connected corner
 			cCorner.crossing         = crossing1;
 			cCorner.vlineEnd         = p3b;
-			cCorner.HoughlineRotIdx = j;
-			cCorner.VdirectionUp     = 1;
-			cCorner.HdirectionRight = HdirectionRight;
-			Houghlines(i).cCorners(k) = cCorner;
+			cCorner.HoughlineRotIdx  = j;
+			cCorner.VdirectionUp     = 0;
+			cCorner.HdirectionRight  = HdirectionRight;
+			Houghlines(i).cCorners(k)= cCorner;
 			k = k + 1;
 		end
 		if dist2<cornerInlierThreshold
 			cCorner.crossing         = crossing2;
 			cCorner.vlineEnd         = p3;
-			cCorner.HoughlineRotIdx = j;
-			cCorner.VdirectionUp = 0;
-			cCorner.HdirectionRight = HdirectionRight;
-			Houghlines(i).cCorners(k) = cCorner;
+			cCorner.HoughlineRotIdx  = j;
+			cCorner.VdirectionUp 	 = 1;
+			cCorner.HdirectionRight  = HdirectionRight;
+			Houghlines(i).cCorners(k)= cCorner;
 			k = k + 1;
 		end
 		if plotme
-			plotHoughlineShort(HoughlinesRot(j),1,'black');
+			plotHoughlineShort(HoughlinesRot(j),1,'red');
 		end
 	end
 end
