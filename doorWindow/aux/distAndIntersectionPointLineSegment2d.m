@@ -33,6 +33,8 @@ function [dist, crossing] = distPointToLineSegment2d(p3, p1, p2)
 		dist = euclideanDist(p3,p2);
 		%lineToObj('inpolygon.obj',p3,p2,'red');
 	end
+
+
 	dist = abs(dist);
 	
 	t = -dot((p1-p3),(p2-p1)) / norm(p2-p1)^2;

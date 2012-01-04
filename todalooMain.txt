@@ -7,6 +7,11 @@ bram
 
 DOOR WINDOW:
 	rectangle detection by Hough
+		cCorner ori plotten en tjoint plotten
+		plotcCorner
+
+
+
 		kleuren opblazen (meer zwart) ivm png
 		niet middelen maar grootste oid pakken
 		harris corner detectie inliers kleuren
@@ -14,6 +19,8 @@ DOOR WINDOW:
 		Windows eruit en alleen met cCorners werken
 		bug van verkeerde vertical line end projecteren eruithalen, mooiste is om de twee lijnen te laten snijden
 			maar met orthoganiliteit aangenomen is dit ook goed
+
+		check wallno of projection
 
 		windows
 		plot all
