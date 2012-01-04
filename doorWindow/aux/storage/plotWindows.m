@@ -6,8 +6,7 @@ for w=1:length(WindowsMerged)
 	grayScale = max(0.2,1-(WindowsMerged{w}.nrWindows/nrWindowsMax));
 	grayScale = [grayScale, grayScale, grayScale];
 	if WindowsMerged{w}.nrWindows>=1
-		%plotWindowColored(WindowsMerged{w}.x,WindowsMerged{w}.y,WindowsMerged{w}.avgHWHalf(1),WindowsMerged{w}.avgHWHalf(2),grayScale);
-		plotcCornerWindow(WindowsMerged{w})
-		pause;
+		plotWindowColored(WindowsMerged{w}.x,WindowsMerged{w}.y,WindowsMerged{w}.avgHWHalf(1),WindowsMerged{w}.avgHWHalf(2),grayScale);
+		%plotcCornerWindow(WindowsMerged{w})
 	end
 end

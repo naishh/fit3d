@@ -11,6 +11,9 @@ DOOR WINDOW:
 		niet middelen maar grootste oid pakken
 		harris corner detectie inliers kleuren
 		crossing meenemen bij plotten middelpunt raam
+		Windows eruit en alleen met cCorners werken
+		bug van verkeerde vertical line end projecteren eruithalen, mooiste is om de twee lijnen te laten snijden
+			maar met orthoganiliteit aangenomen is dit ook goed
 
 		windows
 		plot all
@@ -22,8 +25,9 @@ DOOR WINDOW:
 		gespr frans vragen hoe te clusteren
 			punten groeperen adhv inter cluster distance
 
-		window:ipv avg width height, avg eindpunten nemen?
 
+		compleet nieuw idee, op x waardes verticale  en y waardes horizontale lijnen clusteren en dan de snijpunten als corners nemen
+	
 		simpel houden, alleen l shapes, later uitbreiden met u shapes
 		l shape middelpunt raam laten schatten en op die locatie voten
 		zie cCornertoWindow
