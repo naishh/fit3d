@@ -30,7 +30,7 @@ disp('cCornerToWindow..');
 [Houghlines, Windows, WindowsIm] = cCornerToWindow(Houghlines,HoughlinesRot,plotme);
 
 disp('plot cCorners..');
-%plotcCorners(Houghlines,HoughlinesRot)
+plotcCorners(Houghlines,HoughlinesRot)
 
 disp('plotting windows ccorner style');
 %figure;

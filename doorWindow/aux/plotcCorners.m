@@ -16,12 +16,12 @@ for i=1:length(Houghlines)
 		%	plotcCorner(i, k, Houghlines, HoughlinesRot, 'green');
 		%end
 
-		plotHoughlineShort(Houghlines(i),1, 'black');
+
+		%plotHoughlineShort(Houghlines(i),1, 'black');
 		plotcCorner(i, k, Houghlines, HoughlinesRot, 'green');
 		X = [cCorner.vlineEnd(1),cCorner.crossing(1),cCorner.hlineEnd(1)];
 		Y = [cCorner.vlineEnd(2),cCorner.crossing(2),cCorner.hlineEnd(2)];
-		plot(X, -Y, '-k');
-		pause;
+		%plot(X, -Y, '-k');
 	end
 end
 
