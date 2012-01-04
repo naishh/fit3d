@@ -42,6 +42,8 @@ function [dist, crossing] = distPointToLineSegment2d(p3, p1, p2)
 	crossing = [crossing(1);crossing(2)];
 
 	% see fit3d_report/papers/websites/Distance between....
+	% see also http://stackoverflow.com/questions/563198/how-do-you-detect-where-two-line-segments-intersect
+
 	% Ax = p1(1);
 	% Ay = p1(2);
 	% Bx = p2(1);

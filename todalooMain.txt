@@ -9,6 +9,7 @@ DOOR WINDOW:
 	rectangle detection by Hough
 		cCorner ori plotten en tjoint plotten
 		plotcCorner
+		aux/dist*
 
 
 

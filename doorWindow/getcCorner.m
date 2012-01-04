@@ -25,9 +25,6 @@ for i=1:length(Houghlines)
 	p3b = Houghlines(i).point2';
 	% loop through horizontal houghlines
 	for j=1:length(HoughlinesRot)
-		cCorner.vlineOri 		 = [p3b, p3];
-		cCorner.hlineOri 		 = [p1,p2];
-
 		p1 = HoughlinesRot(j).point1';
 		p2 = HoughlinesRot(j).point2';
 		% get midpoints of line
@@ -36,33 +33,39 @@ for i=1:length(Houghlines)
 		if midPointp3p3b(1)>=midPointp1p2(1)
 			HdirectionRight = 1;
 			% TODO maybe p2..
-			cCorner.hlineTjoint = p2;
+			cCorner.hlineTjoint = p1;
 		else
 			HdirectionRight = 0;
-			cCorner.hlineTjoint = p1;
+			cCorner.hlineTjoint = p2;
 		end
 		% get distance both points with horizontal line segment
 		[dist1, crossing1] = distAndIntersectionPointLineSegment2d(p3, p1, p2);
 		[dist2, crossing2] = distAndIntersectionPointLineSegment2d(p3b, p1, p2);
 		if dist1<cornerInlierThreshold
 			% store connected corner
+			cCorner.vlineOri 		 = [p3b, p3];
+			cCorner.hlineOri 		 = [p1, p2];
 			cCorner.crossing         = crossing1;
-			cCorner.vlineTjoint      = [p3b,crossing]; 
+			cCorner.vlineTjoint      = [p3b,cCorner.crossing]; 
 			cCorner.VdirectionUp     = 0;
 			cCorner.HdirectionRight  = HdirectionRight;
+			% add crossing
+			cCorner.hlineTjoint = [cCorner.hlineTjoint,cCorner.crossing];
 			Houghlines(i).cCorners(k)= cCorner;
 			k = k + 1;
 		end
 		if dist2<cornerInlierThreshold
+			cCorner.vlineOri 		 = [p3b, p3];
+			cCorner.hlineOri 		 = [p1, p2];
 			cCorner.crossing         = crossing2;
-			cCorner.vlineTjoint      = [p3,crossing]; 
+			cCorner.vlineTjoint      = [p3,cCorner.crossing]; 
 			cCorner.VdirectionUp 	 = 1;
 			cCorner.HdirectionRight  = HdirectionRight;
+			% add crossing
+			cCorner.hlineTjoint = [cCorner.hlineTjoint,cCorner.crossing];
 			Houghlines(i).cCorners(k)= cCorner;
 			k = k + 1;
 		end
-		% add crossing
-		cCorner.hlineTjoint = [cCorner.hlineTjoint,cCorner.crossing];
 
 		if plotme
 			plotHoughlineShort(HoughlinesRot(j),1,'red');
