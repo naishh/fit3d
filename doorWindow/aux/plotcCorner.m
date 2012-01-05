@@ -10,8 +10,8 @@ axis square;
 
 
 % plot tjoint cCorner
-p1 = cCorner.hlineTjoint(:,1);
-p2 = cCorner.vlineTjoint(:,1);
+p1 = cCorner.hlineTjointEnd;
+p2 = cCorner.vlineTjointEnd;
 p3 = cCorner.crossing;
 p4 = p1 + (p2-p3);
 %X = [p4(1), p2(1), p3(1), p1(1), p4(1)];

@@ -28,14 +28,14 @@ for i=1:length(Houghlines)
 	for j=1:length(HoughlinesRot)
 		p3 = HoughlinesRot(j).point1';
 		p4 = HoughlinesRot(j).point2';
-		[crossing,dist,line1,line2] = getLineCrossing(p1,p2,p3,p4);
+		[crossing,dist,line1End,line2End] = getLineCrossing(p1,p2,p3,p4);
 		% if line segment endpoints are close to crossing 
 		if dist<cornerInlierThreshold
 			% store connected corner
 			cCorner.vlineOri 		 = [p1,p2];
 			cCorner.hlineOri 		 = [p3,p4];
-			cCorner.vlineTjoint      = line1; 
-			cCorner.hlineTjoint      = line2; 
+			cCorner.vlineTjointEnd   = line1End; 
+			cCorner.hlineTjointEnd   = line2End; 
 			cCorner.crossing         = crossing;
 			%cCorner.dist         	 = dist;
 

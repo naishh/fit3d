@@ -7,72 +7,39 @@ bram
 
 DOOR WINDOW:
 	rectangle detection by Hough
-		cCorner ori plotten en tjoint plotten
-		plotcCorner
-		aux/dist*
+		testen op andere dateset
+		resultaat terugprojecteren in plaatje
 
+		nieuw id: Harris corners loopen en bij elke coorner cCorners 
+		bij elke cCorner de dichtsbijzijnste (als er 1 is) Harriscorner vinden en die als nieuwe crossing opslaan om window nauwkeurig te tekenen
 
-
-		kleuren opblazen (meer zwart) ivm png
-		niet middelen maar grootste oid pakken
 		harris corner detectie inliers kleuren
-		crossing meenemen bij plotten middelpunt raam
 		Windows eruit en alleen met cCorners werken
-		bug van verkeerde vertical line end projecteren eruithalen, mooiste is om de twee lijnen te laten snijden
-			maar met orthoganiliteit aangenomen is dit ook goed
-
-		check wallno of projection
-
-		windows
-		plot all
-		plot avg done
-		plot biggest
-		plot random
 
 		plaatje/raam terugprojecteren
 		gespr frans vragen hoe te clusteren
 			punten groeperen adhv inter cluster distance
 
+		future work?
+			2 cCorners halen uit een =| vorm
 
-		compleet nieuw idee, op x waardes verticale  en y waardes horizontale lijnen clusteren en dan de snijpunten als corners nemen
+		compleet nieuw idee, histogrammen, op x waardes verticale  en y waardes horizontale lijnen clusteren en dan de snijpunten als corners nemen
+			ook de harris corners meenemen en histogrammen 
+			ja en goed nadenken wat hierna? hoe krijg ik een raam
+
 	
-		simpel houden, alleen l shapes, later uitbreiden met u shapes
-		l shape middelpunt raam laten schatten en op die locatie voten
-		zie cCornertoWindow
-		een voteobject bevat 
-			coordinaat van vote (middelpunt raam)
-			winkelhaak (cCorner?)	 
-				2 lijnstukken 
-				snijcoord
-		met een soort van imfilter votes verzamelen en tellen
-			alle hoekgegevens middelen en raam tekenen
-			evt eerst outliers verwijderen, 
-				ransac oid
-				kleiner searchwindow imfilter
-
-		gemiddelde raam bouwen
-		wat te doen met de feature corner gegevens?
+		Harris
 			cCorner set filteren (kleiner maken) alleen cCorners overhouden die feature corner in de buurt als evidentie hebben
 			verschil met hele set en gefilterde set kan mooi getest worden
 
-		resultaat cCorner opdelen in shapes, b.v l shape of u shape
-			cCornerAddShapeType
-		works with windows that are not at same height in report qnallen
-
-		connected Corners koppelen aan corners
-		cCorners connecten aan cCorners
 		hough parameter space (zie paper) nog een keer lezen
 			iets met lijnen groeperen
-		corners groeperen die met zn 4en een vierkant vormen
-
-		connect lines 
-			nieuwe lijnen updaten met gevonden crossing
+			corners groeperen die met zn 4en een vierkant vormen
 
 		try Harris on multiple scales 
 			cornermetric plaatjes maken op verschillende scales
 			dan plaatjes weer uitrekken zodat ze allemaal even groot zijn
 			en de plaatjes bij elkaar optellen
-
 
 		make afine transform
 
