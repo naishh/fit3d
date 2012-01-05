@@ -7,7 +7,9 @@ projectionScale = 1000;
 xOffset = 586;
 plotme = 1;
 %cornerInlierThreshold = 0.025
-cornerInlierThreshold = 35;
+%cornerInlierThreshold = 35;
+cornerInlierThreshold = 1;
+fg = figure(1);hold on;
 
 % TODO remove Y bug in output of scaleHoughlines
 Houghlines = scaleHoughlines(Houghlines,projectionScale,xOffset);
@@ -18,7 +20,8 @@ HoughlinesRot = scaleHoughlines(HoughlinesRot,projectionScale,xOffset);
 disp('getting cCorners..')
 Houghlines = getcCorner(Houghlines,HoughlinesRot,cornerInlierThreshold, plotme);
 
-disp('plotting complete windows'); figure; hold on; 
+pause;
+disp('plotting complete windows'); 
 plotcCorners(Houghlines, HoughlinesRot)
 
 
@@ -41,7 +44,6 @@ plotcCorners(Houghlines, HoughlinesRot)
 %disp('filtering on Harris corners..')
 %Houghlines = cCornerHarrisEvidence(Houghlines, cornerScaleAccu, scale, cCornerHarrisThreshold);
 
-fg = figure(1);hold on;
 plotme = 0;
 disp('cCornerToWindow..');
 % todo onderstaand weg?

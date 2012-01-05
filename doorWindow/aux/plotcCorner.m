@@ -1,17 +1,15 @@
 function plotcCorner(cCorner);
+%clf; hold on;
+% plot original cCorner
 lineSpec = 'g-';
-plot(cCorner.vlineOri(1,:), -cCorner.vlineOri(2,:), lineSpec);
+plot(cCorner.vlineOri(1,:), -cCorner.vlineOri(2,:), lineSpec, 'LineWidth',5);
 lineSpec = 'r-';
-plot(cCorner.hlineOri(1,:), -cCorner.hlineOri(2,:), lineSpec);
+plot(cCorner.hlineOri(1,:), -cCorner.hlineOri(2,:), lineSpec, 'LineWidth',5);
 axis square;
-
-%lineSpec = 'k-';
-%plot(cCorner.vlineTjoint(1,:), -cCorner.vlineTjoint(2,:), lineSpec);
-%plot(cCorner.hlineTjoint(1,:), -cCorner.hlineTjoint(2,:), lineSpec);
-%axis square;
 %pause;
 
 
+% plot tjoint cCorner
 p1 = cCorner.hlineTjoint(:,1);
 p2 = cCorner.vlineTjoint(:,1);
 p3 = cCorner.crossing;
@@ -24,7 +22,7 @@ p4 = p1 + (p2-p3);
 %else
 %	lineSpec = 'k--';
 %end
-	lineSpec = 'k--';
+lineSpec = 'k--';
 
 % hline
 X = [p1(1), p3(1)];
@@ -52,4 +50,5 @@ Y = round((p2(2)+ p3(2))/2);
 %X = cCorner.xyWindow(1);
 %Y = cCorner.xyWindow(2);
 plot(X,-Y,'b+');
+axis square;
 pause;
