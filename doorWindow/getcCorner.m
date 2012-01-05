@@ -38,6 +38,7 @@ for i=1:length(Houghlines)
 			HdirectionRight = 0;
 			cCorner.hlineTjoint = p2;
 		end
+%findLineIntersection(p1,p2,p3,p4)
 		% get distance both points with horizontal line segment
 		[dist1, crossing1] = distAndIntersectionPointLineSegment2d(p3, p1, p2);
 		[dist2, crossing2] = distAndIntersectionPointLineSegment2d(p3b, p1, p2);
