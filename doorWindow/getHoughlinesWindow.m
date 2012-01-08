@@ -1,4 +1,4 @@
-% this file extract rectangles based on hough transform
+% this file extract houghlines 
 %
 % new plan
 % transform edge image to rectangular image
@@ -18,24 +18,35 @@
 
 close all;
 tic;
-imNr = 5435; file = sprintf('../dataset/FloriandeSet1/medium/undist__MG_%d.jpg', imNr); load('XYangleFilter_floriande_5447.mat'); load('XYcropRegionFloriande5435.mat'); edgeDetectorParam.thresh		= 0.55; HoughParam.ThetaH.StretchAngle	= 30;HoughParam.ThetaV.StretchAngle	= 10; fileShort 						= 'floriande5435';
+%imNr = 5435; file = sprintf('../dataset/FloriandeSet1/medium/undist__MG_%d.jpg', imNr); load('XYangleFilter_floriande_5447.mat'); load('XYcropRegionFloriande5435.mat'); edgeDetectorParam.thresh		= 0.55; HoughParam.ThetaH.StretchAngle	= 30;HoughParam.ThetaV.StretchAngle	= 10; fileShort 						= 'floriande5435';
 %imNr = 5447; file = sprintf('../dataset/FloriandeSet1/medium/undist__MG_%d.jpg', imNr); 
 %	load('XYangleFilter_floriande_5447.mat'); 
 %	load('XYcropRegionFloriande5447.mat'); 
 %	edgeDetectorParam.thresh		= 0.35; 
 %	HoughParam.ThetaH.StretchAngle	= 30;
 %	HoughParam.ThetaV.StretchAngle	= 10;
-%imNR = 6; file = sprintf('../dataset/datasetSpil/datasetSpilRect/P_rect6.jpg')
+% colorModel						= 'HSV_Vchannel';
 % imNr = 6680; file = sprintf('../dataset/fullDatasets/aalsmeer/undist__MG_%d.jpg', imNr); load('XYangleFilter_aalsmeer6680.mat');
 
+imNR = 6; 
+file = sprintf('../dataset/datasetSpil/datasetSpilRect/P_rect6_Hflipped.jpg'); 
+%load('XYcropRegionSpil6.mat');
+%cropImage						= true;
+cropImage						= false;
+fileShort = 'spilrect6';
+colorModelBW					= true;
+edgeDetectorParam.thresh		= 0.35; 
+HoughParam.ThetaH.StretchAngle	= 30;
+HoughParam.ThetaV.StretchAngle	= 10;
 
+
+
+
+
+colorModelHSV_V					= false;
 plotme							= 1;
 savePath 						= 'results/';
 %fileShort 						= 'aalsmeer6680';
-colorModel						= 'HSV_Vchannel';
-%colorModel						= 'RGB';
-HSVmode							= true;
-% rotates image 90 degrees clockwise
 edgeDetectorParam.type 			= 'canny';
 loadEdgeFromCache 				= 0;
 %edgeDetectorParam.typePost 		= 'vertical_horizontal_Combined';
@@ -68,9 +79,11 @@ paramStr = ['src_',fileShort,'_colorModel_',colorModel,'__edgeDetectorParams_',e
 
 if loadEdgeFromCache == false
 	imRGB = imread(file);
-	if(HSVmode)
+	if(colorModelHSV_V)
 		imHSV = rgb2hsv(imRGB);
 		imBW     = imHSV(:,:,3);
+	elseif(colorModelBW)
+		imBW     = imRGB;
 	else
 		%imBW = imRGB(:,:,3);
 		imBW = imadjust(rgb2gray(imRGB));
@@ -79,8 +92,10 @@ if loadEdgeFromCache == false
 end
 
 
-imBW = cropImage(imBW, X,Y);
-h = size(imBW,1);
+if cropImage
+	imBW = cropImage(imBW, X,Y);
+	h = size(imBW,1);
+end
 fgBW = figure();imshow(imBW);
 
 if edgeTest

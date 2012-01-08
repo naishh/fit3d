@@ -9,8 +9,17 @@ clear WindowsMerged
 % HoughlinesRot = scaleHoughlines(HoughlinesRot,projectionScale,xOffset);
 
 % load unprojected houghlines
-load('mats/Houghlines_floriande5435.mat');
-load('mats/HoughlinesRot_floriande5435.mat');
+%load('mats/Houghlines_floriande5435.mat');
+%load('mats/HoughlinesRot_floriande5435.mat');
+
+fileShort = 'spilrect6';
+%imshow(imread('../dataset/datasetSpil/datasetSpilRect/P_rect6_Hflipped.jpg'));
+imshow(imread('../dataset/datasetSpil/datasetSpilRect/P_rect6.jpg'));
+hold on;
+load(['mats/Houghlines_',fileShort,'.mat']);
+load(['mats/HoughlinesRot_',fileShort,'.mat']);
+
+
 projectionScale = 1; xOffset = 0;
 cornerInlierThreshold = 0.2
 
@@ -21,8 +30,8 @@ disp('getting cCorners..')
 Houghlines = getcCorner(Houghlines,HoughlinesRot,cornerInlierThreshold);
 
 
-disp('getting and plotting Harris corners..')
-plotme = 1; cornerScaleAccu = getCorners(plotme);
+%disp('getting and plotting Harris corners..')
+%plotme = 1; cornerScaleAccu = getCorners(plotme);
 
 disp('plotting complete windows'); 
 plotcCorners(Houghlines, HoughlinesRot)

@@ -25,7 +25,7 @@ for i=1:length(Houghlines)
 		% if line segment endpoints are close to crossing 
 
 		% normalise dist to avg line segment length
-		dist = dist/((norm(p2-p1)+norm(p4-p3))/2)
+		dist = dist/((norm(p2-p1)+norm(p4-p3))/2);
 
 		if dist<cornerInlierThreshold
 			% store connected corner

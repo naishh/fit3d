@@ -21,18 +21,16 @@ oDataset.edgeMethod = 'sobel';
 %oDataset.edgeMethod = 'canny';
 oDataset.thresh = 0.05;
 
-% %SPIL DATASET
-% oDataset.sDatasetName = 'Spil';
-% oDataset.sPathToDataset = '../dataset/datasetSpil/';
-% oDataset.sBaseFile = 'P';
-% oDataset.sPostfix = '.JPG';
-% oDataset.endRange = 1; % use 44 for full
-% %oDataset.imStartNr = 1120561;
-% %oDataset.imStartNr = 1120555;
-% %oDataset.imStartNr = 1120567;
-% oDataset.imStartNr = 1120573;
-% oDataset.edgeMethod = 'canny';
-% oDataset.thresh = 0.7;
+%SPIL DATASET
+oDataset.sDatasetName = 'Spil';
+oDataset.sPathToDataset = '../dataset/datasetSpil/datasetSpilRect/';
+oDataset.sBaseFile = 'P_rect';
+oDataset.sPostfix = '.jpg';
+oDataset.endRange = 6; % use 44 for full
+%oDataset.imStartNr = 1120567;
+oDataset.imStartNr = 6;
+oDataset.edgeMethod = 'canny';
+oDataset.thresh = 0.7;
 
 if exist('../mats/imsSkyLine.mat') == 2
 	disp('loading from ../mats/imsSkyLine.mat..');
@@ -59,8 +57,12 @@ else
 			imRGB = imread(file);
 			imsSkyLineRGB{imNrNetto}  = imRGB;
 
-			% BLACK AND WHITE
-			imBW = imadjust(rgb2gray(imRGB));
+			if size(imRGB,3) == 1
+				imBW = imRGB;
+			else
+				% BLACK AND WHITE
+				imBW = imadjust(rgb2gray(imRGB));
+			end
 			%imsSkyLineBW{imNrNetto}  = imBW;
 			
 

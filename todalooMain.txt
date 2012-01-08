@@ -7,10 +7,12 @@ bram
 
 DOOR WINDOW:
 	rectangle detection by Hough
-		resultaat terugprojecteren in plaatje
 		testen op andere dateset
-		cCorner loskoppelen van houghlines
+			waarom kloppen houghlines niet?
+			getHoughlinesWindow
+				goed plotten in plaatje
 
+		cCorner loskoppelen van houghlines
 		nieuw id: Harris corners loopen en bij elke coorner cCorners 
 		bij elke cCorner de dichtsbijzijnste (als er 1 is) Harriscorner vinden en die als nieuwe crossing opslaan om window nauwkeurig te tekenen
 

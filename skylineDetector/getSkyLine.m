@@ -7,7 +7,16 @@ function [SkylineX, SkylineY, imMarked, imBinary] = getSkyLine(imNr, imRGB, imEd
 % 	xStepSize = 1;
 	[h,w] = size(imEdge);
     imBinary = zeros(h,w);
-    imMarked = imRGB;
+
+	%if imRGB is actually BW 
+	if size(imRGB,3)==1
+		%bw to rgb
+		imMarked(:,:,1) = round(imRGB*255);
+		imMarked(:,:,2) = round(imRGB*255);
+		imMarked(:,:,3) = round(imRGB*255);
+	else
+		imMarked = imRGB;
+	end
     
 	SkylineX = 1:w;
 	SkylineY = zeros(1,w);
