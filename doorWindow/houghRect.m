@@ -5,7 +5,6 @@ load('../project2Normal/Houghlines.mat');
 load('../project2Normal/HoughlinesRot.mat');
 projectionScale = 1000;
 xOffset = 586;
-plotme = 1;
 %cornerInlierThreshold = 0.025
 %cornerInlierThreshold = 35;
 cornerInlierThreshold = 1;
@@ -14,16 +13,18 @@ fg = figure(1);hold on;
 % TODO remove Y bug in output of scaleHoughlines
 Houghlines = scaleHoughlines(Houghlines,projectionScale,xOffset);
 HoughlinesRot = scaleHoughlines(HoughlinesRot,projectionScale,xOffset);
+% plot Houghlines
+plotHoughlines(Houghlines,'blue'); plotHoughlines(HoughlinesRot,'blue'); axis square; 
+
 %load('mats/Houghlines_floriande5447.mat');
 %load('mats/HoughlinesRot_floriande5447.mat');
 
 disp('getting cCorners..')
-Houghlines = getcCorner(Houghlines,HoughlinesRot,cornerInlierThreshold, plotme);
+Houghlines = getcCorner(Houghlines,HoughlinesRot,cornerInlierThreshold);
 
 pause;
 disp('plotting complete windows'); 
 plotcCorners(Houghlines, HoughlinesRot)
-
 
 
 

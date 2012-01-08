@@ -1,23 +1,10 @@
-% projects line endpoints of vertical lines to the horizontal lines
-% if the cornerInlierThreshold is lesser then a threshold
-% it stores the projection (crossing) coordinate and some idxes
-%
 % input
 %  vertical houghlines
 %  horizontal houghlines
 % output
+%	updated Houghlines
 %
-function Houghlines = getcCorner(Houghlines,HoughlinesRot,cornerInlierThreshold, plotme)
-
-if plotme
-	axis square;
-	hold on;
-	%plotHoughlines(Houghlines,'green');
-	%plotHoughlines(HoughlinesRot,'red');
-	plotHoughlines(Houghlines,'yellow');
-	plotHoughlines(HoughlinesRot,'yellow');
-end
-
+function Houghlines = getcCorner(Houghlines,HoughlinesRot,cornerInlierThreshold)
 
 % loop through vertical houghlines
 for i=1:length(Houghlines)
@@ -42,10 +29,6 @@ for i=1:length(Houghlines)
 			Houghlines(i).cCorners(k)= cCorner;
 			k = k + 1;
 		end
-
-		%if plotme
-		%	plotHoughlineShort(HoughlinesRot(j),1,'red');
-		%end
 	end
 end
 
