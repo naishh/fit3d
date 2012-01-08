@@ -1,39 +1,32 @@
 close all;
 clear WindowsMerged
-% load projected
-load('../project2Normal/Houghlines.mat');
-load('../project2Normal/HoughlinesRot.mat');
-projectionScale = 1000;
-xOffset = 586;
-%cornerInlierThreshold = 0.025
-%cornerInlierThreshold = 35;
-cornerInlierThreshold = 1;
-fg = figure(1);hold on;
+% % load projected
+% %load('../project2Normal/Houghlines.mat');
+% %load('../project2Normal/HoughlinesRot.mat');
+% projectionScale = 1000; xOffset = 586; cornerInlierThreshold = 1;
+% % TODO remove Y bug in output of scaleHoughlines
+% Houghlines = scaleHoughlines(Houghlines,projectionScale,xOffset);
+% HoughlinesRot = scaleHoughlines(HoughlinesRot,projectionScale,xOffset);
 
-% TODO remove Y bug in output of scaleHoughlines
-Houghlines = scaleHoughlines(Houghlines,projectionScale,xOffset);
-HoughlinesRot = scaleHoughlines(HoughlinesRot,projectionScale,xOffset);
-% plot Houghlines
-plotHoughlines(Houghlines,'blue'); plotHoughlines(HoughlinesRot,'blue'); axis square; 
+% load unprojected houghlines
+load('mats/Houghlines_floriande5435.mat');
+load('mats/HoughlinesRot_floriande5435.mat');
+projectionScale = 1; xOffset = 0;
+cornerInlierThreshold = 0.2
 
-%load('mats/Houghlines_floriande5447.mat');
-%load('mats/HoughlinesRot_floriande5447.mat');
+%fg = figure(1);hold on;
+
 
 disp('getting cCorners..')
 Houghlines = getcCorner(Houghlines,HoughlinesRot,cornerInlierThreshold);
 
-pause;
+
+disp('getting and plotting Harris corners..')
+plotme = 1; cornerScaleAccu = getCorners(plotme);
+
 disp('plotting complete windows'); 
 plotcCorners(Houghlines, HoughlinesRot)
 
-
-
-
-
-% TODO fix scaleup for scales =! 1
-% disp('getting Harris corners..')
-% get harris corners
-% cornerScaleAccu = getCorners(plotme);
 % project harris corners
 %scale = 1;
 %cornerScaleAccu = project2square(cornerScaleAccu,scale,projectionScale);
@@ -46,9 +39,6 @@ plotcCorners(Houghlines, HoughlinesRot)
 %Houghlines = cCornerHarrisEvidence(Houghlines, cornerScaleAccu, scale, cCornerHarrisThreshold);
 
 plotme = 0;
-disp('cCornerToWindow..');
-% todo onderstaand weg?
-%[Houghlines, Windows, WindowsIm] = cCornerToWindow(Houghlines,HoughlinesRot,plotme);
 
 
 

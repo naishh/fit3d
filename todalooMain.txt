@@ -7,8 +7,9 @@ bram
 
 DOOR WINDOW:
 	rectangle detection by Hough
-		testen op andere dateset
 		resultaat terugprojecteren in plaatje
+		testen op andere dateset
+		cCorner loskoppelen van houghlines
 
 		nieuw id: Harris corners loopen en bij elke coorner cCorners 
 		bij elke cCorner de dichtsbijzijnste (als er 1 is) Harriscorner vinden en die als nieuwe crossing opslaan om window nauwkeurig te tekenen
@@ -16,7 +17,6 @@ DOOR WINDOW:
 		harris corner detectie inliers kleuren
 		Windows eruit en alleen met cCorners werken
 
-		plaatje/raam terugprojecteren
 		gespr frans vragen hoe te clusteren
 			punten groeperen adhv inter cluster distance
 

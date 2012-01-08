@@ -1,3 +1,4 @@
+% TODO fix scaleup for scales =! 1
 function cornerScaleAccu = getCorners(plotme)
 % TODO make dateset config
 
@@ -41,8 +42,9 @@ for scale=scaleRange;
 	CMadj = imadjust(CM);
 	if plotme
 		%figure;imshow(CMadj);
-		fgC = figure;imshow(imBW);hold on;
-		hold on;plot(Corners(:,1),Corners(:,2),'r+','MarkerSize',10);
+		%fgC = figure;
+		imshow(imBW); hold on;
+		plot(Corners(:,1),Corners(:,2),'r+','MarkerSize',10);
 	end
 	%paramStr = sprintf('src_%s_method_%s_nrCorners_%d_butFound_%d_scale_%s', fileShort, CornerParam.method, CornerParam.nrCorners, size(C,1), num2str(scale));
 	%saveas(fgC, [CornerParam.savePath,'result_cornerDet__',paramStr],'png');
