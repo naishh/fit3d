@@ -35,7 +35,8 @@ file = sprintf('../dataset/datasetSpil/datasetSpilRect/P_rect6_Hflipped.jpg');
 cropImage						= false;
 fileShort = 'spilrect6';
 colorModelBW					= true;
-edgeDetectorParam.thresh		= 0.35; 
+colorModel						= 'BW';
+edgeDetectorParam.thresh		= 0.15; 
 HoughParam.ThetaH.StretchAngle	= 30;
 HoughParam.ThetaV.StretchAngle	= 10;
 
@@ -94,8 +95,8 @@ end
 
 if cropImage
 	imBW = cropImage(imBW, X,Y);
-	h = size(imBW,1);
 end
+h = size(imBW,1);
 fgBW = figure();imshow(imBW);
 
 if edgeTest
@@ -116,14 +117,13 @@ fgEdge = figure();imshow(imEdge);
 
 
 
-fgHough = figure();imshow(imEdge);hold on
+fgHough = figure();hold on
 
 % HOUGHLINES:
 [H,Theta,Rho] = hough(imEdge,'Theta',HoughParam.ThetaV.Start:HoughParam.ThetaV.Resolution:HoughParam.ThetaV.End);
 Peaks  = houghpeaks(H,HoughParam.nrPeaks,'threshold',ceil(HoughParam.thresh*max(H(:))));
 x = Theta(Peaks(:,2)); y = Rho(Peaks(:,1));
 Houghlines = houghlines(imEdge,Theta,Rho,Peaks,'FillGap',HoughParam.fillGap,'MinLength',HoughParam.minLength);
-Houghlines = addLengthToHoughlines(Houghlines);
 
 for k = 1:length(Houghlines)
 	xy = [Houghlines(k).point1; Houghlines(k).point2];
@@ -139,7 +139,6 @@ end
 Peaks  = houghpeaks(H,HoughParam.nrPeaks,'threshold',ceil(HoughParam.thresh*max(H(:))));
 x = Theta(Peaks(:,2)); y = Rho(Peaks(:,1));
 HoughlinesRot = houghlines(imEdgeRot,Theta,Rho,Peaks,'FillGap',HoughParam.fillGap,'MinLength',HoughParam.minLength);
-HoughlinesRot = addLengthToHoughlines(HoughlinesRot);
 
 for k = 1:length(HoughlinesRot)
 	% TODO get xy from Theta(..) above, calc as matrix

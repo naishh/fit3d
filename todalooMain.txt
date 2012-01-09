@@ -7,20 +7,17 @@ bram
 
 DOOR WINDOW:
 	rectangle detection by Hough
-		testen op andere dateset
-			waarom kloppen houghlines niet?
-			getHoughlinesWindow
-				goed plotten in plaatje
+		1 script bestand met edge, hough, window detectie etc in 1
+			gehele systeem generiek maken zodat je alleen van dataset een param ergens veranderd
+			fotos van antwerpen proberen
+
 
 		cCorner loskoppelen van houghlines
-		nieuw id: Harris corners loopen en bij elke coorner cCorners 
-		bij elke cCorner de dichtsbijzijnste (als er 1 is) Harriscorner vinden en die als nieuwe crossing opslaan om window nauwkeurig te tekenen
+		nieuw id: Harris corners loopen en bij elke coorner cCorners zoeken
+		bij elke cCorner de dichtsbijzijnste (als er 1 is) Harriscorner vinden en die als nieuwe crossing opslaan om window nauwkeuriger te tekenen
 
 		harris corner detectie inliers kleuren
-		Windows eruit en alleen met cCorners werken
 
-		gespr frans vragen hoe te clusteren
-			punten groeperen adhv inter cluster distance
 
 		future work?
 			2 cCorners halen uit een =| vorm
@@ -28,6 +25,7 @@ DOOR WINDOW:
 		compleet nieuw idee, histogrammen, op x waardes verticale  en y waardes horizontale lijnen clusteren en dan de snijpunten als corners nemen
 			ook de harris corners meenemen en histogrammen 
 			ja en goed nadenken wat hierna? hoe krijg ik een raam
+			pas bij volledig uitgedacht echt proggen
 
 	
 		Harris

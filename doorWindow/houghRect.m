@@ -13,8 +13,9 @@ clear WindowsMerged
 %load('mats/HoughlinesRot_floriande5435.mat');
 
 fileShort = 'spilrect6';
-%imshow(imread('../dataset/datasetSpil/datasetSpilRect/P_rect6_Hflipped.jpg'));
-imshow(imread('../dataset/datasetSpil/datasetSpilRect/P_rect6.jpg'));
+file = '../dataset/datasetSpil/datasetSpilRect/P_rect6_Hflipped.jpg';
+im = imread(file); imshow(im);
+%imshow(imread('../dataset/datasetSpil/datasetSpilRect/P_rect6.jpg'));
 hold on;
 load(['mats/Houghlines_',fileShort,'.mat']);
 load(['mats/HoughlinesRot_',fileShort,'.mat']);
@@ -22,16 +23,25 @@ load(['mats/HoughlinesRot_',fileShort,'.mat']);
 
 projectionScale = 1; xOffset = 0;
 cornerInlierThreshold = 0.2
+maxWindowSize = 200;
+scale = 1;
 
-%fg = figure(1);hold on;
+cCornerHarrisThreshold = 30; 
+cCornerHarrisThreshold =  cCornerHarrisThreshold * projectionScale;
 
+
+
+disp('getting and plotting Harris corners..')
+plotme = 1; cornerScaleAccu = getCorners(plotme, im);
+err
+% loop through Harris features and add evidence for close cCorners
+disp('filtering on Harris corners..')
+Houghlines = cCornerHarrisEvidence(Houghlines, cornerScaleAccu, scale, cCornerHarrisThreshold);
 
 disp('getting cCorners..')
-Houghlines = getcCorner(Houghlines,HoughlinesRot,cornerInlierThreshold);
+Houghlines = getcCorner(Houghlines,HoughlinesRot,cornerInlierThreshold,maxWindowSize);
 
 
-%disp('getting and plotting Harris corners..')
-%plotme = 1; cornerScaleAccu = getCorners(plotme);
 
 disp('plotting complete windows'); 
 plotcCorners(Houghlines, HoughlinesRot)
@@ -41,13 +51,6 @@ plotcCorners(Houghlines, HoughlinesRot)
 %cornerScaleAccu = project2square(cornerScaleAccu,scale,projectionScale);
 %plotCornerHarris(cornerScaleAccu,'g+');
 
-%cCornerHarrisThreshold = 30; 
-%cCornerHarrisThreshold =  cCornerHarrisThreshold * projectionScale;
-% loop through Harris features and add evidence for close cCorners
-%disp('filtering on Harris corners..')
-%Houghlines = cCornerHarrisEvidence(Houghlines, cornerScaleAccu, scale, cCornerHarrisThreshold);
-
-plotme = 0;
 
 
 

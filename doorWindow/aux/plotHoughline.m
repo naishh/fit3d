@@ -3,6 +3,7 @@ hold on;
 if plotme
 	plot(xy(:,1),-xy(:,2),'LineWidth',2,'Color',colorStr);
 end
+hold on;
 
 % % Plot beginnings and ends of Houghlines
 % if plotme

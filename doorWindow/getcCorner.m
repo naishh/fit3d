@@ -10,7 +10,7 @@
 % output
 %	updated Houghlines with cCorner objects
 %
-function Houghlines = getcCorner(Houghlines,HoughlinesRot,cornerInlierThreshold)
+function Houghlines = getcCorner(Houghlines,HoughlinesRot,cornerInlierThreshold,maxWindowSize)
 
 % loop through vertical houghlines
 for i=1:length(Houghlines)
@@ -25,9 +25,12 @@ for i=1:length(Houghlines)
 		% if line segment endpoints are close to crossing 
 
 		% normalise dist to avg line segment length
-		dist = dist/((norm(p2-p1)+norm(p4-p3))/2);
+		l1 = norm(p2-p1);
+		l2 = norm(p4-p3);
+		avgLength=(l1+l2)/2;
+		dist = dist/avgLength;
 
-		if dist<cornerInlierThreshold
+		if dist<cornerInlierThreshold && l1<maxWindowSize && l2<maxWindowSize
 			% store connected corner
 			cCorner.vlineOri 		 = [p1,p2];
 			cCorner.hlineOri 		 = [p3,p4];
