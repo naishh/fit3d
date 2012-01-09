@@ -1,16 +1,37 @@
-bram
-	distortie/?
-	git opnieuw clonen en meldten met deze git repo
-	gradient / eigen corner detector
-	subsampling is rezizen zonder interpolatie en zonder extra plaatje aanmaken, dus neemt het minder geheugen
-	andere datasets
+GENERAL
+	1 script bestand met alle modules edge, hough, window detectie etc in 1
+		gehele systeem generiek maken zodat je alleen van dataset een param ergens veranderd
+		nadenken over hoe data te koppelen, Mat bestanden? in dir per module
+		fotos van antwerpen proberen
+
+	pick and test on 4 (very) different datasets
+		find a dataset with no repetition pattern windows
 
 DOOR WINDOW:
-	rectangle detection by Hough
-		1 script bestand met edge, hough, window detectie etc in 1
-			gehele systeem generiek maken zodat je alleen van dataset een param ergens veranderd
-			fotos van antwerpen proberen
+	histogram based aproach HIBAAP
+		tjoint systeem als aparte module behandelen (prerocess step die nieuwe Houghlines / cCorners) output
+		vertical en horizontal swipe with a 1xn or nx1 pixel window
+			count green (vertical) lines
+			count red (horizontal) lines
+		print histograms
+			together with image
+			for example below the image the nr of green lines per x val
+				print on 1:1 scale values
+		probleem verticale lijnen worden niet overal gevonden
+			start coords van horizontale lijnen gebruiken
+			prewite x and y derivative gebruiken als edge plaatje
 
+		zoek naar patronen als 1 rode lijn tussen twee groene
+
+		write in report that this method asumes a repetition pattern and aligned windows
+		write in report that tjoint method can be used on not aligned scenes
+
+
+
+	rectangle detection by Hough
+
+		windows samen laten smelten
+		zoeken naar windows in windows
 
 		cCorner loskoppelen van houghlines
 		nieuw id: Harris corners loopen en bij elke coorner cCorners zoeken
@@ -65,7 +86,13 @@ DOOR WINDOW:
 		think of how to combine images 
 		combine with houghlines vanishpoints
 
+EDGE DETECTION
+	ori plaatje blurren en edge threshold lager zetten
 
+
+
+MISC
+	distortie nakijken, bram denkt dat er distortie heeft plaatsgevonden
 
 FITTING THE 3D MODEL
 	point cloud not 90C angle?
@@ -182,10 +209,6 @@ Projection
 	consider projecting and measuring in 2D
 	
 Door/window detection
-	Read former research on license plate recognition
-	Apply adaboost cascading classifier on building dataset
-	Check how it can be used and how it is related to detect the skyline
-	Optional:use houghlines of windowbounds to guide the search 
 
 Improve skyline detector
 	Drop thresholdsensitive approach, use classification based on color (HSV)
