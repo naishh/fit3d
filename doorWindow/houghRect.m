@@ -1,5 +1,4 @@
 close all;
-clear WindowsMerged
 % % load projected
 % %load('../project2Normal/Houghlines.mat');
 % %load('../project2Normal/HoughlinesRot.mat');
@@ -51,17 +50,6 @@ plotcCorners(Houghlines, HoughlinesRot)
 %cornerScaleAccu = project2square(cornerScaleAccu,scale,projectionScale);
 %plotCornerHarris(cornerScaleAccu,'g+');
 
-
-
-
-
-% sliding window ding
-% figure;hold on;
-% slidingWindowSize = 21
-% stepSize = 15;
-% paramStr = ['slidingWindow_Size_',num2str(slidingWindowSize) ,'_StepSize_',num2str(stepSize)]
-% [WindowsMerged,nrWindowsMax]  = mergeWindows(Windows,slidingWindowSize, stepSize)
-% plotWindows(WindowsMerged,nrWindowsMax)
 
 %reply = input('Save result as images? y/n [n]: ', 's');
 %if isempty(reply)

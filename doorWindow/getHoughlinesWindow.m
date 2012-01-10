@@ -1,5 +1,95 @@
-% this file extract houghlines 
+% this file does edge and houghline extraction
 %
+close all;
+tic;
+
+Dataset 						= getDataset('Spil');
+plotme							= true;
+edgeTest						= false;
+paramStr 						= getParamStr(Dataset);
+
+% read image
+imOri = imread(Dataset.file);
+im    = imOri;
+
+% transform to e.g. HSV colormodel
+im = getColorModelTransform(im, Dataset);
+
+h = size(im,1);
+
+fgBW = figure();imshow(im);
+
+% EDGE TEST
+if edgeTest
+	for thresh=0.2:0.05:0.8
+		thresh
+		imEdge = im2double(edge(im, Dataset.EdgeDetectorParam.type, thresh));
+		figure(round(thresh*100));
+		imshow(imEdge);
+	end
+	error('edge test done, ending program')
+end
+
+
+% EDGE DETECTION 
+imEdge = im2double(edge(im, Dataset.EdgeDetectorParam.type, Dataset.EdgeDetectorParam.thresh));
+fgEdge = figure();imshow(imEdge);
+
+
+
+% HOUGHLINES:
+fgHough = figure();hold on
+
+[H,Theta,Rho] = hough(imEdge,'Theta',Dataset.HoughParam.ThetaV.Start:Dataset.HoughParam.ThetaV.Resolution:Dataset.HoughParam.ThetaV.End);
+Peaks  = houghpeaks(H,Dataset.HoughParam.nrPeaks,'threshold',ceil(Dataset.HoughParam.thresh*max(H(:))));
+x = Theta(Peaks(:,2)); y = Rho(Peaks(:,1));
+Houghlines = houghlines(imEdge,Theta,Rho,Peaks,'FillGap',Dataset.HoughParam.fillGap,'MinLength',Dataset.HoughParam.minLength);
+
+for k = 1:length(Houghlines)
+	xy = [Houghlines(k).point1; Houghlines(k).point2];
+	plotHoughline(xy, plotme,'green');
+end
+
+
+% HOUGHLINES ROTATED (HORIZONTAL):
+imEdgeRot    = rot90(imEdge,-1);
+[H,Theta,Rho] = hough(imEdgeRot,'Theta',Dataset.HoughParam.ThetaH.Start:Dataset.HoughParam.ThetaH.Resolution:Dataset.HoughParam.ThetaH.End);
+Peaks  = houghpeaks(H,Dataset.HoughParam.nrPeaks,'threshold',ceil(Dataset.HoughParam.thresh*max(H(:))));
+x = Theta(Peaks(:,2)); y = Rho(Peaks(:,1));
+HoughlinesRot = houghlines(imEdgeRot,Theta,Rho,Peaks,'FillGap',Dataset.HoughParam.fillGap,'MinLength',Dataset.HoughParam.minLength);
+
+for k = 1:length(HoughlinesRot)
+	% TODO get xy from Theta(..) above, calc as matrix
+	xy = [invertCoordFlipY(HoughlinesRot(k).point1,h); invertCoordFlipY(HoughlinesRot(k).point2,h)];
+	% save inverted coord on HoughlinesRot
+	HoughlinesRot(k).point1 = xy(1,:); HoughlinesRot(k).point2 = xy(2,:);
+	plotHoughline(xy, plotme,'red')
+end
+
+
+
+toc;
+reply = input('Save result as images? y/n [n]: ', 's');
+if isempty(reply)
+	reply = 'n';
+end
+if reply=='y'
+	disp('saving images..');
+	savePath 						= 'results/';
+	% save images
+	saveas(fgBW,[savePath,'result_raw__',paramStr],'png');
+	saveas(fgEdge,[savePath,'result_edge__',paramStr],'png');
+	saveas(fgHough,[savePath,'result_hough__',paramStr],'png');
+	% update dataset vals
+	Dataset.imOri			= imOri;
+	Dataset.im 				= im;
+	Dataset.imEdge 			= imEdge;
+	Dataset.Houghlines 		= Houghlines;
+	Dataset.HoughlinesRot 	= HoughlinesRot;
+	save(['mats/Dataset_',Dataset.fileShort,'.mat'],'Dataset');
+	disp('done');
+end
+
 % new plan
 % transform edge image to rectangular image
 %	apply hough rectangul detection based on hough transform (paper)
@@ -15,155 +105,6 @@
 % read paper about implicite shape of window
 %	use assumptions, like average width height ratio of the window
 
-
-close all;
-tic;
-%imNr = 5435; file = sprintf('../dataset/FloriandeSet1/medium/undist__MG_%d.jpg', imNr); load('XYangleFilter_floriande_5447.mat'); load('XYcropRegionFloriande5435.mat'); edgeDetectorParam.thresh		= 0.55; HoughParam.ThetaH.StretchAngle	= 30;HoughParam.ThetaV.StretchAngle	= 10; fileShort 						= 'floriande5435';
-%imNr = 5447; file = sprintf('../dataset/FloriandeSet1/medium/undist__MG_%d.jpg', imNr); 
-%	load('XYangleFilter_floriande_5447.mat'); 
-%	load('XYcropRegionFloriande5447.mat'); 
-%	edgeDetectorParam.thresh		= 0.35; 
-%	HoughParam.ThetaH.StretchAngle	= 30;
-%	HoughParam.ThetaV.StretchAngle	= 10;
-% colorModel						= 'HSV_Vchannel';
-% imNr = 6680; file = sprintf('../dataset/fullDatasets/aalsmeer/undist__MG_%d.jpg', imNr); load('XYangleFilter_aalsmeer6680.mat');
-
-imNR = 6; 
-file = sprintf('../dataset/datasetSpil/datasetSpilRect/P_rect6_Hflipped.jpg'); 
-%load('XYcropRegionSpil6.mat');
-%cropImage						= true;
-cropImage						= false;
-fileShort = 'spilrect6';
-colorModelBW					= true;
-colorModel						= 'BW';
-edgeDetectorParam.thresh		= 0.15; 
-HoughParam.ThetaH.StretchAngle	= 30;
-HoughParam.ThetaV.StretchAngle	= 10;
-
-
-
-
-
-colorModelHSV_V					= false;
-plotme							= 1;
-savePath 						= 'results/';
-%fileShort 						= 'aalsmeer6680';
-edgeDetectorParam.type 			= 'canny';
-loadEdgeFromCache 				= 0;
-%edgeDetectorParam.typePost 		= 'vertical_horizontal_Combined';
-edgeDetectorParam.typePost 		= '';
-% perform different threshold test?
-edgeTest 						= 0;
-HoughParam.ThetaV.Start 		= 0;
-HoughParam.ThetaV.Start 		= HoughParam.ThetaV.Start - HoughParam.ThetaV.StretchAngle;
-HoughParam.ThetaH.Start 		= 0;
-HoughParam.ThetaH.Start 		= HoughParam.ThetaH.Start - HoughParam.ThetaH.StretchAngle;
-HoughParam.ThetaH.End 			= 0;
-HoughParam.ThetaH.End 			= HoughParam.ThetaH.End + HoughParam.ThetaH.StretchAngle;
-HoughParam.ThetaV.End 			= 0;
-HoughParam.ThetaV.End 			= HoughParam.ThetaV.End + HoughParam.ThetaV.StretchAngle;
-HoughParam.ThetaH.Resolution  	= 0.5;
-HoughParam.ThetaV.Resolution  	= HoughParam.ThetaH.Resolution;
-HoughParam.thresh 				= 0;
-% sets the max nr of lines hough finds:
-HoughParam.nrPeaks 				= 200;
-%HoughParam.fillGap 			= 30;
-% the bigger this value the more lines are found
-HoughParam.fillGap 				= 10;
-
-% select smallest windowglas width from left to right
-%[Xwin,Ywin] = ginput(2); XYwin1 = [Xwin(1),Ywin(1)]; XYwin2 = [Xwin(2),Ywin(2)];norm(XYwin1,XYwin2)
-HoughParam.minLength 			= 45; 
-
-% todo transfer to sprintf 
-paramStr = ['src_',fileShort,'_colorModel_',colorModel,'__edgeDetectorParams_',edgeDetectorParam.type,edgeDetectorParam.typePost,'_thresh_',num2str(edgeDetectorParam.thresh),'__HoughParams_', 'thresh_',num2str(HoughParam.thresh) , '_nrPeaks_',num2str(HoughParam.nrPeaks) , '_fillGap_',num2str(HoughParam.fillGap) , '_minLength_',num2str(HoughParam.minLength),'__ThetaRangeH_',num2str(HoughParam.ThetaH.Start),':',num2str(HoughParam.ThetaH.Resolution),':',num2str(HoughParam.ThetaH.End),'_ThetaRangeV_',num2str(HoughParam.ThetaV.Start),':',num2str(HoughParam.ThetaV.Resolution),':',num2str(HoughParam.ThetaV.End),'.png'];
-
-if loadEdgeFromCache == false
-	imRGB = imread(file);
-	if(colorModelHSV_V)
-		imHSV = rgb2hsv(imRGB);
-		imBW     = imHSV(:,:,3);
-	elseif(colorModelBW)
-		imBW     = imRGB;
-	else
-		%imBW = imRGB(:,:,3);
-		imBW = imadjust(rgb2gray(imRGB));
-		%fgRGB = figure();imshow(imRGB);
-	end
-end
-
-
-if cropImage
-	imBW = cropImage(imBW, X,Y);
-end
-h = size(imBW,1);
-fgBW = figure();imshow(imBW);
-
-if edgeTest
-	for thresh=0.2:0.05:0.8
-		thresh
-		imEdge = im2double(edge(imBW, edgeDetectorParam.type, thresh));
-		figure(round(thresh*100));
-		imshow(imEdge);
-	end
-	error('edge test done, ending program')
-end
-
-% EDGE DETECTION 
-if loadEdgeFromCache == false
-	imEdge = im2double(edge(imBW, edgeDetectorParam.type, edgeDetectorParam.thresh));
-end
-fgEdge = figure();imshow(imEdge);
-
-
-
-fgHough = figure();hold on
-
-% HOUGHLINES:
-[H,Theta,Rho] = hough(imEdge,'Theta',HoughParam.ThetaV.Start:HoughParam.ThetaV.Resolution:HoughParam.ThetaV.End);
-Peaks  = houghpeaks(H,HoughParam.nrPeaks,'threshold',ceil(HoughParam.thresh*max(H(:))));
-x = Theta(Peaks(:,2)); y = Rho(Peaks(:,1));
-Houghlines = houghlines(imEdge,Theta,Rho,Peaks,'FillGap',HoughParam.fillGap,'MinLength',HoughParam.minLength);
-
-for k = 1:length(Houghlines)
-	xy = [Houghlines(k).point1; Houghlines(k).point2];
-	plotHoughline(xy, plotme,'green')
-end
-
-
-% HOUGHLINES ROTATED (HORIZONTAL):
-if loadEdgeFromCache == false
-	imEdgeRot    = rot90(imEdge,-1);
-end
-[H,Theta,Rho] = hough(imEdgeRot,'Theta',HoughParam.ThetaH.Start:HoughParam.ThetaH.Resolution:HoughParam.ThetaH.End);
-Peaks  = houghpeaks(H,HoughParam.nrPeaks,'threshold',ceil(HoughParam.thresh*max(H(:))));
-x = Theta(Peaks(:,2)); y = Rho(Peaks(:,1));
-HoughlinesRot = houghlines(imEdgeRot,Theta,Rho,Peaks,'FillGap',HoughParam.fillGap,'MinLength',HoughParam.minLength);
-
-for k = 1:length(HoughlinesRot)
-	% TODO get xy from Theta(..) above, calc as matrix
-	xy = [invertCoordFlipY(HoughlinesRot(k).point1,h); invertCoordFlipY(HoughlinesRot(k).point2,h)];
-	% save inverted coord on HoughlinesRot
-	HoughlinesRot(k).point1 = xy(1,:); HoughlinesRot(k).point2 = xy(2,:);
-	plotHoughline(xy, plotme,'red')
-end
-
-
-toc;
-reply = input('Save result as images? y/n [n]: ', 's');
-if isempty(reply)
-	reply = 'n';
-end
-if reply=='y'
-	disp('saving images..');
-	% save images
-	saveas(fgBW,[savePath,'result_raw__',paramStr],'png');
-	saveas(fgEdge,[savePath,'result_edge__',paramStr],'png');
-	saveas(fgHough,[savePath,'result_hough__',paramStr],'png');
-	save(['mats/Houghlines_',fileShort,'.mat'],'Houghlines');
-	save(['mats/HoughlinesRot_',fileShort,'.mat'],'HoughlinesRot');
-	disp('done');
-end
 
 
 

@@ -1,6 +1,8 @@
 GENERAL
 	1 script bestand met alle modules edge, hough, window detectie etc in 1
 		gehele systeem generiek maken zodat je alleen van dataset een param ergens veranderd
+			getHoughwindows is opgeschoond
+			nu houghRect nog
 		nadenken over hoe data te koppelen, Mat bestanden? in dir per module
 		fotos van antwerpen proberen
 
@@ -29,6 +31,8 @@ DOOR WINDOW:
 
 
 	rectangle detection by Hough
+		opzoeken hoeveel parameters er zijn
+			inlier dist etc op 1:1 schaal in beeld tekenen
 
 		windows samen laten smelten
 		zoeken naar windows in windows
