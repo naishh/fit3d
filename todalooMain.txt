@@ -1,11 +1,6 @@
 GENERAL
-	1 script bestand met alle modules edge, hough, window detectie etc in 1
-		gehele systeem generiek maken zodat je alleen van dataset een param ergens veranderd
-			getHoughwindows is opgeschoond
-			nu houghRect nog
-		nadenken over hoe data te koppelen, Mat bestanden? in dir per module
-		fotos van antwerpen proberen
-
+	tijdindeling in google docs zetten
+	tjoint beschrijven in thesis
 	pick and test on 4 (very) different datasets
 		find a dataset with no repetition pattern windows
 

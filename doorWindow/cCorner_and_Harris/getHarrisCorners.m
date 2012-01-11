@@ -1,5 +1,5 @@
 % TODO fix scaleup for scales =! 1
-function cornerScaleAccu = getCorners(plotme,im)
+function cornerScaleAccu = getHarrisCorners(plotme,im)
 % TODO make dateset config
 
 %load('XYcropRegionFloriande5435.mat'); 

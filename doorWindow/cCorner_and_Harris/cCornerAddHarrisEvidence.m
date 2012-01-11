@@ -1,4 +1,4 @@
-function Houghlines = cCornerHarrisEvidence(Houghlines, cornerScaleAccu, scale, cCornerHarrisThreshold)
+function Houghlines = cCornerAddHarrisEvidence(Houghlines, cornerScaleAccu, scale, cCornerHarrisThreshold)
 for i=1:length(Houghlines)
 	for k=1:length(Houghlines(i).cCorners)
 		cCorner = Houghlines(i).cCorners(k);

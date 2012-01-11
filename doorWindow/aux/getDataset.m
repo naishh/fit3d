@@ -52,3 +52,5 @@ Dataset.HoughParam.nrPeaks 				= 200;
 % the bigger this value the more lines are found
 Dataset.HoughParam.fillGap 				= 10;
 Dataset.HoughParam.minLength 			= 45; 
+Dataset.HoughParam.projectionScale 		= 1;
+
