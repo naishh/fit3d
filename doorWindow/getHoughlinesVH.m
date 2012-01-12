@@ -3,39 +3,41 @@
 close all;
 tic;
 
-Dataset 						= getDataset('Spil');
+DatasetFromCache				= false;
+edgeFromCache					= true;
+edgeTest 						= false;
+saveImageQ						= true;
+
 plotme							= true;
-edgeTest						= false;
-paramStr 						= getParamStr(Dataset);
 
-% read image
-imOri = imread(Dataset.file);
-im    = imOri;
-
-% transform to e.g. HSV colormodel
-im = getColorModelTransform(im, Dataset);
-
-h = size(im,1);
-
-fgBW = figure();imshow(im);
-
-% EDGE TEST
-if edgeTest
-	for thresh=0.2:0.05:0.8
-		thresh
-		imEdge = im2double(edge(im, Dataset.EdgeDetectorParam.type, thresh));
-		figure(round(thresh*100));
-		imshow(imEdge);
-	end
-	error('edge test done, ending program')
+if ~DatasetFromCache
+	Dataset 						= getDataset('Antwerpen',startPath);
+	paramStr 						= getParamStr(Dataset);
 end
 
 
-% EDGE DETECTION 
-imEdge = im2double(edge(im, Dataset.EdgeDetectorParam.type, Dataset.EdgeDetectorParam.thresh));
-fgEdge = figure();imshow(imEdge);
+% TODO BLUR
+% TODO houghlines fillgab uitzetten in image
 
 
+% read file
+Dataset.imOri 					= imread(Dataset.file);
+
+if ~edgeFromCache
+	% transform color
+	imColorModelTransform   = getColorModelTransform(Dataset.imOri, Dataset);
+	% perform edge detection
+	Dataset.imColorModelTransform 	= imColorModelTransform;
+	imEdge = getEdge(Dataset, edgeTest);
+end
+
+Dataset.imColorModelTransform 	= imColorModelTransform;
+Dataset.imEdge					= imEdge;
+
+fgColorModelTransform = figure();imshow(Dataset.imColorModelTransform);
+fgEdge = figure();imshow(Dataset.imEdge);
+
+h = size(Dataset.imColorModelTransform,1);
 
 % HOUGHLINES:
 fgHough = figure();hold on
@@ -69,25 +71,25 @@ end
 
 
 toc;
-reply = input('Save result as images? y/n [n]: ', 's');
-if isempty(reply)
-	reply = 'n';
-end
-if reply=='y'
-	disp('saving images..');
-	savePath 						= 'results/';
-	% save images
-	saveas(fgBW,[savePath,'result_raw__',paramStr],'png');
-	saveas(fgEdge,[savePath,'result_edge__',paramStr],'png');
-	saveas(fgHough,[savePath,'result_hough__',paramStr],'png');
-	% update dataset vals
-	Dataset.imOri			= imOri;
-	Dataset.im 				= im;
-	Dataset.imEdge 			= imEdge;
-	Dataset.Houghlines 		= Houghlines;
-	Dataset.HoughlinesRot 	= HoughlinesRot;
-	save(['mats/Dataset_',Dataset.fileShort,'.mat'],'Dataset');
-	disp('done');
+
+if saveImageQ
+	reply = input('Save result as images? y/n [n]: ', 's');
+	if isempty(reply)
+		reply = 'n';
+	end
+	if reply=='y'
+		disp('saving images..');
+		savePathFile 						= ['results/',Dataset.fileShort];
+		% save images
+		saveas(fgColorModelTransform,[savePathFile,'_colortransform__',paramStr],'png');
+		saveas(fgEdge,[savePathFile,'_edge__',paramStr],'png');
+		saveas(fgHough,[savePathFile,'_hough__',paramStr],'png');
+		% update dataset vals
+		Dataset.Houghlines 		= Houghlines;
+		Dataset.HoughlinesRot 	= HoughlinesRot;
+		save(['mats/Dataset_',Dataset.fileShort,'.mat'],'Dataset');
+		disp('done');
+	end
 end
 
 % new plan

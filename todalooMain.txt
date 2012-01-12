@@ -5,8 +5,17 @@ GENERAL
 		find a dataset with no repetition pattern windows
 
 DOOR WINDOW:
-	histogram based aproach HIBAAP
-		tjoint systeem als aparte module behandelen (prerocess step die nieuwe Houghlines / cCorners) output
+>	histogram based aproach HIBAAP
+		alternatieve datasets
+			antwerpen set inladen
+				hmm slechte edge plaatjes :(
+				rechte lijn met gimp door beeld om distortie te testen
+			plaatjes van internet halen
+		datasets projecteren
+
+>		tjoint systeem als aparte module behandelen (prerocess step die nieuwe Houghlines / cCorners) output
+		Y waarde endpoints houghlines + rot opzoeken en in histogram gooien
+			1d histogram functie maken met resolutie
 		vertical en horizontal swipe with a 1xn or nx1 pixel window
 			count green (vertical) lines
 			count red (horizontal) lines
@@ -18,7 +27,11 @@ DOOR WINDOW:
 			start coords van horizontale lijnen gebruiken
 			prewite x and y derivative gebruiken als edge plaatje
 
-		zoek naar patronen als 1 rode lijn tussen twee groene
+		dynamic filter (soort adaboost met dynamische filtergrootte)
+			vind groen eindstuk, dan rood lijn, dan groen eindstuk
+		niet orthogonaal:
+			houghlines met groote gapsize en hoge minimum length
+			door de cornerdetector punten trekken
 
 		write in report that this method asumes a repetition pattern and aligned windows
 		write in report that tjoint method can be used on not aligned scenes

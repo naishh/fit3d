@@ -1,22 +1,22 @@
 close all;
 
-Dataset 						= getDataset('Spil');
+%load('../mats/Dataset_antwerpen6223_crop1.mat');
 Houghlines = Dataset.Houghlines; HoughlinesRot = Dataset.HoughlinesRot
 
-cornerInlierThreshold = 0.2
 maxWindowSize = 200;
-
-cCornerHarrisThreshold = 30; 
-cCornerHarrisThreshold =  cCornerHarrisThreshold * projectionScale;
-
-
-
-disp('getting and plotting Harris corners..')
-plotme = 1; cornerScaleAccu = getHarrisCorners(plotme, im);
-err
-% loop through Harris features and add evidence for close cCorners
-%disp('filtering on Harris corners..')
-%Houghlines = cCornerHarrisEvidence(Houghlines, cornerScaleAccu, 1, cCornerHarrisThreshold);
+%cornerInlierThreshold = 0.2
+%
+% cCornerHarrisThreshold = 30; 
+% cCornerHarrisThreshold =  cCornerHarrisThreshold * Dataset.projectionScale;
+% 
+% 
+% disp('getting and plotting Harris corners..')
+% plotme = 1; cornerScaleAccu = getHarrisCorners(plotme, im);
+% err
+% % loop through Harris features and add evidence for close cCorners
+% %disp('filtering on Harris corners..')
+% %Houghlines = cCornerHarrisEvidence(Houghlines, cornerScaleAccu, 1, cCornerHarrisThreshold);
+imshow(Dataset.imOri);hold on;
 
 disp('getting cCorners..')
 Houghlines = getcCorner(Houghlines,HoughlinesRot,cornerInlierThreshold,maxWindowSize);
