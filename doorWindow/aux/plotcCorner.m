@@ -1,5 +1,6 @@
 function plotcCorner(cCorner,plotMode);
 hold on;
+pause;
 % set to -1 if u use projected values 
 YnoInvert = 1;
 % calc coords of paralelleogram
