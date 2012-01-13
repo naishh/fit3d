@@ -6,25 +6,21 @@ GENERAL
 
 DOOR WINDOW:
 	histogram based aproach HIBAAP
+		get peaks
+		houghlines in plaatje plotten
 		alternatieve datasets
+			plaatjes van internet halen met full frontal windows
 			antwerpen set inladen
 				hmm slechte edge plaatjes :(
 				rechte lijn met gimp door beeld om distortie te testen
-			plaatjes van internet halen
 		datasets projecteren
 
 		tjoint systeem als aparte module behandelen (prerocess step die nieuwe Houghlines / cCorners) output
 			pretty print voor de tjoint maken (before, en after plaatje)
 
-		Y waarde endpoints houghlines + rot opzoeken en in histogram gooien
-			1d histogram functie maken met resolutie
 		vertical en horizontal swipe with a 1xn or nx1 pixel window
-			count green (vertical) lines
-			count red (horizontal) lines
-		print histograms
-			together with image
-			for example below the image the nr of green lines per x val
-				print on 1:1 scale values
+			count green (vertical) pixels 
+			count red (horizontal) pixels 
 		probleem verticale lijnen worden niet overal gevonden
 			start coords van horizontale lijnen gebruiken
 			prewite x and y derivative gebruiken als edge plaatje
