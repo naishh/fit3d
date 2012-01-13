@@ -1,0 +1,15 @@
+
+Beste Frans,
+
+Hierbij resultaten van onze besproken aanpak.
+
+Ik heb een histogram gemaakt van de X,Y coordinaten van de eindpunten van de horizontale en verticale houghlijnen.
+Daarna heb ik het histogram gesmooth.
+Nu wil ik de pieken vinden. 
+Dit lukt al aardig door de histogramwaardes boven een bepaalde threshold te plotten als rechte lijnen.
+Echter detecteer ik nu teveel teveel lijnen, en wil ik die clusteren.
+
+Hoe kan ik het best te werk gaan?
+
+Nog meer smoothen?
+
