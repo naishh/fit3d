@@ -5,7 +5,7 @@ GENERAL
 		find a dataset with no repetition pattern windows
 
 DOOR WINDOW:
->	histogram based aproach HIBAAP
+	histogram based aproach HIBAAP
 		alternatieve datasets
 			antwerpen set inladen
 				hmm slechte edge plaatjes :(
@@ -13,8 +13,9 @@ DOOR WINDOW:
 			plaatjes van internet halen
 		datasets projecteren
 
->		tjoint systeem als aparte module behandelen (prerocess step die nieuwe Houghlines / cCorners) output
+		tjoint systeem als aparte module behandelen (prerocess step die nieuwe Houghlines / cCorners) output
 			pretty print voor de tjoint maken (before, en after plaatje)
+
 		Y waarde endpoints houghlines + rot opzoeken en in histogram gooien
 			1d histogram functie maken met resolutie
 		vertical en horizontal swipe with a 1xn or nx1 pixel window
