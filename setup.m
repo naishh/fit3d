@@ -12,6 +12,7 @@ path(path,[startPath, '/project2Normal']);
 %path(path,[startPath, '/cameraCalibration/toolbox_calib']);
 %path(path,[startPath, '/project2d']);
 path(path,[startPath, '/doorWindow/aux']);
+path(path,[startPath, '/doorWindow/cCorner_and_Harris']);
 path(path,[startPath, '/aux']);
 path(path,[startPath, '/doorWindow/mats']);
 disp('added paths succesfully, good luck dude!')

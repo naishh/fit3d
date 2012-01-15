@@ -2,7 +2,7 @@
 % returns tjoint adjusted line segments 
 
 % TODO return 2 cCorners if ua or ub <1
-function [crossing,dist,line1End,line2End] = findLineIntersection(p1,p2,p3,p4) 
+function [crossing,dist,line1End,line2End] = getLineCrossing(p1,p2,p3,p4) 
 % calculate differences  
 xD1=p2(1)-p1(1);  
 xD2=p4(1)-p3(1);  

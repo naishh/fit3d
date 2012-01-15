@@ -34,24 +34,56 @@ YhHistSmooth = smooth(YhHist);
 plot(incrFactor*YhHistSmooth, YhBins, 'r-');
 
 
-XvThresh = 4
-XvPeaks = find(XvHist>=XvThresh)
-
+% find vertical peaks
+XvThresh = 2; XvPeaks = find(XvHist>=XvThresh);
 h=size(Dataset.imOri,1);
 for i=1:length(XvPeaks)
-	XvPeaks(i)
-	plot([XvPeaks(i),XvPeaks(i)],[0,h],'b-');
+	%plot([XvPeaks(i),XvPeaks(i)],[0,h],'b-');
 	hold on;
 end
 
 
-YhThresh = 4
-YhPeaks = find(YhHist>=YhThresh)
-
+% find horizontal peaks
+YhThresh = 4; YhPeaks = find(YhHist>=YhThresh);
 w=size(Dataset.imOri,2);
 for i=1:length(YhPeaks)
-	YhPeaks(i)
-	plot([0,w],[YhPeaks(i),YhPeaks(i)],'k-');
+	%plot([0,w],[YhPeaks(i),YhPeaks(i)],'k-');
 	hold on;
+end
+
+% finds and plot intersections of vertical and horizontal lines
+for i=1:length(XvPeaks)
+	for j=1:length(YhPeaks)
+		%plot([XvPeaks(i),XvPeaks(i)],[0,h],'b-');
+		%plot([0,w],[YhPeaks(j),YhPeaks(j)],'k-');
+		[crossing,d,l1,l2] = getLineCrossing([XvPeaks(i),0]',[XvPeaks(i),h]',[0,YhPeaks(j)]',[w,YhPeaks(j)]');
+		plot(crossing(1), crossing(2), '+g');
+	end
+end
+
+
+% forget clustering
+% take midponit windows
+% search for 4 closest point
+
+Houghlines = Dataset.Houghlines; HoughlinesRot = Dataset.HoughlinesRot
+
+maxWindowSize = 200;
+cornerInlierThreshold = 0.2
+disp('getting cCorners..')
+Houghlines = getcCorner(Houghlines,HoughlinesRot,cornerInlierThreshold,maxWindowSize);
+disp('plotting complete windows'); 
+plotcCorners(Houghlines, HoughlinesRot)
+
+
+% loop through cCorners
+for i=1:length(Houghlines)
+	for k=1:length(Houghlines(i).cCorners)
+		cCorner = Houghlines(i).cCorners(k);
+		cCorner.windowMidpointX
+		cCorner.windowMidpointY
+		% accumulate crossings above
+		% search in 4 kwadrants for closest crossing
+	end
 end
 

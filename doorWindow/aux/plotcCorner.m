@@ -34,8 +34,8 @@ if true
 end
 if true
 	% blue cross in middle
-	X = round((p1(1)+ p3(1))/2);
-	Y = round((p2(2)+ p3(2))/2);
+	X = cCorner.windowMidpointX;
+	Y = cCorner.windowMidpointY;
 	plot(X,YnoInvert*Y,'b+','MarkerSize',10);
 
 end
