@@ -11,7 +11,7 @@ Houghlines = Dataset.Houghlines; HoughlinesRot = Dataset.HoughlinesRot
 imshow(Dataset.imEdge);
 figure;imshow(Dataset.imOri); hold on;
 % TODO put below in getdataset
-[Dataset.imWidth, Dataset.imHeight] = size(Dataset.imOri);
+[Dataset.imHeight, Dataset.imWidth] = size(Dataset.imOri);
 
 [Xv, Yv] = houghlinesToXY(Houghlines);
 [Xh, Yh] = houghlinesToXY(HoughlinesRot);
@@ -22,7 +22,7 @@ YvBins = 1:1:max(Yv); YvHist = hist(Yv,YvBins);
 XhBins = 1:1:max(Xh); XhHist = hist(Xh,XhBins);
 YhBins = 1:1:max(Yh); YhHist = hist(Yh,YhBins);
 
-% draw histograms smoothed
+% draw histograms (smoothed)
 incrFactor = 20;
 XvHistSmooth = smooth(XvHist);
 plot(incrFactor*XvHistSmooth,'y-');
@@ -38,39 +38,37 @@ plot(incrFactor*YhHistSmooth, YhBins, 'r-');
 
 
 
-
-
-% plot threshold line
+XvThresh = 1; 
+XvDerivativeThresh = 0.05;
+% plot horizontal threshold line
 plot([0 Dataset.imWidth],[incrFactor*XvThresh, incrFactor*XvThresh],'k--');
 pause;
-
 % find vertical peaks
-XvThresh = 1; XvPeaks = find(XvHistSmooth>=XvThresh);
-for i=1:length(XvPeaks)
-	plot([XvPeaks(i),XvPeaks(i)],[0,Dataset.imHeight],'b-');
-	hold on;
-end
+XvPeaksBinary = XvHistSmooth>=XvThresh;
+%XvPeaks = find(XvHistSmooth>=XvThresh);
+XvDerivative = diff(XvHistSmooth);
+hold on;
+for i=1:length(XvPeaksBinary)
+	i
 
-% find horizontal peaks
-YhThresh = 4; YhPeaks = find(YhHistSmooth>=YhThresh);
-for i=1:length(YhPeaks)
-	plot([0,Dataset.imWidth],[YhPeaks(i),YhPeaks(i)],'k-');
-	hold on;
-end
+	% detect where peaktransform is
+	% take area and take maximum peak value
 
-EdgePeakCrossings = [];
+	if XvPeaksBinary(i) == 1
+		%if XvHistMaxPeak ==
+		%XvHistMaxPeak = XvHist(i)
+		% if center of peak found (derivative = 0)
 
-% finds and plot intersections of vertical and horizontal lines
-for i=1:length(XvPeaks)
-	for j=1:length(YhPeaks)
-		%plot([XvPeaks(i),XvPeaks(i)],[0,h],'b-');
-		%plot([0,w],[YhPeaks(j),YhPeaks(j)],'k-');
-		[crossing,d,l1,l2] = getLineCrossing([XvPeaks(i),0]',[XvPeaks(i),h]',[0,YhPeaks(j)]',[w,YhPeaks(j)]');
-		%plot(crossing(1), crossing(2), '+g');
-		EdgePeakCrossings = [EdgePeakCrossings;crossing'];
+		XvDerivative(i)
+		pause;
+		if abs(XvDerivative(i)) <= XvDerivativeThresh
+			plot([i,i],[0,Dataset.imHeight],'g-');
+		else
+			plot([i,i],[0,Dataset.imHeight],'r-');
+		end
 	end
 end
-
+err
 
 % search on location of peaks for 
 % derivative has to be zero
@@ -79,9 +77,29 @@ plot(-XvHist,'y-');
 plot(-XvHistSmooth);
 hold on;
 pause;
-derivative1 = diff(XvHistSmooth)
 plot(derivative1,'r-');
 err
+
+
+%% find horizontal peaks
+%YhThresh = 4; YhPeaks = find(YhHistSmooth>=YhThresh);
+%for i=1:length(YhPeaks)
+%	plot([0,Dataset.imWidth],[YhPeaks(i),YhPeaks(i)],'k-');
+%	hold on;
+%end
+
+% % finds and plot intersections of vertical and horizontal lines
+% EdgePeakCrossings = [];
+% for i=1:length(XvPeaks)
+% 	for j=1:length(YhPeaks)
+% 		%plot([XvPeaks(i),XvPeaks(i)],[0,h],'b-');
+% 		%plot([0,w],[YhPeaks(j),YhPeaks(j)],'k-');
+% 		[crossing,d,l1,l2] = getLineCrossing([XvPeaks(i),0]',[XvPeaks(i),h]',[0,YhPeaks(j)]',[w,YhPeaks(j)]');
+% 		%plot(crossing(1), crossing(2), '+g');
+% 		EdgePeakCrossings = [EdgePeakCrossings;crossing'];
+% 	end
+% end
+
 
 
 
