@@ -11,7 +11,7 @@ p4 = p1 + (p2-p3);
 
 
 %plotMode = 'windowOnly';
-plotMode = 'cCorner';
+%plotMode = 'cCorner';
 
 if true
 	lineSpec = 'r-';

@@ -51,37 +51,63 @@ for i=1:length(YhPeaks)
 	hold on;
 end
 
+EdgePeakCrossings = [];
+
 % finds and plot intersections of vertical and horizontal lines
 for i=1:length(XvPeaks)
 	for j=1:length(YhPeaks)
 		%plot([XvPeaks(i),XvPeaks(i)],[0,h],'b-');
 		%plot([0,w],[YhPeaks(j),YhPeaks(j)],'k-');
 		[crossing,d,l1,l2] = getLineCrossing([XvPeaks(i),0]',[XvPeaks(i),h]',[0,YhPeaks(j)]',[w,YhPeaks(j)]');
-		plot(crossing(1), crossing(2), '+g');
+		%plot(crossing(1), crossing(2), '+g');
+		EdgePeakCrossings = [EdgePeakCrossings;crossing'];
 	end
 end
 
 
-% forget clustering
-% take midponit windows
-% search for 4 closest point
-
-Houghlines = Dataset.Houghlines; HoughlinesRot = Dataset.HoughlinesRot
 
 maxWindowSize = 200;
 cornerInlierThreshold = 0.2
 disp('getting cCorners..')
+Houghlines = Dataset.Houghlines; HoughlinesRot = Dataset.HoughlinesRot
 Houghlines = getcCorner(Houghlines,HoughlinesRot,cornerInlierThreshold,maxWindowSize);
 disp('plotting complete windows'); 
-plotcCorners(Houghlines, HoughlinesRot)
+%plotcCorners(Houghlines, HoughlinesRot)
 
 
 % loop through cCorners
-for i=1:length(Houghlines)
+% TODO CHANGE 10 TO 1!!
+for i=10:length(Houghlines)
+	i
 	for k=1:length(Houghlines(i).cCorners)
+		k
+		
 		cCorner = Houghlines(i).cCorners(k);
-		cCorner.windowMidpointX
-		cCorner.windowMidpointY
+		plotcCorner(cCorner,'window');
+		winX = cCorner.windowMidpointX
+		winY = cCorner.windowMidpointY
+
+		% get edge peak crossings kwadrants with the midpoint of window as origin
+		EpcLeft 		= EdgePeakCrossings(EdgePeakCrossings(:,1)<=winX,:)
+		EpcLeftTop 		= EpcLeft(EpcLeft(:,2)<=winY,:)
+		EpcLeftBottom 	= EpcLeft(EpcLeft(:,2)>winY,:)
+		EpcRight 		= EdgePeakCrossings(EdgePeakCrossings(:,1)>winX, :)
+		EpcRightTop 	= EpcRight(EpcRight(:,2)<=winY, :)
+		EpcRightBottom 	= EpcRight(EpcRight(:,2)>winY, :)
+
+		closestPoint = getClosestPointInArray([winX,winY],EpcLeftTop)
+		plot(closestPoint(1), closestPoint(2),'k+');
+		closestPoint = getClosestPointInArray([winX,winY],EpcRightTop)
+		plot(closestPoint(1), closestPoint(2),'k+');
+		closestPoint = getClosestPointInArray([winX,winY],EpcRightBottom)
+		plot(closestPoint(1), closestPoint(2),'k+');
+		closestPoint = getClosestPointInArray([winX,winY],EpcLeftBottom)
+		plot(closestPoint(1), closestPoint(2),'k+');
+		% draw window from closestPoints
+		% clustering
+		% window with minimum width?
+
+		pause;
 		% accumulate crossings above
 		% search in 4 kwadrants for closest crossing
 	end
