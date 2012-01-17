@@ -10,6 +10,8 @@ Houghlines = Dataset.Houghlines; HoughlinesRot = Dataset.HoughlinesRot
 
 imshow(Dataset.imEdge);
 figure;imshow(Dataset.imOri); hold on;
+% TODO put below in getdataset
+[Dataset.imWidth, Dataset.imHeight] = size(Dataset.imOri);
 
 [Xv, Yv] = houghlinesToXY(Houghlines);
 [Xh, Yh] = houghlinesToXY(HoughlinesRot);
@@ -34,20 +36,25 @@ YhHistSmooth = smooth(YhHist);
 plot(incrFactor*YhHistSmooth, YhBins, 'r-');
 
 
+
+
+
+
+% plot threshold line
+plot([0 Dataset.imWidth],[incrFactor*XvThresh, incrFactor*XvThresh],'k--');
+pause;
+
 % find vertical peaks
-XvThresh = 2; XvPeaks = find(XvHist>=XvThresh);
-h=size(Dataset.imOri,1);
+XvThresh = 1; XvPeaks = find(XvHistSmooth>=XvThresh);
 for i=1:length(XvPeaks)
-	%plot([XvPeaks(i),XvPeaks(i)],[0,h],'b-');
+	plot([XvPeaks(i),XvPeaks(i)],[0,Dataset.imHeight],'b-');
 	hold on;
 end
 
-
 % find horizontal peaks
-YhThresh = 4; YhPeaks = find(YhHist>=YhThresh);
-w=size(Dataset.imOri,2);
+YhThresh = 4; YhPeaks = find(YhHistSmooth>=YhThresh);
 for i=1:length(YhPeaks)
-	%plot([0,w],[YhPeaks(i),YhPeaks(i)],'k-');
+	plot([0,Dataset.imWidth],[YhPeaks(i),YhPeaks(i)],'k-');
 	hold on;
 end
 
@@ -65,6 +72,20 @@ for i=1:length(XvPeaks)
 end
 
 
+% search on location of peaks for 
+% derivative has to be zero
+figure;
+plot(-XvHist,'y-');
+plot(-XvHistSmooth);
+hold on;
+pause;
+derivative1 = diff(XvHistSmooth)
+plot(derivative1,'r-');
+err
+
+
+
+
 
 maxWindowSize = 200;
 cornerInlierThreshold = 0.2
@@ -75,41 +96,48 @@ disp('plotting complete windows');
 %plotcCorners(Houghlines, HoughlinesRot)
 
 
+
+tic
+w = 1;
 % loop through cCorners
 % TODO CHANGE 10 TO 1!!
 for i=10:length(Houghlines)
 	i
 	for k=1:length(Houghlines(i).cCorners)
-		k
-		
 		cCorner = Houghlines(i).cCorners(k);
-		plotcCorner(cCorner,'window');
-		winX = cCorner.windowMidpointX
-		winY = cCorner.windowMidpointY
+		%plotcCorner(cCorner,'window');
+		winX = cCorner.windowMidpointX;
+		winY = cCorner.windowMidpointY;
 
 		% get edge peak crossings kwadrants with the midpoint of window as origin
-		EpcLeft 		= EdgePeakCrossings(EdgePeakCrossings(:,1)<=winX,:)
-		EpcLeftTop 		= EpcLeft(EpcLeft(:,2)<=winY,:)
-		EpcLeftBottom 	= EpcLeft(EpcLeft(:,2)>winY,:)
-		EpcRight 		= EdgePeakCrossings(EdgePeakCrossings(:,1)>winX, :)
-		EpcRightTop 	= EpcRight(EpcRight(:,2)<=winY, :)
-		EpcRightBottom 	= EpcRight(EpcRight(:,2)>winY, :)
+		EpcLeft 		= EdgePeakCrossings(EdgePeakCrossings(:,1)<=winX,:);
+		EpcLeftTop 		= EpcLeft(EpcLeft(:,2)<=winY,:);
+		EpcLeftBottom 	= EpcLeft(EpcLeft(:,2)>winY,:);
+		EpcRight 		= EdgePeakCrossings(EdgePeakCrossings(:,1)>winX, :);
+		EpcRightTop 	= EpcRight(EpcRight(:,2)<=winY, :);
+		EpcRightBottom 	= EpcRight(EpcRight(:,2)>winY, :);
 
-		closestPoint = getClosestPointInArray([winX,winY],EpcLeftTop)
-		plot(closestPoint(1), closestPoint(2),'k+');
-		closestPoint = getClosestPointInArray([winX,winY],EpcRightTop)
-		plot(closestPoint(1), closestPoint(2),'k+');
-		closestPoint = getClosestPointInArray([winX,winY],EpcRightBottom)
-		plot(closestPoint(1), closestPoint(2),'k+');
-		closestPoint = getClosestPointInArray([winX,winY],EpcLeftBottom)
-		plot(closestPoint(1), closestPoint(2),'k+');
-		% draw window from closestPoints
+		Window{w}.lt 	= getClosestPointInArray([winX,winY],EpcLeftTop);
+		Window{w}.rt 	= getClosestPointInArray([winX,winY],EpcRightTop);
+		Window{w}.rb 	= getClosestPointInArray([winX,winY],EpcRightBottom);
+		Window{w}.lb 	= getClosestPointInArray([winX,winY],EpcLeftBottom);
+		Window{w}.width = Window{w}.rt - Window{w}.lt;
+		Window{w}.height= Window{w}.rb - Window{w}.rt;
+
+		if Window{w}.width > 10
+			colorStr = 'g-';
+		else
+			colorStr = 'r-';
+		end
+		
+		X = [Window{w}.lt(1), Window{w}.rt(1), Window{w}.rb(1), Window{w}.lb(1),Window{w}.lt(1)];
+		Y = [Window{w}.lt(2), Window{w}.rt(2), Window{w}.rb(2), Window{w}.lb(2),Window{w}.lt(2)];
+		plot(X, Y, colorStr);
 		% clustering
 		% window with minimum width?
-
-		pause;
-		% accumulate crossings above
-		% search in 4 kwadrants for closest crossing
+		w = w + 1;
 	end
 end
+toc
+
 
