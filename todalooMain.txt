@@ -7,11 +7,16 @@ GENERAL
 DOOR WINDOW:
 	histogram based aproach HIBAAP
 		hibaap afronden
+			apparte plaatjes maken
+				pdf
+				h en v lines with crossings
+				cCorners
+				full windows
 			wat in functies kan in functies doen
-			becommentariserne
 			make windows array unique
 			assumpions opschrijven
 				window aligned
+		setup mail frans, explain method (usable for report)
 
 		datasets projecteren
 		meer full frontal datasets nodig

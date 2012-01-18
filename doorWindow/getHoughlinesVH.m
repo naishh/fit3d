@@ -23,6 +23,9 @@ end
 
 % read file
 Dataset.imOri 					= imread(Dataset.file);
+Dataset.imOriDimmed 			= 0.8*Dataset.imOri;
+Dataset.imHeight 				= size(Dataset.imOri, 1);
+Dataset.imWidth					= size(Dataset.imOri, 2);
 
 if ~edgeFromCache
 	% transform color
@@ -38,7 +41,6 @@ Dataset.imEdge					= imEdge;
 fgColorModelTransform = figure();imshow(Dataset.imColorModelTransform);
 fgEdge = figure();imshow(Dataset.imEdge);
 
-h = size(Dataset.imColorModelTransform,1);
 
 % HOUGHLINES:
 fgHough = figure();hold on
@@ -63,7 +65,7 @@ HoughlinesRot = houghlines(imEdgeRot,Theta,Rho,Peaks,'FillGap',Dataset.HoughPara
 
 for k = 1:length(HoughlinesRot)
 	% TODO get xy from Theta(..) above, calc as matrix
-	xy = [invertCoordFlipY(HoughlinesRot(k).point1,h); invertCoordFlipY(HoughlinesRot(k).point2,h)];
+	xy = [invertCoordFlipY(HoughlinesRot(k).point1,Dataset.imHeight); invertCoordFlipY(HoughlinesRot(k).point2,Dataset.imHeight)];
 	% save inverted coord on HoughlinesRot
 	HoughlinesRot(k).point1 = xy(1,:); HoughlinesRot(k).point2 = xy(2,:);
 	plotHoughline(xy, plotme,'red')
@@ -89,7 +91,11 @@ if saveImageQ
 		Dataset.Houghlines 		= Houghlines;
 		Dataset.HoughlinesRot 	= HoughlinesRot;
 		save(['mats/Dataset_',Dataset.fileShort,'.mat'],'Dataset');
+		disp('saved');
+		['mats/Dataset_',Dataset.fileShort,'.mat']
 		disp('done');
+
+
 	end
 end
 
