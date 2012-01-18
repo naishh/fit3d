@@ -6,14 +6,33 @@ GENERAL
 
 DOOR WINDOW:
 	histogram based aproach HIBAAP
-		get peaks
+		hibaap afronden
+			wat in functies kan in functies doen
+			becommentariserne
+			make windows array unique
+			assumpions opschrijven
+				window aligned
+
+		datasets projecteren
+		meer full frontal datasets nodig
+			bestaande datasets projecten
+			nieuwe fotos maken
+
+
+		overzicht hibaap paramerters makenr en aan dataset koppelen
+		dataset live creeren
+		canny eruit en op afgeleide hibaapen??
+
+		harris corners histogrammen
+		iets doen met unusable histograms
+		fuse, houghlineshistograms, harris corners, cCorners
+
 		houghlines in plaatje plotten
 		alternatieve datasets
 			plaatjes van internet halen met full frontal windows
 			antwerpen set inladen
-				hmm slechte edge plaatjes :(
-				rechte lijn met gimp door beeld om distortie te testen
-		datasets projecteren
+				distortion verwijderen antwerpen dataset
+					rechte lijn met gimp door beeld om distortie te testen
 
 		tjoint systeem als aparte module behandelen (prerocess step die nieuwe Houghlines / cCorners) output
 			pretty print voor de tjoint maken (before, en after plaatje)

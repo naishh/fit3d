@@ -1,4 +1,4 @@
-function XvHistMaxPeaks = getHistMaxPeaks(Dataset, XvHistSmooth, XvThresh, plotme);
+function XvHistMaxPeaks = getHistMaxPeaks(Dataset, XvHistSmooth, XvThresh, plotme, direction);
 XvPeaksBinary = XvHistSmooth>=XvThresh;
 XvHistMaxPeak = intmin;
 k=1;
@@ -7,7 +7,13 @@ for i=2:length(XvPeaksBinary)
 	if [XvPeaksBinary(i-1),XvPeaksBinary(i)] == [1,0]
 		% plot vertical line of peakmax
 		if plotme
-			plot([XvHistMaxPeakIdx,XvHistMaxPeakIdx],[0,Dataset.imHeight],'g-','LineWidth',2);
+			if strcmp(direction,'Xv')
+				plot([XvHistMaxPeakIdx,XvHistMaxPeakIdx],[0,Dataset.imHeight],'g--','LineWidth',2);
+			elseif strcmp(direction,'Yh')
+				plot([0,Dataset.imWidth],[XvHistMaxPeakIdx,XvHistMaxPeakIdx],'r--','LineWidth',2);
+			else
+				error('direction incorrect');
+			end
 		end
 		% store peak
 		XvHistMaxPeaks(k) = XvHistMaxPeakIdx; k = k+1;
