@@ -6,7 +6,7 @@ close all;
 load([startPath,'/doorWindow/mats/Dataset_antwerpen6223_crop1.mat']);
 %load([startPath,'/doorWindow/mats/Dataset_antwerpen_6220_nocrop.mat']);
 
-Houghlines = Dataset.Houghlines; HoughlinesRot = Dataset.HoughlinesRot
+Houghlines = Dataset.Houghlines; HoughlinesRot = Dataset.HoughlinesRot;
 
 imshow(Dataset.imEdge);
 figure;imshow(Dataset.imOri); hold on;
@@ -17,76 +17,47 @@ figure;imshow(Dataset.imOri); hold on;
 [Xh, Yh] = houghlinesToXY(HoughlinesRot);
 
 % calc histograms
-XvBins = 1:1:max(Xv); XvHist = hist(Xv,XvBins);
-YvBins = 1:1:max(Yv); YvHist = hist(Yv,YvBins);
-XhBins = 1:1:max(Xh); XhHist = hist(Xh,XhBins);
-YhBins = 1:1:max(Yh); YhHist = hist(Yh,YhBins);
+XvBins = 1:1:Dataset.imWidth; XvHist = hist(Xv,XvBins);
+YvBins = 1:1:Dataset.imHeight; YvHist = hist(Yv,YvBins);
+XhBins = 1:1:Dataset.imWidth; XhHist = hist(Xh,XhBins);
+YhBins = 1:1:Dataset.imHeight; YhHist = hist(Yh,YhBins);
 
 % draw histograms (smoothed)
 incrFactor = 20;
-XvHistSmooth = smooth(XvHist);
-plot(incrFactor*XvHistSmooth,'y-');
-XvHistSmooth = smooth(smooth(smooth(smooth(XvHist))));
+XvHistSmooth = smoothNtimes(XvHist,6)
+YhHistSmooth = smoothNtimes(YhHist,6);
+% plot histograms
+plot(incrFactor*XvHist,'y-');
+plot(incrFactor*YvHist, YhBins, 'y-');
+% plot histograms smoothed
 plot(incrFactor*XvHistSmooth,'r-');
+plot(incrFactor*YhHistSmooth, YhBins, 'r-');
+
+% 'unusable' histograms
 %YvHistSmooth = smooth(YvHist);
 %plot(incrFactor*YvHistSmooth, YvBins, 'b-')
 %XhHistSmooth = smooth(XhHist);
 %plot(incrFactor*XhHistSmooth,'b-')
-YhHistSmooth = smooth(YhHist);
-plot(incrFactor*YhHistSmooth, YhBins, 'r-');
 
 
 
 
-XvThresh = 1; 
-XvDerivativeThresh = 0.05;
+XvThresh = 0.5; 
 % plot horizontal threshold line
-plot([0 Dataset.imWidth],[incrFactor*XvThresh, incrFactor*XvThresh],'k--');
-pause;
+plot([0 Dataset.imWidth],[incrFactor*XvThresh, incrFactor*XvThresh],'k--'); hold on;
 % find vertical peaks
-XvPeaksBinary = XvHistSmooth>=XvThresh;
-%XvPeaks = find(XvHistSmooth>=XvThresh);
-XvDerivative = diff(XvHistSmooth);
-hold on;
-for i=1:length(XvPeaksBinary)
-	i
+% TODO 
+% transform below to function
 
-	% detect where peaktransform is
-	% take area and take maximum peak value
-
-	if XvPeaksBinary(i) == 1
-		%if XvHistMaxPeak ==
-		%XvHistMaxPeak = XvHist(i)
-		% if center of peak found (derivative = 0)
-
-		XvDerivative(i)
-		pause;
-		if abs(XvDerivative(i)) <= XvDerivativeThresh
-			plot([i,i],[0,Dataset.imHeight],'g-');
-		else
-			plot([i,i],[0,Dataset.imHeight],'r-');
-		end
-	end
-end
-err
-
-% search on location of peaks for 
-% derivative has to be zero
-figure;
-plot(-XvHist,'y-');
-plot(-XvHistSmooth);
-hold on;
-pause;
-plot(derivative1,'r-');
-err
+% input
+% XvHistSmooth
+% XvThresh
+% Dataset
 
 
-%% find horizontal peaks
-%YhThresh = 4; YhPeaks = find(YhHistSmooth>=YhThresh);
-%for i=1:length(YhPeaks)
-%	plot([0,Dataset.imWidth],[YhPeaks(i),YhPeaks(i)],'k-');
-%	hold on;
-%end
+plotme = 1;
+XvHistMaxPeaks = getHistMaxPeaks(Dataset, XvHistSmooth, XvThresh, plotme);
+
 
 % % finds and plot intersections of vertical and horizontal lines
 % EdgePeakCrossings = [];
