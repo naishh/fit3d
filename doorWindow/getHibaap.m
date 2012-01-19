@@ -5,9 +5,12 @@
 close all;
 tic;
 
-load([startPath,'/doorWindow/mats/Dataset_antwerpen_6223_crop1.mat']);
+%load([startPath,'/doorWindow/mats/Dataset_antwerpen_6223_crop1.mat']);
+load([startPath,'/doorWindow/mats/Dataset_antwerpen_6220_nocrop.mat']);
+%Dataset_antwerpen_6220_nocrop.mat
 
-figure;imshow(Dataset.imOriDimmed); hold on;
+%figure;imshow(Dataset.imOriDimmed); hold on;
+figure;imshow(Dataset.imOri); hold on;
 
 % get coords of endpoints of houghlines
 [Xv, Yv] = houghlinesToXY(Dataset.Houghlines);
@@ -73,7 +76,7 @@ for i=1:length(Houghlines)
 	i
 	for k=1:length(Houghlines(i).cCorners)
 		cCorner = Houghlines(i).cCorners(k);
-		%plotcCorner(cCorner,'window');
+		plotcCorner(cCorner,'window');
 		% get midpoint of cCorner
 		winX = cCorner.windowMidpointX;
 		winY = cCorner.windowMidpointY;
@@ -104,7 +107,7 @@ for i=1:length(Houghlines)
 			X = [Window{w}.lt(1), Window{w}.rt(1), Window{w}.rb(1), Window{w}.lb(1),Window{w}.lt(1)];
 			Y = [Window{w}.lt(2), Window{w}.rt(2), Window{w}.rb(2), Window{w}.lb(2),Window{w}.lt(2)];
 			% plot window
-			plot(X, Y, colorStr,'LineWidth',4);
+			plot(X, Y, 'g-','LineWidth',4);
 
 			% plot cross in middle again to ensure its on the foreground
 			plot(winX, winY, 'b+');
