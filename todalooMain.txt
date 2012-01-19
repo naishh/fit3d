@@ -16,6 +16,7 @@ DOOR WINDOW:
 			assumpions opschrijven
 				window aligned
 		setup mail frans, explain method (usable for report)
+		aangrensende ramen clusteren
 
 		datasets projecteren
 		meer full frontal datasets nodig

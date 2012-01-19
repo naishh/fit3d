@@ -142,14 +142,16 @@ end
 
 toc
 
-mincCornerVotes = 2;
 
-% loop through windows unique and plot them
+
+% loop through windows unique and plot them with outliers
+mincCornerVotes = 2;
 for w=1:length(WindowsUnique)
 	WindowsUnique{w}.votes
 	% collect coords for windowsUnique
 	X = [WindowsUnique{w}.lt(1), WindowsUnique{w}.rt(1), WindowsUnique{w}.rb(1), WindowsUnique{w}.lb(1),WindowsUnique{w}.lt(1)];
 	Y = [WindowsUnique{w}.lt(2), WindowsUnique{w}.rt(2), WindowsUnique{w}.rb(2), WindowsUnique{w}.lb(2),WindowsUnique{w}.lt(2)];
+	% if is inlier
 	if WindowsUnique{w}.votes>=mincCornerVotes
 		colorStr = 'g-';
 		% plot windowsUnique

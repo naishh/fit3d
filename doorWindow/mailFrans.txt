@@ -1,15 +1,36 @@
-
 Beste Frans,
 
 Hierbij resultaten van onze besproken aanpak.
+Wat ik doe is het volgende
 
-Ik heb een histogram gemaakt van de X,Y coordinaten van de eindpunten van de horizontale en verticale houghlijnen.
-Daarna heb ik het histogram gesmooth.
-Nu wil ik de pieken vinden. 
-Dit lukt al aardig door de histogramwaardes boven een bepaalde threshold te plotten als rechte lijnen.
-Echter detecteer ik nu teveel teveel lijnen, en wil ik die clusteren.
+Ik transformeer het plaatje naar HSV
+Extraheer het edgeplaatje (plaatje 1)
+ en de Hough lijnen (plaatje 2).
 
-Hoe kan ik het best te werk gaan?
+Daarna maak ik een histogram van de X,Y coordinaten van de eindpunten van de
+Hough lijnen.  Dit doe ik voor de verticale en horizontale lijnen appart, zie
+gele grafieklijn aan rand plaatje 3.
 
-Nog meer smoothen?
+Deze histogrammen smooth ik, zie rode grafieklijn plaatje 3.
 
+De histogrammen krijgen daarna een threshold, zie zwarte stippel lijn plaatje 3.
+
+Ik maak een binary threshold hulp functie die een serie 0en en 1en output, waar een serie 1nen een verzameling waardes boven de threshold en dus een piekformatie aangeven.
+V.b. een plaatje van 15px breed met twee peaken zal voor de horizontale histogram b.v. 00011100111100 output geven.
+Van elke blob 1nen zoek ik de hoogste histogram waarde welke ik classificeer als peak, zie rode en groene stippellijn plaatje 4.
+Van de pieklijnen vind ik de intersecties, zie zwarte kruisjes plaatje 4.
+
+Dit combineer ik met de de 'winkelhaak' methode
+Opfris: waarbij ik twee lijn segmenten die ongeveer haaks op elkaar staan zoek en die laat voten voor een window (blauwe kruisen in plaatje 5)
+Voor elke vote zoek ik de 4 dichtsbijzijnste (kwadrant)intersecties en teken ik een groen vierkant.
+
+Voor outliers, minder dan 3 votes, teken ik een rood vierkant plaatje 7.
+
+Ik ga het nu testen op andere datasets die nog rechtgeprojecteerd moeten worden.
+Verder ga ik een overzicht maken van alle parameters. En als er nog tijd is een fusie maken met de Harris corner detector.
+En dan wordt het tijd het e.e.a. op te schrijven.
+Ik hoor graag van u of u vindt of ik al dan niet op het juiste spoor zit.
+
+Hartelijke groet,
+
+Tjerk Kostelijk
