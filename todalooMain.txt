@@ -9,6 +9,10 @@ DOOR WINDOW:
 		setup mail frans, explain method (usable for report)
 
 		datasets projecteren
+			find Kbram
+				yes gevonden!
+			finalize scriptcomp camera motion
+
 		meer full frontal datasets nodig
 			bestaande datasets projecten
 			nieuwe fotos maken
