@@ -69,13 +69,12 @@ Dataset.Houghlines = getcCorner(Dataset.Houghlines,Dataset.HoughlinesRot,cornerI
 
 
 disp('plotting cCorner windows'); 
-% plotcCorners(Dataset.Houghlines, Dataset.HoughlinesRot, 'cCorner', false)
-pause;
-figure;hold on;
+%plotcCorners(Dataset.Houghlines, Dataset.HoughlinesRot, 'cCorner', false)
+pause; figure;imshow(Dataset.imOriDimmed); hold on;
 
 % loop through cCorners and draw window @ 4 nearby crossings from kwadrants
+WindowsUnique = cell(0);
 w = 1;
-WindowsUnique = cell(0)
 for i=1:length(Dataset.Houghlines)
 	i
 	for k=1:length(Dataset.Houghlines(i).cCorners)
@@ -100,34 +99,37 @@ for i=1:length(Dataset.Houghlines)
 		% minimum four crossings need to be found to create a window
 		if size(EpcLeftTop,1) + size(EpcRightTop,1) + size(EpcRightBottom,1) + size(EpcLeftBottom,1) >= 4
 			% get closest crossing from crossings quadrant selection
-			Window{w}.lt 	= getClosestPointInArray([winX,winY],EpcLeftTop);
-			Window{w}.rt 	= getClosestPointInArray([winX,winY],EpcRightTop);
-			Window{w}.rb 	= getClosestPointInArray([winX,winY],EpcRightBottom);
-			Window{w}.lb 	= getClosestPointInArray([winX,winY],EpcLeftBottom);
-			Window{w}.width = Window{w}.rt(1) - Window{w}.lt(1);
-			Window{w}.height= Window{w}.rb(2) - Window{w}.rt(2);
-			
+			Windows{w}.lt 	 			= getClosestPointInArray([winX,winY],EpcLeftTop);
+			Windows{w}.rt 	 			= getClosestPointInArray([winX,winY],EpcRightTop);
+			Windows{w}.rb 	 			= getClosestPointInArray([winX,winY],EpcRightBottom);
+			Windows{w}.lb 	 			= getClosestPointInArray([winX,winY],EpcLeftBottom);
+			Windows{w}.width 			= Windows{w}.rt(1) - Windows{w}.lt(1);
+			Windows{w}.height			= Windows{w}.rb(2) - Windows{w}.rt(2);
+			Windows{w}.windowMidpointX  = winX;
+			Windows{w}.windowMidpointY  = winY;
 			% collect coords for window
-			X = [Window{w}.lt(1), Window{w}.rt(1), Window{w}.rb(1), Window{w}.lb(1),Window{w}.lt(1)];
-			Y = [Window{w}.lt(2), Window{w}.rt(2), Window{w}.rb(2), Window{w}.lb(2),Window{w}.lt(2)];
+			X = [Windows{w}.lt(1), Windows{w}.rt(1), Windows{w}.rb(1), Windows{w}.lb(1),Windows{w}.lt(1)];
+			Y = [Windows{w}.lt(2), Windows{w}.rt(2), Windows{w}.rb(2), Windows{w}.lb(2),Windows{w}.lt(2)];
+			% create unique hash
+			Windows{w}.hash = int2str([X,Y]);
 			% plot window
-			plot(X, Y, 'g-','LineWidth',4);
+			%plot(X, Y, 'g-','LineWidth',4);
 
-			% plot cross in middle again to ensure its on the foreground
-			plot(winX, winY, 'b+');
 
-			Window{w}.hash = str([X,Y])
-
+			% hash functionality
 			foundWindow = false;
-			for u=1:WindowsUnique
-				if strcmp(WindowsUnique{u}.hash, Window{w}.hash)
+			for u=1:length(WindowsUnique);
+				u
+				if strcmp(WindowsUnique{u}.hash, Windows{w}.hash)
 					WindowsUnique{u}.votes = WindowsUnique{u}.votes + 1;
-					foundWindow
+					foundWindow = true;
 				end
 			end
+			% initialize a windowunique entry
 			if foundWindow == false
-				WindowsUnique{u} = Window{w}
-				WindowsUnique{u}.votes = 1
+				idx = length(WindowsUnique)+1;
+				WindowsUnique{idx} = Windows{w};
+				WindowsUnique{idx}.votes = 1;
 			end
 
 			w = w + 1;
@@ -139,3 +141,24 @@ for i=1:length(Dataset.Houghlines)
 end
 
 toc
+
+mincCornerVotes = 2;
+
+% loop through windows unique and plot them
+for w=1:length(WindowsUnique)
+	WindowsUnique{w}.votes
+	% collect coords for windowsUnique
+	X = [WindowsUnique{w}.lt(1), WindowsUnique{w}.rt(1), WindowsUnique{w}.rb(1), WindowsUnique{w}.lb(1),WindowsUnique{w}.lt(1)];
+	Y = [WindowsUnique{w}.lt(2), WindowsUnique{w}.rt(2), WindowsUnique{w}.rb(2), WindowsUnique{w}.lb(2),WindowsUnique{w}.lt(2)];
+	if WindowsUnique{w}.votes>=mincCornerVotes
+		colorStr = 'g-';
+		% plot windowsUnique
+		plot(X, Y, colorStr,'LineWidth',4);
+	else
+		colorStr = 'r-';
+		% plot big red outlier cross in window
+		plot(WindowsUnique{w}.windowMidpointX, WindowsUnique{w}.windowMidpointY, 'r+', 'MarkerSize',10);
+		% plot windowsUnique
+		plot(X, Y, colorStr,'LineWidth',2);
+	end
+end
