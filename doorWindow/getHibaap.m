@@ -5,9 +5,8 @@
 close all;
 tic;
 
-%load([startPath,'/doorWindow/mats/Dataset_antwerpen_6223_crop1.mat']);
-load([startPath,'/doorWindow/mats/Dataset_antwerpen_6220_nocrop.mat']);
-%Dataset_antwerpen_6220_nocrop.mat
+load([startPath,'/doorWindow/mats/Dataset_antwerpen_6223_crop1.mat']);
+%load([startPath,'/doorWindow/mats/Dataset_antwerpen_6220_nocrop.mat']);
 
 %figure;imshow(Dataset.imOriDimmed); hold on;
 figure;imshow(Dataset.imOri); hold on;
@@ -64,19 +63,24 @@ pause; figure;imshow(Dataset.imOriDimmed); hold on;
 
 % get cCorners
 maxWindowSize = 200;
-cornerInlierThreshold = 0.2
+cornerInlierThreshold = 0.2%0.2
 % TODO transform to cCorner
-Houghlines = getcCorner(Dataset.Houghlines,Dataset.HoughlinesRot,cornerInlierThreshold,maxWindowSize);
+Dataset.Houghlines = getcCorner(Dataset.Houghlines,Dataset.HoughlinesRot,cornerInlierThreshold,maxWindowSize);
+
+
 disp('plotting cCorner windows'); 
-%plotcCorners(Dataset.Houghlines, Dataset.HoughlinesRot)
+% plotcCorners(Dataset.Houghlines, Dataset.HoughlinesRot, 'cCorner', false)
+pause;
+figure;hold on;
 
 % loop through cCorners and draw window @ 4 nearby crossings from kwadrants
 w = 1;
-for i=1:length(Houghlines)
+WindowsUnique = cell(0)
+for i=1:length(Dataset.Houghlines)
 	i
-	for k=1:length(Houghlines(i).cCorners)
-		cCorner = Houghlines(i).cCorners(k);
-		plotcCorner(cCorner,'window');
+	for k=1:length(Dataset.Houghlines(i).cCorners)
+		cCorner = Dataset.Houghlines(i).cCorners(k);
+		%plotcCorner(cCorner,'cCorner');
 		% get midpoint of cCorner
 		winX = cCorner.windowMidpointX;
 		winY = cCorner.windowMidpointY;
@@ -111,6 +115,20 @@ for i=1:length(Houghlines)
 
 			% plot cross in middle again to ensure its on the foreground
 			plot(winX, winY, 'b+');
+
+			Window{w}.hash = str([X,Y])
+
+			foundWindow = false;
+			for u=1:WindowsUnique
+				if strcmp(WindowsUnique{u}.hash, Window{w}.hash)
+					WindowsUnique{u}.votes = WindowsUnique{u}.votes + 1;
+					foundWindow
+				end
+			end
+			if foundWindow == false
+				WindowsUnique{u} = Window{w}
+				WindowsUnique{u}.votes = 1
+			end
 
 			w = w + 1;
 		else

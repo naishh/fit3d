@@ -12,7 +12,6 @@ DOOR WINDOW:
 				h en v lines with crossings
 				cCorners
 				full windows
-			wat in functies kan in functies doen
 			make windows array unique
 			assumpions opschrijven
 				window aligned
