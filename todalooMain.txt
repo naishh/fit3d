@@ -6,17 +6,7 @@ GENERAL
 
 DOOR WINDOW:
 	histogram based aproach HIBAAP
-		hibaap afronden
-			apparte plaatjes maken
-				pdf
-				h en v lines with crossings
-				cCorners
-				full windows
-			make windows array unique
-			assumpions opschrijven
-				window aligned
 		setup mail frans, explain method (usable for report)
-		aangrensende ramen clusteren
 
 		datasets projecteren
 		meer full frontal datasets nodig
@@ -58,6 +48,7 @@ DOOR WINDOW:
 		write in report that this method asumes a repetition pattern and aligned windows
 		write in report that tjoint method can be used on not aligned scenes
 
+		toekomstwerk: aangrensende ramen samenvoegen
 
 
 	rectangle detection by Hough

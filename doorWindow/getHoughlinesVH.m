@@ -43,7 +43,7 @@ fgEdge = figure();imshow(Dataset.imEdge);
 
 
 % HOUGHLINES:
-fgHough = figure();hold on
+fgHough = figure();hold on;
 
 [H,Theta,Rho] = hough(imEdge,'Theta',Dataset.HoughParam.ThetaV.Start:Dataset.HoughParam.ThetaV.Resolution:Dataset.HoughParam.ThetaV.End);
 Peaks  = houghpeaks(H,Dataset.HoughParam.nrPeaks,'threshold',ceil(Dataset.HoughParam.thresh*max(H(:))));

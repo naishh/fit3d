@@ -1,35 +1,44 @@
 Beste Frans,
 
 Hierbij resultaten van onze besproken aanpak.
-Wat ik doe is het volgende
+Graag verneem ik of ik al dan niet op het juiste spoor zit.
+
+Uitleg bij de resultaten:
 
 Ik transformeer het plaatje naar HSV
-Extraheer het edgeplaatje (plaatje 1)
+Extraheer het edgeplaatje kanaal (plaatje 1)
  en de Hough lijnen (plaatje 2).
 
 Daarna maak ik een histogram van de X,Y coordinaten van de eindpunten van de
-Hough lijnen.  Dit doe ik voor de verticale en horizontale lijnen appart, zie
+Hough lijnen.  Dit doe ik voor de verticale en horizontale lijnen apart, zie
 gele grafieklijn aan rand plaatje 3.
 
 Deze histogrammen smooth ik, zie rode grafieklijn plaatje 3.
 
 De histogrammen krijgen daarna een threshold, zie zwarte stippel lijn plaatje 3.
 
-Ik maak een binary threshold hulp functie die een serie 0en en 1en output, waar een serie 1nen een verzameling waardes boven de threshold en dus een piekformatie aangeven.
-V.b. een plaatje van 15px breed met twee peaken zal voor de horizontale histogram b.v. 00011100111100 output geven.
-Van elke blob 1nen zoek ik de hoogste histogram waarde welke ik classificeer als peak, zie rode en groene stippellijn plaatje 4.
-Van de pieklijnen vind ik de intersecties, zie zwarte kruisjes plaatje 4.
+Ik maak dan een binary threshold hulp functie die een serie 0en en 1en output,
+waar een serie 1nen een verzameling waardes boven de threshold en dus een
+piekformatie aangeven.  V.b. een plaatje van 15px breed met twee peaken zal
+voor de horizontale histogram b.v. 00011100111100 output geven.  Van elke blob
+1nen zoek ik de hoogste histogram waarde welke ik classificeer als peak, zie
+rode en groene stippellijn plaatje 4.  Van de pieklijnen vind ik de
+intersecties, zie zwarte kruisjes plaatje 4.
 
 Dit combineer ik met de de 'winkelhaak' methode
-Opfris: waarbij ik twee lijn segmenten die ongeveer haaks op elkaar staan zoek en die laat voten voor een window (blauwe kruisen in plaatje 5)
-Voor elke vote zoek ik de 4 dichtsbijzijnste (kwadrant)intersecties en teken ik een groen vierkant.
+Opfrisser: waarbij ik twee lijnsegmenten die ongeveer haaks op elkaar staan zoek
+en die laat voten voor een window (blauwe kruisen in plaatje 5) Voor elke vote
+zoek ik de 4 dichtsbijzijnste (kwadrant)intersecties en teken ik een groen
+vierkant.
 
-Voor outliers, minder dan 3 votes, teken ik een rood vierkant plaatje 7.
+De outliers, minder dan 3 votes, markeer ik met een rood vierkant, zie plaatje 7.
 
 Ik ga het nu testen op andere datasets die nog rechtgeprojecteerd moeten worden.
-Verder ga ik een overzicht maken van alle parameters. En als er nog tijd is een fusie maken met de Harris corner detector.
-En dan wordt het tijd het e.e.a. op te schrijven.
-Ik hoor graag van u of u vindt of ik al dan niet op het juiste spoor zit.
+Verder ga ik een overzicht maken van alle parameters. En als er nog tijd is een
+fusie maken met de Harris corner detector.  En dan wordt het tijd het e.e.a. op
+te schrijven.  
+
+Wilt u me feedback geven over de aanpak, resultaten, en plannen?
 
 Hartelijke groet,
 

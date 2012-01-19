@@ -146,6 +146,7 @@ toc
 
 % loop through windows unique and plot them with outliers
 mincCornerVotes = 2;
+ww = 1;
 for w=1:length(WindowsUnique)
 	WindowsUnique{w}.votes
 	% collect coords for windowsUnique
@@ -153,6 +154,7 @@ for w=1:length(WindowsUnique)
 	Y = [WindowsUnique{w}.lt(2), WindowsUnique{w}.rt(2), WindowsUnique{w}.rb(2), WindowsUnique{w}.lb(2),WindowsUnique{w}.lt(2)];
 	% if is inlier
 	if WindowsUnique{w}.votes>=mincCornerVotes
+		WindowsUniqueNoOutliers{ww} = WindowsUnique{w}; ww=ww+1;
 		colorStr = 'g-';
 		% plot windowsUnique
 		plot(X, Y, colorStr,'LineWidth',4);
