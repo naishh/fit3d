@@ -1,53 +1,63 @@
 GENERAL
-	tijdindeling in google docs zetten
 	tjoint beschrijven in thesis
 	pick and test on 4 (very) different datasets
 		find a dataset with no repetition pattern windows
 
+RECTIFICATION/ PROJECTING:
+	rectification controleren gimp
+	via gimp rectifien en matrix opslaan?
+	fit 3d custom BACKUPPEN
+	het lijkt alsof er te weinig features gevonden worden
+	want fit3d standaard size(F) is 2000 terwijl hij maar 300 vind in mn dataset
+	scale estimation gaat fout
+	feature methode veranderen naar LOWE werkt niet
+	komt een paar stappen verder als ik images rgb inlaad ipv gray
+		gedaan op spilpost? dit controleren op spil
+		gedaan, werkt wel met rgb
+		nu nog testen met alle plaatjes ipv eerste 4
+
+
 DOOR WINDOW:
 	histogram based aproach HIBAAP
-		setup mail frans, explain method (usable for report)
-
 		datasets projecteren
-			find Kbram
-				yes gevonden!
-			finalize scriptcomp camera motion
+			scriptcomp camera motion
+			scale linearity
 
 		meer full frontal datasets nodig
 			bestaande datasets projecten
 			nieuwe fotos maken
 
+		floriande geprojecteerde dataset
 
-		overzicht hibaap paramerters makenr en aan dataset koppelen
-		dataset live creeren
-		canny eruit en op afgeleide hibaapen??
+		extra ideeen
+			canny eruit en op afgeleide hibaapen??
 
-		harris corners histogrammen
-		iets doen met unusable histograms
-		fuse, houghlineshistograms, harris corners, cCorners
+			harris corners histogrammen
+			iets doen met unusable histograms
+			fuse, houghlineshistograms, harris corners, cCorners
 
-		houghlines in plaatje plotten
-		alternatieve datasets
-			plaatjes van internet halen met full frontal windows
-			antwerpen set inladen
-				distortion verwijderen antwerpen dataset
-					rechte lijn met gimp door beeld om distortie te testen
+			houghlines in plaatje plotten
+			alternatieve datasets
+				plaatjes van internet halen met full frontal windows
+				antwerpen set inladen
+					distortion verwijderen antwerpen dataset
+						rechte lijn met gimp door beeld om distortie te testen
 
-		tjoint systeem als aparte module behandelen (prerocess step die nieuwe Houghlines / cCorners) output
-			pretty print voor de tjoint maken (before, en after plaatje)
+			tjoint systeem als aparte module behandelen (prerocess step die nieuwe Houghlines / cCorners) output
+				pretty print voor de tjoint maken (before, en after plaatje)
 
-		vertical en horizontal swipe with a 1xn or nx1 pixel window
-			count green (vertical) pixels 
-			count red (horizontal) pixels 
-		probleem verticale lijnen worden niet overal gevonden
-			start coords van horizontale lijnen gebruiken
-			prewite x and y derivative gebruiken als edge plaatje
+			vertical en horizontal swipe with a 1xn or nx1 pixel window
+				count green (vertical) pixels 
+				count red (horizontal) pixels 
+			probleem verticale lijnen worden niet overal gevonden
+				start coords van horizontale lijnen gebruiken
+				prewite x and y derivative gebruiken als edge plaatje
 
-		dynamic filter (soort adaboost met dynamische filtergrootte)
-			vind groen eindstuk, dan rood lijn, dan groen eindstuk
-		niet orthogonaal:
-			houghlines met groote gapsize en hoge minimum length
-			door de cornerdetector punten trekken
+			dynamic filter (soort adaboost met dynamische filtergrootte)
+				vind groen eindstuk, dan rood lijn, dan groen eindstuk
+			niet orthogonaal:
+				houghlines met groote gapsize en hoge minimum length
+				door de cornerdetector punten trekken
 
 		write in report that this method asumes a repetition pattern and aligned windows
 		write in report that tjoint method can be used on not aligned scenes

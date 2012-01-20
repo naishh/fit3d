@@ -1,0 +1,61 @@
+
+Hi Isaac,
+
+How are you doing?
+Can I get some help of you?
+
+I try to get the 3dmap of a new dataset and it doesn't work.
+
+I apply the MotionEstimation and ScaleEstimation from your fit3d toolbox.
+MotionEstimation goes fine.
+ScaleEstimation stops
+
+
+
+I tried it with the RGB images (instead of the black and white images) it  finds more features
+
+COMPUTING SCALE
+
+PROCESSING FRAME 1
+Number of features in frame 1: 35
+Skipping frame, no 3 frame tracks
+PROCESSING FRAME 2
+Number of features in frame 2: 45
+Number of 3frame matches: 5
+Number of 3D points for scaling: 2
+PROCESSING FRAME 3
+Number of features in frame 3: 198
+Number of 3frame matches: 6
+Number of 3D points for scaling: 0
+
+
+
+>> size(Fplus)
+
+ans =
+
+        2949           9
+
+
+
+The images are rectified with the Bougette toolbox
+
+
+
+
+
+EXTRACTING SIFT FEATURES
+
+
+File: /media/Storage/scriptie/fit3d/dataset/Spil/datasetSpilPostRect/fit3dInput/P_rect1120910.bmp 
+4432 features found 
+File: /media/Storage/scriptie/fit3d/dataset/Spil/datasetSpilPostRect/fit3dInput/P_rect1120911.bmp 
+5798 features found 
+File: /media/Storage/scriptie/fit3d/dataset/Spil/datasetSpilPostRect/fit3dInput/P_rect1120912.bmp 
+4309 features found 
+File: /media/Storage/scriptie/fit3d/dataset/Spil/datasetSpilPostRect/fit3dInput/P_rect1120913.bmp 
+4344 features found 
+File: /media/Storage/scriptie/fit3d/dataset/Spil/datasetSpilPostRect/fit3dInput/P_rect1120914.bmp 
+5642 features found 
+File: /media/Storage/scriptie/fit3d/dataset/Spil/datasetSpilPostRect/fit3dInput/P_rect1120915.bmp 
+3779 features found 
