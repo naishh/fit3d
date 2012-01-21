@@ -1,61 +1,64 @@
-
 Hi Isaac,
 
-How are you doing?
-Can I get some help of you?
-
-I try to get the 3dmap of a new dataset and it doesn't work.
+How are you doing?  Can I get some help of you?
+I build a window detector (if you are interested see next mail) that is based on the frontal view of a buildingwall. I want to project the buildingwalls and therefor I need to extract the 3dmap. For the Floriande dataset this is no problem but on my own dataset it doensn't work.
 
 I apply the MotionEstimation and ScaleEstimation from your fit3d toolbox.
 MotionEstimation goes fine.
 ScaleEstimation stops
 
-
-
-I tried it with the RGB images (instead of the black and white images) it  finds more features
-
+it raises an error after finding 
 COMPUTING SCALE
-
 PROCESSING FRAME 1
-Number of features in frame 1: 35
-Skipping frame, no 3 frame tracks
-PROCESSING FRAME 2
-Number of features in frame 2: 45
-Number of 3frame matches: 5
-Number of 3D points for scaling: 2
-PROCESSING FRAME 3
-Number of features in frame 3: 198
-Number of 3frame matches: 6
+Number of features in frame 1: 27
+Number of 3frame matches: 2
 Number of 3D points for scaling: 0
 
+To compare, in the Floriande set it finds much more features:
+
+PROCESSING FRAME 1
+Number of features in frame 1: 395
+Number of 3frame matches: 76
+Number of 3D points for scaling: 67
+
+So I think the problem is that it finds to few features to find 3frame matches.
+
+ScaleEstimation doesnt give an error on the original (RGB, distorded, 3072x2304) images
+but that 3dmap has a very low nr of 3d points, this is ofcourse due to the distortion in the images.
+
+The Fplus matrix is for the Floriande set 2949x9
+On my dataset set (Grayscale, rectified, 1542x1156) 
+It is only 184x9. I rectified with the bougette toolbox.
+
+I tried to change the feature mode to LOWE but it raises lots of errors.
+I have tried to change the Motion estimation parameters:
+motionAlgorithm from 8pt to 5pt but that raises the error:
+??? Undefined function or method 'calibrated_fivepoint_helper'
+
+Increased the distratio to 0.8 and it finds a few more features
+just enough to complete the algorithm but the point cloud is very sparse
+see attachment. I also attached a few images of my dataset.
+
+Do you have an idea how I can get more features and 3frame matches?
+
+Tjerk
 
 
->> size(Fplus)
 
-ans =
-
-        2949           9
-
-
-
-The images are rectified with the Bougette toolbox
-
-
-
+spilrect rgb
 
 
 EXTRACTING SIFT FEATURES
+File: /media/Storage/scriptie/fit3d/dataset/Spil/datasetSpilRect/fit3dInput/P1120555.JPG 
+21170 features found 
+
+spilrect grayscale
 
 
-File: /media/Storage/scriptie/fit3d/dataset/Spil/datasetSpilPostRect/fit3dInput/P_rect1120910.bmp 
-4432 features found 
-File: /media/Storage/scriptie/fit3d/dataset/Spil/datasetSpilPostRect/fit3dInput/P_rect1120911.bmp 
-5798 features found 
-File: /media/Storage/scriptie/fit3d/dataset/Spil/datasetSpilPostRect/fit3dInput/P_rect1120912.bmp 
-4309 features found 
-File: /media/Storage/scriptie/fit3d/dataset/Spil/datasetSpilPostRect/fit3dInput/P_rect1120913.bmp 
-4344 features found 
-File: /media/Storage/scriptie/fit3d/dataset/Spil/datasetSpilPostRect/fit3dInput/P_rect1120914.bmp 
-5642 features found 
-File: /media/Storage/scriptie/fit3d/dataset/Spil/datasetSpilPostRect/fit3dInput/P_rect1120915.bmp 
-3779 features found 
+
+spilpost rgb
+File: /media/Storage/scriptie/fit3d/dataset/Spil/datasetSpilPostRect/fit3dInput/spilpost00.jpg 
+4214 features found 
+
+
+

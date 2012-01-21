@@ -4,7 +4,7 @@ close all;
 tic;
 
 DatasetFromCache				= false;
-edgeFromCache					= false;
+edgeFromCache					= true;
 edgeTest 						= false;
 saveImageQ						= true;
 
@@ -12,7 +12,8 @@ plotme							= true;
 
 if ~DatasetFromCache
 	%Dataset 						= getDataset('Antwerpen_6220',startPath);
-	Dataset 						= getDataset('Antwerpen_6223_crop1',startPath);
+	%Dataset 						= getDataset('Antwerpen_6223_crop1',startPath);
+	Dataset 						= getDataset('Spil1Trans',startPath);
 	paramStr 						= getParamStr(Dataset);
 end
 

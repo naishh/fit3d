@@ -5,10 +5,12 @@
 close all;
 tic;
 
-load([startPath,'/doorWindow/mats/Dataset_antwerpen_6223_crop1.mat']);
+%load([startPath,'/doorWindow/mats/Dataset_antwerpen_6223_crop1.mat']);
 %load([startPath,'/doorWindow/mats/Dataset_antwerpen_6220_nocrop.mat']);
+load([startPath,'/doorWindow/mats/Dataset_Spil1Trans.mat']);
 
 %figure;imshow(Dataset.imOriDimmed); hold on;
+disp('plotting histograms');
 figure;imshow(Dataset.imOri); hold on;
 
 % get coords of endpoints of houghlines
@@ -58,25 +60,31 @@ for i=1:length(XvHistMaxPeaks)
 	end
 end
 
-% new figure
-pause; figure;imshow(Dataset.imOriDimmed); hold on;
 
 % get cCorners
 maxWindowSize = 200;
-cornerInlierThreshold = 0.2%0.2
+cornerInlierThreshold = 0.2;%0.2
 % TODO transform to cCorner
 Dataset.Houghlines = getcCorner(Dataset.Houghlines,Dataset.HoughlinesRot,cornerInlierThreshold,maxWindowSize);
 
 
 disp('plotting cCorner windows'); 
-%plotcCorners(Dataset.Houghlines, Dataset.HoughlinesRot, 'cCorner', false)
+% new figure
+pause; figure;imshow(Dataset.imOriDimmed); hold on;
+plotcCorners(Dataset.Houghlines, Dataset.HoughlinesRot, 'cCorner', false)
+
+
+
+
+
+
+disp('plotting histograms and cCorner windows fused'); 
 pause; figure;imshow(Dataset.imOriDimmed); hold on;
 
 % loop through cCorners and draw window @ 4 nearby crossings from kwadrants
 WindowsUnique = cell(0);
 w = 1;
 for i=1:length(Dataset.Houghlines)
-	i
 	for k=1:length(Dataset.Houghlines(i).cCorners)
 		cCorner = Dataset.Houghlines(i).cCorners(k);
 		%plotcCorner(cCorner,'cCorner');
@@ -97,7 +105,8 @@ for i=1:length(Dataset.Houghlines)
 		EpcRightBottom 	= EpcRight(EpcRight(:,2)>winY, :);
 
 		% minimum four crossings need to be found to create a window
-		if size(EpcLeftTop,1) + size(EpcRightTop,1) + size(EpcRightBottom,1) + size(EpcLeftBottom,1) >= 4
+		if size(EpcLeftTop,1)>0 && size(EpcRightTop,1)>0 && size(EpcRightBottom,1)>0 &&size(EpcLeftBottom,1)>0
+
 			% get closest crossing from crossings quadrant selection
 			Windows{w}.lt 	 			= getClosestPointInArray([winX,winY],EpcLeftTop);
 			Windows{w}.rt 	 			= getClosestPointInArray([winX,winY],EpcRightTop);
@@ -119,7 +128,6 @@ for i=1:length(Dataset.Houghlines)
 			% hash functionality
 			foundWindow = false;
 			for u=1:length(WindowsUnique);
-				u
 				if strcmp(WindowsUnique{u}.hash, Windows{w}.hash)
 					WindowsUnique{u}.votes = WindowsUnique{u}.votes + 1;
 					foundWindow = true;

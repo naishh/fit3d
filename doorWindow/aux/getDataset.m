@@ -6,6 +6,8 @@ Dataset.postfix = '.jpg';
 Dataset.EdgeDetectorParam.type = 'canny';
 Dataset.HoughParam.ThetaH.stretchAngle	= 30;
 Dataset.HoughParam.ThetaV.stretchAngle	= 10;
+Dataset.HoughParam.ThetaH.Resolution  	= 0.5;
+Dataset.HoughParam.ThetaV.Resolution  	= Dataset.HoughParam.ThetaH.Resolution;
 
 % customs
 if strcmp(DatasetName,'Floriande') == 1
@@ -21,7 +23,7 @@ if strcmp(DatasetName,'Floriande') == 1
 elseif strcmp(DatasetName, 'Spil') == 1
 	Dataset.fileShort 						= 'spil6';
 	Dataset.path = [startPathDataset,'FloriandeSet1/small/'];
-	Dataset.path 							= '../dataset/datasetSpil/datasetSpilRect/';
+	Dataset.path 							= '../dataset/Spil/datasetSpilRect/';
 	Dataset.baseFile 						= 'P_rect';
 	Dataset.imStartNr 						= 6;
 	Dataset.endRange 						= 6; 
@@ -30,6 +32,22 @@ elseif strcmp(DatasetName, 'Spil') == 1
 	% TODO make function which generate all colormodels images and attach to dataset
 	Dataset.HoughParam.fillGap 				= 10;
 	Dataset.HoughParam.minLength 			= 45; 
+elseif strcmp(DatasetName, 'Spil1Trans') == 1
+	Dataset.fileShort 						= 'Spil1Trans';
+	Dataset.path = [startPathDataset,'FloriandeSet1/small/'];
+	Dataset.path 							= '../dataset/Spil/datasetSpilRect/';
+	Dataset.baseFile 						= 'P_rect';
+	Dataset.postfix 						= '_transformed.jpg';
+	Dataset.imStartNr 						= 1;
+	Dataset.endRange 						= 1; 
+	Dataset.colorModel						= 'none'; % {'HSV_V','RGB','BW'};
+	Dataset.EdgeDetectorParam.thresh		= 0.45; 
+	Dataset.HoughParam.fillGap 				= 10;
+	Dataset.HoughParam.minLength 			= 30; 
+	Dataset.HoughParam.ThetaH.Resolution  	= 0.1;
+	Dataset.HoughParam.ThetaV.Resolution  	= Dataset.HoughParam.ThetaH.Resolution;
+	Dataset.HoughParam.ThetaH.stretchAngle	= 3;
+	Dataset.HoughParam.ThetaV.stretchAngle	= 10;
 elseif strcmp(DatasetName ,'Aalsmeer') == 1
 % imNr = 6680; file = sprintf('../dataset/fullDatasets/aalsmeer/undist__MG_%d.jpg', imNr); load('XYangleFilter_aalsmeer6680.mat');
 %fileShort 						= 'aalsmeer6680';
@@ -76,8 +94,6 @@ Dataset.HoughParam.ThetaH.End 			= 0;
 Dataset.HoughParam.ThetaH.End 			= Dataset.HoughParam.ThetaH.End + Dataset.HoughParam.ThetaH.stretchAngle;
 Dataset.HoughParam.ThetaV.End 			= 0;
 Dataset.HoughParam.ThetaV.End 			= Dataset.HoughParam.ThetaV.End + Dataset.HoughParam.ThetaV.stretchAngle;
-Dataset.HoughParam.ThetaH.Resolution  	= 0.5;
-Dataset.HoughParam.ThetaV.Resolution  	= Dataset.HoughParam.ThetaH.Resolution;
 Dataset.HoughParam.thresh 				= 0;
 % sets the max nr of lines hough finds:
 Dataset.HoughParam.nrPeaks 				= 200;

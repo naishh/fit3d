@@ -1,3 +1,9 @@
+Dagdoel
+x	oorzaak vinden waarom scaleestimation het inet doet
+x	mail schrijven isaac
+x	eerste resultaten van handtransform
+
+
 GENERAL
 	tjoint beschrijven in thesis
 	pick and test on 4 (very) different datasets
@@ -5,31 +11,48 @@ GENERAL
 
 RECTIFICATION/ PROJECTING:
 	rectification controleren gimp
-	via gimp rectifien en matrix opslaan?
-	fit 3d custom BACKUPPEN
-	het lijkt alsof er te weinig features gevonden worden
-	want fit3d standaard size(F) is 2000 terwijl hij maar 300 vind in mn dataset
+		via gimp rectifien en matrix opslaan?
+	affine matrix projection googlen
+	leos mail afwachten
+
 	scale estimation gaat fout
-	feature methode veranderen naar LOWE werkt niet
-	komt een paar stappen verder als ik images rgb inlaad ipv gray
-		gedaan op spilpost? dit controleren op spil
-		gedaan, werkt wel met rgb
-		nu nog testen met alle plaatjes ipv eerste 4
+	grootste probleem er worden te weinig plus features gevonden
+		feature methode veranderen naar LOWE en inline comment weghalen
+		opnieuw bougette toolbox en resolutie niet veranderen en geen compressie
+		testen wat hij doet met rgb2gray
+	nieuwe dataset maken met plaatjes die dichter van elkaar zijn genomen?
+	even laten voor wat het is en images zelf rectifien
+		floriande set kan ik wel gebruiken
+	getsifttjerk fixen voor rgb images
+	imadjust gebruiken?
 
 
 DOOR WINDOW:
 	histogram based aproach HIBAAP
-		datasets projecteren
-			scriptcomp camera motion
-			scale linearity
+		spelen met params
+		testen of hash functie te duur is
 
-		meer full frontal datasets nodig
-			bestaande datasets projecten
-			nieuwe fotos maken
+		testen op andere datasets
+			test platform maken die verschillende resoluties theta etc test	
 
-		floriande geprojecteerde dataset
+			datasets projecteren
+				scriptcomp camera motion
+				scale linearity
 
-		extra ideeen
+			meer full frontal datasets nodig
+				bestaande datasets projecten
+				nieuwe fotos maken
+
+			floriande geprojecteerde dataset
+
+		resultaat terugprojecteren
+
+
+		extra ideeen [eerst alles opschrijven dan extra ideeen]
+			ipv windowmidpoint een corner laten voten
+			bij minimaal 3 corners een window maken
+			aangrensende ramen samenvoegen
+			repetition patterns ;)
 			canny eruit en op afgeleide hibaapen??
 
 			harris corners histogrammen
@@ -62,14 +85,12 @@ DOOR WINDOW:
 		write in report that this method asumes a repetition pattern and aligned windows
 		write in report that tjoint method can be used on not aligned scenes
 
-		toekomstwerk: aangrensende ramen samenvoegen
 
 
 	rectangle detection by Hough
 		opzoeken hoeveel parameters er zijn
 			inlier dist etc op 1:1 schaal in beeld tekenen
 
-		windows samen laten smelten
 		zoeken naar windows in windows
 
 		cCorner loskoppelen van houghlines
@@ -81,12 +102,6 @@ DOOR WINDOW:
 
 		future work?
 			2 cCorners halen uit een =| vorm
-
-		compleet nieuw idee, histogrammen, op x waardes verticale  en y waardes horizontale lijnen clusteren en dan de snijpunten als corners nemen
-			ook de harris corners meenemen en histogrammen 
-			ja en goed nadenken wat hierna? hoe krijg ik een raam
-			pas bij volledig uitgedacht echt proggen
-
 	
 		Harris
 			cCorner set filteren (kleiner maken) alleen cCorners overhouden die feature corner in de buurt als evidentie hebben
