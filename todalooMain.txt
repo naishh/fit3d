@@ -3,6 +3,11 @@ GENERAL
 	histograms on harris corners
 	difference with tjointed houghlines	
 
+IMAGES REPORT
+	image houghline start end points with histogramdata
+	histogram data as staafdigrammen, simple make 1 pixel lines
+	
+
 RECTIFICATION/ PROJECTING:
 	rectification controleren gimp
 		via gimp rectifien en matrix opslaan?

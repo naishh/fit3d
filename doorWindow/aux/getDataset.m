@@ -79,6 +79,33 @@ elseif strcmp(DatasetName, 'Antwerpen_6220') == 1
 	Dataset.HoughParam.ThetaV.stretchAngle	= 5;
 	Dataset.HoughParam.fillGap 				= 20;
 	Dataset.HoughParam.minLength 			= 35; 
+elseif strcmp(DatasetName, 'Antwerpen_6220_crop2') == 1
+	Dataset.path = [startPathDataset,'Antwerpen/'];
+	Dataset.baseFile						= 'IMG_'
+	%Dataset.imStartNr 						= 6220;
+	%Dataset.EdgeDetectorParam.thresh		= 0.45; 
+	Dataset.imStartNr 						= 6220;
+	%Dataset.EdgeDetectorParam.thresh		= 0.2; 
+	Dataset.EdgeDetectorParam.thresh		= 0.65; 
+	Dataset.postfix 						= '_crop2.JPG';
+	Dataset.fileShort						= ['antwerpen_', int2str(Dataset.imStartNr), '_crop1'];
+	Dataset.colorModel						= 'HSV_V'; % {'HSV_V','RGB','BW'};
+	Dataset.HoughParam.ThetaH.stretchAngle	= 5;
+	Dataset.HoughParam.ThetaV.stretchAngle	= 5;
+	Dataset.HoughParam.fillGap 				= 20;
+	Dataset.HoughParam.minLength 			= 35; 
+elseif strcmp(DatasetName, 'Antwerpen_6220') == 1
+	Dataset.path = [startPathDataset,'Antwerpen/'];
+	Dataset.baseFile						= 'IMG_'
+	Dataset.imStartNr 						= 6220;
+	Dataset.EdgeDetectorParam.thresh		= 0.45; 
+	Dataset.postfix 						= '.JPG';
+	Dataset.fileShort						= ['antwerpen_', int2str(Dataset.imStartNr), '_nocrop'];
+	Dataset.colorModel						= 'HSV_V'; % {'HSV_V','RGB','BW'};
+	Dataset.HoughParam.ThetaH.stretchAngle	= 5;
+	Dataset.HoughParam.ThetaV.stretchAngle	= 5;
+	Dataset.HoughParam.fillGap 				= 20;
+	Dataset.HoughParam.minLength 			= 35; 
 else
 	error('no matching dataset name');
 end

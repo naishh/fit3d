@@ -5,9 +5,8 @@
 close all;
 tic;
 
-%load([startPath,'/doorWindow/mats/Dataset_antwerpen_6223_crop1.mat']);
-%load([startPath,'/doorWindow/mats/Dataset_antwerpen_6220_nocrop.mat']);
-load([startPath,'/doorWindow/mats/Dataset_Spil1Trans.mat']);
+load([startPath,'/doorWindow/mats/Dataset_antwerpen_6223_crop1.mat']);
+%load([startPath,'/doorWindow/mats/Dataset_Spil1Trans.mat']);
 
 %figure;imshow(Dataset.imOriDimmed); hold on;
 disp('plotting histograms');
