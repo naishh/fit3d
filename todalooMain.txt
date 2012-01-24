@@ -1,13 +1,7 @@
-Dagdoel
-x	oorzaak vinden waarom scaleestimation het inet doet
-x	mail schrijven isaac
-x	eerste resultaten van handtransform
-
-
 GENERAL
-	tjoint beschrijven in thesis
-	pick and test on 4 (very) different datasets
-		find a dataset with no repetition pattern windows
+	2 more datasets
+	histograms on harris corners
+	difference with tjointed houghlines	
 
 RECTIFICATION/ PROJECTING:
 	rectification controleren gimp
