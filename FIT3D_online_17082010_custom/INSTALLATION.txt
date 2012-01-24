@@ -1,0 +1,197 @@
+FIT3D - www.fit3d.info
+
+FIT3D is a Toolbox built for Matlab that aims at unifying and distributing a set of tools that will allow the researcher to obtain a complete 3D model from a set of calibrated images. In this document we motivate and present the structure of the toolbox in a tutorial and example based approach. Given its flexibility and scope we believe that FIT3D represents an exciting opportunity for researchers that want to apply one particular method with real data without the need for extensive additional programming.
+
+Please read our LICENSE terms before you use the Toolbox. The re-distribution of our Toolbox is NOT allowed under ANY circumstance.
+
+Please note that some of our functions are protected by PATENTS. Please refer to the LICENSE for details on the use of these (and all) functions.
+
+If you need further assistance, please contact isaac.esteban@tno.nl.
+
+------------
+INSTALLATION
+------------
+
+In order to use FIT3D in Matlab, just follow these simple steps:
+
+- Copy the folder containing FIT3D (typically /FIT3D) to the desired destination
+
+- Open Matlab
+
+- Type:
+>> FIT3D_setup
+
+(this will also initialize VL_FEAT)
+
+- Run one of the examples (panoramic stitch for instance):
+>> scriptStitchPanoIndoor
+
+- You can look up all the examples in the file run_examples.m. Just edit the file to see all the example scripts.
+
+
+------------
+REQUIREMENTS
+------------
+
+FIT3D v.01 has been tested with Matlab 7.4 under Linux and Windows, though it will most likely work with subsequent versions.
+
+NOTE that FIT3D requires the Image Processing Toolbox for Matlab (http://mathworks.com/products/image). You need to install this before you can run the examples.
+
+Additionally, FIT3D uses certain third party libraries or functions. Most are provided in the Extras folder (those which licence permits it). Below is the complete list of required packages (* denotes the one that are NOT contained in the extras folder). Those libraries that are not contained in Extras, need to be downloaded and installed (aka copied in the Extras folder).
+
+If you want to use LOWE's SIFT implementation, you need to copy the executable sift to your bin folder (in Linux) or make the executable available in your executables path (WINDOWS). If you want to use VL_FEAT (faster), then you don't need to do anything.
+
+We have tested FIT3D on Linux and Windows. Our Linux machine has 4 Gb of ram memory and we could run all the example scripts without trouble. On a windows machine we encountered some memory problems when running the Homography scripts since they require creating very large matrices to store the stitched panoramas. If you encounter this problem, please try starting windows with the 3Gb option or get yourself a Linux ;-)
+
+
+--------
+PACKAGES
+--------
+
+- IPDM: Inter-point Distance Matrix (John D'Errico) BSD Licence
+http://www.mathworks.com/matlabcentral/fileexchange/18937-ipdm-inter-point-distance-matrix
+
+- inhull: Another function of John D'Errico) BSD License
+
+- matk: Math set of toolx (James Diebel, Stanford University)
+http://ai.stanford.edu/~diebel/ 
+
+- PeterKovesi: Matlab functions for Computer Vision (Peter Kovesi)
+http://www.csse.uwa.edu.au/~pk/Research/MatlabFns/index.html
+
+- *sift: Sift demo software (David Lowe)  (OPTIONAL)
+http://www.cs.ubc.ca/~lowe/keypoints/
+
+- VL_FEAT: Computer Vision Libraries (Andrea Vedaldi) GPL License
+http://www.vlfeat.org/
+
+- *Stewe: Five point algorithm. 
+http://vis.uky.edu/~stewe.
+
+---------------
+DATA STRUCTURES
+---------------
+
+In this section we describe the data structures we use in our Toolbox. We first write the common name, then the size or type and then the description.
+
+- F (nx137) - Matrix that holds image features (1xid, 1xframe 128xdescriptor, 4xlocator,3xRGB). Its the collected output of a sift keypoint detector.
+
+- Fplus & FplusExtra (nx9) - Matrix containing features after matching. Fplus contains only inliers (used for motion estimation) and FplusExtra matches within the nearest neighbor threshold (1xframe1, 1xframe2, 2xposition-frame-1 2xposition-frame-2, 3xRGB-average)
+
+- PcamX (3x4xn) - Collection of camera matrices as described by Zisserman (also termed external parameters). These are typically obtained by 8-point algorithm [R|t]. They are described as R and t from C2 to C1 (ala Zisserman). See the paper for more details on the notation and definitions.
+
+- PcamScaled (3x4xn) - Collection of scale consistent camera matrices (with the scale computed and consistant)
+
+- Files (struct) - Structure to hold the information regarding one particular dataset. Namely the folder and set of files used for feature extraction. This is used later when a full model needs to be reconstructed.
+
+- K (3x3) - Regular camera calibration matrix (internal parameters)
+
+
+-------------------
+USING YOUR OWN DATA
+-------------------
+
+In this section we describe how you can obtain a 3D model using your own data. There are a few steps you need to follow. There are many options within the pipeline and we encourage you to read the documentation and see the example scripts for each step. The lines that start with > indicate a Matlab command. Please run the FIT3D_setup command before you start STEP 3.
+
+STEP 1 - Prepare the images (calibration)
+
+In order to obtain a 3D model you need to provide both the radially rectified images and the internal calibration parameters (the matrix K). For this, we recommend using the Camera Calibration Toolbox from Bouguet. Its very straight forward and will allow you to calibrate the camera with some pictures of a checkers board.
+
+Once you obtain the calibration matrix K, you need to undistort the images. This is done with the same Camera Calibration Toolbox with the command undistort_sequence.
+
+This will result in a set of undist_name.jpg images and a camera calibration matrix (typically KK or K).
+
+STEP 2 - Create the folders
+
+Create a folder:
+> mkdir FIT3D_install_dir/DATASETS/yourdataset
+> mkdir FIT3D_install_dir/DATASETS/yourdataset/img
+
+Copy the undistorted images to the img folder and the calibration matrix (K.mat for instance) to the yourdataset folder (this is not required, but a good practice).
+
+STEP 3 - Get the SIFT features
+
+> [F,Files] = getSIFT(strcat(install_path,'/DATASETS/yourdataset/img/'),num_of_images,1,'VL_FEAT');
+
+* num_of_images states the number of images you want to process
+
+STEP 4 - Compute the camera motion
+
+> [Fplus, PcamPlus, PcamX, FplusExtra,KBA] = computeCameraMotion('VL_FEAT',F, sift_threshold, 1, max_ransac_iterations, K, num_of_images, refinement, '8pts', inlier_threshold, refinement_iterations);
+
+The typical values for the parameters are:
+
+sift_threshold - between 0.4 and 0.7 (depending on image quality, the higher the quality, the lower the threshold)
+max_ransac_iterations - depends on the number of matches across consecutive frames. Typically 5000 is enough.
+refinement - true/false if you want (or not) to apply iterative refinement nn a frame-to-frame basis
+inlier_threshold - typically between 0.001 and 0.01 (according to Lowe)
+refinement_iterations - its actually the number of function evaluations. Normally 500 is enough.
+
+Note that other motion estimation algorithms are supported, such as 5-point. Though you need to download that package (Stewe) and copy to Extras folder.
+
+STEP 5 - Compute the scale
+
+Since we are computing the motion on a frame-to-frame basis, we need to compute the scale.
+
+> [PcamScaled,pts,scales] = adjustScaleWith3Frames(Fplus,PcamX,K,num_of_images,'reprojection', 1);
+
+There are several methods to compute the scale. 'reprojection' is the best one. Please refer to our paper on scale estimation for details on this.
+
+SETP 6 - Get the 3D model
+
+distanceFromCamera = 30;
+% this will create a 3dc file with the images in space
+plotImagesInSpace = true; 	
+% this will create a 3dc file with the pointcloud
+plotPointCloud = true; 		
+%this will try to fit planes to the model
+fitPlanes = true;		
+nofPlanes = 200;
+planeThreshold = 0.01;
+density = 50;
+closestNPoints = 500;
+minPoints = 20;
+ransacIterations = 200;
+maxDistance = 10;
+startFrame = 1;
+
+> [MAP] = build3dcMap(FplusExtra,PcamScaled,Kcanon10GOOD,Files,distanceFromCamera,plotImagesInSpace,plotPointCloud,fitPlanes,nofPlanes,planeThreshold,density,closestNPoints,minPoints,ransacIterations,maxDistance,startFrame);
+
+
+THATS IT!
+
+Now you can see the 3D using, for instance, OpenScenGraph (or any 3D modeling software that will read 3dc files). You can also plot the 3D in Matlab though it will look terrible.
+
+If you have questions please feel free to email me and Ill try to give you a hand. Please look at the website www.fit3d.info to get some more example datasets and see how the Toolbox performs. Our paper references can also be found there.
+
+
+---------------
+CITING - BIBTEX
+---------------
+
+Please feel free to use our Toolbox under the LICENSE conditions. If you intend to publish results that involve the use of our code, you can cite us with the following reference:
+
+[SPIE’10] Esteban, I., Dijk, J. & Groen, F.C.A. FIT3D toolbox: multiple view geometry and 3D reconstruction for matlab.  International Symposium on Security & Defence Europe (SPIE), IN PRINT, [2010]. 
+
+@inproceedings{iesteban2010,
+	author={Esteban, I. and Dijk, J. and F.C.A. Groen},
+	title={FIT3D toolbox: multiple view geometry and 3D reconstruction for matlab.},
+	booktitle={International Symposium on Security & Defence Europe (SPIE)},
+	year={2010},
+}
+
+--------------
+ACKNOWLEDGMENT
+--------------
+
+This work was built as part of my PhD work under the supervision of Prof. F.C.A. Groen and Judith Dijk. 
+
+We would like to thank the following people for their feedback and contributions. Specific contributions are included within the code comments.
+
+Frans Groen
+Judith Dijk
+Adam van Eekeren
+Richard den Hollander
+Gijs Dubbelman
+
+
