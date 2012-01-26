@@ -4,6 +4,7 @@ GENERAL
 	difference with tjointed houghlines	
 
 IMAGES REPORT
+	an image with only the horizontal histogram function 
 	image houghline start end points with histogramdata
 	histogram data as staafdigrammen, simple make 1 pixel lines
 	
@@ -28,6 +29,7 @@ RECTIFICATION/ PROJECTING:
 
 DOOR WINDOW:
 	histogram based aproach HIBAAP
+		histogram smooth function with a custom span 20? instead of repeat smooth function
 		spelen met params
 		testen of hash functie te duur is
 
