@@ -5,13 +5,15 @@
 close all;
 tic;
 
-%load([startPath,'/doorWindow/mats/Dataset_antwerpen_6223_crop1.mat']);
-load([startPath,'/doorWindow/mats/Dataset_Spil1Trans.mat']);
+global Dataset;
+load([startPath,'/doorWindow/mats/Dataset_antwerpen_6223_crop1.mat']);
+%load([startPath,'/doorWindow/mats/Dataset_Spil1Trans.mat']);
 
-%figure;imshow(Dataset.imOriDimmed); hold on;
+disp('plotting houghlines');
+figure;imshow(Dataset.imOriDimmed); hold on;
+%plotHoughlinesAll(Dataset.imHeight,Dataset.Houghlines,Dataset.HoughlinesRot);
+
 disp('plotting histograms');
-figure;imshow(Dataset.imOri); hold on;
-
 % get coords of endpoints of houghlines
 [Xv, Yv] = houghlinesToXY(Dataset.Houghlines);
 [Xh, Yh] = houghlinesToXY(Dataset.HoughlinesRot);
@@ -29,13 +31,17 @@ XvHistSmooth = smoothNtimes(XvHist,6);
 YhHistSmooth = smoothNtimes(YhHist,6);
 
 % plot histograms
-plot(incrFactor*XvHist,'y-');
-plot(incrFactor*YhHist, YhBins, 'y-');
+%plot(incrFactor*XvHist,'y-');
+%plot(XvBins, Dataset.imHeight-(incrFactor*XvHist),'y-');
+plotHistX(Dataset.imHeight, XvBins, (incrFactor*XvHist));
+%plot(incrFactor*YhHist, YhBins, 'y-');
+plotHistY(incrFactor*YhHist, YhBins);
 
 % plot histograms smoothed
-plot(incrFactor*XvHistSmooth,'r-');
-plot(incrFactor*YhHistSmooth, YhBins, 'r-');
+plot(XvBins, Dataset.imHeight-(incrFactor*XvHistSmooth),'r-');
+%plot(incrFactor*YhHistSmooth, YhBins, 'r-');
 
+err
 % set histogram thresholds
 XvThresh = 0.5; YhThresh = 0.5; 
 % plot horizontal threshold line

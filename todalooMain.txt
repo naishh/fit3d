@@ -4,9 +4,9 @@ GENERAL
 	difference with tjointed houghlines	
 
 IMAGES REPORT
+	make extra stroke ;)for histogram graphs
 	an image with only the horizontal histogram function 
-	image houghline start end points with histogramdata
-	histogram data as staafdigrammen, simple make 1 pixel lines
+	histogram as stafen
 	
 
 RECTIFICATION/ PROJECTING:

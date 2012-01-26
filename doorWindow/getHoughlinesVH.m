@@ -6,15 +6,15 @@ tic;
 DatasetFromCache				= false
 edgeFromCache					= false
 edgeTest 						= false;
-saveImageQ						= true;
+saveImageQ						= false;
 
 plotme							= true;
 
 if ~DatasetFromCache
 	%Dataset 						= getDataset('Antwerpen_6220',startPath);
-	%Dataset 						= getDataset('Antwerpen_6223_crop1',startPath);
+	Dataset 						= getDataset('Antwerpen_6223_crop1',startPath);
 	%Dataset 						= getDataset('Antwerpen_6220_crop2',startPath);
-	Dataset 						= getDataset('Spil1Trans',startPath);
+	%Dataset 						= getDataset('Spil1Trans',startPath);
 	%Dataset 						= getDataset('Spil1TransCrop1',startPath);
 	paramStr 						= getParamStr(Dataset);
 end
@@ -46,18 +46,15 @@ fgEdge = figure();imshow(Dataset.imEdge);
 
 
 % HOUGHLINES:
-fgHough = figure();hold on;
+fgHough = figure(); 
+imshow(Dataset.imOriDimmed); 
+hold on;
 
+% HOUGHLINES VERTICAL:
 [H,Theta,Rho] = hough(imEdge,'Theta',Dataset.HoughParam.ThetaV.Start:Dataset.HoughParam.ThetaV.Resolution:Dataset.HoughParam.ThetaV.End);
 Peaks  = houghpeaks(H,Dataset.HoughParam.nrPeaks,'threshold',ceil(Dataset.HoughParam.thresh*max(H(:))));
 x = Theta(Peaks(:,2)); y = Rho(Peaks(:,1));
 Houghlines = houghlines(imEdge,Theta,Rho,Peaks,'FillGap',Dataset.HoughParam.fillGap,'MinLength',Dataset.HoughParam.minLength);
-
-for k = 1:length(Houghlines)
-	xy = [Houghlines(k).point1; Houghlines(k).point2];
-	plotHoughline(xy, plotme,'green');
-end
-
 
 % HOUGHLINES ROTATED (HORIZONTAL):
 imEdgeRot    = rot90(imEdge,-1);
@@ -66,14 +63,8 @@ Peaks  = houghpeaks(H,Dataset.HoughParam.nrPeaks,'threshold',ceil(Dataset.HoughP
 x = Theta(Peaks(:,2)); y = Rho(Peaks(:,1));
 HoughlinesRot = houghlines(imEdgeRot,Theta,Rho,Peaks,'FillGap',Dataset.HoughParam.fillGap,'MinLength',Dataset.HoughParam.minLength);
 
-for k = 1:length(HoughlinesRot)
-	% TODO get xy from Theta(..) above, calc as matrix
-	xy = [invertCoordFlipY(HoughlinesRot(k).point1,Dataset.imHeight); invertCoordFlipY(HoughlinesRot(k).point2,Dataset.imHeight)];
-	% save inverted coord on HoughlinesRot
-	HoughlinesRot(k).point1 = xy(1,:); HoughlinesRot(k).point2 = xy(2,:);
-	plotHoughline(xy, plotme,'red')
-end
-
+%HOUGHLINES PLOT
+plotHoughlinesAll(Dataset.imHeight,Houghlines,HoughlinesRot)
 
 
 toc;
