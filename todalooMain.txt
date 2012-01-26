@@ -6,7 +6,10 @@ GENERAL
 IMAGES REPORT
 	make extra stroke ;)for histogram graphs
 	an image with only the horizontal histogram function 
-	histogram as stafen
+	autocorrelatie coefficient laten bepalen welke windows AAN zijn :)
+		tussen elke window alignment lines een abs(avg(all)-x) doet
+		alle avg optellen en delen door aantal lijnen
+	
 	
 
 RECTIFICATION/ PROJECTING:
