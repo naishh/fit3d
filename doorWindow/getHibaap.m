@@ -5,7 +5,7 @@
 close all;
 tic;
 
-if false
+if true
 global Dataset;
 %load([startPath,'/doorWindow/mats/Dataset_antwerpen_6223_crop1.mat']);
 load([startPath,'/doorWindow/mats/Dataset_Spil1TransCrop1.mat']);
@@ -69,56 +69,45 @@ end
 % RECTANGLE CLASSIFICATION
 % add borders
 XvHistMaxPeaks = [1,XvHistMaxPeaks,Dataset.imWidth];
+YvHistMaxPeaks = [1,XvHistMaxPeaks,Dataset.imHeight];
 
 end
 
 figure;imshow(Dataset.imOriDimmed); hold on;
-XvEdgeCount = zeros(length(XvHistMaxPeaks),1);
+% XvEdgeCount = zeros(length(XvHistMaxPeaks),1);
+% imEdgeCount = zeros(Dataset.imHeight,Dataset.imWidth,1);
+% imEdgeCountBin = imEdgeCount;
+% figure;imshow(imEdgeCount,[]);
+% figure;imshow(imEdgeCountBin,[]);
+
+
 imEdgeCount = zeros(Dataset.imHeight,Dataset.imWidth,1);
-imEdgeCountBin = imEdgeCount;
+imEdgeCountBin = imEdgeCount
 
-
-% TODO Loop through every single block instead of column and count edge pixels
-% means two for loops
-% loop through columns blocks defined by xPeaks
 for i=2:length(XvHistMaxPeaks)
 	i
-	colTotalNorm = 0;
-	% set column blok start and endpoint
 	x1 = XvHistMaxPeaks(i-1);
 	x2 = XvHistMaxPeaks(i);
-	range = x1:x2;
-	colBlock	= Dataset.imEdge(:,x1:x2);
-	colBlockTotal= colTotalNorm + sum(sum(colBlock));
-	colBlockTotalNorm = colBlockTotal/(length(range)*Dataset.imHeight)
-	% store the edge count for column block
-	XvEdgeCount(i-1) = colBlockTotalNorm;
-	plot([x1,x1],[0,Dataset.imHeight],'g-');
-	plot([x2,x2],[0,Dataset.imHeight],'r-');
-	imEdgeCount(:,x1:x2) = colBlockTotalNorm;
-	if colBlockTotalNorm<=0.04
-		imEdgeCountBin(:,x1:x2) = 1;
-	else
-		imEdgeCountBin(:,x1:x2) = 0;
+	for j=2:length(YhHistMaxPeaks)
+		y1 = YhHistMaxPeaks(j-1);
+		y2 = YhHistMaxPeaks(j);
+		edgeBlock	= Dataset.imEdge(y1:y2,x1:x2);
+		edgeBlockTotal= sum(sum(edgeBlock));
+		edgeBlockTotalNorm=edgeBlockTotal/((y2-y1)*(x2-x1));
+		imEdgeCount(y1:y2,x1:x2) = edgeBlockTotalNorm;
+		imshow(imEdgeCount,[]);
+		if edgeBlockTotalNorm<=0.02
+			binVal = 1;
+		else
+			binVal = 0;
+		end
+		imEdgeCountBin(y1:y2,x1:x2) = binVal;
 	end
 end
+
+
 figure;imshow(imEdgeCount,[]);
 figure;imshow(imEdgeCountBin,[]);
-
-% TODO think of optimalisation using rechtsonderhoek is altijd het totaal
-
-	%pause;
-
-
-% count nr of edge pixels 
-	%in a rectangle
-	%on a row
-
-% calc variance
-% calc edge pixels
-
-
-
 
 
 
