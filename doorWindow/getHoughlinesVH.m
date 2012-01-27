@@ -12,10 +12,10 @@ plotme							= true;
 
 if ~DatasetFromCache
 	%Dataset 						= getDataset('Antwerpen_6220',startPath);
-	Dataset 						= getDataset('Antwerpen_6223_crop1',startPath);
+	%Dataset 						= getDataset('Antwerpen_6223_crop1',startPath);
 	%Dataset 						= getDataset('Antwerpen_6220_crop2',startPath);
 	%Dataset 						= getDataset('Spil1Trans',startPath);
-	%Dataset 						= getDataset('Spil1TransCrop1',startPath);
+	Dataset 						= getDataset('Spil1TransCrop1',startPath);
 	paramStr 						= getParamStr(Dataset);
 end
 
