@@ -38,10 +38,9 @@ plotHistX(Dataset.imHeight, XvBins, (incrFactor*XvHist));
 plotHistY(incrFactor*YhHist, YhBins);
 
 % plot histograms smoothed
-plot(XvBins, Dataset.imHeight-(incrFactor*XvHistSmooth),'r-');
-%plot(incrFactor*YhHistSmooth, YhBins, 'r-');
+plot(XvBins, Dataset.imHeight-(incrFactor*XvHistSmooth),'r-', 'LineWidth',2);
+plot(incrFactor*YhHistSmooth, YhBins, 'r-', 'LineWidth',2);
 
-err
 % set histogram thresholds
 XvThresh = 0.5; YhThresh = 0.5; 
 % plot horizontal threshold line
