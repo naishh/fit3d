@@ -18,14 +18,14 @@ interestingcCorners = [	1,1;
 						47,2;
 						56,4]
 
+
 for idx=1:size(interestingcCorners,1);
-	figure;
 	i=interestingcCorners(idx,1);
 	k=interestingcCorners(idx,2);
-	subplot(2,1,1);
+	subplot(2,4,idx);
 	plotcCorner(Houghlines(i).cCorners(k),'cCornerConnectivity',0); 
 	axis square;
-	subplot(2,1,2);
+	subplot(2,4,idx+4);
 	plotcCorner(Houghlines(i).cCorners(k),'cCornerCutoff' ,0);
 	axis square;
 end
