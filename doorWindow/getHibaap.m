@@ -73,14 +73,9 @@ YvHistMaxPeaks = [1,XvHistMaxPeaks,Dataset.imHeight];
 
 end
 
+
+% TODO iets meer dan randen meenemen, ranges veranderen, uitbreiden
 figure;imshow(Dataset.imOriDimmed); hold on;
-% XvEdgeCount = zeros(length(XvHistMaxPeaks),1);
-% imEdgeCount = zeros(Dataset.imHeight,Dataset.imWidth,1);
-% imEdgeCountBin = imEdgeCount;
-% figure;imshow(imEdgeCount,[]);
-% figure;imshow(imEdgeCountBin,[]);
-
-
 imEdgeCount = zeros(Dataset.imHeight,Dataset.imWidth,1);
 imEdgeCountBin = imEdgeCount
 
