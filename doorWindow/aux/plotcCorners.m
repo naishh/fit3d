@@ -1,6 +1,8 @@
 function plotcCorners(Houghlines, HoughlinesRot, plotMode, pauseMode)
 for i=1:length(Houghlines)
 	for k=1:length(Houghlines(i).cCorners)
+		i
+		k
 		cCorner = Houghlines(i).cCorners(k);
 		plotcCorner(cCorner, plotMode, pauseMode);
 	end

@@ -1,6 +1,6 @@
 close all;
 
-%load('../mats/Dataset_antwerpen6223_crop1.mat');
+load('../mats/Dataset_antwerpen_6223_crop1.mat');
 Houghlines = Dataset.Houghlines; HoughlinesRot = Dataset.HoughlinesRot
 
 maxWindowSize = 200;
@@ -15,15 +15,16 @@ cCornerHarrisThreshold = 30;
 % % loop through Harris features and add evidence for close cCorners
 % %disp('filtering on Harris corners..')
 % %Houghlines = cCornerHarrisEvidence(Houghlines, cornerScaleAccu, 1, cCornerHarrisThreshold);
-imshow(Dataset.imOri);hold on;
+
+%imshow(Dataset.imOri);hold on;
 
 disp('getting cCorners..')
 Houghlines = getcCorner(Houghlines,HoughlinesRot,cornerInlierThreshold,maxWindowSize);
 
 
-
 disp('plotting complete windows'); 
-plotcCorners(Houghlines, HoughlinesRot)
+plotcCorners(Houghlines, HoughlinesRot, 'cCornerReport',1)
+
 
 % project harris corners
 %cornerScaleAccu = project2square(cornerScaleAccu,1,Dataset.HoughParam.projectionScale);
