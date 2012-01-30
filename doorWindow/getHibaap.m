@@ -9,6 +9,7 @@ if true
 global Dataset;
 %load([startPath,'/doorWindow/mats/Dataset_antwerpen_6223_crop1.mat']);
 %load([startPath,'/doorWindow/mats/Dataset_Spil1Trans.mat']);
+%load([startPath,'/doorWindow/mats/Dataset_Spil1TransCrop1.mat']);
 load([startPath,'/doorWindow/mats/Dataset_Spil1TransCrop1.mat']);
 
 disp('plotting houghlines');

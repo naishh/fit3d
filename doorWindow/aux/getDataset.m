@@ -1,3 +1,4 @@
+% TODO regel general properties per dataset, specific properties per imgnr 
 function Dataset = getDataset(DatasetName, startPath)
 % set defaults before:
 startPathDataset = [startPath,'/dataset/'];
@@ -64,6 +65,22 @@ elseif strcmp(DatasetName, 'Spil1TransCrop1') == 1
 	Dataset.HoughParam.ThetaV.Resolution  	= Dataset.HoughParam.ThetaH.Resolution;
 	Dataset.HoughParam.ThetaH.stretchAngle	= 3;
 	Dataset.HoughParam.ThetaV.stretchAngle	= 10;
+elseif strcmp(DatasetName, 'Spil1TransCrop2') == 1
+	Dataset.fileShort 						= 'Spil1TransCrop2';
+	Dataset.path = [startPathDataset,'FloriandeSet1/small/'];
+	Dataset.path 							= '../dataset/Spil/datasetSpilRect/';
+	Dataset.baseFile 						= 'P_rect';
+	Dataset.postfix 						= '_transformed_crop2.jpg';
+	Dataset.imStartNr 						= 6;
+	Dataset.colorModel						= 'none'; % {'HSV_V','RGB','BW'};
+	Dataset.EdgeDetectorParam.thresh		= 0.25; 
+	Dataset.HoughParam.fillGap 				= 10;
+	Dataset.HoughParam.minLength 			= 30; 
+	Dataset.HoughParam.ThetaH.Resolution  	= 0.1;
+	Dataset.HoughParam.ThetaV.Resolution  	= Dataset.HoughParam.ThetaH.Resolution;
+	Dataset.HoughParam.ThetaH.stretchAngle	= 3;
+	Dataset.HoughParam.ThetaV.stretchAngle	= 10;
+elseif strcmp(DatasetName ,'Aalsmeer') == 1
 elseif strcmp(DatasetName ,'Aalsmeer') == 1
 % imNr = 6680; file = sprintf('../dataset/fullDatasets/aalsmeer/undist__MG_%d.jpg', imNr); load('XYangleFilter_aalsmeer6680.mat');
 %fileShort 						= 'aalsmeer6680';
@@ -122,6 +139,20 @@ elseif strcmp(DatasetName, 'Antwerpen_6220') == 1
 	Dataset.HoughParam.ThetaV.stretchAngle	= 5;
 	Dataset.HoughParam.fillGap 				= 20;
 	Dataset.HoughParam.minLength 			= 35; 
+elseif strcmp(DatasetName, 'Ort1') == 1
+	Dataset.fileShort 						= 'Ort1';
+	Dataset.path 							= '../dataset/Spil/datasetOrt/';
+	Dataset.baseFile 						= 'IMAG';
+	Dataset.postfix 						= '.jpg';
+	Dataset.imStartNr 						= 1994;
+	Dataset.colorModel						= 'BW'; % {'HSV_V','RGB','BW'};
+	Dataset.EdgeDetectorParam.thresh		= 0.25; 
+	Dataset.HoughParam.fillGap 				= 10;
+	Dataset.HoughParam.minLength 			= 30; 
+	Dataset.HoughParam.ThetaH.Resolution  	= 0.1;
+	Dataset.HoughParam.ThetaV.Resolution  	= Dataset.HoughParam.ThetaH.Resolution;
+	Dataset.HoughParam.ThetaH.stretchAngle	= 5;
+	Dataset.HoughParam.ThetaV.stretchAngle	= 5;
 else
 	error('no matching dataset name');
 end

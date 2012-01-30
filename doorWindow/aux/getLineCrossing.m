@@ -22,6 +22,14 @@ deg=dot/(len1*len2);
 % if abs(angle)==1 then the lines are parallell,  
 % so no intersection is possible  
 if(abs(deg)==1)
+	figure;
+	X = [p1(1), p2(1)]
+	Y = [p1(2), p2(2)]
+	plot(X,Y,'r-');
+	hold on;
+	X = [p3(1), p4(1)]
+	Y = [p3(2), p4(2)]
+	plot(X,Y,'g-');
 	error('lines are parallel');
 end
 
