@@ -6,20 +6,26 @@ close all;
 tic;
 
 if true
-global Dataset;
 %load([startPath,'/doorWindow/mats/Dataset_antwerpen_6223_crop1.mat']);
 %load([startPath,'/doorWindow/mats/Dataset_Spil1Trans.mat']);
 %load([startPath,'/doorWindow/mats/Dataset_Spil1TransCrop1.mat']);
-load([startPath,'/doorWindow/mats/Dataset_Spil1TransCrop1.mat']);
+%load([startPath,'/doorWindow/mats/Dataset_Spil1TransCrop1.mat']);
 
 disp('plotting houghlines');
 figure;imshow(Dataset.imOriDimmed); hold on;
-%plotHoughlinesAll(Dataset.imHeight,Dataset.Houghlines,Dataset.HoughlinesRot);
+plotHoughlinesAll(Dataset.imHeight,Dataset.Houghlines,Dataset.HoughlinesRot);
+%figure;imshow(Dataset.imOriDimmed); hold on;
 
 disp('plotting histograms');
 % get coords of endpoints of houghlines
 [Xv, Yv] = houghlinesToXY(Dataset.Houghlines);
 [Xh, Yh] = houghlinesToXY(Dataset.HoughlinesRot);
+% figure;
+% for i=1:2:length(Xh)-1
+% 	plot(Xh(i:i+1),Yh(i:i+1),'r-')
+% 	hold on;
+% 	pause;
+% end
 
 % calc histograms
 XvBins = 1:1:Dataset.imWidth; XvHist = hist(Xv,XvBins);
@@ -112,6 +118,7 @@ end
 
 
 
+err
 
 
 % get cCorners

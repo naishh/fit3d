@@ -7,9 +7,8 @@ IMAGES REPORT
 	make extra stroke ;)for histogram graphs
 	an image with only the horizontal histogram function 
 	autocorrelatie coefficient laten bepalen welke windows AAN zijn :)
-		tussen elke window alignment lines een abs(avg(all)-x) doet
-		alle avg optellen en delen door aantal lijnen
-	
+	for i:wq
+	tussen elke window alignment lines een strook
 	
 
 RECTIFICATION/ PROJECTING:
@@ -32,6 +31,9 @@ RECTIFICATION/ PROJECTING:
 
 DOOR WINDOW:
 	histogram based aproach HIBAAP
+		min length appart voor horizontaal als verticaal opslaan in , houghlinesVH
+		histogram op houghline pixels ipv endpoints
+		misschien toch autocorrelatio op edge pixels doen ipv houghline histogram
 		histogram smooth function with a custom span 20? instead of repeat smooth function
 		spelen met params
 		testen of hash functie te duur is
@@ -109,6 +111,9 @@ DOOR WINDOW:
 	
 		Harris
 			cCorner set filteren (kleiner maken) alleen cCorners overhouden die feature corner in de buurt als evidentie hebben
+			verschil met hele set en gefilterde set kan mooi getest worden
+
+		hough parameter space (zie paper) nog een keer lezen
 			verschil met hele set en gefilterde set kan mooi getest worden
 
 		hough parameter space (zie paper) nog een keer lezen
@@ -247,9 +252,6 @@ lwa:
 % ff testen hoe snel het met  paint gaat ofzo?
 % of de cuts niet weergeven en 
 % trouwens cuts zijn makkeljk ik heb de coords! dus kan nog wel ff met matlab 
-
-
-
 
 ----------------------------------------------------------------
 Todolist after meeting Frans, Tjerk, november 9th

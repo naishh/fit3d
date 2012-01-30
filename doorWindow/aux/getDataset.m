@@ -146,9 +146,23 @@ elseif strcmp(DatasetName, 'Ort1') == 1
 	Dataset.postfix 						= '.jpg';
 	Dataset.imStartNr 						= 1994;
 	Dataset.colorModel						= 'BW'; % {'HSV_V','RGB','BW'};
-	Dataset.EdgeDetectorParam.thresh		= 0.25; 
-	Dataset.HoughParam.fillGap 				= 10;
-	Dataset.HoughParam.minLength 			= 30; 
+	Dataset.EdgeDetectorParam.thresh		= 0.20; 
+	Dataset.HoughParam.fillGap 				= 15;
+	Dataset.HoughParam.minLength 			= 120; 
+	Dataset.HoughParam.ThetaH.Resolution  	= 0.1;
+	Dataset.HoughParam.ThetaV.Resolution  	= Dataset.HoughParam.ThetaH.Resolution;
+	Dataset.HoughParam.ThetaH.stretchAngle	= 5;
+	Dataset.HoughParam.ThetaV.stretchAngle	= 5;
+elseif strcmp(DatasetName, 'OrtCrop1') == 1
+	Dataset.fileShort 						= 'OrtCrop1';
+	Dataset.path 							= '../dataset/Spil/datasetOrt/';
+	Dataset.baseFile 						= 'IMAG';
+	Dataset.postfix 						= '_crop1.jpg';
+	Dataset.imStartNr 						= 1994;
+	Dataset.colorModel						= 'BW'; % {'HSV_V','RGB','BW'};
+	Dataset.EdgeDetectorParam.thresh		= 0.20; 
+	Dataset.HoughParam.fillGap 				= 15;
+	Dataset.HoughParam.minLength 			= 120; 
 	Dataset.HoughParam.ThetaH.Resolution  	= 0.1;
 	Dataset.HoughParam.ThetaV.Resolution  	= Dataset.HoughParam.ThetaH.Resolution;
 	Dataset.HoughParam.ThetaH.stretchAngle	= 5;
