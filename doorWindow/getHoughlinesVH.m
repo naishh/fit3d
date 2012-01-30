@@ -18,7 +18,7 @@ if ~DatasetFromCache
 	%Dataset 						= getDataset('Spil1TransCrop1',startPath);
 	%Dataset 						= getDataset('Spil1TransCrop2',startPath);
 	%Dataset 						= getDataset('Ort1',startPath);
-	Dataset 						= getDataset('OrtCrop1',startPath);
+	Dataset 						= getDataset('OrtCrop1',startPath)
 	paramStr 						= getParamStr(Dataset);
 end
 

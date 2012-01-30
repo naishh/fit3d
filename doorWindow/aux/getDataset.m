@@ -174,7 +174,7 @@ elseif strcmp(DatasetName, 'OrtCrop1') == 1
 	Dataset.HoughParam.ThetaH.stretchAngle	= 5;
 	Dataset.HoughParam.ThetaV.stretchAngle	= 5;
 	Dataset.HibaapParam.XvThresh			= 0.3;
-	Dataset.HibaapParam.YvThresh			= 0.3;
+	Dataset.HibaapParam.YhThresh			= 0.3;
 	Dataset.HibaapParam.incrFactor			= 75;
 else
 	error('no matching dataset name');

@@ -5,7 +5,7 @@
 close all;
 tic;
 
-if true
+if false
 %load([startPath,'/doorWindow/mats/Dataset_antwerpen_6223_crop1.mat']);
 %load([startPath,'/doorWindow/mats/Dataset_Spil1Trans.mat']);
 %load([startPath,'/doorWindow/mats/Dataset_Spil1TransCrop1.mat']);
@@ -52,7 +52,7 @@ plot(incrFactor*YhHistSmooth, YhBins, 'r-', 'LineWidth',2);
 
 % set histogram thresholds
 XvThresh = Dataset.HibaapParam.XvThresh
-YvThresh = Dataset.HibaapParam.YvThresh
+YhThresh = Dataset.HibaapParam.YhThresh
 % plot horizontal threshold line
 plot([0 Dataset.imWidth],[Dataset.imHeight-(incrFactor*XvThresh), Dataset.imHeight-(incrFactor*XvThresh)],'k--','LineWidth',2); hold on;
 % plot vertical threshold line
@@ -82,12 +82,15 @@ YvHistMaxPeaks = [1,XvHistMaxPeaks,Dataset.imHeight];
 
 end
 
-if false
+if true
 
 % TODO iets meer dan randen meenemen, ranges veranderen, uitbreiden
 figure;imshow(Dataset.imOriDimmed); hold on;
 imEdgeCount = zeros(Dataset.imHeight,Dataset.imWidth,1);
-imEdgeCountBin = imEdgeCount
+imEdgeCountBin = imEdgeCount;
+
+yExtraPix = 10;
+xExtraPix = 10;
 
 for i=2:length(XvHistMaxPeaks)
 	i
@@ -99,7 +102,12 @@ for i=2:length(XvHistMaxPeaks)
 		edgeBlock	= Dataset.imEdge(y1:y2,x1:x2);
 		edgeBlockTotal= sum(sum(edgeBlock));
 		edgeBlockTotalNorm=edgeBlockTotal/((y2-y1)*(x2-x1));
+		dim1 = min(Dataset.imHeight,y2+yExtraPix)- max(1,y1-yExtraPix);
+		dim2 = min(Dataset.imWidth,x2+xExtraPix)- max(1,x1-xExtraPix);
+		%imEdgeCount(max(0,y1-yExtraPix):min(Dataset.imHeight,y2+yExtraPix),max(0,x1-xExtraPix):min(Dataset.imWidth,x2+xExtraPix)) = edgeBlockTotalNorm;
 		imEdgeCount(y1:y2,x1:x2) = edgeBlockTotalNorm;
+		%imEdgeCount(max(0,y1-yExtraPix):min(Dataset.imHeight,y2+yExtraPix),max(0,x1-xExtraPix):min(Dataset.imWidth,x2+xExtraPix)) = ones(dim1,dim2)*edgeBlockTotalNorm;
+		
 		imshow(imEdgeCount,[]);
 		if edgeBlockTotalNorm<=0.02
 			binVal = 1;
@@ -115,7 +123,6 @@ figure;imshow(imEdgeCount,[]);
 figure;imshow(imEdgeCountBin,[]);
 
 end
-
 
 
 
