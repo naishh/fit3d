@@ -9,6 +9,9 @@ Dataset.HoughParam.ThetaH.stretchAngle	= 30;
 Dataset.HoughParam.ThetaV.stretchAngle	= 10;
 Dataset.HoughParam.ThetaH.Resolution  	= 0.5;
 Dataset.HoughParam.ThetaV.Resolution  	= Dataset.HoughParam.ThetaH.Resolution;
+Dataset.HibaapParam.XvThresh			= 0.5;
+Dataset.HibaapParam.YvThresh			= 0.5;
+Dataset.HibaapParam.incrFactor			= 20;
 
 % customs
 if strcmp(DatasetName,'Floriande') == 1
@@ -127,6 +130,8 @@ elseif strcmp(DatasetName, 'Antwerpen_6220_crop2') == 1
 	Dataset.HoughParam.ThetaV.stretchAngle	= 5;
 	Dataset.HoughParam.fillGap 				= 20;
 	Dataset.HoughParam.minLength 			= 35; 
+	Dataset.HibaapParam.XvThresh			= 0.5;
+	Dataset.HibaapParam.YvThresh			= 0.5;
 elseif strcmp(DatasetName, 'Antwerpen_6220') == 1
 	Dataset.path = [startPathDataset,'Antwerpen/'];
 	Dataset.baseFile						= 'IMG_'
@@ -139,6 +144,7 @@ elseif strcmp(DatasetName, 'Antwerpen_6220') == 1
 	Dataset.HoughParam.ThetaV.stretchAngle	= 5;
 	Dataset.HoughParam.fillGap 				= 20;
 	Dataset.HoughParam.minLength 			= 35; 
+	Dataset.HibaapParam.incrFactor			= 100;
 elseif strcmp(DatasetName, 'Ort1') == 1
 	Dataset.fileShort 						= 'Ort1';
 	Dataset.path 							= '../dataset/Spil/datasetOrt/';
@@ -167,6 +173,9 @@ elseif strcmp(DatasetName, 'OrtCrop1') == 1
 	Dataset.HoughParam.ThetaV.Resolution  	= Dataset.HoughParam.ThetaH.Resolution;
 	Dataset.HoughParam.ThetaH.stretchAngle	= 5;
 	Dataset.HoughParam.ThetaV.stretchAngle	= 5;
+	Dataset.HibaapParam.XvThresh			= 0.3;
+	Dataset.HibaapParam.YvThresh			= 0.3;
+	Dataset.HibaapParam.incrFactor			= 75;
 else
 	error('no matching dataset name');
 end

@@ -35,7 +35,7 @@ YhBins = 1:1:Dataset.imHeight; YhHist = hist(Yh,YhBins);
 % XhBins = 1:1:Dataset.imWidth; XhHist = hist(Xh,XhBins);
 
 % smooth histograms 
-incrFactor = 20; % TODO make perncent of avg image width height
+incrFactor = Dataset.HibaapParam.incrFactor; % TODO make perncent of avg image width height
 XvHistSmooth = smoothNtimes(XvHist,6);
 YhHistSmooth = smoothNtimes(YhHist,6);
 
@@ -51,9 +51,10 @@ plot(XvBins, Dataset.imHeight-(incrFactor*XvHistSmooth),'r-', 'LineWidth',2);
 plot(incrFactor*YhHistSmooth, YhBins, 'r-', 'LineWidth',2);
 
 % set histogram thresholds
-XvThresh = 0.5; YhThresh = 0.5; 
+XvThresh = Dataset.HibaapParam.XvThresh
+YvThresh = Dataset.HibaapParam.YvThresh
 % plot horizontal threshold line
-plot([0 Dataset.imWidth],[incrFactor*XvThresh, incrFactor*XvThresh],'k--','LineWidth',2); hold on;
+plot([0 Dataset.imWidth],[Dataset.imHeight-(incrFactor*XvThresh), Dataset.imHeight-(incrFactor*XvThresh)],'k--','LineWidth',2); hold on;
 % plot vertical threshold line
 plot([incrFactor*YhThresh,incrFactor*YhThresh], [0,Dataset.imHeight],'k--','LineWidth',2);
 
