@@ -2,7 +2,7 @@
 % extracts windows based on the pdf of the houghline endpoints in vertical and horizontal direction
 % it covers the seperate treatment of vertical and horizontal lines extracted bij the getHoughlinesVH
 % it fuses the result of the cCorner aproach
-close all;
+%close all;
 tic;
 
 if false
@@ -89,8 +89,7 @@ figure;imshow(Dataset.imOriDimmed); hold on;
 imEdgeCount = zeros(Dataset.imHeight,Dataset.imWidth,1);
 imEdgeCountBin = imEdgeCount;
 
-yExtraPix = 10;
-xExtraPix = 10;
+yExtraPix = 0; xExtraPix = 0;
 
 for i=2:length(XvHistMaxPeaks)
 	i
@@ -99,16 +98,22 @@ for i=2:length(XvHistMaxPeaks)
 	for j=2:length(YhHistMaxPeaks)
 		y1 = YhHistMaxPeaks(j-1);
 		y2 = YhHistMaxPeaks(j);
-		edgeBlock	= Dataset.imEdge(y1:y2,x1:x2);
+
+		% extend search area
+		y1Extend = max(1,y1-yExtraPix);
+		y2Extend = min(Dataset.imHeight,y2+yExtraPix);
+		x1Extend = max(1,x1-xExtraPix);
+		x2Extend = min(Dataset.imWidth,x2+xExtraPix);
+
+		edgeBlock	= Dataset.imEdge(y1Extend:y2Extend,x1Extend:x2Extend);
 		edgeBlockTotal= sum(sum(edgeBlock));
-		edgeBlockTotalNorm=edgeBlockTotal/((y2-y1)*(x2-x1));
-		dim1 = min(Dataset.imHeight,y2+yExtraPix)- max(1,y1-yExtraPix);
-		dim2 = min(Dataset.imWidth,x2+xExtraPix)- max(1,x1-xExtraPix);
-		%imEdgeCount(max(0,y1-yExtraPix):min(Dataset.imHeight,y2+yExtraPix),max(0,x1-xExtraPix):min(Dataset.imWidth,x2+xExtraPix)) = edgeBlockTotalNorm;
+		%edgeBlockTotalNorm=edgeBlockTotal/((y2-y1)*(x2-x1));
+		edgeBlockTotalNorm=edgeBlockTotal/((y2Extend-y1Extend)*(x2Extend-x1Extend))
 		imEdgeCount(y1:y2,x1:x2) = edgeBlockTotalNorm;
-		%imEdgeCount(max(0,y1-yExtraPix):min(Dataset.imHeight,y2+yExtraPix),max(0,x1-xExtraPix):min(Dataset.imWidth,x2+xExtraPix)) = ones(dim1,dim2)*edgeBlockTotalNorm;
+		
 		
 		imshow(imEdgeCount,[]);
+		%pause;
 		if edgeBlockTotalNorm<=0.02
 			binVal = 1;
 		else
