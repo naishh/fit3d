@@ -1,15 +1,19 @@
 GENERAL
-	2 more datasets
+	be in PZO
+	save current images, also the histograms
+	test hibaap on other datasets
+	comment hibaap
+	make different modules like rectangle classification
+	check planning
+	be in PZO
+
+
+
 	histograms on harris corners
-	difference with tjointed houghlines	
+	check if corrected houghlines (tjointed) have different results then uncorrected (on Hibaap)
 
 IMAGES REPORT
 	make extra stroke ;)for histogram graphs
-	an image with only the horizontal histogram function 
-	autocorrelatie coefficient laten bepalen welke windows AAN zijn :)
-	for i:wq
-	tussen elke window alignment lines een strook
-	
 
 RECTIFICATION/ PROJECTING:
 	rectification controleren gimp

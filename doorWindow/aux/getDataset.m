@@ -10,8 +10,10 @@ Dataset.HoughParam.ThetaV.stretchAngle	= 10;
 Dataset.HoughParam.ThetaH.Resolution  	= 0.5;
 Dataset.HoughParam.ThetaV.Resolution  	= Dataset.HoughParam.ThetaH.Resolution;
 Dataset.HibaapParam.XvThresh			= 0.5;
-Dataset.HibaapParam.YvThresh			= 0.5;
+Dataset.HibaapParam.YhThresh			= 0.5;
 Dataset.HibaapParam.incrFactor			= 20;
+Dataset.hibaapParam.edgeStrokeThreshX 	= 0.033;
+Dataset.hibaapParam.edgeStrokeThreshY 	= 0.033;
 Dataset.cCornerParam.minVotes			= 2;
 
 % customs
@@ -178,6 +180,9 @@ elseif strcmp(DatasetName, 'OrtCrop1') == 1
 	Dataset.HibaapParam.XvThresh			= 0.3;
 	Dataset.HibaapParam.YhThresh			= 0.3;
 	Dataset.HibaapParam.incrFactor			= 75;
+	Dataset.hibaapParam.edgeStrokeThreshX = 0.033;
+	Dataset.hibaapParam.edgeStrokeThreshy = 0.029;
+
 	Dataset.cCornerParam.minVotes			= 1;
 else
 	error('no matching dataset name');

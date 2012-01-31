@@ -5,16 +5,16 @@
 close all;
 tic;
 
-if false
+if true
 %load([startPath,'/doorWindow/mats/Dataset_antwerpen_6223_crop1.mat']);
 %load([startPath,'/doorWindow/mats/Dataset_Spil1Trans.mat']);
 %load([startPath,'/doorWindow/mats/Dataset_Spil1TransCrop1.mat']);
 %load([startPath,'/doorWindow/mats/Dataset_Spil1TransCrop1.mat']);
 
 disp('plotting houghlines');
-figure;imshow(Dataset.imOriDimmed); hold on;
+fgHough = figure();imshow(Dataset.imOriDimmed); hold on;
 plotHoughlinesAll(Dataset.imHeight,Dataset.Houghlines,Dataset.HoughlinesRot);
-%figure;imshow(Dataset.imOriDimmed); hold on;
+fgHist= figure();imshow(Dataset.imOriDimmed); hold on;
 
 disp('plotting histograms');
 % get coords of endpoints of houghlines
@@ -74,99 +74,32 @@ for i=1:length(XvHistMaxPeaks)
 	end
 end
 
+end
+
+% save result for rectangle classification
+Dataset.Hibaap.XvHistMaxPeaks = XvHistMaxPeaks;
+Dataset.Hibaap.YhHistMaxPeaks = YhHistMaxPeaks;
+
+saveImage = true
+if saveImage
+	disp('saving images..');
+	savePath 						= ['resultsHibaap/',Dataset.fileShort,'/'];
+	% if dir doesnt exist make it 
+	if exist(savePath) == 0
+		mkdir(savePath);
+	end
+	% save images
+	saveas(fgHough 				,[savePath,'03_fgHough.png'],'png'); 
+	saveas(fgHist 				,[savePath,'04_fgHist.png'],'png'); 
+	disp('done!');
+end
 
 % RECTANGLE CLASSIFICATION
-% add borders
-XvHistMaxPeaks = [1,XvHistMaxPeaks,Dataset.imWidth];
-YvHistMaxPeaks = [1,XvHistMaxPeaks,Dataset.imHeight];
-
-end
+hibaapClassifyRectangles(Dataset,saveImage)
 
 
-% TODO iets meer dan randen meenemen, ranges veranderen, uitbreiden
-figure;imshow(Dataset.imOriDimmed); hold on;
-tempIm = zeros(Dataset.imHeight,Dataset.imWidth,1);
-imEdgeCountX = tempIm;
-imEdgeCountY = tempIm;
-imEdgeCountBinX = tempIm;
-imEdgeCountBinY = tempIm;
 
-% loop through vertical strokes
-edgeStrokeNormArray = zeros(length(XvHistMaxPeaks),1)
-for i=2:length(XvHistMaxPeaks)
-	x1 = XvHistMaxPeaks(i-1);
-	x2 = XvHistMaxPeaks(i);
-	edgeStroke	= Dataset.imEdge(:,x1:x2);
-	edgeStrokeTotal= sum(sum(edgeStroke));
-	edgeStrokeNorm=edgeStrokeTotal/(size(edgeStroke,1)*size(edgeStroke,2))
-	imEdgeCountX(:,x1:x2) = edgeStrokeNorm;
-	edgeStrokeNormArray(i-1) = edgeStrokeNorm;
-	%imshow(imEdgeCountX,[]); pause;
-	if edgeStrokeNorm<=0.033
-		binVal = 0;
-	else
-		binVal = 1;
-	end
-	imEdgeCountBinX(:,x1:x2) = binVal;
-end
-edgeStrokeNormArray
-
-% loop through horizontal strokes
-edgeStrokeNormArray = zeros(length(YvHistMaxPeaks),1)
-for j=2:length(YhHistMaxPeaks)
-	y1 = YhHistMaxPeaks(j-1);
-	y2 = YhHistMaxPeaks(j);
-	edgeStroke	= Dataset.imEdge(y1:y2,:);
-	edgeStrokeTotal= sum(sum(edgeStroke));
-	edgeStrokeNorm=edgeStrokeTotal/(size(edgeStroke,1)*size(edgeStroke,2))
-	imEdgeCountY(y1:y2,:) = edgeStrokeNorm;
-	edgeStrokeNormArray(j-1) = edgeStrokeNorm;
-	%edgeStrokeNorm, imshow(imEdgeCountY,[]); pause;
-	if edgeStrokeNorm<=0.023
-		binVal = 0;
-	else
-		binVal = 1;
-	end
-	imEdgeCountBinY(y1:y2,:) = binVal;
-end
-
-edgeStrokeNormArray
-sumBinXBinY 			= imEdgeCountBinX+imEdgeCountBinY;
-
-fgimOri 				= figure();imshow(Dataset.imOri,[]);
-fgimEdge 				= figure();imshow(Dataset.imEdge,[]);
-fgimEdgeCountX 			= figure();imshow(imEdgeCountX,[]);
-fgimEdgeCountBinX  		= figure();imshow(imEdgeCountBinX,[]);
-fgimEdgeCountY 			= figure();imshow(imEdgeCountY,[]);
-fgimEdgeCountBinY  		= figure();imshow(imEdgeCountBinY,[]);
-fgimEdgeCountSum  		= figure();imshow(imEdgeCountX+imEdgeCountY,[]);
-fgimEdgeCountBinSum  	= figure();imshow(sumBinXBinY ,[]);
-fgimEdgeCountBinSumBin  = figure();imshow(sumBinXBinY==2,[]);
-
-saveImageQ = true;
-if saveImageQ
-	reply = input('Save result as images? y/n [n]: ', 's');
-	if isempty(reply)
-		reply = 'n';
-	end
-	if reply=='y'
-		disp('saving images..');
-		savePath 						= ['resultsHibaap/classifyRectangles/',Dataset.fileShort,'/'];
-		% save images
-		saveas(fgimOri 				,[savePath,'00_fgimOri.png'],'png'); 
-		saveas(fgimEdge 			,[savePath,'01_fgimEdge.png'],'png'); 
-		saveas(fgimEdgeCountX 		,[savePath,'05_fgimEdgeCountX.png'],'png'); 
-		saveas(fgimEdgeCountBinX	,[savePath,'10_fgimEdgeCountBinX.png'],'png'); 
-		saveas(fgimEdgeCountY 		,[savePath,'15_fgimEdgeCountY.png'],'png'); 
-		saveas(fgimEdgeCountBinY	,[savePath,'20_fgimEdgeCountBinY.png'],'png'); 
-		saveas(fgimEdgeCountSum		,[savePath,'25_fgimEdgeCountSum.png'],'png'); 
-		saveas(fgimEdgeCountBinSum  ,[savePath,'30_fgimEdgeCountBinSum.png'],'png'); 
-		saveas(fgimEdgeCountBinSumBin,[savePath,'35_fgimEdgeCountBinSumBin.png'],'png');
-		disp('done!');
-	end
-end
-% END rectangle classification ----------------------------------------------------------------------------------
-
+if false
 
 % get cCorners
 maxWindowSize = 200;
@@ -281,4 +214,6 @@ for w=1:length(WindowsUnique)
 		% plot windowsUnique
 		plot(X, Y, colorStr,'LineWidth',2);
 	end
+end
+
 end
