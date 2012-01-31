@@ -12,6 +12,7 @@ Dataset.HoughParam.ThetaV.Resolution  	= Dataset.HoughParam.ThetaH.Resolution;
 Dataset.HibaapParam.XvThresh			= 0.5;
 Dataset.HibaapParam.YvThresh			= 0.5;
 Dataset.HibaapParam.incrFactor			= 20;
+Dataset.cCornerParam.minVotes			= 2;
 
 % customs
 if strcmp(DatasetName,'Floriande') == 1
@@ -166,7 +167,8 @@ elseif strcmp(DatasetName, 'OrtCrop1') == 1
 	Dataset.postfix 						= '_crop1.jpg';
 	Dataset.imStartNr 						= 1994;
 	Dataset.colorModel						= 'BW'; % {'HSV_V','RGB','BW'};
-	Dataset.EdgeDetectorParam.thresh		= 0.20; 
+	%Dataset.EdgeDetectorParam.thresh		= 0.20; 
+	Dataset.EdgeDetectorParam.thresh		= 0.25; 
 	Dataset.HoughParam.fillGap 				= 15;
 	Dataset.HoughParam.minLength 			= 120; 
 	Dataset.HoughParam.ThetaH.Resolution  	= 0.1;
@@ -176,6 +178,7 @@ elseif strcmp(DatasetName, 'OrtCrop1') == 1
 	Dataset.HibaapParam.XvThresh			= 0.3;
 	Dataset.HibaapParam.YhThresh			= 0.3;
 	Dataset.HibaapParam.incrFactor			= 75;
+	Dataset.cCornerParam.minVotes			= 1;
 else
 	error('no matching dataset name');
 end

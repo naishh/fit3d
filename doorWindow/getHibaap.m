@@ -2,7 +2,7 @@
 % extracts windows based on the pdf of the houghline endpoints in vertical and horizontal direction
 % it covers the seperate treatment of vertical and horizontal lines extracted bij the getHoughlinesVH
 % it fuses the result of the cCorner aproach
-%close all;
+close all;
 tic;
 
 if false
@@ -82,56 +82,90 @@ YvHistMaxPeaks = [1,XvHistMaxPeaks,Dataset.imHeight];
 
 end
 
-if true
 
 % TODO iets meer dan randen meenemen, ranges veranderen, uitbreiden
 figure;imshow(Dataset.imOriDimmed); hold on;
-imEdgeCount = zeros(Dataset.imHeight,Dataset.imWidth,1);
-imEdgeCountBin = imEdgeCount;
+tempIm = zeros(Dataset.imHeight,Dataset.imWidth,1);
+imEdgeCountX = tempIm;
+imEdgeCountY = tempIm;
+imEdgeCountBinX = tempIm;
+imEdgeCountBinY = tempIm;
 
-yExtraPix = 0; xExtraPix = 0;
-
+% loop through vertical strokes
+edgeStrokeNormArray = zeros(length(XvHistMaxPeaks),1)
 for i=2:length(XvHistMaxPeaks)
-	i
 	x1 = XvHistMaxPeaks(i-1);
 	x2 = XvHistMaxPeaks(i);
-	for j=2:length(YhHistMaxPeaks)
-		y1 = YhHistMaxPeaks(j-1);
-		y2 = YhHistMaxPeaks(j);
+	edgeStroke	= Dataset.imEdge(:,x1:x2);
+	edgeStrokeTotal= sum(sum(edgeStroke));
+	edgeStrokeNorm=edgeStrokeTotal/(size(edgeStroke,1)*size(edgeStroke,2))
+	imEdgeCountX(:,x1:x2) = edgeStrokeNorm;
+	edgeStrokeNormArray(i-1) = edgeStrokeNorm;
+	%imshow(imEdgeCountX,[]); pause;
+	if edgeStrokeNorm<=0.033
+		binVal = 0;
+	else
+		binVal = 1;
+	end
+	imEdgeCountBinX(:,x1:x2) = binVal;
+end
+edgeStrokeNormArray
 
-		% extend search area
-		y1Extend = max(1,y1-yExtraPix);
-		y2Extend = min(Dataset.imHeight,y2+yExtraPix);
-		x1Extend = max(1,x1-xExtraPix);
-		x2Extend = min(Dataset.imWidth,x2+xExtraPix);
+% loop through horizontal strokes
+edgeStrokeNormArray = zeros(length(YvHistMaxPeaks),1)
+for j=2:length(YhHistMaxPeaks)
+	y1 = YhHistMaxPeaks(j-1);
+	y2 = YhHistMaxPeaks(j);
+	edgeStroke	= Dataset.imEdge(y1:y2,:);
+	edgeStrokeTotal= sum(sum(edgeStroke));
+	edgeStrokeNorm=edgeStrokeTotal/(size(edgeStroke,1)*size(edgeStroke,2))
+	imEdgeCountY(y1:y2,:) = edgeStrokeNorm;
+	edgeStrokeNormArray(j-1) = edgeStrokeNorm;
+	%edgeStrokeNorm, imshow(imEdgeCountY,[]); pause;
+	if edgeStrokeNorm<=0.023
+		binVal = 0;
+	else
+		binVal = 1;
+	end
+	imEdgeCountBinY(y1:y2,:) = binVal;
+end
 
-		edgeBlock	= Dataset.imEdge(y1Extend:y2Extend,x1Extend:x2Extend);
-		edgeBlockTotal= sum(sum(edgeBlock));
-		%edgeBlockTotalNorm=edgeBlockTotal/((y2-y1)*(x2-x1));
-		edgeBlockTotalNorm=edgeBlockTotal/((y2Extend-y1Extend)*(x2Extend-x1Extend))
-		imEdgeCount(y1:y2,x1:x2) = edgeBlockTotalNorm;
-		
-		
-		imshow(imEdgeCount,[]);
-		%pause;
-		if edgeBlockTotalNorm<=0.02
-			binVal = 1;
-		else
-			binVal = 0;
-		end
-		imEdgeCountBin(y1:y2,x1:x2) = binVal;
+edgeStrokeNormArray
+sumBinXBinY 			= imEdgeCountBinX+imEdgeCountBinY;
+
+fgimOri 				= figure();imshow(Dataset.imOri,[]);
+fgimEdge 				= figure();imshow(Dataset.imEdge,[]);
+fgimEdgeCountX 			= figure();imshow(imEdgeCountX,[]);
+fgimEdgeCountBinX  		= figure();imshow(imEdgeCountBinX,[]);
+fgimEdgeCountY 			= figure();imshow(imEdgeCountY,[]);
+fgimEdgeCountBinY  		= figure();imshow(imEdgeCountBinY,[]);
+fgimEdgeCountSum  		= figure();imshow(imEdgeCountX+imEdgeCountY,[]);
+fgimEdgeCountBinSum  	= figure();imshow(sumBinXBinY ,[]);
+fgimEdgeCountBinSumBin  = figure();imshow(sumBinXBinY==2,[]);
+
+saveImageQ = true;
+if saveImageQ
+	reply = input('Save result as images? y/n [n]: ', 's');
+	if isempty(reply)
+		reply = 'n';
+	end
+	if reply=='y'
+		disp('saving images..');
+		savePath 						= ['resultsHibaap/classifyRectangles/',Dataset.fileShort,'/'];
+		% save images
+		saveas(fgimOri 				,[savePath,'00_fgimOri.png'],'png'); 
+		saveas(fgimEdge 			,[savePath,'01_fgimEdge.png'],'png'); 
+		saveas(fgimEdgeCountX 		,[savePath,'05_fgimEdgeCountX.png'],'png'); 
+		saveas(fgimEdgeCountBinX	,[savePath,'10_fgimEdgeCountBinX.png'],'png'); 
+		saveas(fgimEdgeCountY 		,[savePath,'15_fgimEdgeCountY.png'],'png'); 
+		saveas(fgimEdgeCountBinY	,[savePath,'20_fgimEdgeCountBinY.png'],'png'); 
+		saveas(fgimEdgeCountSum		,[savePath,'25_fgimEdgeCountSum.png'],'png'); 
+		saveas(fgimEdgeCountBinSum  ,[savePath,'30_fgimEdgeCountBinSum.png'],'png'); 
+		saveas(fgimEdgeCountBinSumBin,[savePath,'35_fgimEdgeCountBinSumBin.png'],'png');
+		disp('done!');
 	end
 end
-
-
-figure;imshow(imEdgeCount,[]);
-figure;imshow(imEdgeCountBin,[]);
-
-end
-
-
-
-err
+% END rectangle classification ----------------------------------------------------------------------------------
 
 
 % get cCorners
@@ -225,7 +259,9 @@ toc
 
 
 % loop through windows unique and plot them with outliers
-mincCornerVotes = 2;
+%TODO
+%mincCornerVotes = Dataset.cCornerParam.minVotes;
+mincCornerVotes = 1;
 ww = 1;
 for w=1:length(WindowsUnique)
 	WindowsUnique{w}.votes
