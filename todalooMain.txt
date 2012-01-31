@@ -1,3 +1,26 @@
+fRANS FEEDBACK
+	canny edge niet binair maar continue waardes gebruiken
+		werkt het niet met canny dan afgeleide pakken
+	belichtingswaarde meenemen
+		over een strook de gemiddelde edge intensiteit meten
+		want bij donkere lichtval minder sterke edges 
+		de drempel (threshold) hier op aanpassen
+		hierdoor maak je een adaptieve drempel
+	rectangle classification
+		drempelloos (throshold loos)
+			lengte en intensiteit van edge meenemen
+	erosie dilatie op edges?
+	cCorner
+		corner ingesloten  een corner is hogere vote
+		vote niet het middelpunt maar een gebied (affine rectangle) nemen
+		oppervlakte optellen en nummeriek testwaarde
+			desnoods handmatig ramen annoteren
+	terugprojecteren en aan Isaac laten zien zodat hij gaat helpen
+
+	iets schrijven over beperking rechttrekken
+		o.a. occlusie
+
+
 GENERAL
 	2 more datasets
 	histograms on harris corners
