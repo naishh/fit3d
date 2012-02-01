@@ -1,10 +1,4 @@
 function hibaapclassifyRectangles(Dataset,saveImage);
-figure;imshow(Dataset.imEdge);hold on;
-plotHoughlinesAll(Dataset.imHeight,Dataset.Houghlines,Dataset.HoughlinesRot);
-plotPeakLines(Dataset);
-err
-
-
 XvHistMaxPeaks = Dataset.Hibaap.XvHistMaxPeaks; 
 YhHistMaxPeaks = Dataset.Hibaap.YhHistMaxPeaks;
 % RECTANGLE CLASSIFICATION
@@ -14,6 +8,7 @@ YhHistMaxPeaks = [1,YhHistMaxPeaks,Dataset.imHeight];
 
 
 
+% TODO iets meer dan randen meenemen, ranges veranderen, uitbreiden
 tempIm = zeros(Dataset.imHeight,Dataset.imWidth,1);
 imEdgeCountX = tempIm;
 imEdgeCountY = tempIm;

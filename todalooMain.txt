@@ -1,3 +1,18 @@
+GENERAL
+	be in PZO
+	classified binary rectangle -> real rectangle
+		draw biggest rectangle
+		and draw small ones 
+	use feature window instead of column/row
+		plot edge image
+		together with rows en cols
+		to gain info about which method
+	use continue canny or derivative image
+	other datasets 
+	use houghline pixels instead of endpoints
+	check if corrected houghlines (tjointed) have different results then uncorrected (on Hibaap)
+	be in PZO
+
 fRANS FEEDBACK
 	canny edge niet binair maar continue waardes gebruiken
 		werkt het niet met canny dan afgeleide pakken
@@ -12,10 +27,9 @@ fRANS FEEDBACK
 		feature maken vierkant in vierkant (middelste vierkant niet meetellen)
 	erosie dilatie op edges?
 	cCorner
-		corner ingesloten  een corner is hogere vote
 		vote niet het middelpunt maar een gebied (affine rectangle) nemen
-		oppervlakte optellen en nummeriek testwaarde
-			desnoods handmatig ramen annoteren
+			oppervlakte optellen en nummeriek testwaarde
+				desnoods handmatig ramen annoteren
 	terugprojecteren en aan Isaac laten zien zodat hij gaat helpen
 
 	iets schrijven over beperking rechttrekken
@@ -24,25 +38,8 @@ fRANS FEEDBACK
 	skyline detectie
 		2 traps rakket
 		eerst grof 
-		dan vlak boven en onder skyline met blokje gemiddelde pixelwaarde als classificatie nemen
+		dan vlak boven en onder skyline met blokje gemiddelde sky/ground pixelwaarde als classificatie nemen
 		dan 2e trap van rakket met deze nwe info
-
-GENERAL
-	be in PZO
-	save current images, also the histograms
-	test hibaap on other datasets
-	comment hibaap
-	make different modules like rectangle classification
-	check planning
-	be in PZO
-
-
-
-	histograms on harris corners
-	check if corrected houghlines (tjointed) have different results then uncorrected (on Hibaap)
-
-IMAGES REPORT
-	make extra stroke ;)for histogram graphs
 
 RECTIFICATION/ PROJECTING:
 	rectification controleren gimp
@@ -94,7 +91,7 @@ DOOR WINDOW:
 			repetition patterns ;)
 			canny eruit en op afgeleide hibaapen??
 
-			harris corners histogrammen
+			multiscale harris corners histogrammen
 			iets doen met unusable histograms
 			fuse, houghlineshistograms, harris corners, cCorners
 
@@ -325,3 +322,6 @@ Thesis
 Kind regards,
 
 Tjerk
+
+
+
