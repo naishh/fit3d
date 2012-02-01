@@ -9,6 +9,7 @@ fRANS FEEDBACK
 	rectangle classification
 		drempelloos (throshold loos)
 			lengte en intensiteit van edge meenemen
+		feature maken vierkant in vierkant (middelste vierkant niet meetellen)
 	erosie dilatie op edges?
 	cCorner
 		corner ingesloten  een corner is hogere vote
@@ -20,6 +21,11 @@ fRANS FEEDBACK
 	iets schrijven over beperking rechttrekken
 		o.a. occlusie
 
+	skyline detectie
+		2 traps rakket
+		eerst grof 
+		dan vlak boven en onder skyline met blokje gemiddelde pixelwaarde als classificatie nemen
+		dan 2e trap van rakket met deze nwe info
 
 GENERAL
 	2 more datasets
