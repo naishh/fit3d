@@ -1,0 +1,7 @@
+
+Vragen:
+Hoe kan ik de histogrammen het beste plotten? samen met het
+- originele plaatje
+- edge plaatje
+- witte achtergrond
+

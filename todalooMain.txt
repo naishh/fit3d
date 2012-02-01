@@ -28,15 +28,21 @@ fRANS FEEDBACK
 		dan 2e trap van rakket met deze nwe info
 
 GENERAL
-	2 more datasets
+	be in PZO
+	save current images, also the histograms
+	test hibaap on other datasets
+	comment hibaap
+	make different modules like rectangle classification
+	check planning
+	be in PZO
+
+
+
 	histograms on harris corners
-	difference with tjointed houghlines	
+	check if corrected houghlines (tjointed) have different results then uncorrected (on Hibaap)
 
 IMAGES REPORT
 	make extra stroke ;)for histogram graphs
-	an image with only the horizontal histogram function 
-	histogram as stafen
-	
 
 RECTIFICATION/ PROJECTING:
 	rectification controleren gimp
@@ -58,6 +64,9 @@ RECTIFICATION/ PROJECTING:
 
 DOOR WINDOW:
 	histogram based aproach HIBAAP
+		min length appart voor horizontaal als verticaal opslaan in , houghlinesVH
+		histogram op houghline pixels ipv endpoints
+		misschien toch autocorrelatio op edge pixels doen ipv houghline histogram
 		histogram smooth function with a custom span 20? instead of repeat smooth function
 		spelen met params
 		testen of hash functie te duur is
@@ -135,6 +144,9 @@ DOOR WINDOW:
 	
 		Harris
 			cCorner set filteren (kleiner maken) alleen cCorners overhouden die feature corner in de buurt als evidentie hebben
+			verschil met hele set en gefilterde set kan mooi getest worden
+
+		hough parameter space (zie paper) nog een keer lezen
 			verschil met hele set en gefilterde set kan mooi getest worden
 
 		hough parameter space (zie paper) nog een keer lezen
@@ -273,9 +285,6 @@ lwa:
 % ff testen hoe snel het met  paint gaat ofzo?
 % of de cuts niet weergeven en 
 % trouwens cuts zijn makkeljk ik heb de coords! dus kan nog wel ff met matlab 
-
-
-
 
 ----------------------------------------------------------------
 Todolist after meeting Frans, Tjerk, november 9th

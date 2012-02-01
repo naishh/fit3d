@@ -5,17 +5,20 @@ tic;
 
 DatasetFromCache				= false
 edgeFromCache					= false
-edgeTest 						= false;
-saveImageQ						= false;
+edgeTest 						= false
+saveImageQ						= true
 
 plotme							= true;
 
 if ~DatasetFromCache
 	%Dataset 						= getDataset('Antwerpen_6220',startPath);
-	Dataset 						= getDataset('Antwerpen_6223_crop1',startPath);
+	%Dataset 						= getDataset('Antwerpen_6223_crop1',startPath);
 	%Dataset 						= getDataset('Antwerpen_6220_crop2',startPath);
 	%Dataset 						= getDataset('Spil1Trans',startPath);
-	%Dataset 						= getDataset('Spil1TransCrop1',startPath);
+	Dataset 						= getDataset('Spil1TransCrop1',startPath);
+	%Dataset 						= getDataset('Spil1TransCrop2',startPath);
+	%Dataset 						= getDataset('Ort1',startPath);
+	%Dataset 						= getDataset('OrtCrop1',startPath)
 	paramStr 						= getParamStr(Dataset);
 end
 
@@ -54,17 +57,18 @@ hold on;
 [H,Theta,Rho] = hough(imEdge,'Theta',Dataset.HoughParam.ThetaV.Start:Dataset.HoughParam.ThetaV.Resolution:Dataset.HoughParam.ThetaV.End);
 Peaks  = houghpeaks(H,Dataset.HoughParam.nrPeaks,'threshold',ceil(Dataset.HoughParam.thresh*max(H(:))));
 x = Theta(Peaks(:,2)); y = Rho(Peaks(:,1));
-Houghlines = houghlines(imEdge,Theta,Rho,Peaks,'FillGap',Dataset.HoughParam.fillGap,'MinLength',Dataset.HoughParam.minLength);
+Dataset.Houghlines = houghlines(imEdge,Theta,Rho,Peaks,'FillGap',Dataset.HoughParam.fillGap,'MinLength',Dataset.HoughParam.minLength);
 
 % HOUGHLINES ROTATED (HORIZONTAL):
 imEdgeRot    = rot90(imEdge,-1);
 [H,Theta,Rho] = hough(imEdgeRot,'Theta',Dataset.HoughParam.ThetaH.Start:Dataset.HoughParam.ThetaH.Resolution:Dataset.HoughParam.ThetaH.End);
 Peaks  = houghpeaks(H,Dataset.HoughParam.nrPeaks,'threshold',ceil(Dataset.HoughParam.thresh*max(H(:))));
 x = Theta(Peaks(:,2)); y = Rho(Peaks(:,1));
-HoughlinesRot = houghlines(imEdgeRot,Theta,Rho,Peaks,'FillGap',Dataset.HoughParam.fillGap,'MinLength',Dataset.HoughParam.minLength);
+Dataset.HoughlinesRot = houghlines(imEdgeRot,Theta,Rho,Peaks,'FillGap',Dataset.HoughParam.fillGap,'MinLength',Dataset.HoughParam.minLength);
+Dataset.HoughlinesRot = flipHoughlinesRot(Dataset.HoughlinesRot, Dataset.imHeight);
 
 %HOUGHLINES PLOT
-plotHoughlinesAll(Dataset.imHeight,Houghlines,HoughlinesRot)
+plotHoughlinesAll(Dataset.imHeight,Dataset.Houghlines,Dataset.HoughlinesRot)
 
 
 toc;
@@ -82,8 +86,6 @@ if saveImageQ
 		saveas(fgEdge,[savePathFile,'_edge__',paramStr],'png');
 		saveas(fgHough,[savePathFile,'_hough__',paramStr],'png');
 		% update dataset vals
-		Dataset.Houghlines 		= Houghlines;
-		Dataset.HoughlinesRot 	= HoughlinesRot;
 		save(['mats/Dataset_',Dataset.fileShort,'.mat'],'Dataset');
 		disp('saved');
 		['mats/Dataset_',Dataset.fileShort,'.mat']

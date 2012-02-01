@@ -5,18 +5,27 @@
 close all;
 tic;
 
-global Dataset;
-load([startPath,'/doorWindow/mats/Dataset_antwerpen_6223_crop1.mat']);
+if true
+%load([startPath,'/doorWindow/mats/Dataset_antwerpen_6223_crop1.mat']);
 %load([startPath,'/doorWindow/mats/Dataset_Spil1Trans.mat']);
+%load([startPath,'/doorWindow/mats/Dataset_Spil1TransCrop1.mat']);
+%load([startPath,'/doorWindow/mats/Dataset_Spil1TransCrop1.mat']);
 
 disp('plotting houghlines');
-figure;imshow(Dataset.imOriDimmed); hold on;
-%plotHoughlinesAll(Dataset.imHeight,Dataset.Houghlines,Dataset.HoughlinesRot);
+fgHough = figure();imshow(Dataset.imOriDimmed); hold on;
+plotHoughlinesAll(Dataset.imHeight,Dataset.Houghlines,Dataset.HoughlinesRot);
+fgHist= figure();imshow(Dataset.imOriDimmed); hold on;
 
 disp('plotting histograms');
 % get coords of endpoints of houghlines
 [Xv, Yv] = houghlinesToXY(Dataset.Houghlines);
 [Xh, Yh] = houghlinesToXY(Dataset.HoughlinesRot);
+% figure;
+% for i=1:2:length(Xh)-1
+% 	plot(Xh(i:i+1),Yh(i:i+1),'r-')
+% 	hold on;
+% 	pause;
+% end
 
 % calc histograms
 XvBins = 1:1:Dataset.imWidth; XvHist = hist(Xv,XvBins);
@@ -26,7 +35,7 @@ YhBins = 1:1:Dataset.imHeight; YhHist = hist(Yh,YhBins);
 % XhBins = 1:1:Dataset.imWidth; XhHist = hist(Xh,XhBins);
 
 % smooth histograms 
-incrFactor = 20; % TODO make perncent of avg image width height
+incrFactor = Dataset.HibaapParam.incrFactor; % TODO make perncent of avg image width height
 XvHistSmooth = smoothNtimes(XvHist,6);
 YhHistSmooth = smoothNtimes(YhHist,6);
 
@@ -38,14 +47,14 @@ plotHistX(Dataset.imHeight, XvBins, (incrFactor*XvHist));
 plotHistY(incrFactor*YhHist, YhBins);
 
 % plot histograms smoothed
-plot(XvBins, Dataset.imHeight-(incrFactor*XvHistSmooth),'r-');
-%plot(incrFactor*YhHistSmooth, YhBins, 'r-');
+plot(XvBins, Dataset.imHeight-(incrFactor*XvHistSmooth),'r-', 'LineWidth',2);
+plot(incrFactor*YhHistSmooth, YhBins, 'r-', 'LineWidth',2);
 
-err
 % set histogram thresholds
-XvThresh = 0.5; YhThresh = 0.5; 
+XvThresh = Dataset.HibaapParam.XvThresh
+YhThresh = Dataset.HibaapParam.YhThresh
 % plot horizontal threshold line
-plot([0 Dataset.imWidth],[incrFactor*XvThresh, incrFactor*XvThresh],'k--','LineWidth',2); hold on;
+plot([0 Dataset.imWidth],[Dataset.imHeight-(incrFactor*XvThresh), Dataset.imHeight-(incrFactor*XvThresh)],'k--','LineWidth',2); hold on;
 % plot vertical threshold line
 plot([incrFactor*YhThresh,incrFactor*YhThresh], [0,Dataset.imHeight],'k--','LineWidth',2);
 
@@ -65,13 +74,38 @@ for i=1:length(XvHistMaxPeaks)
 	end
 end
 
+end
+
+% save result for rectangle classification
+Dataset.Hibaap.XvHistMaxPeaks = XvHistMaxPeaks;
+Dataset.Hibaap.YhHistMaxPeaks = YhHistMaxPeaks;
+
+saveImage = true
+if saveImage
+	disp('saving images..');
+	savePath 						= ['resultsHibaap/',Dataset.fileShort,'/'];
+	% if dir doesnt exist make it 
+	if exist(savePath) == 0
+		mkdir(savePath);
+	end
+	% save images
+	saveas(fgHough 				,[savePath,'03_fgHough.png'],'png'); 
+	saveas(fgHist 				,[savePath,'04_fgHist.png'],'png'); 
+	disp('done!');
+end
+
+% RECTANGLE CLASSIFICATION
+hibaapClassifyRectangles(Dataset,saveImage)
+
+
+
+if false
 
 % get cCorners
 maxWindowSize = 200;
 cornerInlierThreshold = 0.2;%0.2
 % TODO transform to cCorner
 Dataset.Houghlines = getcCorner(Dataset.Houghlines,Dataset.HoughlinesRot,cornerInlierThreshold,maxWindowSize);
-
 
 disp('plotting cCorner windows'); 
 % new figure
@@ -158,7 +192,9 @@ toc
 
 
 % loop through windows unique and plot them with outliers
-mincCornerVotes = 2;
+%TODO
+%mincCornerVotes = Dataset.cCornerParam.minVotes;
+mincCornerVotes = 1;
 ww = 1;
 for w=1:length(WindowsUnique)
 	WindowsUnique{w}.votes
@@ -178,4 +214,6 @@ for w=1:length(WindowsUnique)
 		% plot windowsUnique
 		plot(X, Y, colorStr,'LineWidth',2);
 	end
+end
+
 end

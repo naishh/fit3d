@@ -1,3 +1,4 @@
+% TODO regel general properties per dataset, specific properties per imgnr 
 function Dataset = getDataset(DatasetName, startPath)
 % set defaults before:
 startPathDataset = [startPath,'/dataset/'];
@@ -8,6 +9,12 @@ Dataset.HoughParam.ThetaH.stretchAngle	= 30;
 Dataset.HoughParam.ThetaV.stretchAngle	= 10;
 Dataset.HoughParam.ThetaH.Resolution  	= 0.5;
 Dataset.HoughParam.ThetaV.Resolution  	= Dataset.HoughParam.ThetaH.Resolution;
+Dataset.HibaapParam.XvThresh			= 0.5;
+Dataset.HibaapParam.YhThresh			= 0.5;
+Dataset.HibaapParam.incrFactor			= 20;
+Dataset.hibaapParam.edgeStrokeThreshX 	= 0.033;
+Dataset.hibaapParam.edgeStrokeThreshY 	= 0.033;
+Dataset.cCornerParam.minVotes			= 2;
 
 % customs
 if strcmp(DatasetName,'Floriande') == 1
@@ -64,6 +71,22 @@ elseif strcmp(DatasetName, 'Spil1TransCrop1') == 1
 	Dataset.HoughParam.ThetaV.Resolution  	= Dataset.HoughParam.ThetaH.Resolution;
 	Dataset.HoughParam.ThetaH.stretchAngle	= 3;
 	Dataset.HoughParam.ThetaV.stretchAngle	= 10;
+elseif strcmp(DatasetName, 'Spil1TransCrop2') == 1
+	Dataset.fileShort 						= 'Spil1TransCrop2';
+	Dataset.path = [startPathDataset,'FloriandeSet1/small/'];
+	Dataset.path 							= '../dataset/Spil/datasetSpilRect/';
+	Dataset.baseFile 						= 'P_rect';
+	Dataset.postfix 						= '_transformed_crop2.jpg';
+	Dataset.imStartNr 						= 6;
+	Dataset.colorModel						= 'none'; % {'HSV_V','RGB','BW'};
+	Dataset.EdgeDetectorParam.thresh		= 0.25; 
+	Dataset.HoughParam.fillGap 				= 10;
+	Dataset.HoughParam.minLength 			= 30; 
+	Dataset.HoughParam.ThetaH.Resolution  	= 0.1;
+	Dataset.HoughParam.ThetaV.Resolution  	= Dataset.HoughParam.ThetaH.Resolution;
+	Dataset.HoughParam.ThetaH.stretchAngle	= 3;
+	Dataset.HoughParam.ThetaV.stretchAngle	= 10;
+elseif strcmp(DatasetName ,'Aalsmeer') == 1
 elseif strcmp(DatasetName ,'Aalsmeer') == 1
 % imNr = 6680; file = sprintf('../dataset/fullDatasets/aalsmeer/undist__MG_%d.jpg', imNr); load('XYangleFilter_aalsmeer6680.mat');
 %fileShort 						= 'aalsmeer6680';
@@ -110,6 +133,8 @@ elseif strcmp(DatasetName, 'Antwerpen_6220_crop2') == 1
 	Dataset.HoughParam.ThetaV.stretchAngle	= 5;
 	Dataset.HoughParam.fillGap 				= 20;
 	Dataset.HoughParam.minLength 			= 35; 
+	Dataset.HibaapParam.XvThresh			= 0.5;
+	Dataset.HibaapParam.YvThresh			= 0.5;
 elseif strcmp(DatasetName, 'Antwerpen_6220') == 1
 	Dataset.path = [startPathDataset,'Antwerpen/'];
 	Dataset.baseFile						= 'IMG_'
@@ -122,6 +147,43 @@ elseif strcmp(DatasetName, 'Antwerpen_6220') == 1
 	Dataset.HoughParam.ThetaV.stretchAngle	= 5;
 	Dataset.HoughParam.fillGap 				= 20;
 	Dataset.HoughParam.minLength 			= 35; 
+	Dataset.HibaapParam.incrFactor			= 100;
+elseif strcmp(DatasetName, 'Ort1') == 1
+	Dataset.fileShort 						= 'Ort1';
+	Dataset.path 							= '../dataset/Spil/datasetOrt/';
+	Dataset.baseFile 						= 'IMAG';
+	Dataset.postfix 						= '.jpg';
+	Dataset.imStartNr 						= 1994;
+	Dataset.colorModel						= 'BW'; % {'HSV_V','RGB','BW'};
+	Dataset.EdgeDetectorParam.thresh		= 0.20; 
+	Dataset.HoughParam.fillGap 				= 15;
+	Dataset.HoughParam.minLength 			= 120; 
+	Dataset.HoughParam.ThetaH.Resolution  	= 0.1;
+	Dataset.HoughParam.ThetaV.Resolution  	= Dataset.HoughParam.ThetaH.Resolution;
+	Dataset.HoughParam.ThetaH.stretchAngle	= 5;
+	Dataset.HoughParam.ThetaV.stretchAngle	= 5;
+elseif strcmp(DatasetName, 'OrtCrop1') == 1
+	Dataset.fileShort 						= 'OrtCrop1';
+	Dataset.path 							= '../dataset/Spil/datasetOrt/';
+	Dataset.baseFile 						= 'IMAG';
+	Dataset.postfix 						= '_crop1.jpg';
+	Dataset.imStartNr 						= 1994;
+	Dataset.colorModel						= 'BW'; % {'HSV_V','RGB','BW'};
+	%Dataset.EdgeDetectorParam.thresh		= 0.20; 
+	Dataset.EdgeDetectorParam.thresh		= 0.25; 
+	Dataset.HoughParam.fillGap 				= 15;
+	Dataset.HoughParam.minLength 			= 120; 
+	Dataset.HoughParam.ThetaH.Resolution  	= 0.1;
+	Dataset.HoughParam.ThetaV.Resolution  	= Dataset.HoughParam.ThetaH.Resolution;
+	Dataset.HoughParam.ThetaH.stretchAngle	= 5;
+	Dataset.HoughParam.ThetaV.stretchAngle	= 5;
+	Dataset.HibaapParam.XvThresh			= 0.3;
+	Dataset.HibaapParam.YhThresh			= 0.3;
+	Dataset.HibaapParam.incrFactor			= 75;
+	Dataset.hibaapParam.edgeStrokeThreshX = 0.033;
+	Dataset.hibaapParam.edgeStrokeThreshy = 0.029;
+
+	Dataset.cCornerParam.minVotes			= 1;
 else
 	error('no matching dataset name');
 end
