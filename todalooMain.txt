@@ -2,8 +2,15 @@ GENERAL
 	be in PZO
 	classified binary rectangle -> real rectangle
 		draw biggest rectangle
+			iterative algo that merges windows
+			make new peak array merge small peaks
 		and draw small ones 
+	cleanup getdataset 
+	make new module system
+	stretchup a floriande image
+
 	make binary image of houghline and use it to classify right rectangle
+	check if corrected houghlines (tjointed) have different results then uncorrected (on Hibaap)
 	send results isaac!
 	use feature window instead of column/row
 		plot edge image
@@ -11,8 +18,6 @@ GENERAL
 		to gain info about which method
 	use continue canny or derivative image
 	other datasets 
-	use houghline pixels instead of endpoints
-	check if corrected houghlines (tjointed) have different results then uncorrected (on Hibaap)
 	be in PZO
 
 fRANS FEEDBACK

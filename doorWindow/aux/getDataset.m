@@ -86,68 +86,6 @@ elseif strcmp(DatasetName, 'Spil1TransCrop2') == 1
 	Dataset.HoughParam.ThetaV.Resolution  	= Dataset.HoughParam.ThetaH.Resolution;
 	Dataset.HoughParam.ThetaH.stretchAngle	= 3;
 	Dataset.HoughParam.ThetaV.stretchAngle	= 10;
-elseif strcmp(DatasetName ,'Aalsmeer') == 1
-elseif strcmp(DatasetName ,'Aalsmeer') == 1
-% imNr = 6680; file = sprintf('../dataset/fullDatasets/aalsmeer/undist__MG_%d.jpg', imNr); load('XYangleFilter_aalsmeer6680.mat');
-%fileShort 						= 'aalsmeer6680';
-
-elseif strcmp(DatasetName, 'Antwerpen_6223_crop1') == 1
-	Dataset.path = [startPathDataset,'Antwerpen/'];
-	Dataset.baseFile						= 'IMG_'
-	%Dataset.imStartNr 						= 6220;
-	%Dataset.EdgeDetectorParam.thresh		= 0.45; 
-	Dataset.imStartNr 						= 6223;
-	%Dataset.EdgeDetectorParam.thresh		= 0.2; 
-	Dataset.EdgeDetectorParam.thresh		= 0.65; 
-	Dataset.postfix 						= '_crop1.JPG';
-	Dataset.fileShort						= ['antwerpen_', int2str(Dataset.imStartNr), '_crop1'];
-	Dataset.colorModel						= 'HSV_V'; % {'HSV_V','RGB','BW'};
-	Dataset.HoughParam.ThetaH.stretchAngle	= 5;
-	Dataset.HoughParam.ThetaV.stretchAngle	= 5;
-	Dataset.HoughParam.fillGap 				= 20;
-	Dataset.HoughParam.minLength 			= 35; 
-elseif strcmp(DatasetName, 'Antwerpen_6220') == 1
-	Dataset.path = [startPathDataset,'Antwerpen/'];
-	Dataset.baseFile						= 'IMG_'
-	Dataset.imStartNr 						= 6220;
-	Dataset.EdgeDetectorParam.thresh		= 0.45; 
-	Dataset.postfix 						= '.JPG';
-	Dataset.fileShort						= ['antwerpen_', int2str(Dataset.imStartNr), '_nocrop'];
-	Dataset.colorModel						= 'HSV_V'; % {'HSV_V','RGB','BW'};
-	Dataset.HoughParam.ThetaH.stretchAngle	= 5;
-	Dataset.HoughParam.ThetaV.stretchAngle	= 5;
-	Dataset.HoughParam.fillGap 				= 20;
-	Dataset.HoughParam.minLength 			= 35; 
-elseif strcmp(DatasetName, 'Antwerpen_6220_crop2') == 1
-	Dataset.path = [startPathDataset,'Antwerpen/'];
-	Dataset.baseFile						= 'IMG_'
-	%Dataset.imStartNr 						= 6220;
-	%Dataset.EdgeDetectorParam.thresh		= 0.45; 
-	Dataset.imStartNr 						= 6220;
-	%Dataset.EdgeDetectorParam.thresh		= 0.2; 
-	Dataset.EdgeDetectorParam.thresh		= 0.65; 
-	Dataset.postfix 						= '_crop2.JPG';
-	Dataset.fileShort						= ['antwerpen_', int2str(Dataset.imStartNr), '_crop1'];
-	Dataset.colorModel						= 'HSV_V'; % {'HSV_V','RGB','BW'};
-	Dataset.HoughParam.ThetaH.stretchAngle	= 5;
-	Dataset.HoughParam.ThetaV.stretchAngle	= 5;
-	Dataset.HoughParam.fillGap 				= 20;
-	Dataset.HoughParam.minLength 			= 35; 
-	Dataset.HibaapParam.XvThresh			= 0.5;
-	Dataset.HibaapParam.YvThresh			= 0.5;
-elseif strcmp(DatasetName, 'Antwerpen_6220') == 1
-	Dataset.path = [startPathDataset,'Antwerpen/'];
-	Dataset.baseFile						= 'IMG_'
-	Dataset.imStartNr 						= 6220;
-	Dataset.EdgeDetectorParam.thresh		= 0.45; 
-	Dataset.postfix 						= '.JPG';
-	Dataset.fileShort						= ['antwerpen_', int2str(Dataset.imStartNr), '_nocrop'];
-	Dataset.colorModel						= 'HSV_V'; % {'HSV_V','RGB','BW'};
-	Dataset.HoughParam.ThetaH.stretchAngle	= 5;
-	Dataset.HoughParam.ThetaV.stretchAngle	= 5;
-	Dataset.HoughParam.fillGap 				= 20;
-	Dataset.HoughParam.minLength 			= 35; 
-	Dataset.HibaapParam.incrFactor			= 100;
 elseif strcmp(DatasetName, 'Ort1') == 1
 	Dataset.fileShort 						= 'Ort1';
 	Dataset.path 							= '../dataset/Spil/datasetOrt/';
