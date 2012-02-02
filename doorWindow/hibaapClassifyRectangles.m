@@ -1,6 +1,13 @@
 %function hibaapclassifyRectangles(Dataset,saveImage);
 % RECTANGLE CLASSIFICATION
-close all;
+
+% load hibaap values
+
+%Dataset.fileShort='Ort1'
+%Dataset.fileShort='OrtCrop1'
+Dataset.fileShort='Spil1TransCrop1'
+
+load([startPath,'/doorWindow/mats/Dataset_',Dataset.fileShort,'_hibaap.mat']);
 
 if exist('Dataset')==0
 	error('tj:Dataset not loaded')
@@ -55,15 +62,15 @@ WindowsRowVoteBin = WindowsRowVote>Dataset.HibaapParam.edgeStrokeThreshY;
 % draw binary stroke images 
 if true
 	sumBinXBinY 			= imEdgeCountBinX+imEdgeCountBinY;
-	fgimOri 				= figure();imshow(Dataset.imOri,[]);
-	fgimEdge 				= figure();imshow(Dataset.imEdge,[]);
-	fgimEdgeCountX 			= figure();imshow(imEdgeCountX,[]);
-	fgimEdgeCountBinX  		= figure();imshow(imEdgeCountBinX,[]);
-	fgimEdgeCountY 			= figure();imshow(imEdgeCountY,[]);
-	fgimEdgeCountBinY  		= figure();imshow(imEdgeCountBinY,[]);
+	%fgimOri 				= figure();imshow(Dataset.imOri,[]);
+	%fgimEdge 				= figure();imshow(Dataset.imEdge,[]);
+	%fgimEdgeCountX 			= figure();imshow(imEdgeCountX,[]);
+	%fgimEdgeCountBinX  		= figure();imshow(imEdgeCountBinX,[]);
+	%fgimEdgeCountY 			= figure();imshow(imEdgeCountY,[]);
+	%fgimEdgeCountBinY  		= figure();imshow(imEdgeCountBinY,[]);
 	fgimEdgeCountSum  		= figure();imshow(imEdgeCountX+imEdgeCountY,[]);
-	fgimEdgeCountBinSum  	= figure();imshow(sumBinXBinY ,[]);
-	fgimEdgeCountBinSumBin  = figure();imshow(sumBinXBinY==2,[]);
+	%fgimEdgeCountBinSum  	= figure();imshow(sumBinXBinY ,[]);
+	%fgimEdgeCountBinSumBin  = figure();imshow(sumBinXBinY==2,[]);
 
 end
 

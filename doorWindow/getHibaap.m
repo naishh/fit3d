@@ -1,12 +1,8 @@
 % HIBAAP - HIstogram BAsed AProach, window detection
 close all;
 tic;
-
-if true
-%load([startPath,'/doorWindow/mats/Dataset_antwerpen_6223_crop1.mat']);
-%load([startPath,'/doorWindow/mats/Dataset_Spil1Trans.mat']);
-%load([startPath,'/doorWindow/mats/Dataset_Spil1TransCrop1.mat']);
-%load([startPath,'/doorWindow/mats/Dataset_Spil1TransCrop1.mat']);
+%Dataset.fileShort = 'OrtCrop1';
+%load([startPath,'/doorWindow/mats/Dataset_',Dataset.fileShort,'_houghlinesVH.mat']);
 
 disp('plotting houghlines');
 	fgHough = figure();imshow(Dataset.imOriDimmed); hold on;
@@ -66,6 +62,7 @@ for i=1:length(XvHistMaxPeaks)
 end
 
 
+saveImage = false;
 if saveImage
 	disp('saving images..');
 	savePath 						= ['resultsHibaap/',Dataset.fileShort,'/'];
@@ -79,7 +76,11 @@ if saveImage
 	disp('done!');
 end
 
-end
+
+saveStr = [startPath,'/doorWindow/mats/Dataset_',Dataset.fileShort,'_hibaap.mat'];
+save(saveStr, 'Dataset');
+saveStr, disp('saved');
+
 
 % RECTANGLE CLASSIFICATION by cCorner
 %hibaapcCorner(Dataset)

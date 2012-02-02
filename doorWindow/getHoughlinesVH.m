@@ -16,8 +16,8 @@ if ~DatasetFromCache
 	%Dataset 						= getDataset('Antwerpen_6220_crop2',startPath);
 	%Dataset 						= getDataset('Spil1Trans',startPath);
 	%Dataset 						= getDataset('Spil1TransCrop2',startPath);
-	%Dataset 						= getDataset('Ort1',startPath);
-	Dataset 						= getDataset('OrtCrop1',startPath)
+	Dataset 						= getDataset('Ort1',startPath);
+	%Dataset 						= getDataset('OrtCrop1',startPath)
 	%Dataset 						= getDataset('Spil1TransCrop1',startPath);
 	paramStr 						= getParamStr(Dataset);
 end
@@ -74,24 +74,21 @@ plotHoughlinesAll(Dataset.imHeight,Dataset.Houghlines,Dataset.HoughlinesRot)
 toc;
 
 if saveImageQ
-	reply = input('Save result as images? y/n [n]: ', 's');
+	reply = input('Save Dataset and images? y/n [n]: ', 's');
 	if isempty(reply)
 		reply = 'n';
 	end
 	if reply=='y'
-		disp('saving images..');
+		disp('saving Dataset and images ..');
 		savePathFile 						= ['results/',Dataset.fileShort];
 		% save images
 		saveas(fgColorModelTransform,[savePathFile,'_colortransform__',paramStr],'png');
 		saveas(fgEdge,[savePathFile,'_edge__',paramStr],'png');
 		saveas(fgHough,[savePathFile,'_hough__',paramStr],'png');
 		% update dataset vals
-		save(['mats/Dataset_',Dataset.fileShort,'.mat'],'Dataset');
-		disp('saved');
-		['mats/Dataset_',Dataset.fileShort,'.mat']
-		disp('done');
-
-
+		saveStr = [startPath,'/doorWindow/mats/Dataset_',Dataset.fileShort,'_houghlinesVH.mat'];
+		save(saveStr, 'Dataset');
+		saveStr, disp('saved');
 	end
 end
 
