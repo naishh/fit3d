@@ -6,12 +6,12 @@ tic;
 
 disp('plotting houghlines');
 	fgHough = figure();imshow(Dataset.imOriDimmed); hold on;
-	plotHoughlinesAll(Dataset.imHeight,Dataset.Houghlines,Dataset.HoughlinesRot);
+	plotHoughlinesAll(Dataset.imHeight,Dataset.HoughResult.Houghlines,Dataset.HoughResult.HoughlinesRot);
 	fgHist= figure();imshow(Dataset.imOriDimmed); hold on;
 
 % get coords of endpoints of houghlines
-[Xv, Yv] = houghlinesToXY(Dataset.Houghlines);
-[Xh, Yh] = houghlinesToXY(Dataset.HoughlinesRot);
+[Xv, Yv] = houghlinesToXY(Dataset.HoughResult.Houghlines);
+[Xh, Yh] = houghlinesToXY(Dataset.HoughResult.HoughlinesRot);
 
 % calc histograms
 XvBins = 1:1:Dataset.imWidth; XvHist = hist(Xv,XvBins);
@@ -70,6 +70,8 @@ if saveImage
 	if exist(savePath) == 0
 		mkdir(savePath);
 	end
+	% TODO
+	% use hgexport for eps images report thesis !
 	% save images
 	saveas(fgHough 				,[savePath,'03_fgHough.png'],'png'); 
 	saveas(fgHist 				,[savePath,'04_fgHist.png'],'png'); 

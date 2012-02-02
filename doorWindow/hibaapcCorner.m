@@ -4,12 +4,12 @@ function hibaapcCorner(Dataset)
 mincCornerVotes = 1;
 maxWindowSize = 200;
 cornerInlierThreshold = 0.2;%0.2
-Dataset.Houghlines = getcCorner(Dataset.Houghlines,Dataset.HoughlinesRot,cornerInlierThreshold,maxWindowSize);
+Dataset.HoughResult.Houghlines = getcCorner(Dataset.HoughResult.Houghlines,Dataset.HoughResult.HoughlinesRot,cornerInlierThreshold,maxWindowSize);
 
 disp('plotting cCorner windows'); 
 % new figure
 pause; figure;imshow(Dataset.imOriDimmed); hold on;
-plotcCorners(Dataset.Houghlines, Dataset.HoughlinesRot, 'cCorner', false)
+plotcCorners(Dataset.HoughResult.Houghlines, Dataset.HoughResult.HoughlinesRot, 'cCorner', false)
 
 
 disp('plotting histograms and cCorner windows fused'); 
@@ -18,9 +18,9 @@ pause; figure;imshow(Dataset.imOriDimmed); hold on;
 % loop through cCorners and draw window @ 4 nearby crossings from kwadrants
 WindowsUnique = cell(0);
 w = 1;
-for i=1:length(Dataset.Houghlines)
-	for k=1:length(Dataset.Houghlines(i).cCorners)
-		cCorner = Dataset.Houghlines(i).cCorners(k);
+for i=1:length(Dataset.HoughResult.Houghlines)
+	for k=1:length(Dataset.HoughResult.Houghlines(i).cCorners)
+		cCorner = Dataset.HoughResult.Houghlines(i).cCorners(k);
 		%plotcCorner(cCorner,'cCorner');
 		% get midpoint of cCorner
 		winX = cCorner.windowMidpointX;

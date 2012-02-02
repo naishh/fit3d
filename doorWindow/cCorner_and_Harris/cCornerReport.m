@@ -1,6 +1,6 @@
 close all;
 load('../mats/Dataset_antwerpen_6223_crop1.mat');
-Houghlines = Dataset.Houghlines; HoughlinesRot = Dataset.HoughlinesRot
+Houghlines = Dataset.HoughResult.Houghlines; HoughlinesRot = Dataset.HoughResult.HoughlinesRot
 
 maxWindowSize = 200;
 cornerInlierThreshold = 0.2

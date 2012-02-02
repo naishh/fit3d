@@ -97,6 +97,7 @@ DOOR WINDOW:
 
 		extra ideeen [eerst alles opschrijven dan extra ideeen]
 			iets met kleur doen, b.v. gemiddelde muurkleur van plaatje afhalen
+			na 1e keer windows vinden grootste vierkant eromheen trekken en opnieuw (nauwkeuriger) hibaap
 			ipv windowmidpoint een corner laten voten
 			bij minimaal 3 corners een window maken
 			aangrensende ramen samenvoegen

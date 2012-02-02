@@ -3,20 +3,25 @@
 
 % load hibaap values
 
-%Dataset.fileShort='Ort1'
+Dataset.fileShort='Ort1'
 %Dataset.fileShort='OrtCrop1'
-Dataset.fileShort='Spil1TransCrop1'
-
 load([startPath,'/doorWindow/mats/Dataset_',Dataset.fileShort,'_hibaap.mat']);
 
 if exist('Dataset')==0
 	error('tj:Dataset not loaded')
 end
 
+[Dataset.HoughResult.V.LinesIm,Dataset.HoughResult.H.LinesIm] = houghlinesToIm(Dataset,0)
+
+%figure;imshow(houghlinesIm,[])
+%error('klaar');
+
+
+%houghlinesRotIm = houghlinesToIm(Dataset.HoughResult.HoughlinesRot);
 
 % show image
 figure;imshow(Dataset.imEdge);hold on;
-plotHoughlinesAll(Dataset.imHeight,Dataset.Houghlines,Dataset.HoughlinesRot);
+plotHoughlinesAll(Dataset.imHeight,Dataset.HoughResult.Houghlines,Dataset.HoughResult.HoughlinesRot);
 plotPeakLines(Dataset);
 
 % add origin and endpoint to peak array so it can be used as a range
