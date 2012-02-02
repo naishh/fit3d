@@ -1,19 +1,22 @@
-function hibaapclassifyRectangles(Dataset,saveImage);
+%function hibaapclassifyRectangles(Dataset,saveImage);
+% RECTANGLE CLASSIFICATION
+close all;
+
+if exist('Dataset')==0
+	error('tj:Dataset not loaded')
+end
+
+
+% show image
 figure;imshow(Dataset.imEdge);hold on;
 plotHoughlinesAll(Dataset.imHeight,Dataset.Houghlines,Dataset.HoughlinesRot);
 plotPeakLines(Dataset);
-err
 
+% add origin and endpoint to peak array so it can be used as a range
+XvHistMaxPeaks = [1,Dataset.Hibaap.XvHistMaxPeaks, Dataset.imWidth];
+YhHistMaxPeaks = [1,Dataset.Hibaap.YhHistMaxPeaks,Dataset.imHeight];
 
-XvHistMaxPeaks = Dataset.Hibaap.XvHistMaxPeaks; 
-YhHistMaxPeaks = Dataset.Hibaap.YhHistMaxPeaks;
-% RECTANGLE CLASSIFICATION
-% add borders
-XvHistMaxPeaks = [1,XvHistMaxPeaks,Dataset.imWidth];
-YhHistMaxPeaks = [1,YhHistMaxPeaks,Dataset.imHeight];
-
-
-
+% declare vars
 tempIm = zeros(Dataset.imHeight,Dataset.imWidth,1);
 imEdgeCountX = tempIm;
 imEdgeCountY = tempIm;
@@ -21,58 +24,48 @@ imEdgeCountBinX = tempIm;
 imEdgeCountBinY = tempIm;
 
 % loop through vertical strokes
-edgeStrokeNormArray = zeros(length(XvHistMaxPeaks),1)
 for i=2:length(XvHistMaxPeaks)
-	x1 = XvHistMaxPeaks(i-1);
-	x2 = XvHistMaxPeaks(i);
+	x1 = XvHistMaxPeaks(i-1); x2 = XvHistMaxPeaks(i);
 	edgeStroke	= Dataset.imEdge(:,x1:x2);
 	edgeStrokeTotal= sum(sum(edgeStroke));
 	edgeStrokeNorm=edgeStrokeTotal/(size(edgeStroke,1)*size(edgeStroke,2));
 	imEdgeCountX(:,x1:x2) = edgeStrokeNorm;
-	edgeStrokeNormArray(i-1) = edgeStrokeNorm;
+	WindowsColVote(i) = edgeStrokeNorm;
 	%imshow(imEdgeCountX,[]); pause;
-	if edgeStrokeNorm<=Dataset.hibaapParam.edgeStrokeThreshX 
-		binVal = 0;
-	else
-		binVal = 1;
-	end
-	imEdgeCountBinX(:,x1:x2) = binVal;
+	imEdgeCountBinX(:,x1:x2) = edgeStrokeNorm>Dataset.HibaapParam.edgeStrokeThreshX;
 end
-edgeStrokeNormArray
-
-disp('now for y');
 % loop through horizontal strokes
-edgeStrokeNormArray = zeros(length(YhHistMaxPeaks),1)
 for j=2:length(YhHistMaxPeaks)
-	y1 = YhHistMaxPeaks(j-1);
-	y2 = YhHistMaxPeaks(j);
+	y1 = YhHistMaxPeaks(j-1); y2 = YhHistMaxPeaks(j);
 	edgeStroke	= Dataset.imEdge(y1:y2,:);
 	edgeStrokeTotal= sum(sum(edgeStroke));
-	edgeStrokeNorm=edgeStrokeTotal/(size(edgeStroke,1)*size(edgeStroke,2));
+	edgeStrokeNorm=edgeStrokeTotal/(size(edgeStroke,1)*size(edgeStroke,2))
 	imEdgeCountY(y1:y2,:) = edgeStrokeNorm;
-	edgeStrokeNormArray(j-1) = edgeStrokeNorm;
+	WindowsRowVote(j) = edgeStrokeNorm;
 	%pause, y1,y2,j,edgeStrokeNorm, imshow(imEdgeCountY,[]); 
-	if edgeStrokeNorm<=Dataset.hibaapParam.edgeStrokeThreshY 
-		binVal = 0;
-	else
-		binVal = 1;
-	end
-	imEdgeCountBinY(y1:y2,:) = binVal;
+	imEdgeCountBinY(y1:y2,:) = edgeStrokeNorm>Dataset.HibaapParam.edgeStrokeThreshY;
 end
+% make values binary 
+WindowsColVoteBin = WindowsColVote>Dataset.HibaapParam.edgeStrokeThreshX;
+WindowsRowVoteBin = WindowsRowVote>Dataset.HibaapParam.edgeStrokeThreshY;
 
-edgeStrokeNormArray
-sumBinXBinY 			= imEdgeCountBinX+imEdgeCountBinY;
 
-fgimOri 				= figure();imshow(Dataset.imOri,[]);
-fgimEdge 				= figure();imshow(Dataset.imEdge,[]);
-fgimEdgeCountX 			= figure();imshow(imEdgeCountX,[]);
-fgimEdgeCountBinX  		= figure();imshow(imEdgeCountBinX,[]);
-fgimEdgeCountY 			= figure();imshow(imEdgeCountY,[]);
-fgimEdgeCountBinY  		= figure();imshow(imEdgeCountBinY,[]);
-fgimEdgeCountSum  		= figure();imshow(imEdgeCountX+imEdgeCountY,[]);
-fgimEdgeCountBinSum  	= figure();imshow(sumBinXBinY ,[]);
-fgimEdgeCountBinSumBin  = figure();imshow(sumBinXBinY==2,[]);
 
+
+% draw binary stroke images 
+if true
+	sumBinXBinY 			= imEdgeCountBinX+imEdgeCountBinY;
+	fgimOri 				= figure();imshow(Dataset.imOri,[]);
+	fgimEdge 				= figure();imshow(Dataset.imEdge,[]);
+	fgimEdgeCountX 			= figure();imshow(imEdgeCountX,[]);
+	fgimEdgeCountBinX  		= figure();imshow(imEdgeCountBinX,[]);
+	fgimEdgeCountY 			= figure();imshow(imEdgeCountY,[]);
+	fgimEdgeCountBinY  		= figure();imshow(imEdgeCountBinY,[]);
+	fgimEdgeCountSum  		= figure();imshow(imEdgeCountX+imEdgeCountY,[]);
+	fgimEdgeCountBinSum  	= figure();imshow(sumBinXBinY ,[]);
+	fgimEdgeCountBinSumBin  = figure();imshow(sumBinXBinY==2,[]);
+
+end
 
 if saveImage
 	disp('saving images..');
@@ -89,5 +82,23 @@ if saveImage
 	saveas(fgimEdgeCountBinSumBin,[savePath,'35_classifyRects_fgimEdgeCountBinSumBin.png'],'png');
 	disp('done!');
 end
-% END rectangle classification ----------------------------------------------------------------------------------
+
+
+
+% drawing the windows
+figure;imshow(Dataset.imOriDimmed);hold on;
+for i=2:length(XvHistMaxPeaks)
+	%WindowsColVote(i)
+	for j=2:length(YhHistMaxPeaks)
+		%WindowsColVote(j)
+		X = [XvHistMaxPeaks(i),XvHistMaxPeaks(i), XvHistMaxPeaks(i-1),XvHistMaxPeaks(i-1),XvHistMaxPeaks(i)];
+		Y = [YhHistMaxPeaks(j),YhHistMaxPeaks(j-1), YhHistMaxPeaks(j-1),YhHistMaxPeaks(j),YhHistMaxPeaks(j)];
+		if WindowsColVoteBin(i) && WindowsRowVoteBin(j)
+			colorStr = 'r-';
+			plot(X,Y, colorStr, 'LineWidth',2);
+		else
+			%colorStr = 'r-';
+		end
+	end
+end
 

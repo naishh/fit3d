@@ -2,7 +2,7 @@
 close all;
 tic;
 
-if false
+if true
 %load([startPath,'/doorWindow/mats/Dataset_antwerpen_6223_crop1.mat']);
 %load([startPath,'/doorWindow/mats/Dataset_Spil1Trans.mat']);
 %load([startPath,'/doorWindow/mats/Dataset_Spil1TransCrop1.mat']);
@@ -66,7 +66,6 @@ for i=1:length(XvHistMaxPeaks)
 end
 
 
-saveImage = false
 if saveImage
 	disp('saving images..');
 	savePath 						= ['resultsHibaap/',Dataset.fileShort,'/'];
@@ -87,7 +86,8 @@ end
 
 
 % RECTANGLE CLASSIFICATION
-hibaapClassifyRectangles(Dataset,saveImage)
+%saveImage = false
+%hibaapClassifyRectangles(Dataset,saveImage)
 
 
 

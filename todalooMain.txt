@@ -3,6 +3,8 @@ GENERAL
 	classified binary rectangle -> real rectangle
 		draw biggest rectangle
 		and draw small ones 
+	make binary image of houghline and use it to classify right rectangle
+	send results isaac!
 	use feature window instead of column/row
 		plot edge image
 		together with rows en cols
@@ -85,6 +87,7 @@ DOOR WINDOW:
 
 
 		extra ideeen [eerst alles opschrijven dan extra ideeen]
+			iets met kleur doen, b.v. gemiddelde muurkleur van plaatje afhalen
 			ipv windowmidpoint een corner laten voten
 			bij minimaal 3 corners een window maken
 			aangrensende ramen samenvoegen
@@ -172,7 +175,6 @@ DOOR WINDOW:
 
 
 	FEATURE 
-		harris corner detection?
 		try license plate code
 			annotate dataset (midle point of window)
 		read papers about door window detection 

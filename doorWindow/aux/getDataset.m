@@ -12,8 +12,8 @@ Dataset.HoughParam.ThetaV.Resolution  	= Dataset.HoughParam.ThetaH.Resolution;
 Dataset.HibaapParam.XvThresh			= 0.5;
 Dataset.HibaapParam.YhThresh			= 0.5;
 Dataset.HibaapParam.incrFactor			= 20;
-Dataset.hibaapParam.edgeStrokeThreshX 	= 0.033;
-Dataset.hibaapParam.edgeStrokeThreshY 	= 0.033;
+Dataset.HibaapParam.edgeStrokeThreshX 	= 0.033;
+Dataset.HibaapParam.edgeStrokeThreshY 	= 0.033;
 Dataset.cCornerParam.minVotes			= 2;
 
 % customs
