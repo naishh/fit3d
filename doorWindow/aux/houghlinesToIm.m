@@ -1,5 +1,5 @@
 % turns houghlines into pixel images 
-function [LinesImV,LinesImH] = houghlinesToIm(Dataset,HoughlinesObj, plotme)
+function [LinesImV,LinesImH] = houghlinesToIm(Dataset, plotme)
 	close all;	
 disp('plotting houghlines');
 	fgHough = figure();imshow(Dataset.imOriDimmed); hold on;

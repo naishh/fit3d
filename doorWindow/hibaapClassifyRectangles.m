@@ -3,7 +3,8 @@
 
 % load hibaap values
 
-Dataset.fileShort='Ort1'
+%Dataset.fileShort='Ort1Crop1'
+Dataset.fileShort='Spil1TransCrop1'
 %Dataset.fileShort='OrtCrop1'
 load([startPath,'/doorWindow/mats/Dataset_',Dataset.fileShort,'_hibaap.mat']);
 
@@ -38,7 +39,7 @@ imEdgeCountBinY = tempIm;
 % loop through vertical strokes
 for i=2:length(XvHistMaxPeaks)
 	x1 = XvHistMaxPeaks(i-1); x2 = XvHistMaxPeaks(i);
-	edgeStroke	= Dataset.imEdge(:,x1:x2);
+	edgeStroke	= Dataset.HoughResult.H.LinesIm(:,x1:x2);
 	edgeStrokeTotal= sum(sum(edgeStroke));
 	edgeStrokeNorm=edgeStrokeTotal/(size(edgeStroke,1)*size(edgeStroke,2));
 	imEdgeCountX(:,x1:x2) = edgeStrokeNorm;
@@ -49,7 +50,7 @@ end
 % loop through horizontal strokes
 for j=2:length(YhHistMaxPeaks)
 	y1 = YhHistMaxPeaks(j-1); y2 = YhHistMaxPeaks(j);
-	edgeStroke	= Dataset.imEdge(y1:y2,:);
+	edgeStroke	= Dataset.HoughResult.V.LinesIm(y1:y2,:);
 	edgeStrokeTotal= sum(sum(edgeStroke));
 	edgeStrokeNorm=edgeStrokeTotal/(size(edgeStroke,1)*size(edgeStroke,2))
 	imEdgeCountY(y1:y2,:) = edgeStrokeNorm;
@@ -69,9 +70,9 @@ if true
 	sumBinXBinY 			= imEdgeCountBinX+imEdgeCountBinY;
 	%fgimOri 				= figure();imshow(Dataset.imOri,[]);
 	%fgimEdge 				= figure();imshow(Dataset.imEdge,[]);
-	%fgimEdgeCountX 			= figure();imshow(imEdgeCountX,[]);
+	fgimEdgeCountX 			= figure();imshow(imEdgeCountX,[]);
 	%fgimEdgeCountBinX  		= figure();imshow(imEdgeCountBinX,[]);
-	%fgimEdgeCountY 			= figure();imshow(imEdgeCountY,[]);
+	fgimEdgeCountY 			= figure();imshow(imEdgeCountY,[]);
 	%fgimEdgeCountBinY  		= figure();imshow(imEdgeCountBinY,[]);
 	fgimEdgeCountSum  		= figure();imshow(imEdgeCountX+imEdgeCountY,[]);
 	%fgimEdgeCountBinSum  	= figure();imshow(sumBinXBinY ,[]);

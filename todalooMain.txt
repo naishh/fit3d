@@ -1,5 +1,7 @@
 GENERAL
 	be in PZO
+	new thresholds because of hough transform
+	test on all datasets
 	check with meld in fit3darchive if i backup everything except not needed datasets
 
 	make 2 binary images of houghline and use it to classify right rectangle
