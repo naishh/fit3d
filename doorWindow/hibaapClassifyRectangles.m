@@ -1,9 +1,10 @@
 %function hibaapclassifyRectangles(Dataset,saveImage);
 % RECTANGLE CLASSIFICATION
+saveImage = false
 
 % load hibaap values
 
-%Dataset.fileShort='Ort1Crop1'
+%Dataset.fileShort='Ort1'
 Dataset.fileShort='Spil1TransCrop1'
 %Dataset.fileShort='OrtCrop1'
 load([startPath,'/doorWindow/mats/Dataset_',Dataset.fileShort,'_hibaap.mat']);
@@ -21,9 +22,9 @@ end
 %houghlinesRotIm = houghlinesToIm(Dataset.HoughResult.HoughlinesRot);
 
 % show image
-figure;imshow(Dataset.imEdge);hold on;
-plotHoughlinesAll(Dataset.imHeight,Dataset.HoughResult.Houghlines,Dataset.HoughResult.HoughlinesRot);
-plotPeakLines(Dataset);
+%figure;imshow(Dataset.imEdge);hold on;
+%plotHoughlinesAll(Dataset.imHeight,Dataset.HoughResult.Houghlines,Dataset.HoughResult.HoughlinesRot);
+%plotPeakLines(Dataset);
 
 % add origin and endpoint to peak array so it can be used as a range
 XvHistMaxPeaks = [1,Dataset.Hibaap.XvHistMaxPeaks, Dataset.imWidth];
@@ -36,6 +37,7 @@ imEdgeCountY = tempIm;
 imEdgeCountBinX = tempIm;
 imEdgeCountBinY = tempIm;
 
+
 % loop through vertical strokes
 for i=2:length(XvHistMaxPeaks)
 	x1 = XvHistMaxPeaks(i-1); x2 = XvHistMaxPeaks(i);
@@ -45,7 +47,7 @@ for i=2:length(XvHistMaxPeaks)
 	imEdgeCountX(:,x1:x2) = edgeStrokeNorm;
 	WindowsColVote(i) = edgeStrokeNorm;
 	%imshow(imEdgeCountX,[]); pause;
-	imEdgeCountBinX(:,x1:x2) = edgeStrokeNorm>Dataset.HibaapParam.edgeStrokeThreshX;
+	%imEdgeCountBinX(:,x1:x2) = edgeStrokeNorm>=Dataset.HibaapParam.edgeStrokeThreshX;
 end
 % loop through horizontal strokes
 for j=2:length(YhHistMaxPeaks)
@@ -56,18 +58,22 @@ for j=2:length(YhHistMaxPeaks)
 	imEdgeCountY(y1:y2,:) = edgeStrokeNorm;
 	WindowsRowVote(j) = edgeStrokeNorm;
 	%pause, y1,y2,j,edgeStrokeNorm, imshow(imEdgeCountY,[]); 
-	imEdgeCountBinY(y1:y2,:) = edgeStrokeNorm>Dataset.HibaapParam.edgeStrokeThreshY;
+	%imEdgeCountBinY(y1:y2,:) = edgeStrokeNorm>=Dataset.HibaapParam.edgeStrokeThreshY;
 end
+
+% overrule thresholds by auto threshold (average val)
+Dataset.HibaapParam.edgeStrokeThreshX   = sum(WindowsColVote)/(length(WindowsColVote)-1);
+Dataset.HibaapParam.edgeStrokeThreshY   = sum(WindowsRowVote)/(length(WindowsRowVote)-1);
 % make values binary 
-WindowsColVoteBin = WindowsColVote>Dataset.HibaapParam.edgeStrokeThreshX;
-WindowsRowVoteBin = WindowsRowVote>Dataset.HibaapParam.edgeStrokeThreshY;
+WindowsColVoteBin = WindowsColVote>=Dataset.HibaapParam.edgeStrokeThreshX;
+WindowsRowVoteBin = WindowsRowVote>=Dataset.HibaapParam.edgeStrokeThreshY;
 
 
 
 
 % draw binary stroke images 
 if true
-	sumBinXBinY 			= imEdgeCountBinX+imEdgeCountBinY;
+	%sumBinXBinY 			= imEdgeCountBinX+imEdgeCountBinY;
 	%fgimOri 				= figure();imshow(Dataset.imOri,[]);
 	%fgimEdge 				= figure();imshow(Dataset.imEdge,[]);
 	fgimEdgeCountX 			= figure();imshow(imEdgeCountX,[]);

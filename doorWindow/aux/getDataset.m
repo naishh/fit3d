@@ -71,6 +71,12 @@ elseif strcmp(DatasetName, 'Spil1TransCrop1') == 1
 	Dataset.HoughParam.ThetaV.Resolution  	= Dataset.HoughParam.ThetaH.Resolution;
 	Dataset.HoughParam.ThetaH.stretchAngle	= 3;
 	Dataset.HoughParam.ThetaV.stretchAngle	= 10;
+	Dataset.HibaapParam.edgeStrokeThreshX 	= 0.0125;
+	Dataset.HibaapParam.edgeStrokeThreshY 	= 0.0184;
+	Dataset.HibaapParam.edgeStrokeThreshX 	= 0.0125;
+	Dataset.HibaapParam.edgeStrokeThreshX 	= 0.0115;
+	Dataset.HibaapParam.incrFactor			= 10;
+	%Dataset.HibaapParam.edgeStrokeThreshY 	= 0.033;
 elseif strcmp(DatasetName, 'Spil1TransCrop2') == 1
 	Dataset.fileShort 						= 'Spil1TransCrop2';
 	Dataset.path = [startPathDataset,'FloriandeSet1/small/'];
@@ -86,6 +92,7 @@ elseif strcmp(DatasetName, 'Spil1TransCrop2') == 1
 	Dataset.HoughParam.ThetaV.Resolution  	= Dataset.HoughParam.ThetaH.Resolution;
 	Dataset.HoughParam.ThetaH.stretchAngle	= 3;
 	Dataset.HoughParam.ThetaV.stretchAngle	= 10;
+	Dataset.HibaapParam.incrFactor			= 75;
 elseif strcmp(DatasetName, 'Ort1') == 1
 	Dataset.fileShort 						= 'Ort1';
 	Dataset.path 							= '../dataset/Spil/datasetOrt/';
@@ -119,7 +126,7 @@ elseif strcmp(DatasetName, 'OrtCrop1') == 1
 	Dataset.HibaapParam.YhThresh			= 0.3;
 	Dataset.HibaapParam.incrFactor			= 75;
 	Dataset.hibaapParam.edgeStrokeThreshX = 0.033;
-	Dataset.hibaapParam.edgeStrokeThreshy = 0.029;
+	Dataset.hibaapParam.edgeStrokeThreshY = 0.029;
 
 	Dataset.cCornerParam.minVotes			= 1;
 else
