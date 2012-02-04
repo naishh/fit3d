@@ -1,6 +1,10 @@
 GENERAL
 	be in PZO
 	new thresholds because of hough transform
+		use middelste getal zodat helft wordt geclassiceerd
+		make 2 clusters!
+		make nr of windows known knowledge?
+
 	test on all datasets
 	check with meld in fit3darchive if i backup everything except not needed datasets
 
