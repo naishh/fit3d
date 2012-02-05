@@ -2,9 +2,8 @@
 function [LinesImV,LinesImH] = houghlinesToIm(Dataset, plotme)
 	close all;	
 disp('plotting houghlines');
-	fgHough = figure();imshow(Dataset.imOriDimmed); hold on;
-	plotHoughlinesAll(Dataset.imHeight,Dataset.HoughResult.Houghlines,Dataset.HoughResult.HoughlinesRot);
-	h=figure();
+	%fgHough = figure();imshow(Dataset.imOriDimmed); hold on;
+	%plotHoughlinesAll(Dataset.imHeight,Dataset.HoughResult.Houghlines,Dataset.HoughResult.HoughlinesRot);
 	% %im = hough_bin_pixels(Dataset.imEdge, HoughlinesObj.Theta,HoughlinesObj.Rho,HoughlinesObj.Peaks(1,:));
 
 	% imTotal=zeros(Dataset.imHeight,Dataset.imWidth);
@@ -42,7 +41,8 @@ disp('plotting houghlines');
 	end
 
 	if plotme
-		figure;imshow(imdilate(LinesImV,ones(5,5)));
-		figure;imshow(imdilate(LinesImH,ones(5,5)));
+		fgLinesImV = figure();imshow(imdilate(LinesImV,ones(5,5)));
+		fgLinesImH = figure();imshow(imdilate(LinesImH,ones(5,5)));
+		%figure;imshow(imdilate(LinesImV,ones(5,5))+imdilate(LinesImH,ones(5,5)),[]);
 	end
 

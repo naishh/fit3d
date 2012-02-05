@@ -1,19 +1,26 @@
 %function hibaapclassifyRectangles(Dataset,saveImage);
 % RECTANGLE CLASSIFICATION
-saveImage = true
 
 % load hibaap values
 
+clear;
+cd ..
+setup
+cd doorWindow
+
+saveImage = true
 %Dataset.fileShort='Ort1'
-%Dataset.fileShort='Spil1TransCrop1'
-Dataset.fileShort='OrtCrop1'
+%Dataset.fileShort='OrtCrop1'
+Dataset.fileShort='Spil1TransCrop1'
 load([startPath,'/doorWindow/mats/Dataset_',Dataset.fileShort,'_hibaap.mat']);
 
 if exist('Dataset')==0
 	error('tj:Dataset not loaded')
 end
 
-[Dataset.HoughResult.V.LinesIm,Dataset.HoughResult.H.LinesIm] = houghlinesToIm(Dataset,0)
+%fgHough = figure();imshow(Dataset.imOriDimmed); hold on;
+%plotHoughlinesAll(Dataset.imHeight,Dataset.HoughResult.Houghlines,Dataset.HoughResult.HoughlinesRot);
+[Dataset.HoughResult.V.LinesIm,Dataset.HoughResult.H.LinesIm] = houghlinesToIm(Dataset,1)
 
 % show image
 %figure;imshow(Dataset.imEdge);hold on;
@@ -30,41 +37,66 @@ imHoughPxCountX = tempIm;
 imHoughPxCountY = tempIm;
 
 
+% SUM UP HOUGHLINE PICS 
 % loop through vertical strokes
 for i=2:length(XvHistMaxPeaks)
 	x1 = XvHistMaxPeaks(i-1); x2 = XvHistMaxPeaks(i);
-	edgeStroke	= Dataset.HoughResult.H.LinesIm(:,x1:x2);
-	edgeStrokeTotal= sum(sum(edgeStroke));
-	edgeStrokeNorm=edgeStrokeTotal/(size(edgeStroke,1)*size(edgeStroke,2));
-	imHoughPxCountX(:,x1:x2) = edgeStrokeNorm;
-	WindowsColVote(i) = edgeStrokeNorm;
+	houghStroke	= Dataset.HoughResult.H.LinesIm(:,x1:x2);
+	houghStrokeTotal= sum(sum(houghStroke));
+	houghStrokeNorm=houghStrokeTotal/(size(houghStroke,1)*size(houghStroke,2));
+	imHoughPxCountX(:,x1:x2) = houghStrokeNorm;
+	WindowsColVote(i) = houghStrokeNorm;
 end
 % loop through horizontal strokes
 for j=2:length(YhHistMaxPeaks)
 	y1 = YhHistMaxPeaks(j-1); y2 = YhHistMaxPeaks(j);
-	edgeStroke	= Dataset.HoughResult.V.LinesIm(y1:y2,:);
-	edgeStrokeTotal= sum(sum(edgeStroke));
-	edgeStrokeNorm=edgeStrokeTotal/(size(edgeStroke,1)*size(edgeStroke,2))
-	imHoughPxCountY(y1:y2,:) = edgeStrokeNorm;
-	WindowsRowVote(j) = edgeStrokeNorm;
-	%pause, y1,y2,j,edgeStrokeNorm, imshow(imHoughPxCountY,[]); 
+	houghStroke	= Dataset.HoughResult.V.LinesIm(y1:y2,:);
+	houghStrokeTotal= sum(sum(houghStroke));
+	houghStrokeNorm=houghStrokeTotal/(size(houghStroke,1)*size(houghStroke,2))
+	imHoughPxCountY(y1:y2,:) = houghStrokeNorm;
+	WindowsRowVote(j) = houghStrokeNorm;
 end
 
-%% overrule thresholds by auto threshold (average val)
-%Dataset.HibaapParam.edgeStrokeThreshX   = sum(WindowsColVote)/(length(WindowsColVote)-1);
-%Dataset.HibaapParam.edgeStrokeThreshY   = sum(WindowsRowVote)/(length(WindowsRowVote)-1);
-% use middelste getal van sorted lijst
-%Dataset.HibaapParam.edgeStrokeThreshX   = WindowsColVote(round((length(WindowsColVote)-1)/2));
-%Dataset.HibaapParam.edgeStrokeThreshY   = WindowsColVote(round((length(WindowsRowVote)-1)/2));
-% kmeans makes dataset of 111 and 222
-WindowsColVoteBin = (kmeans(WindowsColVote,2) == 2)
-pause;
-WindowsRowVoteBin = (kmeans(WindowsRowVote,2) == 2)
-pause;
-%% make values binary 
-%WindowsColVoteBin = WindowsColVote>=Dataset.HibaapParam.edgeStrokeThreshX;
-%WindowsRowVoteBin = WindowsRowVote>=Dataset.HibaapParam.edgeStrokeThreshY;
 
+% CLUSTERING hough 
+% use 2 clusters and transfor 211121 into 100010
+[WindowsColVoteBin, Clusters] = kmeans(WindowsColVote,2);
+[t_, maxClusterIdx] = max(Clusters);
+% set a 1 at the clusters associated with highest bin
+WindowsColVoteBin = WindowsColVoteBin'==maxClusterIdx;
+
+[WindowsRowVoteBin, Clusters] = kmeans(WindowsRowVote,2)
+[t_, maxClusterIdx] = max(Clusters);
+WindowsRowVoteBin = WindowsRowVoteBin'==maxClusterIdx;
+
+
+% PLOT VERTICAL HOUGHLINE amounts
+fgLinesImV = figure();imshow(imdilate(Dataset.HoughResult.V.LinesIm,ones(5,5))); hold on;
+voteGraphWidth = (Dataset.imWidth/10); voteGraphFactor = voteGraphWidth/max(WindowsRowVote)
+for j=2:length(WindowsRowVote)
+	y1 = YhHistMaxPeaks(j-1); y2 = YhHistMaxPeaks(j);
+	x = voteGraphFactor*WindowsRowVote(j);
+	if WindowsRowVoteBin(j)
+		plot([x,x],[y1,y2],'g-','lineWidth', 3);
+	else
+		plot([x,x],[y1,y2],'r-','lineWidth', 3);
+	end
+end
+% PLOT HORIZONTAL HOUGHLINE amounts
+fgLinesImH = figure();imshow(imdilate(Dataset.HoughResult.H.LinesIm,ones(5,5))); hold on;
+voteGraphHeight = (Dataset.imHeight/10); voteGraphFactor = voteGraphHeight/max(WindowsColVote)
+for i=2:length(WindowsColVote)
+	x1 = XvHistMaxPeaks(i-1); x2 = XvHistMaxPeaks(i);
+	y = (Dataset.imHeight-(voteGraphFactor*WindowsColVote(i)));
+	if WindowsColVoteBin(i)
+		plot([x1,x2],[y,y],'g-','lineWidth', 3);
+	else
+		plot([x1,x2],[y,y],'r-','lineWidth', 3);
+	end
+end
+
+
+pause;
 
 % drawing the windows
 fgimWindows=figure();imshow(Dataset.imOriDimmed);hold on;
@@ -87,6 +119,7 @@ for i=2:length(XvHistMaxPeaks)
 	end
 end
 
+pause;
 
 % draw binary stroke images 
 if true
