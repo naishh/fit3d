@@ -11,7 +11,7 @@ cd doorWindow
 saveImage = true
 %Dataset.fileShort='Ort1'
 %Dataset.fileShort='OrtCrop1'
-Dataset.fileShort='Spil1TransCrop1'
+Dataset.fileShort='Spil1TransCrop1';
 load([startPath,'/doorWindow/mats/Dataset_',Dataset.fileShort,'_hibaap.mat']);
 
 if exist('Dataset')==0
@@ -20,7 +20,7 @@ end
 
 %fgHough = figure();imshow(Dataset.imOriDimmed); hold on;
 %plotHoughlinesAll(Dataset.imHeight,Dataset.HoughResult.Houghlines,Dataset.HoughResult.HoughlinesRot);
-[Dataset.HoughResult.V.LinesIm,Dataset.HoughResult.H.LinesIm] = houghlinesToIm(Dataset,1)
+[Dataset.HoughResult.V.LinesIm,Dataset.HoughResult.H.LinesIm] = houghlinesToIm(Dataset,0)
 
 % show image
 %figure;imshow(Dataset.imEdge);hold on;
@@ -52,7 +52,7 @@ for j=2:length(YhHistMaxPeaks)
 	y1 = YhHistMaxPeaks(j-1); y2 = YhHistMaxPeaks(j);
 	houghStroke	= Dataset.HoughResult.V.LinesIm(y1:y2,:);
 	houghStrokeTotal= sum(sum(houghStroke));
-	houghStrokeNorm=houghStrokeTotal/(size(houghStroke,1)*size(houghStroke,2))
+	houghStrokeNorm=houghStrokeTotal/(size(houghStroke,1)*size(houghStroke,2));
 	imHoughPxCountY(y1:y2,:) = houghStrokeNorm;
 	WindowsRowVote(j) = houghStrokeNorm;
 end
@@ -65,14 +65,14 @@ end
 % set a 1 at the clusters associated with highest bin
 WindowsColVoteBin = WindowsColVoteBin'==maxClusterIdx;
 
-[WindowsRowVoteBin, Clusters] = kmeans(WindowsRowVote,2)
+[WindowsRowVoteBin, Clusters] = kmeans(WindowsRowVote,2);
 [t_, maxClusterIdx] = max(Clusters);
 WindowsRowVoteBin = WindowsRowVoteBin'==maxClusterIdx;
 
 
 % PLOT VERTICAL HOUGHLINE amounts
 fgLinesImV = figure();imshow(imdilate(Dataset.HoughResult.V.LinesIm,ones(5,5))); hold on;
-voteGraphWidth = (Dataset.imWidth/10); voteGraphFactor = voteGraphWidth/max(WindowsRowVote)
+voteGraphWidth = (Dataset.imWidth/10); voteGraphFactor = voteGraphWidth/max(WindowsRowVote);
 for j=2:length(WindowsRowVote)
 	y1 = YhHistMaxPeaks(j-1); y2 = YhHistMaxPeaks(j);
 	x = voteGraphFactor*WindowsRowVote(j);
@@ -84,7 +84,7 @@ for j=2:length(WindowsRowVote)
 end
 % PLOT HORIZONTAL HOUGHLINE amounts
 fgLinesImH = figure();imshow(imdilate(Dataset.HoughResult.H.LinesIm,ones(5,5))); hold on;
-voteGraphHeight = (Dataset.imHeight/10); voteGraphFactor = voteGraphHeight/max(WindowsColVote)
+voteGraphHeight = (Dataset.imHeight/10); voteGraphFactor = voteGraphHeight/max(WindowsColVote);
 for i=2:length(WindowsColVote)
 	x1 = XvHistMaxPeaks(i-1); x2 = XvHistMaxPeaks(i);
 	y = (Dataset.imHeight-(voteGraphFactor*WindowsColVote(i)));

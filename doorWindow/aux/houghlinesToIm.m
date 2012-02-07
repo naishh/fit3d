@@ -20,10 +20,10 @@ disp('plotting houghlines');
 	Houghlines = Dataset.HoughResult.V.Lines;
 	LinesImV = zeros(Dataset.imHeight,Dataset.imWidth);
 	for i=1:length(Houghlines)
-		x1 = Houghlines(i).point1(1)
-		x2 = Houghlines(i).point2(1)
-		y1 = Houghlines(i).point1(2)
-		y2 = Houghlines(i).point2(2)
+		x1 = Houghlines(i).point1(1);
+		x2 = Houghlines(i).point2(1);
+		y1 = Houghlines(i).point1(2);
+		y2 = Houghlines(i).point2(2);
 		avgX = round((x1 + x2)/ 2);
 		%LinesImV(y1:y2,avgX-5:avgX+5) = 1;
 		LinesImV(y1:y2,avgX) = 1;
