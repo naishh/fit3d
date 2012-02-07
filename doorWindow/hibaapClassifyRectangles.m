@@ -3,20 +3,20 @@
 
 % load hibaap values
 
-clear;
-cd ..
-setup
-cd doorWindow
-
-saveImage = true
-%Dataset.fileShort='Ort1'
-%Dataset.fileShort='OrtCrop1'
-Dataset.fileShort='Spil1TransCrop1';
-load([startPath,'/doorWindow/mats/Dataset_',Dataset.fileShort,'_hibaap.mat']);
-
-if exist('Dataset')==0
-	error('tj:Dataset not loaded')
-end
+% clear;
+% cd ..
+% setup
+% cd doorWindow
+% 
+% saveImage = true
+% %Dataset.fileShort='Ort1'
+% %Dataset.fileShort='OrtCrop1'
+% Dataset.fileShort='Spil1TransCrop1';
+% load([startPath,'/doorWindow/mats/Dataset_',Dataset.fileShort,'_hibaap.mat']);
+% 
+% if exist('Dataset')==0
+% 	error('tj:Dataset not loaded')
+% end
 
 %fgHough = figure();imshow(Dataset.imOriDimmed); hold on;
 %plotHoughlinesAll(Dataset.imHeight,Dataset.HoughResult.Houghlines,Dataset.HoughResult.HoughlinesRot);
@@ -108,12 +108,12 @@ for i=2:length(XvHistMaxPeaks)
 		Y = [YhHistMaxPeaks(j),YhHistMaxPeaks(j-1), YhHistMaxPeaks(j-1),YhHistMaxPeaks(j),YhHistMaxPeaks(j)];
 		if WindowsColVoteBin(i) && WindowsRowVoteBin(j)
 			colorStr = 'g-';
-			plot(X,Y, colorStr, 'LineWidth',2);
+			plot(X,Y, colorStr, 'LineWidth',3);
 		elseif WindowsColVoteBin(i) 
-			colorStr = 'b-';
+			colorStr = 'k--';
 			plot(X,Y, colorStr, 'LineWidth',1);
 		elseif WindowsRowVoteBin(j)
-			colorStr = 'r-';
+			colorStr = 'k--';
 			plot(X,Y, colorStr, 'LineWidth',1);
 		end
 	end

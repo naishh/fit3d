@@ -120,6 +120,25 @@ elseif strcmp(DatasetName, 'OrtCrop1') == 1
 	Dataset.HibaapParam.incrFactor			= 75;
 
 	Dataset.cCornerParam.minVotes			= 1;
+
+elseif strcmp(DatasetName, 'SpilPost18Trans') == 1
+	Dataset.fileShort 						= 'SpilPost18Trans';
+	Dataset.path 							= '../dataset/Spil/datasetSpilPostRect/';
+	Dataset.baseFile 						= 'P_rect';
+	Dataset.postfix 						= '_transformed.png';
+	Dataset.imStartNr 						= 1120918;
+	Dataset.colorModel						= 'ORIGINAL'; % {'HSV_V','RGB','BW'};
+	Dataset.EdgeDetectorParam.thresh		= 0.40; 
+	Dataset.HoughParam.fillGap 				= 15;
+	Dataset.HoughParam.minLength 			= 30; 
+	Dataset.HoughParam.ThetaH.Resolution  	= 0.1;
+	Dataset.HoughParam.ThetaV.Resolution  	= Dataset.HoughParam.ThetaH.Resolution;
+	Dataset.HoughParam.ThetaH.stretchAngle	= 5;
+	Dataset.HoughParam.ThetaV.stretchAngle	= 5;
+	Dataset.HibaapParam.XvThresh			= 0.4;
+	Dataset.HibaapParam.YhThresh			= 0.8;
+	Dataset.HibaapParam.incrFactor			= 25;
+
 else
 	error('no matching dataset name');
 end

@@ -1,12 +1,11 @@
 GENERAL
 	be in PZO
-	delete displayed vars
 	cleanup code by making functions of redundant sheis
 		one function for both directions?
+	make 2 clusters of hibaap instead of vaste threshold
 	new dataset from mail
 	test on all datasets
 		stretchup a floriande image
-	check with meld in fit3darchive if i backup everything except not needed datasets
 	make nummeric rectangles (draw change, use thicker lines and dotted lines)
 
 	draw biggest rectangle (detail)

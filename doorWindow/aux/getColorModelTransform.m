@@ -6,6 +6,8 @@ elseif strcmp(Dataset.colorModel,'HSV_V') == 1
 	im = im(:,:,3);
 elseif strcmp(Dataset.colorModel,'RGB') == 1
 	im = im;
+elseif strcmp(Dataset.colorModel,'ORIGINAL') == 1
+	im = im;
 elseif strcmp(Dataset.colorModel,'BW') == 1
 	im = imadjust(rgb2gray(im));
 else
