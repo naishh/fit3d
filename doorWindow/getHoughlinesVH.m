@@ -5,10 +5,9 @@ tic;
 
 DatasetFromCache				= false
 edgeFromCache					= false
-edgeTest 						= false
 saveImageQ						= true
 
-plotme							= true;
+plotme							= false;
 
 if ~DatasetFromCache
 	%Dataset 						= getDataset('Antwerpen_6220',startPath);
@@ -17,9 +16,10 @@ if ~DatasetFromCache
 	%Dataset 						= getDataset('Spil1Trans',startPath);
 	%Dataset 						= getDataset('Spil1TransCrop2',startPath);
 	%Dataset 						= getDataset('Ort1',startPath);
-	%Dataset 						= getDataset('OrtCrop1',startPath)
+	Dataset 						= getDataset('OrtCrop1',startPath)
 	%Dataset 						= getDataset('Spil1TransCrop1',startPath);
-	Dataset 						= getDataset('SpilPost18Trans',startPath);
+	%Dataset 						= getDataset('SpilPost18Trans',startPath);
+	%Dataset 						= getDataset('Suma7Crop1',startPath);
 	paramStr 						= getParamStr(Dataset);
 end
 
@@ -39,22 +39,22 @@ if ~edgeFromCache
 	imColorModelTransform   = getColorModelTransform(Dataset.imOri, Dataset);
 	% perform edge detection
 	Dataset.imColorModelTransform 	= imColorModelTransform;
-	imEdge = getEdge(Dataset, edgeTest);
+	imEdge = getEdge(Dataset, Dataset.EdgeDetectorParam.edgeTest);
 end
 
 Dataset.imColorModelTransform 	= imColorModelTransform;
 Dataset.imEdge					= imEdge;
 
-fgColorModelTransform = figure();imshow(Dataset.imColorModelTransform);
-% plot min length line
-hold on; plot([10,10+Dataset.HoughParam.minLength],[10,10],'r-','LineWidth',2);
-fgEdge = figure();imshow(Dataset.imEdge);
-
-
-% HOUGHLINES:
-fgHough = figure(); 
-imshow(Dataset.imOriDimmed); 
-hold on;
+if plotme
+	fgColorModelTransform = figure();imshow(Dataset.imColorModelTransform);
+	% plot min length line
+	hold on; plot([10,10+Dataset.HoughParam.minLength],[10,10],'r-','LineWidth',2);
+	fgEdge = figure();imshow(Dataset.imEdge);
+	% HOUGHLINES:
+	fgHough = figure(); 
+	imshow(Dataset.imOriDimmed); 
+	hold on;
+end
 
 % HOUGHLINES VERTICAL:
 [H,Theta,Rho] = hough(imEdge,'Theta',Dataset.HoughParam.ThetaV.Start:Dataset.HoughParam.ThetaV.Resolution:Dataset.HoughParam.ThetaV.End);

@@ -5,6 +5,7 @@ startPathDataset = [startPath,'/dataset/'];
 Dataset.name = DatasetName;
 Dataset.postfix = '.jpg';
 Dataset.EdgeDetectorParam.type = 'canny';
+Dataset.EdgeDetectorParam.edgeTest 		= false;
 Dataset.HoughParam.ThetaH.stretchAngle	= 30;
 Dataset.HoughParam.ThetaV.stretchAngle	= 10;
 Dataset.HoughParam.ThetaH.Resolution  	= 0.5;
@@ -88,7 +89,7 @@ elseif strcmp(DatasetName, 'Spil1TransCrop2') == 1
 	Dataset.HibaapParam.incrFactor			= 75;
 elseif strcmp(DatasetName, 'Ort1') == 1
 	Dataset.fileShort 						= 'Ort1';
-	Dataset.path 							= '../dataset/Spil/datasetOrt/';
+	Dataset.path 							= '../dataset/Ort/';
 	Dataset.baseFile 						= 'IMAG';
 	Dataset.postfix 						= '.jpg';
 	Dataset.imStartNr 						= 1994;
@@ -102,7 +103,7 @@ elseif strcmp(DatasetName, 'Ort1') == 1
 	Dataset.HoughParam.ThetaV.stretchAngle	= 5;
 elseif strcmp(DatasetName, 'OrtCrop1') == 1
 	Dataset.fileShort 						= 'OrtCrop1';
-	Dataset.path 							= '../dataset/Spil/datasetOrt/';
+	Dataset.path 							= '../dataset/Ort/';
 	Dataset.baseFile 						= 'IMAG';
 	Dataset.postfix 						= '_crop1.jpg';
 	Dataset.imStartNr 						= 1994;
@@ -131,6 +132,40 @@ elseif strcmp(DatasetName, 'SpilPost18Trans') == 1
 	Dataset.EdgeDetectorParam.thresh		= 0.40; 
 	Dataset.HoughParam.fillGap 				= 15;
 	Dataset.HoughParam.minLength 			= 30; 
+	Dataset.HoughParam.ThetaH.Resolution  	= 0.1;
+	Dataset.HoughParam.ThetaV.Resolution  	= Dataset.HoughParam.ThetaH.Resolution;
+	Dataset.HoughParam.ThetaH.stretchAngle	= 5;
+	Dataset.HoughParam.ThetaV.stretchAngle	= 5;
+	Dataset.HibaapParam.XvThresh			= 0.4;
+	Dataset.HibaapParam.YhThresh			= 0.8;
+	Dataset.HibaapParam.incrFactor			= 25;
+elseif strcmp(DatasetName, 'Suma7') == 1
+	Dataset.fileShort 						= 'Suma7';
+	Dataset.path 							= '../dataset/Suma/';
+	Dataset.baseFile 						= 'IMAG';
+	Dataset.postfix 						= '.jpg';
+	Dataset.imStartNr 						= 1997;
+	Dataset.colorModel						= 'BW'; % {'HSV_V','RGB','BW'};
+	Dataset.EdgeDetectorParam.thresh		= 0.35; 
+	Dataset.HoughParam.fillGap 				= 15;
+	Dataset.HoughParam.minLength 			= 30; 
+	Dataset.HoughParam.ThetaH.Resolution  	= 0.1;
+	Dataset.HoughParam.ThetaV.Resolution  	= Dataset.HoughParam.ThetaH.Resolution;
+	Dataset.HoughParam.ThetaH.stretchAngle	= 5;
+	Dataset.HoughParam.ThetaV.stretchAngle	= 5;
+	Dataset.HibaapParam.XvThresh			= 0.4;
+	Dataset.HibaapParam.YhThresh			= 0.8;
+	Dataset.HibaapParam.incrFactor			= 25;
+elseif strcmp(DatasetName, 'Suma7Crop1') == 1
+	Dataset.fileShort 						= 'Suma7';
+	Dataset.path 							= '../dataset/Suma/';
+	Dataset.baseFile 						= 'IMAG';
+	Dataset.postfix 						= '_crop1.jpg';
+	Dataset.imStartNr 						= 1997;
+	Dataset.colorModel						= 'BW'; % {'HSV_V','RGB','BW'};
+	Dataset.EdgeDetectorParam.thresh		= 0.35; 
+	Dataset.HoughParam.fillGap 				= 15;
+	Dataset.HoughParam.minLength 			= 50; 
 	Dataset.HoughParam.ThetaH.Resolution  	= 0.1;
 	Dataset.HoughParam.ThetaV.Resolution  	= Dataset.HoughParam.ThetaH.Resolution;
 	Dataset.HoughParam.ThetaH.stretchAngle	= 5;

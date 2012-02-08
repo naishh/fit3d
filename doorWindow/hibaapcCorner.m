@@ -10,6 +10,7 @@ disp('plotting cCorner windows');
 % new figure
 pause; figure;imshow(Dataset.imOriDimmed); hold on;
 plotcCorners(Dataset.HoughResult.Houghlines, Dataset.HoughResult.HoughlinesRot, 'cCorner', false)
+pause;
 
 
 disp('plotting histograms and cCorner windows fused'); 

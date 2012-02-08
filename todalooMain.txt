@@ -1,9 +1,7 @@
 GENERAL
 	be in PZO
-	cleanup code by making functions of redundant sheis
-		one function for both directions?
-	make 2 clusters of hibaap instead of vaste threshold
 	new dataset from mail
+	make 2 clusters of hibaap instead of vaste threshold
 	test on all datasets
 		stretchup a floriande image
 	make nummeric rectangles (draw change, use thicker lines and dotted lines)
@@ -43,6 +41,7 @@ fRANS FEEDBACK
 		vote niet het middelpunt maar een gebied (affine rectangle) nemen
 			oppervlakte optellen en nummeriek testwaarde
 				desnoods handmatig ramen annoteren
+		max en min window size inbouwen
 	terugprojecteren en aan Isaac laten zien zodat hij gaat helpen
 
 	iets schrijven over beperking rechttrekken
@@ -159,13 +158,6 @@ DOOR WINDOW:
 		Harris
 			cCorner set filteren (kleiner maken) alleen cCorners overhouden die feature corner in de buurt als evidentie hebben
 			verschil met hele set en gefilterde set kan mooi getest worden
-
-		hough parameter space (zie paper) nog een keer lezen
-			verschil met hele set en gefilterde set kan mooi getest worden
-
-		hough parameter space (zie paper) nog een keer lezen
-			iets met lijnen groeperen
-			corners groeperen die met zn 4en een vierkant vormen
 
 		try Harris on multiple scales 
 			cornermetric plaatjes maken op verschillende scales
