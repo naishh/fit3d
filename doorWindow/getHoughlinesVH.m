@@ -2,7 +2,7 @@
 %
 close all;
 tic;
-
+ 
 DatasetFromCache				= false
 edgeFromCache					= false
 saveImageQ						= true
@@ -28,31 +28,15 @@ end
 % TODO houghlines fillgab uitzetten in image
 
 
-% read file
-Dataset.imOri 					= imread(Dataset.file);
-Dataset.imOriDimmed 			= 0.8*Dataset.imOri;
-Dataset.imHeight 				= size(Dataset.imOri, 1);
-Dataset.imWidth					= size(Dataset.imOri, 2);
-
-if ~edgeFromCache
-	% transform color
-	imColorModelTransform   = getColorModelTransform(Dataset.imOri, Dataset);
-	% perform edge detection
-	Dataset.imColorModelTransform 	= imColorModelTransform;
-	imEdge = getEdge(Dataset, Dataset.EdgeDetectorParam.edgeTest);
-end
-
-Dataset.imColorModelTransform 	= imColorModelTransform;
-Dataset.imEdge					= imEdge;
 
 if plotme
-	fgColorModelTransform = figure();imshow(Dataset.imColorModelTransform);
+	fgColorModelTransform = figure();imshow(Dataset.ImReader.imColorModelTransform);
 	% plot min length line
 	hold on; plot([10,10+Dataset.HoughParam.minLength],[10,10],'r-','LineWidth',2);
-	fgEdge = figure();imshow(Dataset.imEdge);
+	fgEdge = figure();imshow(Dataset.ImReader.imEdge);
 	% HOUGHLINES:
 	fgHough = figure(); 
-	imshow(Dataset.imOriDimmed); 
+	imshow(Dataset.ImReader.imOriDimmed); 
 	hold on;
 end
 
@@ -72,14 +56,14 @@ imEdgeRot    = rot90(imEdge,-1);
 [H,Theta,Rho] = hough(imEdgeRot,'Theta',Dataset.HoughParam.ThetaH.Start:Dataset.HoughParam.ThetaH.Resolution:Dataset.HoughParam.ThetaH.End);
 Peaks  = houghpeaks(H,Dataset.HoughParam.nrPeaks,'threshold',ceil(Dataset.HoughParam.thresh*max(H(:))));
 HoughlinesRot = houghlines(imEdgeRot,Theta,Rho,Peaks,'FillGap',Dataset.HoughParam.fillGap,'MinLength',Dataset.HoughParam.minLength);
-Dataset.HoughResult.HoughlinesRot = flipHoughlinesRot(HoughlinesRot, Dataset.imHeight);
+Dataset.HoughResult.HoughlinesRot = flipHoughlinesRot(HoughlinesRot, Dataset.ImReader.imHeight);
 Dataset.HoughResult.H.Theta = Theta;
 Dataset.HoughResult.H.Rho = Rho;
 Dataset.HoughResult.H.Peaks = Peaks;
 Dataset.HoughResult.H.Lines = Dataset.HoughResult.HoughlinesRot;
 
 %HOUGHLINES PLOT
-plotHoughlinesAll(Dataset.imHeight,Dataset.HoughResult.Houghlines,Dataset.HoughResult.HoughlinesRot)
+plotHoughlinesAll(Dataset.ImReader.imHeight,Dataset.HoughResult.Houghlines,Dataset.HoughResult.HoughlinesRot)
 
 
 

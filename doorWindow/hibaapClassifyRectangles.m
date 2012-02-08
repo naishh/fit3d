@@ -18,21 +18,21 @@
 % 	error('tj:Dataset not loaded')
 % end
 
-%fgHough = figure();imshow(Dataset.imOriDimmed); hold on;
-%plotHoughlinesAll(Dataset.imHeight,Dataset.HoughResult.Houghlines,Dataset.HoughResult.HoughlinesRot);
+%fgHough = figure();imshow(Dataset.ImReader.imOriDimmed); hold on;
+%plotHoughlinesAll(Dataset.ImReader.imHeight,Dataset.HoughResult.Houghlines,Dataset.HoughResult.HoughlinesRot);
 [Dataset.HoughResult.V.LinesIm,Dataset.HoughResult.H.LinesIm] = houghlinesToIm(Dataset,0)
 
 % show image
-%figure;imshow(Dataset.imEdge);hold on;
-%plotHoughlinesAll(Dataset.imHeight,Dataset.HoughResult.Houghlines,Dataset.HoughResult.HoughlinesRot);
+%figure;imshow(Dataset.ImReader.imEdge);hold on;
+%plotHoughlinesAll(Dataset.ImReader.imHeight,Dataset.HoughResult.Houghlines,Dataset.HoughResult.HoughlinesRot);
 %plotPeakLines(Dataset);
 
 % add origin and endpoint to peak array so it can be used as a range
-XvHistMaxPeaks = [1,Dataset.Hibaap.XvHistMaxPeaks, Dataset.imWidth];
-YhHistMaxPeaks = [1,Dataset.Hibaap.YhHistMaxPeaks,Dataset.imHeight];
+XvHistMaxPeaks = [1,Dataset.Hibaap.XvHistMaxPeaks, Dataset.ImReader.imWidth];
+YhHistMaxPeaks = [1,Dataset.Hibaap.YhHistMaxPeaks,Dataset.ImReader.imHeight];
 
 % declare vars
-tempIm = zeros(Dataset.imHeight,Dataset.imWidth,1);
+tempIm = zeros(Dataset.ImReader.imHeight,Dataset.ImReader.imWidth,1);
 imHoughPxCountX = tempIm;
 imHoughPxCountY = tempIm;
 
@@ -72,7 +72,7 @@ WindowsRowVoteBin = WindowsRowVoteBin'==maxClusterIdx;
 
 % PLOT VERTICAL HOUGHLINE amounts
 fgLinesImV = figure();imshow(imdilate(Dataset.HoughResult.V.LinesIm,ones(5,5))); hold on;
-voteGraphWidth = (Dataset.imWidth/10); voteGraphFactor = voteGraphWidth/max(WindowsRowVote);
+voteGraphWidth = (Dataset.ImReader.imWidth/10); voteGraphFactor = voteGraphWidth/max(WindowsRowVote);
 for j=2:length(WindowsRowVote)
 	y1 = YhHistMaxPeaks(j-1); y2 = YhHistMaxPeaks(j);
 	x = voteGraphFactor*WindowsRowVote(j);
@@ -84,10 +84,10 @@ for j=2:length(WindowsRowVote)
 end
 % PLOT HORIZONTAL HOUGHLINE amounts
 fgLinesImH = figure();imshow(imdilate(Dataset.HoughResult.H.LinesIm,ones(5,5))); hold on;
-voteGraphHeight = (Dataset.imHeight/10); voteGraphFactor = voteGraphHeight/max(WindowsColVote);
+voteGraphHeight = (Dataset.ImReader.imHeight/10); voteGraphFactor = voteGraphHeight/max(WindowsColVote);
 for i=2:length(WindowsColVote)
 	x1 = XvHistMaxPeaks(i-1); x2 = XvHistMaxPeaks(i);
-	y = (Dataset.imHeight-(voteGraphFactor*WindowsColVote(i)));
+	y = (Dataset.ImReader.imHeight-(voteGraphFactor*WindowsColVote(i)));
 	if WindowsColVoteBin(i)
 		plot([x1,x2],[y,y],'g-','lineWidth', 3);
 	else
@@ -99,7 +99,7 @@ end
 pause;
 
 % drawing the windows
-fgimWindows=figure();imshow(Dataset.imOriDimmed);hold on;
+fgimWindows=figure();imshow(Dataset.ImReader.imOriDimmed);hold on;
 for i=2:length(XvHistMaxPeaks)
 	%WindowsColVote(i)
 	for j=2:length(YhHistMaxPeaks)
@@ -123,8 +123,8 @@ pause;
 
 % draw binary stroke images 
 if true
-	fgimOri 					= figure();imshow(Dataset.imOri,[]);
-	fgimEdge 					= figure();imshow(Dataset.imEdge,[]);
+	fgimOri 					= figure();imshow(Dataset.ImReader.imOri,[]);
+	fgimEdge 					= figure();imshow(Dataset.ImReader.imEdge,[]);
 	fgimHoughPxCountX 			= figure();imshow(imHoughPxCountX,[]);
 	fgimHoughPxCountY 			= figure();imshow(imHoughPxCountY,[]);
 	fgimHoughPxCountSumXY  		= figure();imshow(imHoughPxCountX+imHoughPxCountY,[]);

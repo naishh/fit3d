@@ -1,22 +1,18 @@
-fprintf('\nStarting imReader...');
-clear imReader
+fprintf('\nStarting ImReader...');
 
 % read file
-imReader.imOri 					= imread(Dataset.file);
-imReader.imOriDimmed 			= 0.8*Dataset.imOri;
-imReader.imHeight 				= size(Dataset.imOri, 1);
-imReader.imWidth					= size(Dataset.imOri, 2);
+ImReader.imOri 					= imread(ImReader.file);
+ImReader.imOriDimmed 			= 0.8*ImReader.imOri;
+ImReader.imHeight 				= size(ImReader.imOri, 1);
+ImReader.imWidth					= size(ImReader.imOri, 2);
 
 % transform color
-imReader.imColorModelTransform   = getColorModelTransform(Dataset.imOri, Dataset);
+ImReader.imColorModelTransform   = getColorModelTransform(ImReader.imOri, Dataset);
 % perform edge detection
-imReader.imEdge = getEdge(Dataset, Dataset.EdgeDetectorParam.edgeTest);
-
-% save to local var
-Dataset.imReader = imReader
+ImReader.imEdge = getEdge(ImReader, Dataset.EdgeDetectorParam);
 
 % save to disk var
-saveStr = [startPath,'/doorWindow/mats/Dataset_',Dataset.fileShort,'_imReader.mat']
-save(saveStr, 'imReader');
+saveStr = [startPath,'/doorWindow/mats/Dataset_',Dataset.fileShort,'_ImReader.mat']
+save(saveStr, 'ImReader');
 
 fprintf(' [DONE]\n');

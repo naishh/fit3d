@@ -1,5 +1,6 @@
 % TODO regel general properties per dataset, specific properties per imgnr 
 function Dataset = getDataset(DatasetName, startPath)
+
 % set defaults before:
 startPathDataset = [startPath,'/dataset/'];
 Dataset.name = DatasetName;
@@ -179,7 +180,7 @@ else
 end
 
 % set defaults after
-Dataset.file = [Dataset.path, Dataset.baseFile, int2str(Dataset.imStartNr), Dataset.postfix];
+ImReader.file = [Dataset.path, Dataset.baseFile, int2str(Dataset.imStartNr), Dataset.postfix];
 
 Dataset.HoughParam.ThetaV.Start 		= 0;
 Dataset.HoughParam.ThetaV.Start 		= Dataset.HoughParam.ThetaV.Start - Dataset.HoughParam.ThetaV.stretchAngle;
@@ -195,3 +196,22 @@ Dataset.HoughParam.nrPeaks 				= 200;
 % the bigger this value the more lines are found
 Dataset.HoughParam.projectionScale 		= 1;
 
+% LOAD IMREADER
+loadStr = [startPath,'/doorWindow/mats/Dataset_',Dataset.fileShort,'_ImReader.mat'];
+
+if exist(loadStr) == 0
+	disp(loadStr)
+	reply = input('File above doesnt exist, perform module ImReader? y/n [n]: ', 's');
+	if isempty(reply)
+		reply = 'y';
+	end
+	if reply=='y'
+		getImreader
+	end
+else
+	fprintf('\nLOADING %s',loadStr)
+	load(loadStr)
+	fprintf(' ... [DONE]\n');
+end
+	
+Dataset.ImReader = ImReader;

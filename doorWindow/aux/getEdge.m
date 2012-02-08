@@ -1,11 +1,11 @@
-function imEdge = getEdge(Dataset, edgeTest)
+function imEdge = getEdge(ImReader, EdgeDetectorParam)
 
 % EDGE TEST
-if edgeTest
+if EdgeDetectorParam.edgeTest
 	for thresh=0.05:0.05:0.8
 		tic;
 		thresh
-		imEdge = im2double(edge(Dataset.imColorModelTransform, Dataset.EdgeDetectorParam.type, thresh));
+		imEdge = im2double(edge(ImReader.imColorModelTransform, EdgeDetectorParam.type, thresh));
 		figure(round(thresh*100));
 		imshow(imEdge);
 		toc;
@@ -14,4 +14,4 @@ if edgeTest
 end
 
 % EDGE DETECTION 
-imEdge = im2double(edge(Dataset.imColorModelTransform, Dataset.EdgeDetectorParam.type, Dataset.EdgeDetectorParam.thresh));
+imEdge = im2double(edge(ImReader.imColorModelTransform, EdgeDetectorParam.type, EdgeDetectorParam.thresh));

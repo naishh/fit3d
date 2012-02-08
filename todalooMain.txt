@@ -1,5 +1,12 @@
 GENERAL
 	be in PZO
+	affine matrix calculation, see e-mail isaac
+	restructur modules
+		togo:
+			houghlinesvh
+			hipaap
+			rects
+
 	new dataset from mail
 	make 2 clusters of hibaap instead of vaste threshold
 	test on all datasets
