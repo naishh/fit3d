@@ -23,6 +23,15 @@ function [H] = goldStd2DAffine(X1,X2)
 
     % Check consistency of input
     if(size(X1,2) ~= size(X2,2) || size(X1,1) ~= 3 || size(X2,1) ~= 3 || size(X1,2) < 4)
+    %size(X1,2) ~= size(X2,2) 
+	%size(X1,1) ~= 3 
+	%size(X2,1) ~= 3 
+	%size(X1,2) < 4
+    %size(X1,2)
+	%size(X2,2)
+	%size(X1,1)
+	%size(X2,1) 
+	%size(X1,2)
         error('Both point matrices must be of equal lenght and have 2 dimensions X and Y and at least 4 point correspondances are needed');
     end;
 

@@ -158,7 +158,7 @@ elseif strcmp(DatasetName, 'Suma7') == 1
 	Dataset.HibaapParam.YhThresh			= 0.8;
 	Dataset.HibaapParam.incrFactor			= 25;
 elseif strcmp(DatasetName, 'Suma7Crop1') == 1
-	Dataset.fileShort 						= 'Suma7';
+	Dataset.fileShort 						= 'Suma7Crop1';
 	Dataset.path 							= '../dataset/Suma/';
 	Dataset.baseFile 						= 'IMAG';
 	Dataset.postfix 						= '_crop1.jpg';
@@ -198,10 +198,9 @@ Dataset.HoughParam.projectionScale 		= 1;
 
 % LOAD IMREADER
 loadStr = [startPath,'/doorWindow/mats/Dataset_',Dataset.fileShort,'_ImReader.mat'];
-
 if exist(loadStr) == 0
 	disp(loadStr)
-	reply = input('File above doesnt exist, perform module ImReader? y/n [n]: ', 's');
+	reply = input('File above doesnt exist, try to generate file?  y/n [n]: ', 's');
 	if isempty(reply)
 		reply = 'y';
 	end
@@ -209,9 +208,22 @@ if exist(loadStr) == 0
 		getImreader
 	end
 else
-	fprintf('\nLOADING %s',loadStr)
-	load(loadStr)
-	fprintf(' ... [DONE]\n');
+	fprintf('\nLOADING %s',loadStr), load(loadStr), fprintf(' ... [DONE]\n\n\n');
 end
-	
 Dataset.ImReader = ImReader;
+
+% LOAD HOUGHRESULT 
+loadStr = [startPath,'/doorWindow/mats/Dataset_',Dataset.fileShort,'_HoughResult.mat'];
+if exist(loadStr) == 0
+	disp(loadStr)
+	reply = input('File above doesnt exist, try to generate file?  y/n [n]: ', 's');
+	if isempty(reply)
+		reply = 'y';
+	end
+	if reply=='y'
+		getHoughlinesVH
+	end
+else
+	fprintf('\nLOADING %s',loadStr), load(loadStr), fprintf(' ... [DONE]\n\n\n');
+end
+Dataset.HoughResult = HoughResult;

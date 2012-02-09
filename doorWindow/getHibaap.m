@@ -48,8 +48,8 @@ plotme = 1;
 XvHistMaxPeaks = getHistMaxPeaks(Dataset, XvHistSmooth, XvThresh, plotme,'Xv');
 YhHistMaxPeaks = getHistMaxPeaks(Dataset, YhHistSmooth, YhThresh, plotme,'Yh');
 % save result in dataset
-Dataset.Hibaap.XvHistMaxPeaks = XvHistMaxPeaks;
-Dataset.Hibaap.YhHistMaxPeaks = YhHistMaxPeaks;
+Hibaap.XvHistMaxPeaks = XvHistMaxPeaks;
+Hibaap.YhHistMaxPeaks = YhHistMaxPeaks;
 
 % find and plot intersections of vertical and horizontal lines
 EdgePeakCrossings = [];
@@ -80,7 +80,7 @@ end
 
 
 saveStr = [startPath,'/doorWindow/mats/Dataset_',Dataset.fileShort,'_hibaap.mat'];
-save(saveStr, 'Dataset');
+save(saveStr, 'Hibaap');
 saveStr, disp('saved');
 
 

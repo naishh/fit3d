@@ -1,13 +1,17 @@
 GENERAL
 	be in PZO
-	affine matrix calculation, see e-mail isaac
+	spend max 3 hours
+		try affinematrix fit3d
+			first affine then other
+			prect4
+		find out bougette toolbox resizes images
+		mail isaac
+
 	restructur modules
 		togo:
 			houghlinesvh
 			hipaap
 			rects
-
-	new dataset from mail
 	make 2 clusters of hibaap instead of vaste threshold
 	test on all datasets
 		stretchup a floriande image
@@ -61,6 +65,8 @@ fRANS FEEDBACK
 		dan 2e trap van rakket met deze nwe info
 
 RECTIFICATION/ PROJECTING:
+	affine matrix calculation, see e-mail isaac
+		scale estimation maybe because images are bw?
 	rectification controleren gimp
 		via gimp rectifien en matrix opslaan?
 	affine matrix projection googlen
@@ -106,6 +112,7 @@ DOOR WINDOW:
 			make kmeans based threshold of hibaap
 
 		extra ideeen [eerst alles opschrijven dan extra ideeen]
+			blur on edge image
 			iets met kleur doen, b.v. gemiddelde muurkleur van plaatje afhalen
 			na 1e keer windows vinden grootste vierkant eromheen trekken en opnieuw (nauwkeuriger) hibaap
 			ipv windowmidpoint een corner laten voten

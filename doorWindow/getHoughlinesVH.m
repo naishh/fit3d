@@ -1,28 +1,13 @@
 % this file does edge and houghline extraction
 %
+fprintf('\nStarting Hough...');
 close all;
 tic;
  
-DatasetFromCache				= false
 edgeFromCache					= false
 saveImageQ						= true
 
 plotme							= false;
-
-if ~DatasetFromCache
-	%Dataset 						= getDataset('Antwerpen_6220',startPath);
-	%Dataset 						= getDataset('Antwerpen_6223_crop1',startPath);
-	%Dataset 						= getDataset('Antwerpen_6220_crop2',startPath);
-	%Dataset 						= getDataset('Spil1Trans',startPath);
-	%Dataset 						= getDataset('Spil1TransCrop2',startPath);
-	%Dataset 						= getDataset('Ort1',startPath);
-	Dataset 						= getDataset('OrtCrop1',startPath)
-	%Dataset 						= getDataset('Spil1TransCrop1',startPath);
-	%Dataset 						= getDataset('SpilPost18Trans',startPath);
-	%Dataset 						= getDataset('Suma7Crop1',startPath);
-	paramStr 						= getParamStr(Dataset);
-end
-
 
 % TODO BLUR
 % TODO houghlines fillgab uitzetten in image
@@ -41,52 +26,45 @@ if plotme
 end
 
 % HOUGHLINES VERTICAL:
-[H,Theta,Rho] = hough(imEdge,'Theta',Dataset.HoughParam.ThetaV.Start:Dataset.HoughParam.ThetaV.Resolution:Dataset.HoughParam.ThetaV.End);
+[H,Theta,Rho] = hough(Dataset.imReader.imEdge,'Theta',Dataset.HoughParam.ThetaV.Start:Dataset.HoughParam.ThetaV.Resolution:Dataset.HoughParam.ThetaV.End);
 Peaks  = houghpeaks(H,Dataset.HoughParam.nrPeaks,'threshold',ceil(Dataset.HoughParam.thresh*max(H(:))));
-Dataset.HoughResult.Houghlines = houghlines(imEdge,Theta,Rho,Peaks,'FillGap',Dataset.HoughParam.fillGap,'MinLength',Dataset.HoughParam.minLength);
-Dataset.HoughResult.V.Theta = Theta;
-Dataset.HoughResult.V.Rho   = Rho;
-Dataset.HoughResult.V.Peaks = Peaks;
-Dataset.HoughResult.V.Lines = Dataset.HoughResult.Houghlines;
+HoughResult.Houghlines = houghlines(imEdge,Theta,Rho,Peaks,'FillGap',Dataset.HoughParam.fillGap,'MinLength',Dataset.HoughParam.minLength);
+HoughResult.V.Theta = Theta;
+HoughResult.V.Rho   = Rho;
+HoughResult.V.Peaks = Peaks;
+HoughResult.V.Lines = HoughResult.Houghlines;
 
 
 
 % HOUGHLINES ROTATED (HORIZONTAL):
-imEdgeRot    = rot90(imEdge,-1);
+imEdgeRot    = rot90(Dataset.imReader.imEdge,-1);
 [H,Theta,Rho] = hough(imEdgeRot,'Theta',Dataset.HoughParam.ThetaH.Start:Dataset.HoughParam.ThetaH.Resolution:Dataset.HoughParam.ThetaH.End);
 Peaks  = houghpeaks(H,Dataset.HoughParam.nrPeaks,'threshold',ceil(Dataset.HoughParam.thresh*max(H(:))));
 HoughlinesRot = houghlines(imEdgeRot,Theta,Rho,Peaks,'FillGap',Dataset.HoughParam.fillGap,'MinLength',Dataset.HoughParam.minLength);
-Dataset.HoughResult.HoughlinesRot = flipHoughlinesRot(HoughlinesRot, Dataset.ImReader.imHeight);
-Dataset.HoughResult.H.Theta = Theta;
-Dataset.HoughResult.H.Rho = Rho;
-Dataset.HoughResult.H.Peaks = Peaks;
-Dataset.HoughResult.H.Lines = Dataset.HoughResult.HoughlinesRot;
+HoughResult.HoughlinesRot = flipHoughlinesRot(HoughlinesRot, Dataset.ImReader.imHeight);
+HoughResult.H.Theta = Theta;
+HoughResult.H.Rho = Rho;
+HoughResult.H.Peaks = Peaks;
+HoughResult.H.Lines = HoughResult.HoughlinesRot;
 
 %HOUGHLINES PLOT
-plotHoughlinesAll(Dataset.ImReader.imHeight,Dataset.HoughResult.Houghlines,Dataset.HoughResult.HoughlinesRot)
+plotHoughlinesAll(Dataset.ImReader.imHeight,HoughResult.Houghlines,HoughResult.HoughlinesRot)
 
 
 
-toc;
-tic;
-if saveImageQ
-	reply = input('Save Dataset and images? y/n [n]: ', 's');
-	if isempty(reply)
-		reply = 'n';
-	end
-	if reply=='y'
-		disp('saving Dataset and images ..');
-		savePathFile 						= ['results/',Dataset.fileShort];
-		% save images
-		saveas(fgColorModelTransform,[savePathFile,'_colortransform__',paramStr],'png');
-		saveas(fgEdge,[savePathFile,'_edge__',paramStr],'png');
-		saveas(fgHough,[savePathFile,'_hough__',paramStr],'png');
-		% update dataset vals
-		saveStr = [startPath,'/doorWindow/mats/Dataset_',Dataset.fileShort,'_houghlinesVH.mat'];
-		save(saveStr, 'Dataset');
-		saveStr, disp('saved');
-	end
-end
+
+disp('saving Dataset and images ..');
+savePathFile 						= ['results/',Dataset.fileShort];
+% save images
+saveas(fgColorModelTransform,[savePathFile,'_colortransform__',paramStr],'png');
+saveas(fgEdge,[savePathFile,'_edge__',paramStr],'png');
+saveas(fgHough,[savePathFile,'_hough__',paramStr],'png');
+% update dataset vals
+saveStr = [startPath,'/doorWindow/mats/Dataset_',Dataset.fileShort,'_HoughResult.mat'];
+save(saveStr, 'HoughResult');
+saveStr, disp('saved');
+
+fprintf(' [DONE]\n');
 toc;
 
 
