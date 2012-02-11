@@ -17,7 +17,6 @@ tic;
 wallNr = 7;
 imNr = 3;
 wallNormal = getNormalFromWall(Walls, wallNr)
-wallNormal = wallNormal/norm(wallNormal) % normalise wall normal
 zAxis = [0 0 1];
 rotationVector = cross(zAxis, wallNormal)
 angle = acos(dot(zAxis, wallNormal)) % could also be -R!!

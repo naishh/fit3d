@@ -1,5 +1,4 @@
-function wallNormal = getNormalFromWall(Walls, wallNr)
-plotDetails = 0;
+function wallNormal = getNormalFromWall(Walls, wallNr, plotme)
 
 % corner points wall
 % p2    p1
@@ -24,12 +23,13 @@ wallNormal = cross(v,w);
 % normalize
 wallNormal = wallNormal/norm(wallNormal);
 
-if plotDetails
+if plotme
 	plotBuilding(Walls)
 
 	hold on;
 
-	plotVector3([0 0 0], v)
-	plotVector3([0 0 0], w)
-	plotVector3([0 0 0], wallNormal)
+	origin = p2
+	plotVector3(origin, origin+v)
+	plotVector3(origin, origin+w)
+	plotVector3colored(origin, origin+wallNormal,'r-')
 end

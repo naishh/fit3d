@@ -30,6 +30,6 @@ yGround = 1;
 yAir = -3.2;	
 %yAir = -4;	
 bConnectLastToFirstWall = false;
-WallsPc = generateWallsFromCornerPoints(X',Z', yGround,yAir, bConnectLastToFirstWall);
+WallsPc = generateWallsFromCornerPoints(X,Z, yGround,yAir, bConnectLastToFirstWall);
 save('../mats/WallsPc.mat','WallsPc');
 

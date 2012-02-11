@@ -3,12 +3,12 @@ function WallsPc = generateWallsFromCornerPoints(X,Z,yGround,yAir,bConnectLastTo
 
 	%% generate walls of coornerpoints
 	%if bConnectLastToFirstWall
-		WallsPc = zeros(size(X,2),12);
+		WallsPc = zeros(l,12);
 	%else
 	%	WallsPc = zeros(size(X,2)-1,12);
 	%end
 	%for i=1:size(X,2)-1
-	for i=1:size(X,1)
+	for i=1:l-1
 		i
 		% pc = pointcloud
 		WallsPc(i,:) = [X(i),yGround,Z(i),	X(i+1),yGround,Z(i+1),	X(i),yAir,Z(i),	 X(i+1),yAir,Z(i+1)];
