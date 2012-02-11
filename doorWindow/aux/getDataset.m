@@ -1,4 +1,5 @@
 % TODO regel general properties per dataset, specific properties per imgnr 
+%Dataset = getDataset('Suma7Crop1',startPath)
 function Dataset = getDataset(DatasetName, startPath)
 
 % set defaults before:
@@ -29,7 +30,6 @@ if strcmp(DatasetName,'Floriande') == 1
 
 elseif strcmp(DatasetName, 'Spil') == 1
 	Dataset.fileShort 						= 'spil6';
-	Dataset.path = [startPathDataset,'FloriandeSet1/small/'];
 	Dataset.path 							= '../dataset/Spil/datasetSpilRect/';
 	Dataset.baseFile 						= 'P_rect';
 	Dataset.imStartNr 						= 6;
@@ -37,6 +37,15 @@ elseif strcmp(DatasetName, 'Spil') == 1
 	Dataset.colorModel						= 'none'; % {'HSV_V','RGB','BW'};
 	Dataset.EdgeDetectorParam.thresh		= 0.15; 
 	% TODO make function which generate all colormodels images and attach to dataset
+	Dataset.HoughParam.fillGap 				= 10;
+	Dataset.HoughParam.minLength 			= 45; 
+elseif strcmp(DatasetName, 'Spil4') == 1
+	Dataset.fileShort 						= 'spil4';
+	Dataset.path 							= '../dataset/Spil/datasetSpilRect/scaled/';
+	Dataset.baseFile 						= 'P_rect';
+	Dataset.imStartNr 						= 4;
+	Dataset.colorModel						= 'none'; % {'HSV_V','RGB','BW'};
+	Dataset.EdgeDetectorParam.thresh		= 0.15; 
 	Dataset.HoughParam.fillGap 				= 10;
 	Dataset.HoughParam.minLength 			= 45; 
 elseif strcmp(DatasetName, 'Spil1Trans') == 1
@@ -180,7 +189,8 @@ else
 end
 
 % set defaults after
-ImReader.file = [Dataset.path, Dataset.baseFile, int2str(Dataset.imStartNr), Dataset.postfix];
+ImReader.file = [Dataset.path, Dataset.baseFile, int2str(Dataset.imStartNr), Dataset.postfix]
+
 
 Dataset.HoughParam.ThetaV.Start 		= 0;
 Dataset.HoughParam.ThetaV.Start 		= Dataset.HoughParam.ThetaV.Start - Dataset.HoughParam.ThetaV.stretchAngle;
@@ -196,6 +206,9 @@ Dataset.HoughParam.nrPeaks 				= 200;
 % the bigger this value the more lines are found
 Dataset.HoughParam.projectionScale 		= 1;
 
+% generate parameter string
+Dataset.paramStr = getParamStr(Dataset)
+
 % LOAD IMREADER
 loadStr = [startPath,'/doorWindow/mats/Dataset_',Dataset.fileShort,'_ImReader.mat'];
 if exist(loadStr) == 0
@@ -210,7 +223,7 @@ if exist(loadStr) == 0
 else
 	fprintf('\nLOADING %s',loadStr), load(loadStr), fprintf(' ... [DONE]\n\n\n');
 end
-Dataset.ImReader = ImReader;
+Dataset.ImReader = ImReader
 
 % LOAD HOUGHRESULT 
 loadStr = [startPath,'/doorWindow/mats/Dataset_',Dataset.fileShort,'_HoughResult.mat'];
@@ -226,4 +239,4 @@ if exist(loadStr) == 0
 else
 	fprintf('\nLOADING %s',loadStr), load(loadStr), fprintf(' ... [DONE]\n\n\n');
 end
-Dataset.HoughResult = HoughResult;
+Dataset.HoughResult = HoughResult

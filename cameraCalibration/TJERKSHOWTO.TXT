@@ -1,0 +1,17 @@
+hoe te rectificeren via bougette toolbox, door tjerk
+aanname: de calibratie is al gedaan en opgeslagen
+
+open matlab
+cd naar de dir
+cameraCalibration/toolbox_calib
+
+calib [enter]
+klik 2e optie memory efficient
+klik load
+kopieer met nautilus of console the te rectificeren plaatjes met originele grootte in de toolbox_calib dir
+renamen is niet nodig
+klik read images
+controleer of dit is goed is gegaan door console matlab te lezen
+klik undistord image
+[] [ENTER]
+

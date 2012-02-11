@@ -1,0 +1,599 @@
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/repos/cios/!svn/ver/264/Gijs/Programming/Matlab/slam/geometry/matk
+END
+qcmq.m
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/qcmq.m
+END
+dEmijk_dal.m
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/dEmijk_dal.m
+END
+asv.m
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/asv.m
+END
+dWmpq_dqi.m
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/dWmpq_dqi.m
+END
+dRmq_dqi.m
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/dRmq_dqi.m
+END
+test_omega.m
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/test_omega.m
+END
+LEmijk.m
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/LEmijk.m
+END
+ncq.m
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/ncq.m
+END
+Empijk.m
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/Empijk.m
+END
+qcrand.m
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/qcrand.m
+END
+dGmv_dvi.m
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/dGmv_dvi.m
+END
+qsnorm.m
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/qsnorm.m
+END
+Rm3.m
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/Rm3.m
+END
+Qmbv.m
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/Qmbv.m
+END
+dEmpijk_dal.m
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/dEmpijk_dal.m
+END
+dWmpv_dvi.m
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/dWmpv_dvi.m
+END
+Wmpv.m
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/Wmpv.m
+END
+dWmq_dqi.m
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/dWmq_dqi.m
+END
+dRmv_dvi.m
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/dRmv_dvi.m
+END
+Vmv.m
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/Vmv.m
+END
+Rm1.m
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/Rm1.m
+END
+dQmq_dqi.m
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/dQmq_dqi.m
+END
+qcv.m
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/qcv.m
+END
+uc123.m
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/uc123.m
+END
+properR.m
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/repos/cios/!svn/ver/264/Gijs/Programming/Matlab/slam/geometry/matk/properR.m
+END
+ucijk.m
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/ucijk.m
+END
+qcR1.m
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/qcR1.m
+END
+dRmq_dq3.m
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/dRmq_dq3.m
+END
+dRmq_dq1.m
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/dRmq_dq1.m
+END
+qcR2.m
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/qcR2.m
+END
+dQmbq_dqi.m
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/dQmbq_dqi.m
+END
+qcR0.m
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/qcR0.m
+END
+qcR.m
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/qcR.m
+END
+Rmv.m
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/Rmv.m
+END
+Rm313.m
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/Rm313.m
+END
+echni.m
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/echni.m
+END
+dVmv_dvi.m
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/dVmv_dvi.m
+END
+Hmq.m
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/Hmq.m
+END
+asq.m
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/asq.m
+END
+dQmbv_dvi.m
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/dQmbv_dvi.m
+END
+vcflip.m
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/vcflip.m
+END
+dRmi_da.m
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/dRmi_da.m
+END
+Qmv.m
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/Qmv.m
+END
+Rmq.m
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/Rmq.m
+END
+dQmv_dvi.m
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/dQmv_dvi.m
+END
+dRm2_da.m
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/dRm2_da.m
+END
+ech3i.m
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/ech3i.m
+END
+dVmpv_dvi.m
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/dVmpv_dvi.m
+END
+uc313.m
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/uc313.m
+END
+Cmx.m
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/Cmx.m
+END
+ncv.m
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/ncv.m
+END
+LEmpijk.m
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/LEmpijk.m
+END
+Qmq.m
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/Qmq.m
+END
+dWmv_dvi.m
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/dWmv_dvi.m
+END
+LICENSE.txt
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/LICENSE.txt
+END
+Rmijk.m
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/Rmijk.m
+END
+dRm1_da.m
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/dRm1_da.m
+END
+LRm3.m
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/LRm3.m
+END
+qcadj.m
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/qcadj.m
+END
+LRm2.m
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/LRm2.m
+END
+Rmi.m
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/Rmi.m
+END
+Wmq.m
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/Wmq.m
+END
+Vmpv.m
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/Vmpv.m
+END
+qcan.m
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/qcan.m
+END
+LRm1.m
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/LRm1.m
+END
+Rm123.m
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/Rm123.m
+END
+isR.m
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/repos/cios/!svn/ver/264/Gijs/Programming/Matlab/slam/geometry/matk/isR.m
+END
+isv.m
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/repos/cios/!svn/ver/264/Gijs/Programming/Matlab/slam/geometry/matk/isv.m
+END
+attitude_constants.m
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/attitude_constants.m
+END
+qcR3.m
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/qcR3.m
+END
+Qmbq.m
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/Qmbq.m
+END
+isEuler.m
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/repos/cios/!svn/ver/264/Gijs/Programming/Matlab/slam/geometry/matk/isEuler.m
+END
+qcaw.m
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/qcaw.m
+END
+Rm2.m
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/Rm2.m
+END
+isq.m
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/repos/cios/!svn/ver/264/Gijs/Programming/Matlab/slam/geometry/matk/isq.m
+END
+LRmi.m
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/LRmi.m
+END
+dvcmv_du.m
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/dvcmv_du.m
+END
+qcRi.m
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/qcRi.m
+END
+vcrand.m
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/vcrand.m
+END
+Gmv.m
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/Gmv.m
+END
+dvcmv_dv.m
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/dvcmv_dv.m
+END
+qcslerp.m
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/qcslerp.m
+END
+dRmq_dq0.m
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/dRmq_dq0.m
+END
+vcmv.m
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/vcmv.m
+END
+properq.m
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/repos/cios/!svn/ver/264/Gijs/Programming/Matlab/slam/geometry/matk/properq.m
+END
+qcexp.m
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/qcexp.m
+END
+Wmpq.m
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/Wmpq.m
+END
+vcR.m
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/vcR.m
+END
+vcq.m
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/vcq.m
+END
+gcvi.m
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/gcvi.m
+END
+dRmijk_dal.m
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/dRmijk_dal.m
+END
+README.txt
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/README.txt
+END
+Emijk.m
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/Emijk.m
+END
+LRmijk.m
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/LRmijk.m
+END
+dRmq_dq2.m
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/dRmq_dq2.m
+END
+Wmv.m
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/Wmv.m
+END
+ecR.m
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/ecR.m
+END
+qcinv.m
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/qcinv.m
+END
+dRm3_da.m
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/repos/cios/!svn/ver/226/Gijs/Programming/Matlab/slam/geometry/matk/dRm3_da.m
+END

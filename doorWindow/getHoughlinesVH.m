@@ -1,7 +1,11 @@
 % this file does edge and houghline extraction
 %
+
+
 fprintf('\nStarting Hough...');
 close all;
+
+if true
 tic;
  
 edgeFromCache					= false
@@ -20,15 +24,15 @@ if plotme
 	hold on; plot([10,10+Dataset.HoughParam.minLength],[10,10],'r-','LineWidth',2);
 	fgEdge = figure();imshow(Dataset.ImReader.imEdge);
 	% HOUGHLINES:
-	fgHough = figure(); 
-	imshow(Dataset.ImReader.imOriDimmed); 
+	fgHough = figure(); imshow(Dataset.ImReader.imOriDimmed); 
 	hold on;
 end
 
+
 % HOUGHLINES VERTICAL:
-[H,Theta,Rho] = hough(Dataset.imReader.imEdge,'Theta',Dataset.HoughParam.ThetaV.Start:Dataset.HoughParam.ThetaV.Resolution:Dataset.HoughParam.ThetaV.End);
+[H,Theta,Rho] = hough(Dataset.ImReader.imEdge,'Theta',Dataset.HoughParam.ThetaV.Start:Dataset.HoughParam.ThetaV.Resolution:Dataset.HoughParam.ThetaV.End);
 Peaks  = houghpeaks(H,Dataset.HoughParam.nrPeaks,'threshold',ceil(Dataset.HoughParam.thresh*max(H(:))));
-HoughResult.Houghlines = houghlines(imEdge,Theta,Rho,Peaks,'FillGap',Dataset.HoughParam.fillGap,'MinLength',Dataset.HoughParam.minLength);
+HoughResult.Houghlines = houghlines(Dataset.ImReader.imEdge,Theta,Rho,Peaks,'FillGap',Dataset.HoughParam.fillGap,'MinLength',Dataset.HoughParam.minLength);
 HoughResult.V.Theta = Theta;
 HoughResult.V.Rho   = Rho;
 HoughResult.V.Peaks = Peaks;
@@ -37,7 +41,7 @@ HoughResult.V.Lines = HoughResult.Houghlines;
 
 
 % HOUGHLINES ROTATED (HORIZONTAL):
-imEdgeRot    = rot90(Dataset.imReader.imEdge,-1);
+imEdgeRot    = rot90(Dataset.ImReader.imEdge,-1);
 [H,Theta,Rho] = hough(imEdgeRot,'Theta',Dataset.HoughParam.ThetaH.Start:Dataset.HoughParam.ThetaH.Resolution:Dataset.HoughParam.ThetaH.End);
 Peaks  = houghpeaks(H,Dataset.HoughParam.nrPeaks,'threshold',ceil(Dataset.HoughParam.thresh*max(H(:))));
 HoughlinesRot = houghlines(imEdgeRot,Theta,Rho,Peaks,'FillGap',Dataset.HoughParam.fillGap,'MinLength',Dataset.HoughParam.minLength);
@@ -50,15 +54,27 @@ HoughResult.H.Lines = HoughResult.HoughlinesRot;
 %HOUGHLINES PLOT
 plotHoughlinesAll(Dataset.ImReader.imHeight,HoughResult.Houghlines,HoughResult.HoughlinesRot)
 
+end
+
+% TODO--------------------------------------------------------------------------------------------
+disp('press key to rectify and plot houghlines..')
+pause;
+plotHoughlinesAll(Dataset.ImReader.imHeight,HoughResult.Houghlines,HoughResult.HoughlinesRot)
+figure;
+Dataset.HoughResult = rectifyHoughlines(HoughResult, H)
+plotHoughlinesAll(Dataset.ImReader.imHeight,Dataset.HoughResult.HoughlinesRect,Dataset.HoughResult.HoughlinesRotRect)
 
 
+if plotme
+	disp('saving images ..');
+	savePathFile 						= ['results/',Dataset.fileShort];
+	saveas(fgColorModelTransform,[savePathFile,'_colortransform__',Dataset.paramStr],'png');
+	saveas(fgEdge,[savePathFile,'_edge__',Dataset.paramStr],'png');
+	saveas(fgHough,[savePathFile,'_hough__',Dataset.paramStr],'png');
+end
 
-disp('saving Dataset and images ..');
-savePathFile 						= ['results/',Dataset.fileShort];
-% save images
-saveas(fgColorModelTransform,[savePathFile,'_colortransform__',paramStr],'png');
-saveas(fgEdge,[savePathFile,'_edge__',paramStr],'png');
-saveas(fgHough,[savePathFile,'_hough__',paramStr],'png');
+
+disp('saving dataset..');
 % update dataset vals
 saveStr = [startPath,'/doorWindow/mats/Dataset_',Dataset.fileShort,'_HoughResult.mat'];
 save(saveStr, 'HoughResult');

@@ -12,9 +12,11 @@
 
 
 startPath = '/media/Storage/scriptie/fit3d'
-datasetName = 'datasetSpilPostRect';
+%datasetName = 'datasetSpilRect';
+datasetName = 'SpilRect';
 
 datasetDir = [startPath, '/dataset/Spil/',datasetName,'/'];
+err
 nrFrames = 8;
 
 % Load camera calibration
@@ -25,7 +27,7 @@ load([datasetDir,'Kbram.mat']);
 % all _BW.jpg files from the data folder!!!
 fprintf('\n\n\nEXTRACTING SIFT FEATURES\n\n\n');
 %[F,Files] = getSIFTtjerk([datasetDir,'fit3dInput/'],nrFrames,1,'VL_FEAT');
-[F,Files] = getSIFTtjerk([datasetDir,'fit3dInput/'],nrFrames,1,'VL_FEAT');
+[F,Files] = getSIFT([datasetDir,'fit3dInput/'],nrFrames,1,'VL_FEAT');
 
 %% COMPUTE MOTION
 % Given the SIFT features, we match them accross frames and compute the

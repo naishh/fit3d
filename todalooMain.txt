@@ -1,15 +1,17 @@
 GENERAL
 	be in PZO
-	spend max 3 hours
-		try affinematrix fit3d
-			first affine then other
-			prect4
-		find out bougette toolbox resizes images
-		mail isaac
+	run script fit3d/generate3dmodel
+		get normal from wall 
+		get transformatior matrix
+		transform and plot houghlines
+		if houghlinesrot gives problems then do only normal houghlines with big anglescaleparam
+
+	houghlinesVH
+		rectify script
+		see also fit3d/homography/tjerkify
 
 	restructur modules
 		togo:
-			houghlinesvh
 			hipaap
 			rects
 	make 2 clusters of hibaap instead of vaste threshold

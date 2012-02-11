@@ -33,6 +33,7 @@ fprintf('\n\n\nCOMPUTING SCALE\n\n\n');
 %% TRIANGULATE FEATURES AND BUILD 3D MODEL (3dc format)
 MAP = build3dcMap(Fplus,PcamScaled,Kbram,1,30,false,true,false,300,0.1,100,500,50,50,5,1);
 
+
 % This will write the file 3dmap.3dc containing the reconstructed
 % structure. For comparison, the 3D structure without scaling the motion
 % can be reconstructed using:
@@ -47,4 +48,13 @@ fprintf('- 3D model (matlab format)\n');
 fprintf('- 3dc file (3dmap.3dc) with point cloud\n');
 fprintf('------------------------------------------\n');
 fprintf('\n\n\nSCALE CALCULATED!. A 3D model has been built.');
+fprintf('n\nTo see it we recommend using OpenSceneGraph.');
+fprintf('\nYou can visualize the model by typing in a terminal window: >osgviewer 3dmap.3dc \n\n');
+fprintf('Alternatively, you can see the structure in Matlab by typing:\n\n');
+fprintf('plot3(MAP(:,1),MAP(:,2),MAP(:,3),''r.\'')\n\n\n');
 
+
+
+disp('SAVING MAP...');
+save([datasetDir,'MAP_',datasetName,'.mat'],'MAP');
+disp('[DONE]');
