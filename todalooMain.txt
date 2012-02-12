@@ -1,9 +1,7 @@
 GENERAL
 	be in PZO
 	projectHoughlines
-		get transformation matrix
-		transform and plot houghlines
-		if houghlinesrot gives problems then do only normal houghlines with big anglescaleparam
+		play with a skewnes in WallsPc
 
 	houghlinesVH
 		rectify script
