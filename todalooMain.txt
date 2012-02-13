@@ -1,6 +1,8 @@
 GENERAL
 	be in PZO
 	projectHoughlines
+		perform on edge image
+			test on smaller img for faster load times
 		play with a skewnes in WallsPc
 
 	houghlinesVH

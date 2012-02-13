@@ -1,6 +1,9 @@
 % load dataset if it doesnt exist
 close all;
 if exist('Dataset.Houghresult')==0
+	cd ..
+	setup
+	cd doorWindow
 	main
 	load('../dataset/Spil/SpilRect/WallsPc_SpilRect.mat')
 	load('../dataset/Spil/SpilRect/Kbram.mat')

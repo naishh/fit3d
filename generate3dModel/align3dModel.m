@@ -10,7 +10,8 @@ plot(MAP(:,1),MAP(:,3),'r.','MarkerSize',1);
 hold on
 
 
-%[X,Z] = ginput(2); save(['XZ',datasetName],'X','Z');
+[X,Z] = ginput(2); 
+%save(['XZ',datasetName],'X','Z');
 
 %% do ginput at matlab console and manually fill X and Z here:
 %X = [-8.6977, -1.7310, 0.0312, -0.7704, 4.9011];
