@@ -2,7 +2,9 @@ GENERAL
 	be in PZO
 	projectHoughlines
 		perform on edge image
+			see resultProjedge
 			test on smaller img for faster load times
+			
 		play with a skewnes in WallsPc
 
 	houghlinesVH

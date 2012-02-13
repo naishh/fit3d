@@ -1,6 +1,6 @@
 % load dataset if it doesnt exist
 close all;
-if false
+if true
 if exist('Dataset.Houghresult')==0
 	cd ..
 	setup
@@ -35,12 +35,17 @@ figure;hold on;
 for i=1:length(XYedge)
 	fprintf('\nprocent done %d', i/ length(XYedge) * 100)
 
-	xy = [XYedge(i);1]
+	%xy = [XYedge(i,:)';1]
+	xy = [XYedge(i,:),1];
 	[xyz1, dummy] = get3Dfrom2D(xy,1,PcamAbs,Kbram,WallsPc,1);
 	%reproject to 2d
 	XYproj(i,:) = homog22D(inv(R) * xyz1');
-	plot(XYproj(i,1),XYproj(i,2),'+k')
+	%XYproj(i,:)
 
+	plot(XYproj(i,1),XYproj(i,2),'.k')
+
+	%XYprojScaled = XYproj + OffsetRep;
+	%XYprojScaled = XYprojScaled .* MultiplierRep
 end
 
 end
@@ -58,6 +63,9 @@ Ymin = min(XYproj(:,1))
 Xmin = min(XYproj(:,2))
 Ymax = max(XYproj(:,1))
 Xmax = max(XYproj(:,2))
+
+end
+load('upscaleVars.mat');
 
 % calc intervals and offsets
 Xinterval = Xmax-Xmin
@@ -85,13 +93,15 @@ max(XYprojScaled(:,2))
 % add 1 to start at idx 1 (array indexing)
 XYprojScaledRound = 1+round(XYprojScaled);
 
-
-
-end
+save('upscaleVars.mat','Xmin','Ymin','Xmax','Xmin','Multiplier','Offset')
 
 
 ImEdgeProj = zeros(newResolution);
-ImEdgeProj(XYprojScaledRound(:,1), XYprojScaledRound(:,2)) = 1;
+for i=1:length(XYprojScaledRound)
+	i/length(XYprojScaledRound)*100
+	ImEdgeProj(XYprojScaledRound(i,1), XYprojScaledRound(i,2)) = 1;
+end
+%ImEdgeProj(XYprojScaledRound(:,1), XYprojScaledRound(:,2)) = 1;
 
 %%	ImEdgeProj(round(xyProj(1)), round(xyProj(2))) = 1;
 figure;imshow(ImEdgeProj);
