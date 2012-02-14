@@ -6,11 +6,14 @@ datasetDir = [startPath, '/dataset/Spil/',datasetName,'/'];
 load([datasetDir,'MAP_',datasetName,'.mat']);
 
 % plot small dots and project on ground plane by leaving Y value 0
+figure;
 plot(MAP(:,1),MAP(:,3),'r.','MarkerSize',1);
 hold on
 
+%Z = Z+10
 
-[X,Z] = ginput(2); 
+load('../mats/WallsPcFar.mat')
+%[X,Z] = ginput(2); 
 %save(['XZ',datasetName],'X','Z');
 
 %% do ginput at matlab console and manually fill X and Z here:
@@ -32,5 +35,6 @@ yAir = -3.2;
 %yAir = -4;	
 bConnectLastToFirstWall = false;
 WallsPc = generateWallsFromCornerPoints(X,Z, yGround,yAir, bConnectLastToFirstWall);
-save('../mats/WallsPc.mat','WallsPc');
+%save('../mats/WallsPcMiddleParaFar.mat','WallsPc');
+
 

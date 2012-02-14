@@ -1,5 +1,5 @@
 % load dataset if it doesnt exist
-close all;
+%close all;
 if true
 if exist('Dataset.Houghresult')==0
 	cd ..
@@ -8,8 +8,9 @@ if exist('Dataset.Houghresult')==0
 	main
 	load('../dataset/Spil/SpilRect/Kbram.mat')
 	%load('../dataset/Spil/SpilRect/WallsPc_SpilRect.mat')
-	load('../mats/WallsPcSkew.mat');
+	%load('../mats/WallsPc.mat');
 end
+load('../mats/WallsPcMiddle2.mat');
 
 wallNormal = getNormalFromWall(WallsPc, 1, 0)
 
@@ -25,15 +26,16 @@ PcamAbs = [eye(3),[0 0 0]']
 imEdgeProj = zeros(size(Dataset.ImReader.imEdge));
 
 % search for coords where edge is 1
-[Xedge,Yedge,dummy] = find(Dataset.ImReader.imEdge==1);
+% todo instead of rot flip x with y?
+[Yedge,Xedge,dummy] = find(Dataset.ImReader.imEdge==1);
 XYedge = [Xedge,Yedge];
 
 XYproj = zeros(size(XYedge));
 XYprojScaled = zeros(size(XYedge));
 
 figure;hold on;
-for i=1:length(XYedge)
-	fprintf('\nprocent done %d', i/ length(XYedge) * 100)
+for i=1:5:length(XYedge)
+	fprintf('\nprocent done %d', round(i/ length(XYedge) * 100))
 
 	%xy = [XYedge(i,:)';1]
 	xy = [XYedge(i,:),1];
@@ -42,7 +44,7 @@ for i=1:length(XYedge)
 	XYproj(i,:) = homog22D(inv(R) * xyz1');
 	%XYproj(i,:)
 
-	plot(XYproj(i,1),XYproj(i,2),'.k')
+	plot(XYproj(i,1), -XYproj(i,2),'.k','MarkerSize',1)
 
 	%XYprojScaled = XYproj + OffsetRep;
 	%XYprojScaled = XYprojScaled .* MultiplierRep
@@ -52,12 +54,10 @@ end
 
 
 
-
-
 if false
 
 % scales up from example -3..1 to 0..1024
-load('XYproj.mat');
+%load('XYproj.mat');
 
 Ymin = min(XYproj(:,1))
 Xmin = min(XYproj(:,2))

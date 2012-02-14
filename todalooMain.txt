@@ -1,15 +1,21 @@
 GENERAL
 	be in PZO
-	projectHoughlines
-		perform on edge image
-			see resultProjedge
-			test on smaller img for faster load times
-			
-		play with a skewnes in WallsPc
-
 	houghlinesVH
 		rectify script
 		see also fit3d/homography/tjerkify
+	
+	projectHoughlines
+		perform on edge image
+			rotate image degrees -7
+			send isaac mail
+			make new dataset
+			optimize code check what can load faster in projection
+			see resultProjedge
+			test on smaller img for faster load times
+				think about why K  not good?
+			
+		play with a skewnes in WallsPc
+
 
 	restructur modules
 		togo:
