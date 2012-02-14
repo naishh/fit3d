@@ -12,7 +12,6 @@ hold on
 
 %Z = Z+10
 
-load('../mats/WallsPcFar.mat')
 %[X,Z] = ginput(2); 
 %save(['XZ',datasetName],'X','Z');
 
@@ -29,12 +28,19 @@ load('../mats/WallsPcFar.mat')
 plot(X,Z,'k+-','MarkerSize',10);
 
 % %yGround = 1;
-yGround = 1;
 % %yAir = -3;	
-yAir = -3.2;	
 %yAir = -4;	
+
+%yGround = 1;
+%yAir = -3.2;	
+
+yGround = 0
+yAir = -3 
+
 bConnectLastToFirstWall = false;
+
 WallsPc = generateWallsFromCornerPoints(X,Z, yGround,yAir, bConnectLastToFirstWall);
+load('../mats/WallsPcMiddle2.mat')
 %save('../mats/WallsPcMiddleParaFar.mat','WallsPc');
 
 

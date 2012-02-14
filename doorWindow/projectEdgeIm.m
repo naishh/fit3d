@@ -10,9 +10,16 @@ if exist('Dataset.Houghresult')==0
 	%load('../dataset/Spil/SpilRect/WallsPc_SpilRect.mat')
 	%load('../mats/WallsPc.mat');
 end
-load('../mats/WallsPcMiddle2.mat');
+load('../mats/WallsPcMiddle2.mat')
+
+%adjust Z
+%WallsPc(1,9)= WallsPc(1,9)+0.5;
+%WallsPc(1,12)= WallsPc(1,12)+0.5;
+
 
 wallNormal = getNormalFromWall(WallsPc, 1, 0)
+
+wallNormal = [0.2982, -0.0624, 0.2641]
 
 zAxis = [0 0 1];
 rotationVector = cross(zAxis, wallNormal)

@@ -6,7 +6,15 @@ GENERAL
 	
 	projectHoughlines
 		perform on edge image
-			rotate image degrees -7
+			fitplanesRansa from fit3d toolbox
+				see planeFitter dir 
+				plot normal with wallspc
+				check first 3 vals with current wall normal
+			use a easyer faster edge image
+				draw building outline in gimp
+			make own plain fitter by projecting to each dimension
+			plot 3d wall with points
+
 			send isaac mail
 			make new dataset
 			optimize code check what can load faster in projection
