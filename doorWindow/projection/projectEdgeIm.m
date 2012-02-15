@@ -2,15 +2,13 @@
 %close all;
 if true
 if exist('Dataset.Houghresult')==0
-	cd ..
+	cd ../..
+	load('dataset/Spil/SpilRect/Kbram.mat')
 	setup
-	cd doorWindow
+	cd doorWindow/projection
 	main
-	load('../dataset/Spil/SpilRect/Kbram.mat')
-	%load('../dataset/Spil/SpilRect/WallsPc_SpilRect.mat')
-	%load('../mats/WallsPc.mat');
 end
-load('../mats/WallsPcMiddle2.mat')
+load('../../mats/WallsPcMiddle2.mat')
 
 %adjust Z
 %WallsPc(1,9)= WallsPc(1,9)+0.5;
@@ -18,8 +16,9 @@ load('../mats/WallsPcMiddle2.mat')
 
 
 wallNormal = getNormalFromWall(WallsPc, 1, 0)
+err
 
-wallNormal = [0.2982, -0.0624, 0.2641]
+%wallNormal = [0.2982, -0.0624, 0.2641]
 
 zAxis = [0 0 1];
 rotationVector = cross(zAxis, wallNormal)
