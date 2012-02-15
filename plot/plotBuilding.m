@@ -1,5 +1,5 @@
 function figBuilding = plotBuilding(Walls, interestingWalls)
-figBuilding  = figure();
+%figBuilding  = figure();
 hold on;
 
 % change order of the cornerpoints of the wall so the polygons (walls) are plotted right

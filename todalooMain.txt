@@ -1,15 +1,16 @@
 GENERAL
 	be in PZO
-	houghlinesVH
-		rectify script
-		see also fit3d/homography/tjerkify
 	
 	projectHoughlines
 		perform on edge image
 			fitplanesRansa from fit3d toolbox
-				see planeFitter dir 
-				plot normal with wallspc
-				check first 3 vals with current wall normal
+				see planeFitter / main
+					use auto displacement from mean of pointcloud
+						is this maybe 4rd arg of ransacfitplane?
+			use new wall to estimate image
+				think of faster way (isaacs way) to project image
+			set deadline or use dirty way to change img
+
 			use a easyer faster edge image
 				draw building outline in gimp
 			make own plain fitter by projecting to each dimension
@@ -24,6 +25,9 @@ GENERAL
 			
 		play with a skewnes in WallsPc
 
+	houghlinesVH
+		rectify script
+		see also fit3d/homography/tjerkify
 
 	restructur modules
 		togo:

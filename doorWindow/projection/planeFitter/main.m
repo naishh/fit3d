@@ -1,38 +1,36 @@
 close all
-load MAP
-XYZ = MAP(:,1:3)';
-[B, P, inliers] = ransacfitplane(XYZ, 1, 1, 100, 1000);
-B
+figure; hold on;
 
-load('../../../mats/WallsPcMiddle2.mat')
-clf;
-plotBuilding(WallsPc)
-hold on;
-pause;
-plot3(MAP(:,1), MAP(:,2), MAP(:,3), 'r+')
+% load map
+load MAP; XYZ = MAP(:,1:3)';
 
+% fits plane in datapoints and calcs wall normal
+[normalRansac, P, inliers] = ransacfitplane(XYZ, 1, 1, 100, 1000)
 
-pause;
-% wall normal
+% plot only inliers
+plot3(MAP(inliers(:),1), MAP(inliers(:),2), MAP(inliers(:),3),'k+')
 
+% use only a b c (xyz)
+normalRansac = normalRansac(1:3)
+
+% increas so its easyer to see an error
+factor = 10;
+normalRansac = normalRansac*factor
 
 % middle of point cloud for displacement
-
+% (get with ginput)
 Xmid = -1.0899
 Zmid = 4.5029
-Origin = [Xmid,0,Zmid]'
+t = [Xmid;0;Zmid]
 
-factor = 10;
-B = B(1:3)
-B = B*factor
-
-plotVector3([0;0;0], B)
+% no displacement
+wall1 = normalToWall(normalRansac, [0;0;0], 1)
+plotBuilding(wall1,1)
 pause;
-%plotVector3(Origin, Origin+B)
-%pause;
 
-C = [0.7880         0    0.6156]'
-plotVector3([0 0 0]', C);
-pause;
-plotVector3(Origin, Origin +  C);
-axis square
+%  displacement
+wall2 = normalToWall(normalRansac, t, 1)
+plotBuilding(wall2,1)
+	
+
+axis equal

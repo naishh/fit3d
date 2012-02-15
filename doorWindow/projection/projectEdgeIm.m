@@ -16,6 +16,7 @@ load('../../mats/WallsPcMiddle2.mat')
 
 
 wallNormal = getNormalFromWall(WallsPc, 1, 0)
+
 err
 
 %wallNormal = [0.2982, -0.0624, 0.2641]
