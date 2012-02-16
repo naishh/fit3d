@@ -5,19 +5,21 @@ if exist('Dataset.Houghresult')==0
 	cd ../..
 	load('dataset/Spil/SpilRect/Kbram.mat')
 	setup
-	cd doorWindow/projection
-	main
+	cd doorWindow
+	Dataset = getDataset('Spil4BigOutline',startPath)
+	imshow(Dataset.ImReader.imColorModelTransform)
+	cd projection
 end
-load('../../mats/WallsPcMiddle2.mat')
-
+%load('../../mats/WallsPcMiddle2.mat')
 %adjust Z
 %WallsPc(1,9)= WallsPc(1,9)+0.5;
 %WallsPc(1,12)= WallsPc(1,12)+0.5;
 
+load('planeFitter/WallsPcPlaneFitter.mat'); WallsPc = WallsPcPlaneFitter;
+
 
 wallNormal = getNormalFromWall(WallsPc, 1, 0)
 
-err
 
 %wallNormal = [0.2982, -0.0624, 0.2641]
 
@@ -41,7 +43,8 @@ XYproj = zeros(size(XYedge));
 XYprojScaled = zeros(size(XYedge));
 
 figure;hold on;
-for i=1:5:length(XYedge)
+len = length(XYedge);
+for i=1:30:len
 	fprintf('\nprocent done %d', round(i/ length(XYedge) * 100))
 
 	%xy = [XYedge(i,:)';1]
@@ -71,7 +74,6 @@ Xmin = min(XYproj(:,2))
 Ymax = max(XYproj(:,1))
 Xmax = max(XYproj(:,2))
 
-end
 load('upscaleVars.mat');
 
 % calc intervals and offsets
@@ -114,3 +116,4 @@ end
 figure;imshow(ImEdgeProj);
 
 %see project2Normal/project2squareHough
+end

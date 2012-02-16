@@ -34,7 +34,7 @@ elseif strcmp(DatasetName, 'Spil') == 1
 	Dataset.baseFile 						= 'P_rect';
 	Dataset.imStartNr 						= 6;
 	Dataset.endRange 						= 6; 
-	Dataset.colorModel						= 'none'; % {'HSV_V','RGB','BW'};
+	Dataset.colorModel						= 'none'; % {'HSV_V','RGB','BW', 'ORIGINAL'	};
 	Dataset.EdgeDetectorParam.thresh		= 0.15; 
 	% TODO make function which generate all colormodels images and attach to dataset
 	Dataset.HoughParam.fillGap 				= 10;
@@ -44,7 +44,16 @@ elseif strcmp(DatasetName, 'Spil4') == 1
 	Dataset.path 							= '../dataset/Spil/datasetSpilRect/scaled/';
 	Dataset.baseFile 						= 'P_rect';
 	Dataset.imStartNr 						= 4;
-	Dataset.colorModel						= 'none'; % {'HSV_V','RGB','BW'};
+	Dataset.colorModel						= 'none';
+	Dataset.EdgeDetectorParam.thresh		= 0.15; 
+	Dataset.HoughParam.fillGap 				= 10;
+	Dataset.HoughParam.minLength 			= 45; 
+elseif strcmp(DatasetName, 'Spil4BigOutline') == 1
+	Dataset.fileShort 						= 'Spil4BigOutline';
+	Dataset.path 							= '../dataset/Spil/SpilRect/';
+	Dataset.baseFile 						= 'P_rect1120558_buildingOutline.png';
+	Dataset.postfix 						= '';
+	Dataset.colorModel						= 'ORIGINAL'; 
 	Dataset.EdgeDetectorParam.thresh		= 0.15; 
 	Dataset.HoughParam.fillGap 				= 10;
 	Dataset.HoughParam.minLength 			= 45; 
@@ -56,7 +65,7 @@ elseif strcmp(DatasetName, 'Spil1Trans') == 1
 	Dataset.postfix 						= '_transformed.jpg';
 	Dataset.imStartNr 						= 6;
 	Dataset.endRange 						= 6; 
-	Dataset.colorModel						= 'none'; % {'HSV_V','RGB','BW'};
+	Dataset.colorModel						= 'none'; 
 	Dataset.EdgeDetectorParam.thresh		= 0.45; 
 	Dataset.HoughParam.fillGap 				= 10;
 	Dataset.HoughParam.minLength 			= 30; 
@@ -189,7 +198,15 @@ else
 end
 
 % set defaults after
-ImReader.file = [Dataset.path, Dataset.baseFile, int2str(Dataset.imStartNr), Dataset.postfix]
+
+% if start nr exist convert to str, else empty string
+if exist('Dataset.imStartNr') 
+	imStartNrStr = int2str(Dataset.imStartNr);
+else
+	imStartNrStr = '';
+end
+
+ImReader.file = [Dataset.path, Dataset.baseFile, imStartNrStr, Dataset.postfix]
 
 
 Dataset.HoughParam.ThetaV.Start 		= 0;

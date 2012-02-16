@@ -1,64 +1,32 @@
 Hi Isaac,
 
-How are you doing?  Can I get some help of you?
-I build a window detector (if you are interested see next mail) that is based on the frontal view of a buildingwall. I want to project the buildingwalls and therefor I need to extract the 3dmap. For the Floriande dataset this is no problem but on my own dataset it doensn't work.
 
-I apply the MotionEstimation and ScaleEstimation from your fit3d toolbox.
-MotionEstimation goes fine.
-ScaleEstimation stops
-
-it raises an error after finding 
-COMPUTING SCALE
-PROCESSING FRAME 1
-Number of features in frame 1: 27
-Number of 3frame matches: 2
-Number of 3D points for scaling: 0
-
-To compare, in the Floriande set it finds much more features:
-
-PROCESSING FRAME 1
-Number of features in frame 1: 395
-Number of 3frame matches: 76
-Number of 3D points for scaling: 67
-
-So I think the problem is that it finds to few features to find 3frame matches.
-
-ScaleEstimation doesnt give an error on the original (RGB, distorded, 3072x2304) images
-but that 3dmap has a very low nr of 3d points, this is ofcourse due to the distortion in the images.
-
-The Fplus matrix is for the Floriande set 2949x9
-On my dataset set (Grayscale, rectified, 1542x1156) 
-It is only 184x9. I rectified with the bougette toolbox.
-
-I tried to change the feature mode to LOWE but it raises lots of errors.
-I have tried to change the Motion estimation parameters:
-motionAlgorithm from 8pt to 5pt but that raises the error:
-??? Undefined function or method 'calibrated_fivepoint_helper'
-
-Increased the distratio to 0.8 and it finds a few more features
-just enough to complete the algorithm but the point cloud is very sparse
-see attachment. I also attached a few images of my dataset.
-
-Do you have an idea how I can get more features and 3frame matches?
-
-Tjerk
+I get the plane normal but how do I translate it to the point cloud.
+I think it got something to do with the 4rd coord of the ouput of ransacplanefitter
+coord 1:3 is the normal
 
 
 
-spilrect rgb
+Hi Isaac,
 
+I continued with the sparse point cloud and the results are promissing.
+See attachments.
 
-EXTRACTING SIFT FEATURES
-File: /media/Storage/scriptie/fit3d/dataset/Spil/datasetSpilRect/fit3dInput/P1120555.JPG 
-21170 features found 
+I projected the pointcloud to the Y axis, draw the base of the 3d model by hand
+And I let the wall grow in the Y direction. Then I used the normal of the wall to calculate a Rotation matrix.
 
-spilrect grayscale
+The windows are almost orthogonal now.
+Two artefacts:
+1) The image is rotated 7 degrees
+2) The windows are not yet fully orthogonal
 
+A quickfix for (1) is an rotation by hand, see attachment.
+For (2) I have no solution. Assuming the problem is the sparse point I tried different variations.
+By changing the position and angle of the wall.
+Non of them fixed the problem.
 
-
-spilpost rgb
-File: /media/Storage/scriptie/fit3d/dataset/Spil/datasetSpilPostRect/fit3dInput/spilpost00.jpg 
-4214 features found 
-
-
+I think the problem is in assuming the wall to be exactly in the Y direction.
+So I let the wall a little bit skew and the result went better.
+So the method of growing is good enough for skyline detection but not for this purpose.
+Can (and how can I) your method of fitting a plane in a point cloud?
 

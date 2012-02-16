@@ -56,6 +56,7 @@ plotHoughlinesAll(Dataset.ImReader.imHeight,HoughResult.Houghlines,HoughResult.H
 
 end
 
+if false
 % TODO--------------------------------------------------------------------------------------------
 disp('press key to rectify and plot houghlines..')
 pause;
@@ -64,6 +65,7 @@ figure;
 Dataset.HoughResult = rectifyHoughlines(HoughResult, H)
 plotHoughlinesAll(Dataset.ImReader.imHeight,Dataset.HoughResult.HoughlinesRect,Dataset.HoughResult.HoughlinesRotRect)
 
+end
 
 if plotme
 	disp('saving images ..');

@@ -3,16 +3,23 @@ GENERAL
 	
 	projectHoughlines
 		perform on edge image
+			is the resolution the problem again ?
+			pcamabs laatste colom translatievector doen?
+
 			fitplanesRansa from fit3d toolbox
 				see planeFitter / main
 					use auto displacement from mean of pointcloud
 						is this maybe 4rd arg of ransacfitplane?
+			search for avg of pointcloud 
+
+
+			do the whole thing with floriande
+				check if it projects right
+
 			use new wall to estimate image
 				think of faster way (isaacs way) to project image
 			set deadline or use dirty way to change img
 
-			use a easyer faster edge image
-				draw building outline in gimp
 			make own plain fitter by projecting to each dimension
 			plot 3d wall with points
 

@@ -11,6 +11,7 @@ path(path,[startPath, '/project2Normal']);
 %path(path,[startPath, '/misc']);
 %path(path,[startPath, '/cameraCalibration/toolbox_calib']);
 %path(path,[startPath, '/project2d']);
+path(path,[startPath, '/doorWindow']);
 path(path,[startPath, '/doorWindow/aux']);
 path(path,[startPath, '/doorWindow/cCorner_and_Harris']);
 path(path,[startPath, '/doorWindow/3rdParty']);
