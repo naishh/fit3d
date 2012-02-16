@@ -13,8 +13,7 @@ GENERAL
 			search for avg of pointcloud 
 
 
-			do the whole thing with floriande
-				check if it projects right
+			to exclude pointcloud problem, do the whole thing with floriande
 
 			use new wall to estimate image
 				think of faster way (isaacs way) to project image

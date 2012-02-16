@@ -1,13 +1,12 @@
-% load dataset if it doesnt exist
 %close all;
-if true
 if exist('Dataset.Houghresult')==0
 	cd ../..
 	load('dataset/Spil/SpilRect/Kbram.mat')
 	setup
 	cd doorWindow
+	%Dataset = getDataset('Spil4BigOutline',startPath)
 	Dataset = getDataset('Spil4BigOutline',startPath)
-	imshow(Dataset.ImReader.imColorModelTransform)
+	%figure; imshow(Dataset.ImReader.imColorModelTransform)
 	cd projection
 end
 %load('../../mats/WallsPcMiddle2.mat')
@@ -15,13 +14,12 @@ end
 %WallsPc(1,9)= WallsPc(1,9)+0.5;
 %WallsPc(1,12)= WallsPc(1,12)+0.5;
 
-load('planeFitter/WallsPcPlaneFitter.mat'); WallsPc = WallsPcPlaneFitter;
+% load map
+load('planeFitter/MAPspil4big.mat'); 
+% get wall from point cloud
+WallsPc 	= getWallFromPc(MAP);
+wallNormal  = getNormalFromWall(WallsPc, 1, 0)
 
-
-wallNormal = getNormalFromWall(WallsPc, 1, 0)
-
-
-%wallNormal = [0.2982, -0.0624, 0.2641]
 
 zAxis = [0 0 1];
 rotationVector = cross(zAxis, wallNormal)
@@ -29,7 +27,6 @@ angle = acos(dot(zAxis, wallNormal)) % could also be -R!!
 R = getRotationMatrix(rotationVector, angle)
 
 PcamAbs = [eye(3),[0 0 0]']
-
 
 % initate black projected image
 imEdgeProj = zeros(size(Dataset.ImReader.imEdge));
@@ -44,7 +41,7 @@ XYprojScaled = zeros(size(XYedge));
 
 figure;hold on;
 len = length(XYedge);
-for i=1:30:len
+for i=1:5:len
 	fprintf('\nprocent done %d', round(i/ length(XYedge) * 100))
 
 	%xy = [XYedge(i,:)';1]
@@ -60,7 +57,8 @@ for i=1:30:len
 	%XYprojScaled = XYprojScaled .* MultiplierRep
 end
 
-end
+axis equal;
+
 
 
 
@@ -115,5 +113,4 @@ end
 %%	ImEdgeProj(round(xyProj(1)), round(xyProj(2))) = 1;
 figure;imshow(ImEdgeProj);
 
-%see project2Normal/project2squareHough
 end

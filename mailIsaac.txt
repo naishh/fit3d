@@ -5,6 +5,8 @@ I get the plane normal but how do I translate it to the point cloud.
 I think it got something to do with the 4rd coord of the ouput of ransacplanefitter
 coord 1:3 is the normal
 
+how do I align the wall with the points
+I now add the mean of the pointcloud to the normalised wall normal
 
 
 Hi Isaac,
@@ -29,4 +31,6 @@ I think the problem is in assuming the wall to be exactly in the Y direction.
 So I let the wall a little bit skew and the result went better.
 So the method of growing is good enough for skyline detection but not for this purpose.
 Can (and how can I) your method of fitting a plane in a point cloud?
+
+
 
