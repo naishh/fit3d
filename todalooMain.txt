@@ -1,39 +1,25 @@
 GENERAL
 	be in PZO
 	
-	projectHoughlines
-		perform on edge image
-			is the resolution the problem again ?
-			pcamabs laatste colom translatievector doen?
-
-			fitplanesRansa from fit3d toolbox
-				see planeFitter / main
-					use auto displacement from mean of pointcloud
-						is this maybe 4rd arg of ransacfitplane?
-			search for avg of pointcloud 
 
 
-			to exclude pointcloud problem, do the whole thing with floriande
-
-			use new wall to estimate image
-				think of faster way (isaacs way) to project image
-			set deadline or use dirty way to change img
-
-			make own plain fitter by projecting to each dimension
-			plot 3d wall with points
-
-			send isaac mail
-			make new dataset
-			optimize code check what can load faster in projection
-			see resultProjedge
-			test on smaller img for faster load times
-				think about why K  not good?
-			
-		play with a skewnes in WallsPc
 
 	houghlinesVH
-		rectify script
-		see also fit3d/homography/tjerkify
+		rectification
+			FIT3Drectification
+				to exclude pointcloud problem, do the whole thing with floriande
+					result: it looks good enough at some ransac iterations
+						so the point cloud is the problem
+				next: perform bougette toolbox
+				do hibaap on floriande 
+
+				send isaac mail
+			OR: rectify script, see also fit3d/homography/tjerkify
+		use projected houghlines and perform hibaap etc
+
+	new dataset
+		make a K matrix from anne calib result
+		get new pointcloud (MAP) and run doorwindow/projection
 
 	restructur modules
 		togo:

@@ -18,15 +18,29 @@ Dataset.HibaapParam.incrFactor			= 20;
 Dataset.cCornerParam.minVotes			= 2;
 
 % customs
-if strcmp(DatasetName,'Floriande') == 1
+if strcmp(DatasetName,'Floriande0') == 1
+	Dataset.fileShort 						= 'Floriande0';
 	Dataset.path = [startPathDataset,'FloriandeSet1/small/'];
 	Dataset.baseFile = 'outd';
-	Dataset.imNrStart = 8; 
-	Dataset.imNrEnd = 8;
+	Dataset.imStartNr = 0; 
 	Dataset.EdgeDetectorParam.thresh		= 0.05; 
+	Dataset.colorModel						= 'BW'; % {'HSV_V','RGB','BW', 'ORIGINAL'	};
+	Dataset.HoughParam.fillGap 				= 10;
+	Dataset.HoughParam.minLength 			= 45; 
 %	Dataset.EdgeDetectorParam.thresh		= 0.35; 
 %imNr = 5435; file = sprintf('../dataset/FloriandeSet1/medium/undist__MG_%d.jpg', imNr); load('XYangleFilter_floriande_5447.mat'); load('XYcropRegionFloriande5435.mat'); edgeDetectorParam.thresh		= 0.55; HoughParam.ThetaH.StretchAngle	= 30;HoughParam.ThetaV.StretchAngle	= 10; fileShort 						= 'floriande5435';
 %imNr = 5447; file = sprintf('../dataset/FloriandeSet1/medium/undist__MG_%d.jpg', imNr); 
+
+elseif strcmp(DatasetName,'Floriande0Outline') == 1
+	Dataset.fileShort 						= 'Floriande0Outline';
+	Dataset.path = [startPathDataset,'FloriandeSet1/small/'];
+	Dataset.baseFile = 'outd';
+	Dataset.imStartNr = 0; 
+	Dataset.EdgeDetectorParam.thresh		= 0.05; 
+	Dataset.colorModel						= 'BW'; % {'HSV_V','RGB','BW', 'ORIGINAL'	};
+	Dataset.HoughParam.fillGap 				= 10;
+	Dataset.HoughParam.minLength 			= 45; 
+	Dataset.postfix = 'Outline.jpg';
 
 elseif strcmp(DatasetName, 'Spil') == 1
 	Dataset.fileShort 						= 'spil6';
@@ -200,7 +214,7 @@ end
 % set defaults after
 
 % if start nr exist convert to str, else empty string
-if exist('Dataset.imStartNr') 
+if isfield(Dataset, 'imStartNr') == 1
 	imStartNrStr = int2str(Dataset.imStartNr);
 else
 	imStartNrStr = '';

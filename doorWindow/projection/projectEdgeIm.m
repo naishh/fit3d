@@ -1,22 +1,25 @@
 %close all;
-if exist('Dataset.Houghresult')==0
+if isfield(Dataset,'Imreader')==0
 	cd ../..
-	load('dataset/Spil/SpilRect/Kbram.mat')
+	%load('dataset/Spil/SpilRect/Kbram.mat');K=Kbram
+	load('dataset/FloriandeSet1/KCanon10mm.mat');K=Kcanon10GOOD
 	setup
 	cd doorWindow
 	%Dataset = getDataset('Spil4BigOutline',startPath)
-	Dataset = getDataset('Spil4BigOutline',startPath)
-	%figure; imshow(Dataset.ImReader.imColorModelTransform)
+	%Dataset = getDataset('Floriande0',startPath)
+	Dataset = getDataset('Floriande0Outline',startPath)
+	figure; imshow(Dataset.ImReader.imColorModelTransform)
 	cd projection
+	% load map
+	load('planeFitter/MAPfloriande.mat'); 
 end
 %load('../../mats/WallsPcMiddle2.mat')
 %adjust Z
 %WallsPc(1,9)= WallsPc(1,9)+0.5;
 %WallsPc(1,12)= WallsPc(1,12)+0.5;
 
-% load map
-load('planeFitter/MAPspil4big.mat'); 
 % get wall from point cloud
+
 WallsPc 	= getWallFromPc(MAP);
 wallNormal  = getNormalFromWall(WallsPc, 1, 0)
 
@@ -41,12 +44,12 @@ XYprojScaled = zeros(size(XYedge));
 
 figure;hold on;
 len = length(XYedge);
-for i=1:5:len
+for i=1:1:len
 	fprintf('\nprocent done %d', round(i/ length(XYedge) * 100))
 
 	%xy = [XYedge(i,:)';1]
 	xy = [XYedge(i,:),1];
-	[xyz1, dummy] = get3Dfrom2D(xy,1,PcamAbs,Kbram,WallsPc,1);
+	[xyz1, dummy] = get3Dfrom2D(xy,1,PcamAbs,K,WallsPc,1);
 	%reproject to 2d
 	XYproj(i,:) = homog22D(inv(R) * xyz1');
 	%XYproj(i,:)
