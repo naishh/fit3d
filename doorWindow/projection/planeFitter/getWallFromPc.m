@@ -24,6 +24,8 @@ normalRansacIncr = 10 * normalRansac
 % pause;
 
 
+disp('letop getWallFromPC handmatige translatie van misschien wel oude dataset wordt nu gebruikt!')
+pause;
 %  displacement by hand 
 %figure;
 %plot(MAP(inliers(:),1), MAP(inliers(:),3),'k+');axis equal
@@ -41,7 +43,6 @@ load('t.mat')
 %t = [Xmid;0;Zmid]
 WallsPcPlaneFitter = normalToWall(normalRansacIncr, t, 1)
 plotBuilding(WallsPcPlaneFitter ,1);axis equal
-pause;
 
 	
 % %  displacement by a point from pointcloud

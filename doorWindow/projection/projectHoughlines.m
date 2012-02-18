@@ -1,22 +1,8 @@
-% load dataset if it doesnt exist
-close all;
-if exist('Dataset.Houghresult')==0
-	cd ..
-	setup
-	cd doorWindow
-	main
-	load('../dataset/Spil/SpilRect/WallsPc_SpilRect.mat')
-	load('../dataset/Spil/SpilRect/Kbram.mat')
-end
-
 plotHoughlinesAll(Dataset.ImReader.imHeight,Dataset.HoughResult.Houghlines,Dataset.HoughResult.HoughlinesRot)
 
-
-wallNormal = getNormalFromWall(WallsPc, 1, 0)
-
 zAxis = [0 0 1];
-rotationVector = cross(zAxis, wallNormal)
-angle = acos(dot(zAxis, wallNormal)) % could also be -R!!
+rotationVector = cross(zAxis, Dataset.Projection.wallNormal)
+angle = acos(dot(zAxis, Dataset.Projection.wallNormal)) % could also be -R!!
 R = getRotationMatrix(rotationVector, angle)
 
 PcamAbs = [eye(3),[0 0 0]']
@@ -28,8 +14,8 @@ for k = 1:length(Dataset.HoughResult.Houghlines)
 	xy2 = Dataset.HoughResult.Houghlines(k).point2';
 	% project to 3d
 	% TODO MAYBE IT IS IMAGE 4
-	[xyz1, dummy] = get3Dfrom2D(xy1,1,PcamAbs,Kbram,WallsPc,1);
-	[xyz2, dummy] = get3Dfrom2D(xy2,1,PcamAbs,Kbram,WallsPc,1);
+	[xyz1, dummy] = get3Dfrom2D(xy1,1,PcamAbs,Dataset.Projection.K,Dataset.Projection.WallsPc,1);
+	[xyz2, dummy] = get3Dfrom2D(xy2,1,PcamAbs,Dataset.Projection.K,Dataset.Projection.WallsPc,1);
 
 	%reproject to 2d
 	% TODO only works for image 1?
@@ -46,8 +32,8 @@ for k = 1:length(Dataset.HoughResult.HoughlinesRot)
 	xy2 = Dataset.HoughResult.HoughlinesRot(k).point2';
 	% project to 3d
 	% TODO MAYBE IT IS IMAGE 4
-	[xyz1, dummy] = get3Dfrom2D(xy1,1,PcamAbs,Kbram,WallsPc,1);
-	[xyz2, dummy] = get3Dfrom2D(xy2,1,PcamAbs,Kbram,WallsPc,1);
+	[xyz1, dummy] = get3Dfrom2D(xy1,1,PcamAbs,Dataset.Projection.K,Dataset.Projection.WallsPc,1);
+	[xyz2, dummy] = get3Dfrom2D(xy2,1,PcamAbs,Dataset.Projection.K,Dataset.Projection.WallsPc,1);
 
 	%reproject to 2d
 	% TODO only works for image 1?

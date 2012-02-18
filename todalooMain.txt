@@ -2,16 +2,11 @@ GENERAL
 	be in PZO
 	
 
-
-
 	houghlinesVH
 		rectification
 			FIT3Drectification
-				to exclude pointcloud problem, do the whole thing with floriande
-					result: it looks good enough at some ransac iterations
-						so the point cloud is the problem
-				next: perform bougette toolbox
 				do hibaap on floriande 
+				do hibaap on new dataset
 
 				send isaac mail
 			OR: rectify script, see also fit3d/homography/tjerkify

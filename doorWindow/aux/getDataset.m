@@ -238,7 +238,7 @@ Dataset.HoughParam.nrPeaks 				= 200;
 Dataset.HoughParam.projectionScale 		= 1;
 
 % generate parameter string
-Dataset.paramStr = getParamStr(Dataset)
+Dataset.paramStr = getParamStr(Dataset);
 
 % LOAD IMREADER
 loadStr = [startPath,'/doorWindow/mats/Dataset_',Dataset.fileShort,'_ImReader.mat'];
@@ -254,7 +254,8 @@ if exist(loadStr) == 0
 else
 	fprintf('\nLOADING %s',loadStr), load(loadStr), fprintf(' ... [DONE]\n\n\n');
 end
-Dataset.ImReader = ImReader
+Dataset.ImReader = ImReader;
+pause;
 
 % LOAD HOUGHRESULT 
 loadStr = [startPath,'/doorWindow/mats/Dataset_',Dataset.fileShort,'_HoughResult.mat'];
@@ -270,4 +271,30 @@ if exist(loadStr) == 0
 else
 	fprintf('\nLOADING %s',loadStr), load(loadStr), fprintf(' ... [DONE]\n\n\n');
 end
-Dataset.HoughResult = HoughResult
+Dataset.HoughResult = HoughResult;
+pause;
+
+
+% LOAD PROJECTION 
+loadStr = [startPath,'/doorWindow/mats/Dataset_',Dataset.fileShort,'_Projection.mat'];
+if exist(loadStr) == 0
+	disp(loadStr)
+	reply = input('File above doesnt exist, try to generate file?  y/n [n]: ', 's');
+	if isempty(reply)
+		reply = 'y';
+	end
+	if reply=='y'
+		Projection = getProjection(Dataset);
+		disp('saving dataset..');
+		saveStr = loadStr;
+		save(saveStr, 'Projection');
+		saveStr, disp('saved');
+		fprintf(' [DONE]\n');
+	end
+else
+	fprintf('\nLOADING %s',loadStr), load(loadStr), fprintf(' ... [DONE]\n\n\n');
+end
+Dataset.Projection = Projection;
+
+
+
