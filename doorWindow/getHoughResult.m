@@ -11,7 +11,7 @@ tic;
 edgeFromCache					= false
 saveImageQ						= true
 
-plotme							= false;
+plotme							= true;
 
 % TODO BLUR
 % TODO houghlines fillgab uitzetten in image
@@ -69,7 +69,7 @@ end
 
 if plotme
 	disp('saving images ..');
-	savePathFile 						= ['results/',Dataset.fileShort];
+	savePathFile 						= [startPath,'/doorWindow/results/',Dataset.fileShort];
 	saveas(fgColorModelTransform,[savePathFile,'_colortransform__',Dataset.paramStr],'png');
 	saveas(fgEdge,[savePathFile,'_edge__',Dataset.paramStr],'png');
 	saveas(fgHough,[savePathFile,'_hough__',Dataset.paramStr],'png');

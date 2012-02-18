@@ -23,13 +23,14 @@ if strcmp(DatasetName,'Floriande0') == 1
 	Dataset.path = [startPathDataset,'FloriandeSet1/small/'];
 	Dataset.baseFile = 'outd';
 	Dataset.imStartNr = 0; 
-	Dataset.EdgeDetectorParam.thresh		= 0.05; 
+	Dataset.EdgeDetectorParam.thresh		= 0.45; 
 	Dataset.colorModel						= 'BW'; % {'HSV_V','RGB','BW', 'ORIGINAL'	};
 	Dataset.HoughParam.fillGap 				= 10;
 	Dataset.HoughParam.minLength 			= 45; 
 %	Dataset.EdgeDetectorParam.thresh		= 0.35; 
 %imNr = 5435; file = sprintf('../dataset/FloriandeSet1/medium/undist__MG_%d.jpg', imNr); load('XYangleFilter_floriande_5447.mat'); load('XYcropRegionFloriande5435.mat'); edgeDetectorParam.thresh		= 0.55; HoughParam.ThetaH.StretchAngle	= 30;HoughParam.ThetaV.StretchAngle	= 10; fileShort 						= 'floriande5435';
 %imNr = 5447; file = sprintf('../dataset/FloriandeSet1/medium/undist__MG_%d.jpg', imNr); 
+	Dataset.EdgeDetectorParam.edgeTest 		= false;
 
 elseif strcmp(DatasetName,'Floriande0Outline') == 1
 	Dataset.fileShort 						= 'Floriande0Outline';
@@ -240,61 +241,30 @@ Dataset.HoughParam.projectionScale 		= 1;
 % generate parameter string
 Dataset.paramStr = getParamStr(Dataset);
 
-% LOAD IMREADER
-loadStr = [startPath,'/doorWindow/mats/Dataset_',Dataset.fileShort,'_ImReader.mat'];
-if exist(loadStr) == 0
-	disp(loadStr)
-	reply = input('File above doesnt exist, try to generate file?  y/n [n]: ', 's');
-	if isempty(reply)
-		reply = 'y';
+
+
+% MODULE THINGY 
+modules = {'ImReader','HoughResult','Projection'}
+for i=1:length(modules)
+	module = modules{i}; modulePretty = ['[',module,'] '];
+	loadStr = strcat(startPath,'/doorWindow/mats/Dataset_',Dataset.fileShort,'_',module,'.mat')
+	if exist(loadStr) == 0
+		disp([modulePretty,'LOADABLE FILE FOUND : [NO]']);
+	else
+		disp([modulePretty,'LOADABLE FILE FOUND : [YES]']);
 	end
-	if reply=='y'
-		getImreader
+	reply = input(['[', module,'] get data from cache? y/n [y]: '], 's');
+	if isempty(reply) || reply=='y'
+		% load module from cache
+		fprintf('\nLOADING %s',loadStr), load(loadStr), fprintf(' ... [DONE]\n\n\n');
+	else
+		% generate script (get live data)
+		eval(['get',module]);
 	end
-else
-	fprintf('\nLOADING %s',loadStr), load(loadStr), fprintf(' ... [DONE]\n\n\n');
+	% attach module to dataset
+	evalStr = ['Dataset.',module,' = ', module]
+	disp('[DONE]');
+	eval(evalStr);
 end
-Dataset.ImReader = ImReader;
-pause;
-
-% LOAD HOUGHRESULT 
-loadStr = [startPath,'/doorWindow/mats/Dataset_',Dataset.fileShort,'_HoughResult.mat'];
-if exist(loadStr) == 0
-	disp(loadStr)
-	reply = input('File above doesnt exist, try to generate file?  y/n [n]: ', 's');
-	if isempty(reply)
-		reply = 'y';
-	end
-	if reply=='y'
-		getHoughlinesVH
-	end
-else
-	fprintf('\nLOADING %s',loadStr), load(loadStr), fprintf(' ... [DONE]\n\n\n');
-end
-Dataset.HoughResult = HoughResult;
-pause;
-
-
-% LOAD PROJECTION 
-loadStr = [startPath,'/doorWindow/mats/Dataset_',Dataset.fileShort,'_Projection.mat'];
-if exist(loadStr) == 0
-	disp(loadStr)
-	reply = input('File above doesnt exist, try to generate file?  y/n [n]: ', 's');
-	if isempty(reply)
-		reply = 'y';
-	end
-	if reply=='y'
-		Projection = getProjection(Dataset);
-		disp('saving dataset..');
-		saveStr = loadStr;
-		save(saveStr, 'Projection');
-		saveStr, disp('saved');
-		fprintf(' [DONE]\n');
-	end
-else
-	fprintf('\nLOADING %s',loadStr), load(loadStr), fprintf(' ... [DONE]\n\n\n');
-end
-Dataset.Projection = Projection;
-
 
 
