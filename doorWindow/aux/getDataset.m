@@ -45,7 +45,7 @@ elseif strcmp(DatasetName,'Floriande0Outline') == 1
 
 elseif strcmp(DatasetName, 'Spil') == 1
 	Dataset.fileShort 						= 'spil6';
-	Dataset.path 							= '../dataset/Spil/datasetSpilRect/';
+	Dataset.path 							= [startPathDataset,'Spil/datasetSpilRect/'];
 	Dataset.baseFile 						= 'P_rect';
 	Dataset.imStartNr 						= 6;
 	Dataset.endRange 						= 6; 
@@ -56,7 +56,7 @@ elseif strcmp(DatasetName, 'Spil') == 1
 	Dataset.HoughParam.minLength 			= 45; 
 elseif strcmp(DatasetName, 'Spil4') == 1
 	Dataset.fileShort 						= 'spil4';
-	Dataset.path 							= '../dataset/Spil/datasetSpilRect/scaled/';
+	Dataset.path 							= [startPathDataset,'Spil/datasetSpilRect/scaled/'];
 	Dataset.baseFile 						= 'P_rect';
 	Dataset.imStartNr 						= 4;
 	Dataset.colorModel						= 'none';
@@ -65,7 +65,7 @@ elseif strcmp(DatasetName, 'Spil4') == 1
 	Dataset.HoughParam.minLength 			= 45; 
 elseif strcmp(DatasetName, 'Spil4BigOutline') == 1
 	Dataset.fileShort 						= 'Spil4BigOutline';
-	Dataset.path 							= '../dataset/Spil/SpilRect/';
+	Dataset.path 							= [startPathDataset,'Spil/SpilRect/'];
 	Dataset.baseFile 						= 'P_rect1120558_buildingOutline.png';
 	Dataset.postfix 						= '';
 	Dataset.colorModel						= 'ORIGINAL'; 
@@ -74,8 +74,7 @@ elseif strcmp(DatasetName, 'Spil4BigOutline') == 1
 	Dataset.HoughParam.minLength 			= 45; 
 elseif strcmp(DatasetName, 'Spil1Trans') == 1
 	Dataset.fileShort 						= 'Spil1Trans';
-	Dataset.path = [startPathDataset,'FloriandeSet1/small/'];
-	Dataset.path 							= '../dataset/Spil/datasetSpilRect/';
+	Dataset.path 							= [startPathDataset,'Spil/datasetSpilRect/'];
 	Dataset.baseFile 						= 'P_rect';
 	Dataset.postfix 						= '_transformed.jpg';
 	Dataset.imStartNr 						= 6;
@@ -91,7 +90,7 @@ elseif strcmp(DatasetName, 'Spil1Trans') == 1
 elseif strcmp(DatasetName, 'Spil1TransCrop1') == 1
 	Dataset.fileShort 						= 'Spil1TransCrop1';
 	Dataset.path = [startPathDataset,'FloriandeSet1/small/'];
-	Dataset.path 							= '../dataset/Spil/datasetSpilRect/';
+	Dataset.path 							= [startPathDataset,'Spil/datasetSpilRect/'];
 	Dataset.baseFile 						= 'P_rect';
 	Dataset.postfix 						= '_transformed_crop1.jpg';
 	Dataset.imStartNr 						= 6;
@@ -108,7 +107,7 @@ elseif strcmp(DatasetName, 'Spil1TransCrop1') == 1
 elseif strcmp(DatasetName, 'Spil1TransCrop2') == 1
 	Dataset.fileShort 						= 'Spil1TransCrop2';
 	Dataset.path = [startPathDataset,'FloriandeSet1/small/'];
-	Dataset.path 							= '../dataset/Spil/datasetSpilRect/';
+	Dataset.path 							= [startPathDataset,'Spil/datasetSpilRect/'];
 	Dataset.baseFile 						= 'P_rect';
 	Dataset.postfix 						= '_transformed_crop2.jpg';
 	Dataset.imStartNr 						= 6;
@@ -123,7 +122,7 @@ elseif strcmp(DatasetName, 'Spil1TransCrop2') == 1
 	Dataset.HibaapParam.incrFactor			= 75;
 elseif strcmp(DatasetName, 'Ort1') == 1
 	Dataset.fileShort 						= 'Ort1';
-	Dataset.path 							= '../dataset/Ort/';
+	Dataset.path 							= [startPathDataset,'Ort/'];
 	Dataset.baseFile 						= 'IMAG';
 	Dataset.postfix 						= '.jpg';
 	Dataset.imStartNr 						= 1994;
@@ -137,7 +136,7 @@ elseif strcmp(DatasetName, 'Ort1') == 1
 	Dataset.HoughParam.ThetaV.stretchAngle	= 5;
 elseif strcmp(DatasetName, 'OrtCrop1') == 1
 	Dataset.fileShort 						= 'OrtCrop1';
-	Dataset.path 							= '../dataset/Ort/';
+	Dataset.path 							= [startPathDataset,'Ort/'];
 	Dataset.baseFile 						= 'IMAG';
 	Dataset.postfix 						= '_crop1.jpg';
 	Dataset.imStartNr 						= 1994;
@@ -158,7 +157,7 @@ elseif strcmp(DatasetName, 'OrtCrop1') == 1
 
 elseif strcmp(DatasetName, 'SpilPost18Trans') == 1
 	Dataset.fileShort 						= 'SpilPost18Trans';
-	Dataset.path 							= '../dataset/Spil/datasetSpilPostRect/';
+	Dataset.path 							= [startPathDataset,'Spil/datasetSpilPostRect/'];
 	Dataset.baseFile 						= 'P_rect';
 	Dataset.postfix 						= '_transformed.png';
 	Dataset.imStartNr 						= 1120918;
@@ -175,7 +174,7 @@ elseif strcmp(DatasetName, 'SpilPost18Trans') == 1
 	Dataset.HibaapParam.incrFactor			= 25;
 elseif strcmp(DatasetName, 'Suma7') == 1
 	Dataset.fileShort 						= 'Suma7';
-	Dataset.path 							= '../dataset/Suma/';
+	Dataset.path 							= [startPathDataset,'Suma/'];
 	Dataset.baseFile 						= 'IMAG';
 	Dataset.postfix 						= '.jpg';
 	Dataset.imStartNr 						= 1997;
@@ -192,7 +191,7 @@ elseif strcmp(DatasetName, 'Suma7') == 1
 	Dataset.HibaapParam.incrFactor			= 25;
 elseif strcmp(DatasetName, 'Suma7Crop1') == 1
 	Dataset.fileShort 						= 'Suma7Crop1';
-	Dataset.path 							= '../dataset/Suma/';
+	Dataset.path 							= [startPathDataset,'Suma/'];
 	Dataset.baseFile 						= 'IMAG';
 	Dataset.postfix 						= '_crop1.jpg';
 	Dataset.imStartNr 						= 1997;

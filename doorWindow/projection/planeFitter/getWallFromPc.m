@@ -19,13 +19,13 @@ normalRansac = normalRansac(1:3)
 normalRansacIncr = 10 * normalRansac
 
 % % no displacement
-% WallsPcPlaneFitter  = normalToWall(normalRansacIncr, [0;0;0], 1)
-% plotBuilding(WallsPcPlaneFitter, 1)
-% pause;
-
-
-disp('letop getWallFromPC handmatige translatie van misschien wel oude dataset wordt nu gebruikt!')
+WallsPcPlaneFitter  = normalToWall(normalRansacIncr, [0;0;0], 1)
+plotBuilding(WallsPcPlaneFitter, 1)
 pause;
+
+
+%disp('letop getWallFromPC handmatige translatie van misschien wel oude dataset wordt nu gebruikt!')
+%pause;
 %  displacement by hand 
 %figure;
 %plot(MAP(inliers(:),1), MAP(inliers(:),3),'k+');axis equal
@@ -33,7 +33,7 @@ pause;
 %t = [Xmid;0;Zmid]
 %save('t.mat','t');
 
-load('t.mat')
+%load('t.mat')
 
 
 % todo check with isaac how this can be computed (using mean of pointcloud?)
@@ -41,8 +41,8 @@ load('t.mat')
 % Xmid = -1.0899
 % Zmid = 4.5029
 %t = [Xmid;0;Zmid]
-WallsPcPlaneFitter = normalToWall(normalRansacIncr, t, 1)
-plotBuilding(WallsPcPlaneFitter ,1);axis equal
+%WallsPcPlaneFitter = normalToWall(normalRansacIncr, t, 1)
+%plotBuilding(WallsPcPlaneFitter ,1);axis equal
 
 	
 % %  displacement by a point from pointcloud
@@ -51,8 +51,9 @@ plotBuilding(WallsPcPlaneFitter ,1);axis equal
 % plotBuilding(WallsPcPlaneFitter ,1)
 
 
-%% %  TODO displacement by average of pointcloud
-%tMean = mean(MAP(inliers(:),1:3))'
-%WallsPcPlaneFitter = normalToWall(normalRansacIncr, tMean, 1)
-%plotBuilding(WallsPcPlaneFitter ,1)
+% %  displacement by average of pointcloud
+tMean = mean(MAP(inliers(:),1:3))'
+WallsPcPlaneFitter = normalToWall(normalRansacIncr, tMean, 1)
+plotBuilding(WallsPcPlaneFitter ,1)
+pause;
 

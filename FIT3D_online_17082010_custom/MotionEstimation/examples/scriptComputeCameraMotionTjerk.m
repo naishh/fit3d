@@ -13,7 +13,8 @@
 
 startPath = '/media/Storage/scriptie/fit3d'
 %datasetName = 'datasetSpilRect';
-datasetName = 'SpilRect';
+%datasetName = 'SpilRect';
+datasetName = 'SpilZonnetje';
 
 datasetDir = [startPath, '/dataset/Spil/',datasetName,'/'];
 err

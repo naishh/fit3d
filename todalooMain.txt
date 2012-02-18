@@ -1,6 +1,10 @@
 GENERAL
 	be in PZO
 	
+	LETOP camera matrix bram klopt niet, moet 1 op 3,3
+		klopt wel dude 
+
+	check meld /media/Storage/scriptie/dataset  fit3d/dataset
 
 	houghlinesVH
 		rectification
@@ -11,6 +15,10 @@ GENERAL
 				send isaac mail
 			OR: rectify script, see also fit3d/homography/tjerkify
 		use projected houghlines and perform hibaap etc
+
+
+	het gedraaide plaatje komt door translatie in point cloud
+	
 
 	new dataset
 		make a K matrix from anne calib result
