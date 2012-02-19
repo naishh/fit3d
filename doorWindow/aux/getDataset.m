@@ -1,6 +1,6 @@
 % TODO regel general properties per dataset, specific properties per imgnr 
 %Dataset = getDataset('Suma7Crop1',startPath)
-function Dataset = getDataset(DatasetName, startPath)
+function Dataset = getDataset(DatasetName, startPath, modules)
 
 % set defaults before:
 startPathDataset = [startPath,'/dataset/'];
@@ -45,7 +45,7 @@ elseif strcmp(DatasetName,'Floriande0Outline') == 1
 
 elseif strcmp(DatasetName, 'Spil') == 1
 	Dataset.fileShort 						= 'spil6';
-	Dataset.path 							= [startPathDataset,'Spil/datasetSpilRect/'];
+	Dataset.path 							= [startPathDataset,'Spil/SpilRect/'];
 	Dataset.baseFile 						= 'P_rect';
 	Dataset.imStartNr 						= 6;
 	Dataset.endRange 						= 6; 
@@ -56,7 +56,7 @@ elseif strcmp(DatasetName, 'Spil') == 1
 	Dataset.HoughParam.minLength 			= 45; 
 elseif strcmp(DatasetName, 'Spil4') == 1
 	Dataset.fileShort 						= 'spil4';
-	Dataset.path 							= [startPathDataset,'Spil/datasetSpilRect/scaled/'];
+	Dataset.path 							= [startPathDataset,'Spil/SpilRect/scaled/'];
 	Dataset.baseFile 						= 'P_rect';
 	Dataset.imStartNr 						= 4;
 	Dataset.colorModel						= 'none';
@@ -74,7 +74,7 @@ elseif strcmp(DatasetName, 'Spil4BigOutline') == 1
 	Dataset.HoughParam.minLength 			= 45; 
 elseif strcmp(DatasetName, 'Spil1Trans') == 1
 	Dataset.fileShort 						= 'Spil1Trans';
-	Dataset.path 							= [startPathDataset,'Spil/datasetSpilRect/'];
+	Dataset.path 							= [startPathDataset,'Spil/SpilRect/'];
 	Dataset.baseFile 						= 'P_rect';
 	Dataset.postfix 						= '_transformed.jpg';
 	Dataset.imStartNr 						= 6;
@@ -87,10 +87,11 @@ elseif strcmp(DatasetName, 'Spil1Trans') == 1
 	Dataset.HoughParam.ThetaV.Resolution  	= Dataset.HoughParam.ThetaH.Resolution;
 	Dataset.HoughParam.ThetaH.stretchAngle	= 3;
 	Dataset.HoughParam.ThetaV.stretchAngle	= 10;
+	Dataset.HibaapParam.XvThresh			= 0.7;
+	Dataset.HibaapParam.YhThresh			= 2;
 elseif strcmp(DatasetName, 'Spil1TransCrop1') == 1
 	Dataset.fileShort 						= 'Spil1TransCrop1';
-	Dataset.path = [startPathDataset,'FloriandeSet1/small/'];
-	Dataset.path 							= [startPathDataset,'Spil/datasetSpilRect/'];
+	Dataset.path 							= [startPathDataset,'Spil/SpilRect/'];
 	Dataset.baseFile 						= 'P_rect';
 	Dataset.postfix 						= '_transformed_crop1.jpg';
 	Dataset.imStartNr 						= 6;
@@ -107,7 +108,7 @@ elseif strcmp(DatasetName, 'Spil1TransCrop1') == 1
 elseif strcmp(DatasetName, 'Spil1TransCrop2') == 1
 	Dataset.fileShort 						= 'Spil1TransCrop2';
 	Dataset.path = [startPathDataset,'FloriandeSet1/small/'];
-	Dataset.path 							= [startPathDataset,'Spil/datasetSpilRect/'];
+	Dataset.path 							= [startPathDataset,'Spil/SpilRect/'];
 	Dataset.baseFile 						= 'P_rect';
 	Dataset.postfix 						= '_transformed_crop2.jpg';
 	Dataset.imStartNr 						= 6;
@@ -155,7 +156,7 @@ elseif strcmp(DatasetName, 'OrtCrop1') == 1
 
 	Dataset.cCornerParam.minVotes			= 1;
 
-elseif strcmp(DatasetName, 'SpilPost18Trans') == 1
+elseif strcmp(DatasetName, 'SpilPost18Trans') == 1 % this one gave the errors?
 	Dataset.fileShort 						= 'SpilPost18Trans';
 	Dataset.path 							= [startPathDataset,'Spil/datasetSpilPostRect/'];
 	Dataset.baseFile 						= 'P_rect';
@@ -206,7 +207,15 @@ elseif strcmp(DatasetName, 'Suma7Crop1') == 1
 	Dataset.HibaapParam.XvThresh			= 0.4;
 	Dataset.HibaapParam.YhThresh			= 0.8;
 	Dataset.HibaapParam.incrFactor			= 25;
-
+elseif strcmp(DatasetName, 'SpilZonnetje70') == 1
+	Dataset.fileShort 						= 'SpilZonnetje70';
+	Dataset.path 							= [startPathDataset,'Spil/SpilZonnetje/'];
+	Dataset.baseFile 						= 'IMG_6370'
+	Dataset.colorModel						= 'BW'; % {'HSV_V','RGB','BW', 'ORIGINAL'	};
+	Dataset.EdgeDetectorParam.edgeTest		= false; 
+	Dataset.EdgeDetectorParam.thresh		= 0.45; 
+	Dataset.HoughParam.fillGap 				= 10;
+	Dataset.HoughParam.minLength 			= 45; 
 else
 	error('no matching dataset name');
 end
@@ -243,7 +252,9 @@ Dataset.paramStr = getParamStr(Dataset);
 
 
 % MODULE THINGY 
-modules = {'ImReader','HoughResult','Projection'}
+if exist('modules') == 0
+	modules = {'ImReader','HoughResult','Projection'}
+end
 for i=1:length(modules)
 	module = modules{i}; modulePretty = ['[',module,'] '];
 	loadStr = strcat(startPath,'/doorWindow/mats/Dataset_',Dataset.fileShort,'_',module,'.mat')

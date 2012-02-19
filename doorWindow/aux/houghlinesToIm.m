@@ -2,13 +2,13 @@
 function [LinesImV,LinesImH] = houghlinesToIm(Dataset, plotme)
 	close all;	
 disp('plotting houghlines');
-	%fgHough = figure();imshow(Dataset.imOriDimmed); hold on;
-	%plotHoughlinesAll(Dataset.imHeight,Dataset.HoughResult.Houghlines,Dataset.HoughResult.HoughlinesRot);
-	% %im = hough_bin_pixels(Dataset.imEdge, HoughlinesObj.Theta,HoughlinesObj.Rho,HoughlinesObj.Peaks(1,:));
+	%fgHough = figure();imshow(Dataset.ImReader.imOriDimmed); hold on;
+	%plotHoughlinesAll(Dataset.ImReader.imHeight,Dataset.HoughResult.Houghlines,Dataset.HoughResult.HoughlinesRot);
+	% %im = hough_bin_pixels(Dataset.ImReader.imEdge, HoughlinesObj.Theta,HoughlinesObj.Rho,HoughlinesObj.Peaks(1,:));
 
-	% imTotal=zeros(Dataset.imHeight,Dataset.imWidth);
+	% imTotal=zeros(Dataset.ImReader.imHeight,Dataset.ImReader.imWidth);
 	% for p=1:size(HoughlinesObj.Peaks,1)
-	% 	im = hough_bin_pixels(Dataset.imEdge, HoughlinesObj.Theta,HoughlinesObj.Rho,HoughlinesObj.Peaks(p,:));
+	% 	im = hough_bin_pixels(Dataset.ImReader.imEdge, HoughlinesObj.Theta,HoughlinesObj.Rho,HoughlinesObj.Peaks(p,:));
 	% 	imTotal = imTotal + im;
 	% 	p
 	% end
@@ -18,7 +18,7 @@ disp('plotting houghlines');
 
 
 	Houghlines = Dataset.HoughResult.V.Lines;
-	LinesImV = zeros(Dataset.imHeight,Dataset.imWidth);
+	LinesImV = zeros(Dataset.ImReader.imHeight,Dataset.ImReader.imWidth);
 	for i=1:length(Houghlines)
 		x1 = Houghlines(i).point1(1);
 		x2 = Houghlines(i).point2(1);
@@ -30,7 +30,7 @@ disp('plotting houghlines');
 	end
 
 	Houghlines = Dataset.HoughResult.H.Lines;
-	LinesImH = zeros(Dataset.imHeight,Dataset.imWidth);
+	LinesImH = zeros(Dataset.ImReader.imHeight,Dataset.ImReader.imWidth);
 	for i=1:length(Houghlines)
 		x1 = Houghlines(i).point1(1);
 		x2 = Houghlines(i).point2(1);

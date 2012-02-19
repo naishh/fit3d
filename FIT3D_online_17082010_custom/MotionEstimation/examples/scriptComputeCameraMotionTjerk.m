@@ -16,12 +16,12 @@ startPath = '/media/Storage/scriptie/fit3d'
 %datasetName = 'SpilRect';
 datasetName = 'SpilZonnetje';
 
-datasetDir = [startPath, '/dataset/Spil/',datasetName,'/'];
-err
+datasetDir = [startPath, '/dataset/Spil/',datasetName,'/']
 nrFrames = 8;
 
 % Load camera calibration
-load([datasetDir,'Kbram.mat']);
+%load([datasetDir,'Kbram.mat']);K=Kbram
+load([datasetDir,'mats/K.mat']);
 
 %% GET SIFT FEATURES
 % We use VL_FEAT though regular sift can be employed. Make sure to delete
@@ -35,8 +35,8 @@ fprintf('\n\n\nEXTRACTING SIFT FEATURES\n\n\n');
 % motion with the specifiec algorithm. See help computeCameraMotion for an
 % extended explanation.
 fprintf('\n\n\nCOMPUTING MOTION\n\n\n');
-%[Fplus, PcamPlus, PcamX, FplusExtra,KBA] = computeCameraMotion('VL_FEAT',F, 0.4, 1, 2500, Kbram, 8, true, '8pts', 0.001, 500);
-[Fplus, PcamPlus, PcamX, FplusExtra,KBA] = computeCameraMotion('VL_FEAT',F, 0.4, 1, 2500, Kbram, 8, true, '8pts', 0.001, 500);
+%[Fplus, PcamPlus, PcamX, FplusExtra,KBA] = computeCameraMotion('VL_FEAT',F, 0.4, 1, 2500, K, 8, true, '8pts', 0.001, 500);
+[Fplus, PcamPlus, PcamX, FplusExtra,KBA] = computeCameraMotion('VL_FEAT',F, 0.4, 1, 2500, K, 8, true, '8pts', 0.001, 500);
 
 save([datasetDir,'PcamX_',datasetName,'.mat'],'PcamX');
 save([datasetDir,'Fplus_',datasetName,'.mat'],'Fplus');

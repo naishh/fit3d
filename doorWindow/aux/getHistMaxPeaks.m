@@ -8,9 +8,9 @@ for i=2:length(XvPeaksBinary)
 		% plot vertical line of peakmax
 		if plotme
 			if strcmp(direction,'Xv')
-				plot([XvHistMaxPeakIdx,XvHistMaxPeakIdx],[0,Dataset.imHeight],'g--','LineWidth',2);
+				plot([XvHistMaxPeakIdx,XvHistMaxPeakIdx],[0,Dataset.ImReader.imHeight],'g--','LineWidth',2);
 			elseif strcmp(direction,'Yh')
-				plot([0,Dataset.imWidth],[XvHistMaxPeakIdx,XvHistMaxPeakIdx],'r--','LineWidth',2);
+				plot([0,Dataset.ImReader.imWidth],[XvHistMaxPeakIdx,XvHistMaxPeakIdx],'r--','LineWidth',2);
 			else
 				error('direction incorrect');
 			end

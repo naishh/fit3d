@@ -1,32 +1,58 @@
 GENERAL
 	be in PZO
-	
-	LETOP camera matrix bram klopt niet, moet 1 op 3,3
-		klopt wel dude 
 
 	check meld /media/Storage/scriptie/dataset  fit3d/dataset
 
-	houghlinesVH
-		rectification
-			FIT3Drectification
-				do hibaap on floriande 
-				do hibaap on new dataset
+	prepare meeting frans
+		do hibaap on 
+			spiltrans 
+			Suma7
+			Suma7Crop1
+			OrtCrop1
 
-				send isaac mail
-			OR: rectify script, see also fit3d/homography/tjerkify
-		use projected houghlines and perform hibaap etc
+		use colormap? or set number in rects
+			
+
+		use as results for frans
+		prepare meeting frans
+			think of which images to show
+			explain clustering algo, show images
+			howto auto thresh the hibaap
+				clusterbased?
+			think of plane equation 
+			have finishing date in mind
+			ask procedure of defence
+		
+
+	fit3d on spilzonnetje
+	if to few frame matches
+		find matlab undist script based on K
+			in fit3d dir
+			on google
+		resize to 1536x?
+			check if undist no works (with wrong K) (if memory problem of undist stil exist)
+		redo camera calibration and bekijk verschil met vorige K
+		undist all images
+	
+	rectification
+		FIT3Drectification
+			do hibaap on floriande 
+			do hibaap on new dataset
+
+			send isaac mail
+		OR: rectify script, see also fit3d/homography/tjerkify
+	use projected houghlines and perform hibaap etc
 
 
-	het gedraaide plaatje komt door translatie in point cloud
+	het gedraaide plaatje komt door translatie in point cloud of ransac iteratie
 	
 
 	new dataset
-		make a K matrix from anne calib result
+		undist images
 		get new pointcloud (MAP) and run doorwindow/projection
 
 	restructur modules
 		togo:
-			hipaap
 			rects
 	make 2 clusters of hibaap instead of vaste threshold
 	test on all datasets
@@ -42,11 +68,6 @@ GENERAL
 	think of function of cCorner...
 	check if corrected houghlines (tjointed) have different results then uncorrected (on Hibaap)
 
-	send results isaac!
-	use feature window instead of column/row
-		plot edge image
-		together with rows en cols
-		to gain info about which method
 	use continue canny or derivative image
 	other datasets 
 	be in PZO

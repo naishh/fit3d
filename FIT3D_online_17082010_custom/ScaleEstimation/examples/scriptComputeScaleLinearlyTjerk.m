@@ -24,21 +24,21 @@ load([datasetDir,'PcamX_',datasetName,'.mat'])
 load([datasetDir,'Fplus_',datasetName,'.mat'])
 
 % Load camera calibration
-load([datasetDir,'Kbram.mat']);
+%load([datasetDir,'K.mat']);
 
 %% COMPUTE THE SCALE
 fprintf('\n\n\nCOMPUTING SCALE\n\n\n');
-[PcamScaled,pts,scales] = adjustScaleWith3Frames(Fplus,PcamX,Kbram,10,'reprojection', 1);
+[PcamScaled,pts,scales] = adjustScaleWith3Frames(Fplus,PcamX,K,10,'reprojection', 1);
 
 %% TRIANGULATE FEATURES AND BUILD 3D MODEL (3dc format)
-MAP = build3dcMap(Fplus,PcamScaled,Kbram,1,30,false,true,false,300,0.1,100,500,50,50,5,1);
+MAP = build3dcMap(Fplus,PcamScaled,K,1,30,false,true,false,300,0.1,100,500,50,50,5,1);
 
 
 % This will write the file 3dmap.3dc containing the reconstructed
 % structure. For comparison, the 3D structure without scaling the motion
 % can be reconstructed using:
 fprintf('\n\n\nBUILD 3D MAP\n\n\n');
-%MAP = build3dcMap(Fplus,PcamX,Kbram,1,30,false,true,false,300,0.1,100,500,50,50,5,1);
+%MAP = build3dcMap(Fplus,PcamX,K,1,30,false,true,false,300,0.1,100,500,50,50,5,1);
 
 %% FOR MORE ON 3D RECONSTRUCTION, SEE THE CHAPTER ON RECONSTRUCTION AND
 %% MODELING

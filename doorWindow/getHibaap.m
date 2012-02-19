@@ -79,7 +79,7 @@ if saveImage
 end
 
 
-saveStr = [startPath,'/doorWindow/mats/Dataset_',Dataset.fileShort,'_hibaap.mat'];
+saveStr = [startPath,'/doorWindow/mats/Dataset_',Dataset.fileShort,'_Hibaap.mat'];
 save(saveStr, 'Hibaap');
 saveStr, disp('saved');
 
