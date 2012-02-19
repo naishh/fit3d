@@ -10,9 +10,6 @@ GENERAL
 			Suma7Crop1
 			OrtCrop1
 
-		use colormap? or set number in rects
-			
-
 		use as results for frans
 		prepare meeting frans
 			think of which images to show

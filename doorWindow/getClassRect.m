@@ -8,7 +8,7 @@
 % setup
 % cd doorWindow
 % 
-% saveImage = true
+saveImage = false;
 % %Dataset.fileShort='Ort1'
 % %Dataset.fileShort='OrtCrop1'
 % Dataset.fileShort='Spil1TransCrop1';
@@ -71,7 +71,7 @@ WindowsRowVoteBin = WindowsRowVoteBin'==maxClusterIdx;
 
 
 % PLOT VERTICAL HOUGHLINE amounts
-fgLinesImV = figure();imshow(imdilate(Dataset.HoughResult.V.LinesIm,ones(5,5))); hold on;
+%fgLinesImV = figure();imshow(imdilate(Dataset.HoughResult.V.LinesIm,ones(5,5))); hold on;
 voteGraphWidth = (Dataset.ImReader.imWidth/10); voteGraphFactor = voteGraphWidth/max(WindowsRowVote);
 for j=2:length(WindowsRowVote)
 	y1 = YhHistMaxPeaks(j-1); y2 = YhHistMaxPeaks(j);
@@ -83,7 +83,7 @@ for j=2:length(WindowsRowVote)
 	end
 end
 % PLOT HORIZONTAL HOUGHLINE amounts
-fgLinesImH = figure();imshow(imdilate(Dataset.HoughResult.H.LinesIm,ones(5,5))); hold on;
+%fgLinesImH = figure();imshow(imdilate(Dataset.HoughResult.H.LinesIm,ones(5,5))); hold on;
 voteGraphHeight = (Dataset.ImReader.imHeight/10); voteGraphFactor = voteGraphHeight/max(WindowsColVote);
 for i=2:length(WindowsColVote)
 	x1 = XvHistMaxPeaks(i-1); x2 = XvHistMaxPeaks(i);
@@ -96,27 +96,53 @@ for i=2:length(WindowsColVote)
 end
 
 
-pause;
-
 % drawing the windows
 fgimWindows=figure();imshow(Dataset.ImReader.imOriDimmed);hold on;
+%fgimHoughPxCountSumXY  		= figure();imshow(imHoughPxCountX+imHoughPxCountY,[]);
+%hold on;
+
+%Dataset.ImReader.imWidth Dataset.ImReader.imHeight]);
 for i=2:length(XvHistMaxPeaks)
 	%WindowsColVote(i)
 	for j=2:length(YhHistMaxPeaks)
 		%WindowsColVote(j)
 		X = [XvHistMaxPeaks(i),XvHistMaxPeaks(i), XvHistMaxPeaks(i-1),XvHistMaxPeaks(i-1),XvHistMaxPeaks(i)];
 		Y = [YhHistMaxPeaks(j),YhHistMaxPeaks(j-1), YhHistMaxPeaks(j-1),YhHistMaxPeaks(j),YhHistMaxPeaks(j)];
+
+		probV = 100*WindowsColVote(i);
+		probH = 100*WindowsRowVote(j);
+		probVH = probV+probH;
+		%probStr = sprintf('V %0.2f\nH %0.2f\nT %0.2f', probV, probH, probVH)
+		%probStr = sprintf('V %0.1f\nH %0.1f\nT %0.1f', probV, probH, probVH)
+		probStr = sprintf('%0.1f', probVH)
+		% %annotation(fgimWindows,'textbox', [x y 0.1 0.1 ], 'String',probStr);
+		text(XvHistMaxPeaks(i-1)+10, YhHistMaxPeaks(j-1)+30, probStr);
+
+		% % width of rect 
+		% if WindowsColVoteBin(i) && WindowsRowVoteBin(j)
+		% 	colorStr = 'g-';
+		% else
+		% 	colorStr = 'k--';
+		% end
+		% plot(X,Y, colorStr, 'LineWidth',max(1,round(2*probVH)));
+
 		if WindowsColVoteBin(i) && WindowsRowVoteBin(j)
 			colorStr = 'g-';
 			plot(X,Y, colorStr, 'LineWidth',3);
-		elseif WindowsColVoteBin(i) 
-			colorStr = 'k--';
-			plot(X,Y, colorStr, 'LineWidth',1);
-		elseif WindowsRowVoteBin(j)
-			colorStr = 'k--';
-			plot(X,Y, colorStr, 'LineWidth',1);
 		end
+		% if WindowsColVoteBin(i) && WindowsRowVoteBin(j)
+		% 	colorStr = 'g-';
+		% 	plot(X,Y, colorStr, 'LineWidth',3);
+		% elseif WindowsColVoteBin(i) 
+		% 	colorStr = 'k--';
+		% 	plot(X,Y, colorStr, 'LineWidth',1);
+		% elseif WindowsRowVoteBin(j)
+		% 	colorStr = 'k--';
+		% 	plot(X,Y, colorStr, 'LineWidth',1);
+		% end
+
 	end
+		pause;
 end
 
 pause;

@@ -260,11 +260,16 @@ for i=1:length(modules)
 	loadStr = strcat(startPath,'/doorWindow/mats/Dataset_',Dataset.fileShort,'_',module,'.mat')
 	if exist(loadStr) == 0
 		disp([modulePretty,'LOADABLE FILE FOUND : [NO]']);
+		defaultReply = 'n';
 	else
 		disp([modulePretty,'LOADABLE FILE FOUND : [YES]']);
+		defaultReply = 'y';
 	end
-	reply = input(['[', module,'] get data from cache? y/n [y]: '], 's');
-	if isempty(reply) || reply=='y'
+	reply = input(['[', module,'] get data from cache? y/n [', defaultReply, ']: '], 's');
+	if isempty(reply)
+		reply = defaultReply
+	end
+	if reply=='y'
 		% load module from cache
 		fprintf('\nLOADING %s',loadStr), load(loadStr), fprintf(' ... [DONE]\n\n\n');
 	else
