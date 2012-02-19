@@ -9,6 +9,8 @@ GENERAL
 			Suma7
 			Suma7Crop1
 			OrtCrop1
+			new datasets from spilzonnetje
+		get outer window
 
 		use as results for frans
 		prepare meeting frans
@@ -22,14 +24,15 @@ GENERAL
 		
 
 	fit3d on spilzonnetje
-	if to few frame matches
-		find matlab undist script based on K
-			in fit3d dir
-			on google
-		resize to 1536x?
-			check if undist no works (with wrong K) (if memory problem of undist stil exist)
-		redo camera calibration and bekijk verschil met vorige K
-		undist all images
+		if to few frame matches
+			find matlab undistord script based on K (because matlab has memory error)
+				in fit3d dir
+				on google
+			if dont succeed:
+			resize images to 1536x?
+				check if undist works (with wrong K) (if memory problem of undist stil exist)
+				redo camera calibration and bekijk verschil met vorige K
+			undist all images
 	
 	rectification
 		FIT3Drectification

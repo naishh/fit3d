@@ -114,7 +114,7 @@ for i=2:length(XvHistMaxPeaks)
 		probVH = probV+probH;
 		%probStr = sprintf('V %0.2f\nH %0.2f\nT %0.2f', probV, probH, probVH)
 		%probStr = sprintf('V %0.1f\nH %0.1f\nT %0.1f', probV, probH, probVH)
-		probStr = sprintf('%0.1f', probVH)
+		probStr = sprintf('%0.1f', probVH);
 		% %annotation(fgimWindows,'textbox', [x y 0.1 0.1 ], 'String',probStr);
 		text(XvHistMaxPeaks(i-1)+10, YhHistMaxPeaks(j-1)+30, probStr);
 
@@ -129,6 +129,9 @@ for i=2:length(XvHistMaxPeaks)
 		if WindowsColVoteBin(i) && WindowsRowVoteBin(j)
 			colorStr = 'g-';
 			plot(X,Y, colorStr, 'LineWidth',3);
+		else
+		 	colorStr = 'k--';
+		 	plot(X,Y, colorStr, 'LineWidth',1);
 		end
 		% if WindowsColVoteBin(i) && WindowsRowVoteBin(j)
 		% 	colorStr = 'g-';
