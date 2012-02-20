@@ -24,7 +24,7 @@ savePath 						= ['resultsHibaap/',Dataset.fileShort,'/'];
 [Dataset.HoughResult.V.LinesIm,Dataset.HoughResult.H.LinesIm] = houghlinesToIm(Dataset,0)
 
 % show image
-%figure;imshow(Dataset.ImReader.imEdge);hold on;
+%fgPeaklines = figure();imshow(Dataset.ImReader.imEdge);hold on;
 %plotHoughlinesAll(Dataset.ImReader.imHeight,Dataset.HoughResult.Houghlines,Dataset.HoughResult.HoughlinesRot);
 %plotPeakLines(Dataset);
 
@@ -72,7 +72,7 @@ WindowsRowVoteBin = WindowsRowVoteBin'==maxClusterIdx;
 
 
 % PLOT VERTICAL HOUGHLINE amounts
-fgLinesImV = figure();imshow(imdilate(Dataset.HoughResult.V.LinesIm,ones(5,5))); hold on;
+fgimHoughLinesImV = figure();imshow(imdilate(Dataset.HoughResult.V.LinesIm,ones(5,5))); hold on;
 voteGraphWidth = (Dataset.ImReader.imWidth/10); voteGraphFactor = voteGraphWidth/max(WindowsRowVote);
 for j=2:length(WindowsRowVote)
 	y1 = YhHistMaxPeaks(j-1); y2 = YhHistMaxPeaks(j);
@@ -84,7 +84,7 @@ for j=2:length(WindowsRowVote)
 	end
 end
 % PLOT HORIZONTAL HOUGHLINE amounts
-fgLinesImH = figure();imshow(imdilate(Dataset.HoughResult.H.LinesIm,ones(5,5))); hold on;
+fgimHoughLinesImH = figure();imshow(imdilate(Dataset.HoughResult.H.LinesIm,ones(5,5))); hold on;
 voteGraphHeight = (Dataset.ImReader.imHeight/10); voteGraphFactor = voteGraphHeight/max(WindowsColVote);
 for i=2:length(WindowsColVote)
 	x1 = XvHistMaxPeaks(i-1); x2 = XvHistMaxPeaks(i);
@@ -99,10 +99,8 @@ end
 
 % drawing the windows
 fgimWindows=figure();imshow(Dataset.ImReader.imOriDimmed);hold on;
-%fgimHoughPxCountSumXY  		= figure();imshow(imHoughPxCountX+imHoughPxCountY,[]);
-%hold on;
 
-%Dataset.ImReader.imWidth Dataset.ImReader.imHeight]);
+% plot small green windows
 for i=2:length(XvHistMaxPeaks)
 	%WindowsColVote(i)
 	for j=2:length(YhHistMaxPeaks)
@@ -189,28 +187,28 @@ pause;
 
 
 % draw binary stroke images 
-if true
-	fgimOri 					= figure();imshow(Dataset.ImReader.imOri,[]);
-	fgimEdge 					= figure();imshow(Dataset.ImReader.imEdge,[]);
-	fgimHoughPxCountX 			= figure();imshow(imHoughPxCountX,[]);
-	fgimHoughPxCountY 			= figure();imshow(imHoughPxCountY,[]);
-	fgimHoughPxCountSumXY  		= figure();imshow(imHoughPxCountX+imHoughPxCountY,[]);
-
-end
+fgimOri 					= figure();imshow(Dataset.ImReader.imOri,[]);
+fgimEdge 					= figure();imshow(Dataset.ImReader.imEdge,[]);
+fgimHoughPxCountX 			= figure();imshow(imHoughPxCountX,[]);
+fgimHoughPxCountY 			= figure();imshow(imHoughPxCountY,[]);
+fgimHoughPxCountSumXY  		= figure();imshow(imHoughPxCountX+imHoughPxCountY,[]);
 
 if saveImage
 	disp('saving images..');
 	% save images
 	saveas(fgimOri 				,[savePath,'00_fgimOri.png'],'png'); 
 	saveas(fgimEdge 			,[savePath,'02_fgimEdge.png'],'png'); 
-	saveas(fgimHoughPxCountX 		,[savePath,'05_classifyRects_fgimHoughPxCountX.png'],'png'); 
-	saveas(fgimHoughPxCountY 		,[savePath,'15_classifyRects_fgimHoughPxCountY.png'],'png'); 
-	saveas(fgimHoughPxCountSumXY,[savePath,'25_classifyRects_fgimHoughPxCountSumXY.png'],'png'); 
-	saveas(fgimWindows,[savePath,'30_classifyRects_fgimWindows.png'],'png');
+	%saveas(fgimHoughPxCountX 		,[savePath,'05_ClassRect_fgimHoughPxCountX.png'],'png'); 
+	%saveas(fgimHoughPxCountY 		,[savePath,'15_ClassRect_fgimHoughPxCountY.png'],'png'); 
+	saveas(fgimHoughPxCountSumXY	,[savePath,'25_ClassRect_fgimHoughPxCountSumXY.png'],'png'); 
+	saveas(fgimHoughLinesImV 		,[savePath,'30_ClassRect_fgimHoughLinesImV.png'],'png'); 
+	saveas(fgimHoughLinesImH 		,[savePath,'31_ClassRect_fgimHoughLinesImH.png'],'png'); 
+	saveas(fgimWindows				,[savePath,'40_ClassRect_fgimWindows.png'],'png');
 	disp('done!');
 end
 
 
 
+error('the end');
 
 

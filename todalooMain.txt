@@ -20,7 +20,6 @@ GENERAL
 				clusterbased?
 			think of plane equation 
 			have finishing date in mind
-			ask procedure of defence
 		
 
 	fit3d on spilzonnetje
