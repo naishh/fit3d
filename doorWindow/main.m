@@ -11,5 +11,6 @@ cd ..;setup;cd doorWindow
 modules = {'ImReader','HoughResult', 'Hibaap', 'ClassRect'}
 %getDataset('Spil1Trans',startPath, modules)
 getDataset('Spil1TransCrop1',startPath, modules)
-%getDataset('OrtCrop1',startPath, modules)
 %getDataset('Suma7Crop1',startPath, modules)
+
+%getDataset('OrtCrop1',startPath, modules)
