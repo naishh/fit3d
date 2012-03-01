@@ -3,6 +3,29 @@ GENERAL
 
 	check meld /media/Storage/scriptie/dataset  fit3d/dataset
 
+	rectify script on spilrect, 
+		see also fit3d/homography/tjerkify
+		use projected houghlines and perform hibaap etc
+
+	SEND ISAAC MAIL, 
+		new windows
+		questions fit3d
+
+	fit3d on spilzonnetje
+		kijken hoe clean puntenwolk fit3d floriande of aalsmeer! eruitziet
+
+		undistortie ziet er niet goed uit
+			calibratie opnieuw doen en undistortie resultaat met hand bekijken
+		cleanheid puntenwolk checken
+
+
+		check scale resolution difference of K with SpilRect chessboard
+		use this scale to generate K for big Zonnetje files
+			let wel op dat je K(3,3) == 1!
+		perform fit3d
+
+	set backgroundo probablistic textarea windows red or green depending of classification
+
 	prepare meeting frans
 		do hibaap on 
 			spiltrans 
@@ -22,25 +45,12 @@ GENERAL
 			have finishing date in mind
 		
 
-	fit3d on spilzonnetje
-		if to few frame matches
-			find matlab undistord script based on K (because matlab has memory error)
-				in fit3d dir
-				on google
-			if dont succeed:
-			resize images to 1536x?
-				check if undist works (with wrong K) (if memory problem of undist stil exist)
-				redo camera calibration and bekijk verschil met vorige K
-			undist all images
 	
 	rectification
 		FIT3Drectification
 			do hibaap on floriande 
 			do hibaap on new dataset
 
-			send isaac mail
-		OR: rectify script, see also fit3d/homography/tjerkify
-	use projected houghlines and perform hibaap etc
 
 
 	het gedraaide plaatje komt door translatie in point cloud of ransac iteratie
