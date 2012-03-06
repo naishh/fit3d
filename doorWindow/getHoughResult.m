@@ -11,8 +11,6 @@ tic;
 edgeFromCache					= false
 saveImageQ						= true
 
-plotme							= true;
-
 % TODO BLUR
 % TODO houghlines fillgab uitzetten in image
 
@@ -67,13 +65,16 @@ plotHoughlinesAll(Dataset.ImReader.imHeight,Dataset.HoughResult.HoughlinesRect,D
 
 end
 
-if plotme
-	disp('saving images ..');
-	savePathFile 						= [startPath,'/doorWindow/results/',Dataset.fileShort];
-	saveas(fgColorModelTransform,[savePathFile,'_colortransform__',Dataset.paramStr],'png');
-	saveas(fgEdge,[savePathFile,'_edge__',Dataset.paramStr],'png');
-	saveas(fgHough,[savePathFile,'_hough__',Dataset.paramStr],'png');
+if false
+	if plotme
+		disp('saving images ..');
+		savePathFile 						= [startPath,'/doorWindow/results/',Dataset.fileShort];
+		saveas(fgColorModelTransform,[savePathFile,'_colortransform__',Dataset.paramStr],'png');
+		saveas(fgEdge,[savePathFile,'_edge__',Dataset.paramStr],'png');
+		saveas(fgHough,[savePathFile,'_hough__',Dataset.paramStr],'png');
+	end
 end
+
 
 
 disp('saving dataset..');

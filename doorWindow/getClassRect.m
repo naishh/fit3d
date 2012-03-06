@@ -58,6 +58,11 @@ for j=2:length(YhHistMaxPeaks)
 	WindowsRowVote(j) = houghStrokeNorm;
 end
 
+figure;
+bar(WindowsRowVote)
+figure;
+barh(WindowsColVote)
+figure;
 
 % CLUSTERING hough 
 % use 2 clusters and transfor 211121 into 100010
@@ -132,8 +137,6 @@ for i=2:length(XvHistMaxPeaks)
 	%	pause;
 end
 
-pause;
-
 
 
 % exctract big rectangles base upon change 01 or 10 in colbin
@@ -182,33 +185,33 @@ for i=2:length(XvHistMaxPeaksBig)
 		end
 	end
 end
-pause;
 
 
+if false
 
-% draw binary stroke images 
-fgimOri 					= figure();imshow(Dataset.ImReader.imOri,[]);
-fgimEdge 					= figure();imshow(Dataset.ImReader.imEdge,[]);
-fgimHoughPxCountX 			= figure();imshow(imHoughPxCountX,[]);
-fgimHoughPxCountY 			= figure();imshow(imHoughPxCountY,[]);
-fgimHoughPxCountSumXY  		= figure();imshow(imHoughPxCountX+imHoughPxCountY,[]);
+	% draw binary stroke images 
+	fgimOri 					= figure();imshow(Dataset.ImReader.imOri,[]);
+	fgimEdge 					= figure();imshow(Dataset.ImReader.imEdge,[]);
+	fgimHoughPxCountX 			= figure();imshow(imHoughPxCountX,[]);
+	fgimHoughPxCountY 			= figure();imshow(imHoughPxCountY,[]);
+	fgimHoughPxCountSumXY  		= figure();imshow(imHoughPxCountX+imHoughPxCountY,[]);
 
-if saveImage
-	disp('saving images..');
-	% save images
-	saveas(fgimOri 				,[savePath,'00_fgimOri.png'],'png'); 
-	saveas(fgimEdge 			,[savePath,'02_fgimEdge.png'],'png'); 
-	%saveas(fgimHoughPxCountX 		,[savePath,'05_ClassRect_fgimHoughPxCountX.png'],'png'); 
-	%saveas(fgimHoughPxCountY 		,[savePath,'15_ClassRect_fgimHoughPxCountY.png'],'png'); 
-	saveas(fgimHoughPxCountSumXY	,[savePath,'25_ClassRect_fgimHoughPxCountSumXY.png'],'png'); 
-	saveas(fgimHoughLinesImV 		,[savePath,'30_ClassRect_fgimHoughLinesImV.png'],'png'); 
-	saveas(fgimHoughLinesImH 		,[savePath,'31_ClassRect_fgimHoughLinesImH.png'],'png'); 
-	saveas(fgimWindows				,[savePath,'40_ClassRect_fgimWindows.png'],'png');
-	disp('done!');
+	if saveImage
+		disp('saving images..');
+		% save images
+		saveas(fgimOri 				,[savePath,'00_fgimOri.png'],'png'); 
+		saveas(fgimEdge 			,[savePath,'02_fgimEdge.png'],'png'); 
+		%saveas(fgimHoughPxCountX 		,[savePath,'05_ClassRect_fgimHoughPxCountX.png'],'png'); 
+		%saveas(fgimHoughPxCountY 		,[savePath,'15_ClassRect_fgimHoughPxCountY.png'],'png'); 
+		saveas(fgimHoughPxCountSumXY	,[savePath,'25_ClassRect_fgimHoughPxCountSumXY.png'],'png'); 
+		saveas(fgimHoughLinesImV 		,[savePath,'30_ClassRect_fgimHoughLinesImV.png'],'png'); 
+		saveas(fgimHoughLinesImH 		,[savePath,'31_ClassRect_fgimHoughLinesImH.png'],'png'); 
+		saveas(fgimWindows				,[savePath,'40_ClassRect_fgimWindows.png'],'png');
+		disp('done!');
+	end
+
 end
 
-
-
-error('the end');
-
+ClassRect.imGrayscaleProb = imHoughPxCountX+imHoughPxCountY;
+figure(fgimWindows)
 

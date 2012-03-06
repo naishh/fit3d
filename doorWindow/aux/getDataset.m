@@ -4,6 +4,7 @@ function Dataset = getDataset(DatasetName, startPath, modules)
 
 % set defaults before:
 startPathDataset = [startPath,'/dataset/'];
+savePathEps = [startPath,'/doorWindow/resultsEps/'];
 Dataset.name = DatasetName;
 Dataset.postfix = '.jpg';
 Dataset.EdgeDetectorParam.type = 'canny';
@@ -231,7 +232,6 @@ end
 
 ImReader.file = [Dataset.path, Dataset.baseFile, imStartNrStr, Dataset.postfix]
 
-
 Dataset.HoughParam.ThetaV.Start 		= 0;
 Dataset.HoughParam.ThetaV.Start 		= Dataset.HoughParam.ThetaV.Start - Dataset.HoughParam.ThetaV.stretchAngle;
 Dataset.HoughParam.ThetaH.Start 		= 0;
@@ -251,12 +251,20 @@ Dataset.paramStr = getParamStr(Dataset);
 
 
 
+plotme = true;
+plotmeImEdge = true;
+plotmeImOri = true;
+
+
+%modulesPlotEps = {'ImReader','HoughResult', 'Hibaap', 'ClassRect'}
+modulesPlotEps =  [        0,             0,       0,           1];
+
 % MODULE THINGY 
 if exist('modules') == 0
 	modules = {'ImReader','HoughResult','Projection'}
 end
-for i=1:length(modules)
-	module = modules{i}; modulePretty = ['[',module,'] '];
+for iM=1:length(modules)
+	module = modules{iM}; modulePretty = ['[',module,'] '];
 	loadStr = strcat(startPath,'/doorWindow/mats/Dataset_',Dataset.fileShort,'_',module,'.mat')
 	if exist(loadStr) == 0
 		disp([modulePretty,'LOADABLE FILE FOUND : [NO]']);
@@ -278,8 +286,31 @@ for i=1:length(modules)
 	end
 	% attach module to dataset
 	evalStr = ['Dataset.',module,' = ', module]
-	disp('[DONE]');
 	eval(evalStr);
+	disp('[DONE]');
+
+	if modulesPlotEps(iM)
+		if plotme
+			disp('SAVING EPS..');
+			evalCode = ['export_fig -eps ', savePathEps, 'w_', Dataset.fileShort, '_Im', module, '.eps'], eval(evalCode)
+			disp('[DONE]');
+		end
+	end
+	% save ori image
+	if strcmp(module,'ImReader') && plotmeImOri
+		disp('SAVING IM ORI EPS..');
+		figure; imshow(Dataset.ImReader.imOri);
+		evalCode = ['export_fig -eps ', savePathEps, 'w_', Dataset.fileShort, '_ImOri.eps'], eval(evalCode)
+		figure; imshow(Dataset.ImReader.imEdge);
+		evalCode = ['export_fig -eps ', savePathEps, 'w_', Dataset.fileShort, '_ImEdge.eps'], eval(evalCode)
+		disp('[DONE]');
+	end
+	if strcmp(module,'ClassRect') 
+		disp('SAVING ImClassRectGrayscaleProb ..');
+		figure; imshow(Dataset.ClassRect.imGrayscaleProb,[]);
+		evalCode = ['export_fig -eps ', savePathEps, 'w_', Dataset.fileShort, '_ImClassRectGrayscaleProb.eps'], eval(evalCode)
+		disp('[DONE]');
+	end
 end
 
 

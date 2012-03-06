@@ -19,5 +19,6 @@ path(path,[startPath, '/doorWindow/cCorner_and_Harris']);
 path(path,[startPath, '/doorWindow/3rdParty']);
 path(path,[startPath, '/aux']);
 path(path,[startPath, '/doorWindow/mats']);
+path(path,[startPath, '/doorWindow/exportFig']);
 disp('added paths succesfully, good luck dude!')
 %load outputVars_scriptComputeCameraMotion

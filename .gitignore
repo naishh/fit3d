@@ -1,6 +1,7 @@
 *.log
 *.swp
 *.pdf
+*.eps
 dataset
 mats
 cameraCalibration/toolbox_calib
