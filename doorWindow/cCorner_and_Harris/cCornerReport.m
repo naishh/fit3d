@@ -1,6 +1,7 @@
 close all;
-load('../mats/Dataset_antwerpen_6223_crop1.mat');
-Houghlines = Dataset.HoughResult.Houghlines; HoughlinesRot = Dataset.HoughResult.HoughlinesRot
+load('Dataset_antwerpen_6223_crop1.mat');
+%Houghlines = Dataset.HoughResult.Houghlines; HoughlinesRot = Dataset.HoughResult.HoughlinesRot
+Houghlines = Dataset.Houghlines; HoughlinesRot = Dataset.HoughlinesRot
 
 maxWindowSize = 200;
 cornerInlierThreshold = 0.2
@@ -30,10 +31,11 @@ for idx=1:size(interestingcCorners,1);
 	axis square;
 end
 
+export_fig -eps cCornerTypes.eps
 
-err
-i=1, k=1, plotcCorner(Houghlines(i).cCorners(k),plotMode,0); figure;
-i=9, k=1, plotcCorner(Houghlines(i).cCorners(k),plotMode,0); figure;
-i=47, k=2, plotcCorner(Houghlines(i).cCorners(k),plotMode,0); figure;
-i=56, k=4, plotcCorner(Houghlines(i).cCorners(k),plotMode,0); figure;
-close
+
+% i=1, k=1, plotcCorner(Houghlines(i).cCorners(k),plotMode,0); figure;
+% i=9, k=1, plotcCorner(Houghlines(i).cCorners(k),plotMode,0); figure;
+% i=47, k=2, plotcCorner(Houghlines(i).cCorners(k),plotMode,0); figure;
+% i=56, k=4, plotcCorner(Houghlines(i).cCorners(k),plotMode,0); figure;
+% close

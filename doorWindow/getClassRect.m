@@ -59,9 +59,12 @@ for j=2:length(YhHistMaxPeaks)
 end
 
 figure;
-bar(WindowsRowVote)
-figure;
-barh(WindowsColVote)
+barh(WindowsRowVote/max(WindowsRowVote))
+export_fig -eps w_Spil1TransCrop1_ImClassRectBarh.eps
+pause;
+%figure;
+%bar(WindowsColVote/max(WindowsColVote))
+%export_fig -eps w_Spil1TransCrop1_ImClassRectBar.eps
 figure;
 
 % CLUSTERING hough 

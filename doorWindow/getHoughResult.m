@@ -3,7 +3,6 @@
 
 
 fprintf('\nStarting Hough...');
-close all;
 
 if true
 tic;

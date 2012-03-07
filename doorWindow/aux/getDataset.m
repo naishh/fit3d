@@ -9,10 +9,13 @@ Dataset.name = DatasetName;
 Dataset.postfix = '.jpg';
 Dataset.EdgeDetectorParam.type = 'canny';
 Dataset.EdgeDetectorParam.edgeTest 		= false;
+Dataset.EdgeDetectorParam.thresh 		= 0.45;
 Dataset.HoughParam.ThetaH.stretchAngle	= 30;
 Dataset.HoughParam.ThetaV.stretchAngle	= 10;
 Dataset.HoughParam.ThetaH.Resolution  	= 0.5;
 Dataset.HoughParam.ThetaV.Resolution  	= Dataset.HoughParam.ThetaH.Resolution;
+Dataset.HoughParam.fillGap 				= 10;
+Dataset.HoughParam.minLength 			= 45; 
 Dataset.HibaapParam.XvThresh			= 0.5;
 Dataset.HibaapParam.YhThresh			= 0.5;
 Dataset.HibaapParam.incrFactor			= 20;
@@ -44,26 +47,6 @@ elseif strcmp(DatasetName,'Floriande0Outline') == 1
 	Dataset.HoughParam.minLength 			= 45; 
 	Dataset.postfix = 'Outline.jpg';
 
-elseif strcmp(DatasetName, 'Spil') == 1
-	Dataset.fileShort 						= 'spil6';
-	Dataset.path 							= [startPathDataset,'Spil/SpilRect/'];
-	Dataset.baseFile 						= 'P_rect';
-	Dataset.imStartNr 						= 6;
-	Dataset.endRange 						= 6; 
-	Dataset.colorModel						= 'none'; % {'HSV_V','RGB','BW', 'ORIGINAL'	};
-	Dataset.EdgeDetectorParam.thresh		= 0.15; 
-	% TODO make function which generate all colormodels images and attach to dataset
-	Dataset.HoughParam.fillGap 				= 10;
-	Dataset.HoughParam.minLength 			= 45; 
-elseif strcmp(DatasetName, 'Spil4') == 1
-	Dataset.fileShort 						= 'spil4';
-	Dataset.path 							= [startPathDataset,'Spil/SpilRect/scaled/'];
-	Dataset.baseFile 						= 'P_rect';
-	Dataset.imStartNr 						= 4;
-	Dataset.colorModel						= 'none';
-	Dataset.EdgeDetectorParam.thresh		= 0.15; 
-	Dataset.HoughParam.fillGap 				= 10;
-	Dataset.HoughParam.minLength 			= 45; 
 elseif strcmp(DatasetName, 'Spil4BigOutline') == 1
 	Dataset.fileShort 						= 'Spil4BigOutline';
 	Dataset.path 							= [startPathDataset,'Spil/SpilRect/'];
@@ -136,7 +119,7 @@ elseif strcmp(DatasetName, 'Ort1') == 1
 	Dataset.HoughParam.ThetaV.Resolution  	= Dataset.HoughParam.ThetaH.Resolution;
 	Dataset.HoughParam.ThetaH.stretchAngle	= 5;
 	Dataset.HoughParam.ThetaV.stretchAngle	= 5;
-elseif strcmp(DatasetName, 'OrtCrop1') == 1
+elseif strcmp(DatasetName, 'Ort1Crop1') == 1
 	Dataset.fileShort 						= 'OrtCrop1';
 	Dataset.path 							= [startPathDataset,'Ort/'];
 	Dataset.baseFile 						= 'IMAG';
@@ -156,24 +139,6 @@ elseif strcmp(DatasetName, 'OrtCrop1') == 1
 	Dataset.HibaapParam.incrFactor			= 75;
 
 	Dataset.cCornerParam.minVotes			= 1;
-
-elseif strcmp(DatasetName, 'SpilPost18Trans') == 1 % this one gave the errors?
-	Dataset.fileShort 						= 'SpilPost18Trans';
-	Dataset.path 							= [startPathDataset,'Spil/datasetSpilPostRect/'];
-	Dataset.baseFile 						= 'P_rect';
-	Dataset.postfix 						= '_transformed.png';
-	Dataset.imStartNr 						= 1120918;
-	Dataset.colorModel						= 'ORIGINAL'; % {'HSV_V','RGB','BW'};
-	Dataset.EdgeDetectorParam.thresh		= 0.40; 
-	Dataset.HoughParam.fillGap 				= 15;
-	Dataset.HoughParam.minLength 			= 30; 
-	Dataset.HoughParam.ThetaH.Resolution  	= 0.1;
-	Dataset.HoughParam.ThetaV.Resolution  	= Dataset.HoughParam.ThetaH.Resolution;
-	Dataset.HoughParam.ThetaH.stretchAngle	= 5;
-	Dataset.HoughParam.ThetaV.stretchAngle	= 5;
-	Dataset.HibaapParam.XvThresh			= 0.4;
-	Dataset.HibaapParam.YhThresh			= 0.8;
-	Dataset.HibaapParam.incrFactor			= 25;
 elseif strcmp(DatasetName, 'Suma7') == 1
 	Dataset.fileShort 						= 'Suma7';
 	Dataset.path 							= [startPathDataset,'Suma/'];
@@ -217,6 +182,20 @@ elseif strcmp(DatasetName, 'SpilZonnetje70') == 1
 	Dataset.EdgeDetectorParam.thresh		= 0.45; 
 	Dataset.HoughParam.fillGap 				= 10;
 	Dataset.HoughParam.minLength 			= 45; 
+elseif strcmp(DatasetName, 'SpilFrontal6345') == 1
+	Dataset.fileShort 						= 'SpilFrontal6345_crop1';
+	Dataset.path 							= [startPathDataset,'Spil/SpilFrontal/'];
+	%Dataset.cropArea						= [1,1,550,1632] %y1,x1,y2,x2
+	Dataset.cropArea						= [1,1,550,1629] %y1,x1,y2,x2
+	Dataset.baseFile 						= 'IMG_6345_crop1'
+	Dataset.colorModel						= 'BW'; % {'HSV_V','RGB','BW', 'ORIGINAL'	};
+	Dataset.EdgeDetectorParam.thresh		= 0.35; 
+	Dataset.EdgeDetectorParam.edgeTest 		= false;
+	% orthogonal values
+	Dataset.HoughParam.ThetaH.Resolution  	= 0.1;
+	Dataset.HoughParam.ThetaV.Resolution  	= Dataset.HoughParam.ThetaH.Resolution;
+	Dataset.HoughParam.ThetaH.stretchAngle	= 5;
+	Dataset.HoughParam.ThetaV.stretchAngle	= 5;
 else
 	error('no matching dataset name');
 end

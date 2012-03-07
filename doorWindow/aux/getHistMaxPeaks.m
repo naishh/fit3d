@@ -1,5 +1,6 @@
 function XvHistMaxPeaks = getHistMaxPeaks(Dataset, XvHistSmooth, XvThresh, plotme, direction);
-XvPeaksBinary = XvHistSmooth>=XvThresh;
+%XvPeaksBinary = XvHistSmooth>=XvThresh;
+XvPeaksBinary = XvHistSmooth>=0.3*max(XvHistSmooth);
 XvHistMaxPeak = intmin;
 k=1;
 for i=2:length(XvPeaksBinary)

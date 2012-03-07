@@ -13,8 +13,7 @@ showImHough = 1;
 
 modules = {'ImReader','HoughResult', 'Hibaap', 'ClassRect'}
 %getDataset('Spil1Trans',startPath, modules)
-Dataset = getDataset('Spil1TransCrop1',startPath, modules)
-%getDataset('Suma7Crop1',startPath, modules)
+Dataset = getDataset('SpilFrontal6345',startPath, modules)
 
 %getDataset('OrtCrop1',startPath, modules)
 
