@@ -37,6 +37,7 @@ if strcmp(plotMode, 'window')
 	X = cCorner.windowMidpointX;
 	Y = cCorner.windowMidpointY;
 	plot(X,YnoInvert*Y,'b+','MarkerSize',10);
+
 elseif strcmp(plotMode, 'cCorner')
 
 	% plot original cCorner
@@ -66,7 +67,7 @@ elseif strcmp(plotMode, 'cCorner')
 	% black cross at crossing
 	X = cCorner.crossing(1);
 	Y = cCorner.crossing(2);
-	plot(X,YnoInvert*Y,'k+');
+	plot(X,YnoInvert*Y,'k+','MarkerSize',10,'LineWidth',2);
 
 	% blue cross in middle
 	X = cCorner.windowMidpointX;

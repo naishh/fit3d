@@ -1,9 +1,20 @@
+% runs setup first!
 close all;
+cd ../../;setup;cd doorWindow/cCorner_and_Harris
 
-load('../mats/Dataset_antwerpen_6223_crop1.mat');
+cache = false;
+
+%load('Dataset_antwerpen_6223_crop1.mat');
+modules = {'ImReader','HoughResult'}
+if ~cache
+	Dataset = getDataset('Spil6',startPath,modules)
+end
+
+imshow(Dataset.ImReader.imOriDimmed)
+
 Houghlines = Dataset.HoughResult.Houghlines; HoughlinesRot = Dataset.HoughResult.HoughlinesRot
 
-maxWindowSize = 200;
+maxWindowSize = 150;
 cornerInlierThreshold = 0.2
 cCornerHarrisThreshold = 30; 
 % cCornerHarrisThreshold =  cCornerHarrisThreshold * Dataset.projectionScale;
@@ -19,11 +30,20 @@ cCornerHarrisThreshold = 30;
 %imshow(Dataset.imOri);hold on;
 
 disp('getting cCorners..')
-Houghlines = getcCorner(Houghlines,HoughlinesRot,cornerInlierThreshold,maxWindowSize);
+if ~cache
+	Houghlines = getcCorner(Houghlines,HoughlinesRot,cornerInlierThreshold,maxWindowSize);
+end
 
 
 disp('plotting complete windows'); 
-plotcCorners(Houghlines, HoughlinesRot, 'cCornerReport',1)
+
+plotcCorners(Houghlines, HoughlinesRot, 'cCorner',0)
+
+figure; imshow(Dataset.ImReader.imOriDimmed)
+plotcCorners(Houghlines, HoughlinesRot, 'cCornerConnectivity',0)
+
+figure; imshow(Dataset.ImReader.imOriDimmed)
+plotcCorners(Houghlines, HoughlinesRot, 'window',0)
 
 
 % project harris corners

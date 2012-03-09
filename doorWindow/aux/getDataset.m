@@ -89,6 +89,16 @@ elseif strcmp(DatasetName, 'Spil1TransCrop1') == 1
 	Dataset.HoughParam.ThetaH.stretchAngle	= 3;
 	Dataset.HoughParam.ThetaV.stretchAngle	= 10;
 	Dataset.HibaapParam.incrFactor			= 10;
+elseif strcmp(DatasetName, 'Spil6') == 1
+	Dataset.fileShort 						= 'Spil6';
+	Dataset.path 							= [startPathDataset,'Spil/SpilRect/'];
+	Dataset.baseFile 						= 'P_rect';
+	Dataset.postfix 						= '.jpg';
+	Dataset.imStartNr 						= 6;
+	Dataset.colorModel						= 'none'; % {'HSV_V','RGB','BW'};
+	Dataset.EdgeDetectorParam.thresh		= 0.15; 
+	Dataset.HoughParam.fillGap 				= 10;
+	Dataset.HoughParam.minLength 			= 30; 
 elseif strcmp(DatasetName, 'Spil1TransCrop2') == 1
 	Dataset.fileShort 						= 'Spil1TransCrop2';
 	Dataset.path = [startPathDataset,'FloriandeSet1/small/'];
@@ -233,6 +243,7 @@ Dataset.paramStr = getParamStr(Dataset);
 plotme = true;
 plotmeImEdge = true;
 plotmeImOri = true;
+plotmeImHough = true;
 
 
 %modulesPlotEps = {'ImReader','HoughResult', 'Hibaap', 'ClassRect'}

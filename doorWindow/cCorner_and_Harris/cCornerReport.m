@@ -1,4 +1,5 @@
-close all;
+%close all;
+figure;
 load('Dataset_antwerpen_6223_crop1.mat');
 %Houghlines = Dataset.HoughResult.Houghlines; HoughlinesRot = Dataset.HoughResult.HoughlinesRot
 Houghlines = Dataset.Houghlines; HoughlinesRot = Dataset.HoughlinesRot
@@ -20,6 +21,15 @@ interestingcCorners = [	1,1;
 						56,4]
 
 
+% tweak 
+Houghlines(1).cCorners(1).hlineOri(1,1) = 35;
+Houghlines(9).cCorners(1).hlineOri(1,1) = Houghlines(9).cCorners(1).hlineOri(1,1) + 10;
+Houghlines(9).cCorners(1).hlineOri(2,2) = Houghlines(9).cCorners(1).hlineOri(2,1)
+Houghlines(47).cCorners(2).hlineOri(1,1) = Houghlines(47).cCorners(2).hlineOri(1,1) + 20;
+Houghlines(47).cCorners(2).hlineOri(2,2) = Houghlines(47).cCorners(2).hlineOri(2,1)
+Houghlines(47).cCorners(2).vlineOri(2,2) = Houghlines(47).cCorners(2).vlineOri(2,2) - 100;
+Houghlines(47).cCorners(2).crossing(2,1) = Houghlines(47).cCorners(2).hlineOri(2,1)
+
 for idx=1:size(interestingcCorners,1);
 	i=interestingcCorners(idx,1);
 	k=interestingcCorners(idx,2);
@@ -30,6 +40,9 @@ for idx=1:size(interestingcCorners,1);
 	plotcCorner(Houghlines(i).cCorners(k),'cCornerCutoff' ,0);
 	axis square;
 end
+
+disp('maxmize figure now!');
+pause;
 
 export_fig -eps cCornerTypes.eps
 

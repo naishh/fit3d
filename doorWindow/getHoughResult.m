@@ -15,7 +15,9 @@ saveImageQ						= true
 
 
 
-if plotme
+if plotmeImHough
+	disp('plotting');
+	pause;
 	fgColorModelTransform = figure();imshow(Dataset.ImReader.imColorModelTransform);
 	% plot min length line
 	hold on; plot([10,10+Dataset.HoughParam.minLength],[10,10],'r-','LineWidth',2);
@@ -85,6 +87,7 @@ saveStr, disp('saved');
 fprintf(' [DONE]\n');
 toc;
 
+pause;
 
 % new plan
 % transform edge image to rectangular image
