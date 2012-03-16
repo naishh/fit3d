@@ -89,6 +89,22 @@ elseif strcmp(DatasetName, 'Spil1TransCrop1') == 1
 	Dataset.HoughParam.ThetaH.stretchAngle	= 3;
 	Dataset.HoughParam.ThetaV.stretchAngle	= 10;
 	Dataset.HibaapParam.incrFactor			= 10;
+elseif strcmp(DatasetName, 'Spil1TransImproved') == 1
+	Dataset.fileShort 						= 'Spil1TransImproved';
+	Dataset.path 							= [startPathDataset,'Spil/SpilRect/'];
+	Dataset.baseFile 						= 'P_rect';
+	Dataset.postfix 						= '_transformed_improved.jpg';
+	Dataset.imStartNr 						= 6;
+	Dataset.endRange 						= 6; 
+	Dataset.colorModel						= 'none'; % {'HSV_V','RGB','BW'};
+	Dataset.EdgeDetectorParam.thresh		= 0.45; 
+	Dataset.HoughParam.fillGap 				= 10;
+	Dataset.HoughParam.minLength 			= 30; 
+	Dataset.HoughParam.ThetaH.Resolution  	= 0.1;
+	Dataset.HoughParam.ThetaV.Resolution  	= Dataset.HoughParam.ThetaH.Resolution;
+	Dataset.HoughParam.ThetaH.stretchAngle	= 3;
+	Dataset.HoughParam.ThetaV.stretchAngle	= 10;
+	Dataset.HibaapParam.incrFactor			= 10;
 elseif strcmp(DatasetName, 'Spil6') == 1
 	Dataset.fileShort 						= 'Spil6';
 	Dataset.path 							= [startPathDataset,'Spil/SpilRect/'];
@@ -244,6 +260,8 @@ plotme = true;
 plotmeImEdge = true;
 plotmeImOri = true;
 plotmeImHough = true;
+
+plotmeImHibaap = true; % todo doesnt work
 
 
 %modulesPlotEps = {'ImReader','HoughResult', 'Hibaap', 'ClassRect'}
