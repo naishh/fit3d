@@ -3,6 +3,8 @@ hold on;
 if pauseMode
 	pause;
 end
+
+
 % set to -1 if u use projected values 
 YnoInvert = 1;
 % calc coords of paralelleogram
@@ -39,12 +41,25 @@ if strcmp(plotMode, 'window')
 	plot(X,YnoInvert*Y,'b+','MarkerSize',10);
 
 elseif strcmp(plotMode, 'cCorner')
+		
 
 	% plot original cCorner
 	%disp('plot original cCorner');
 	lineSpec = 'g-';
 	plot(cCorner.vlineOri(1,:), YnoInvert*cCorner.vlineOri(2,:), lineSpec, 'LineWidth',3);
 	lineSpec = 'r-';
+
+
+
+	if isfield(cCorner,'bIncluded');
+		lineSpec = 'k--'
+	else
+		lineSpec = 'r-';
+	end
+
+
+
+
 	plot(cCorner.hlineOri(1,:), YnoInvert*cCorner.hlineOri(2,:), lineSpec, 'LineWidth',3);
 
 	lineSpec = 'k--';

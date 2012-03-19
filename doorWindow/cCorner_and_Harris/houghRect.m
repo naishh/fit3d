@@ -32,18 +32,28 @@ cCornerHarrisThreshold = 30;
 disp('getting cCorners..')
 if ~cache
 	Houghlines = getcCorner(Houghlines,HoughlinesRot,cornerInlierThreshold,maxWindowSize);
+	% todo plot cCorners
+	HoughlinesFiltered  = filtercCorner(Houghlines1);
+
 end
+
 
 
 disp('plotting complete windows'); 
 
+figure; imshow(Dataset.ImReader.imOriDimmed)
 plotcCorners(Houghlines, HoughlinesRot, 'cCorner',0)
 
+% todo check if it works
 figure; imshow(Dataset.ImReader.imOriDimmed)
-plotcCorners(Houghlines, HoughlinesRot, 'cCornerConnectivity',0)
+plotcCorners(HoughlinesFiltered, HoughlinesRot, 'cCorner',0)
 
-figure; imshow(Dataset.ImReader.imOriDimmed)
-plotcCorners(Houghlines, HoughlinesRot, 'window',0)
+%figure; imshow(Dataset.ImReader.imOriDimmed)
+%plotcCorners(Houghlines, HoughlinesRot, 'cCornerConnectivity',0)
+
+
+%figure; imshow(Dataset.ImReader.imOriDimmed)
+%plotcCorners(Houghlines, HoughlinesRot, 'window',0)
 
 
 % project harris corners
