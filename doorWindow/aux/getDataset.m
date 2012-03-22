@@ -41,11 +41,14 @@ elseif strcmp(DatasetName,'Floriande3flip') == 1
 	Dataset.path = [startPathDataset,'FloriandeSet1/small/'];
 	Dataset.baseFile = 'flipoutd';
 	Dataset.imStartNr = 3; 
-	Dataset.EdgeDetectorParam.thresh		= 0.40; 
+	%Dataset.EdgeDetectorParam.thresh		= 0.40; 
+	Dataset.EdgeDetectorParam.thresh		= 0.45; 
 	Dataset.colorModel						= 'BW'; 
 	%Dataset.HoughParam.fillGap 				= 15;
-	Dataset.HoughParam.fillGap 				= 15;
+	Dataset.HoughParam.fillGap 				= 10;
 	Dataset.HoughParam.minLength 			= 35; 
+	Dataset.ImReaderParam.blurIm 			= false;
+	
 elseif strcmp(DatasetName,'Floriande0Outline') == 1
 	Dataset.fileShort 						= 'Floriande0Outline';
 	Dataset.path = [startPathDataset,'FloriandeSet1/small/'];
@@ -120,6 +123,20 @@ elseif strcmp(DatasetName, 'Spil6') == 1
 	Dataset.path 							= [startPathDataset,'Spil/SpilRect/'];
 	Dataset.baseFile 						= 'P_rect';
 	Dataset.postfix 						= '.jpg';
+	Dataset.imStartNr 						= 6;
+	Dataset.colorModel						= 'none'; % {'HSV_V','RGB','BW'};
+	Dataset.EdgeDetectorParam.thresh		= 0.15; 
+	%Dataset.HoughParam.fillGap 				= 10;
+	%Dataset.HoughParam.minLength 			= 30; 
+	Dataset.HoughParam.fillGap 				= 10;
+	Dataset.HoughParam.minLength 			= 30; 
+	Dataset.HoughParam.ThetaH.Resolution  	= 1;
+	Dataset.HoughParam.ThetaV.Resolution  	= Dataset.HoughParam.ThetaH.Resolution;
+elseif strcmp(DatasetName, 'Spil6crop1') == 1
+	Dataset.fileShort 						= 'Spil6crop1';
+	Dataset.path 							= [startPathDataset,'Spil/SpilRect/'];
+	Dataset.baseFile 						= 'P_rect';
+	Dataset.postfix 						= '_crop1.jpg';
 	Dataset.imStartNr 						= 6;
 	Dataset.colorModel						= 'none'; % {'HSV_V','RGB','BW'};
 	Dataset.EdgeDetectorParam.thresh		= 0.15; 
@@ -271,7 +288,7 @@ Dataset.paramStr = getParamStr(Dataset);
 
 
 plotme = true;
-plotmeImEdge = false;
+plotmeImEdge = true;
 plotmeImOri = false;
 plotmeImHough = true;
 

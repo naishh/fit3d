@@ -18,7 +18,19 @@ ImReader.imWidth					= size(ImReader.imCropped, 2);
 % transform color
 
 
-ImReader.imColorModelTransform   = getColorModelTransform(ImReader.imCropped, Dataset);
+ImReader.imBlurred = ImReader.imCropped
+if isfield(Dataset, 'ImReaderParam')
+	if isfield(Dataset.ImReaderParam, 'blurIm')
+		if Dataset.ImReaderParam.blurIm
+			h=fspecial('Gaussian',10,10);
+			ImReader.imBlurred = imfilter(ImReader.imBlurred, h);
+			figure; imshow(ImReader.imCropped);
+			figure; imshow(ImReader.imBlurred);
+		end
+	end
+end
+
+ImReader.imColorModelTransform   = getColorModelTransform(ImReader.imBlurred, Dataset);
 
 % perform edge detection
 ImReader.imEdge = getEdge(ImReader, Dataset.EdgeDetectorParam);

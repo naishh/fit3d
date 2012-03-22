@@ -7,8 +7,9 @@ cache = false;
 %load('Dataset_antwerpen_6223_crop1.mat');
 if ~cache
 	modules = {'ImReader','HoughResult'}
+	%Dataset = getDataset('Floriande3flip',startPath,modules)
 	%Dataset = getDataset('Spil6',startPath,modules)
-	Dataset = getDataset('Floriande3flip',startPath,modules)
+	Dataset = getDataset('Spil6crop1',startPath,modules)
 	Houghlines = Dataset.HoughResult.Houghlines; HoughlinesRot = Dataset.HoughResult.HoughlinesRot
 end
 
@@ -39,29 +40,32 @@ if exist('Houghlines') == 0
 	load Houghlines
 end
 
+
+
+
 % todo remove this  
 %Houghlines2 = Houghlines(1:30)
 Houghlines2 = Houghlines;
 
-%HoughlinesFiltered  = filtercCorner(Houghlines2);
-
-
 disp('plotting complete windows'); 
-
-figure; imshow(Dataset.ImReader.imOriDimmed)
-plotcCorners(Houghlines2, HoughlinesRot, 'cCorner',0)
-
-% todo check if it works
-figure; imshow(Dataset.ImReader.imOriDimmed)
-plotcCorners(HoughlinesFiltered, HoughlinesRot, 'cCorner',0)
-
-
 figure; imshow(Dataset.ImReader.imOriDimmed)
 plotcCorners(Houghlines2, HoughlinesRot, 'window',0)
 
+%HoughlinesFiltered  = filtercCorner(Houghlines2);
+filtercCornerkMeans(Houghlines2);
 
-%figure; imshow(Dataset.ImReader.imOriDimmed)
-%plotcCorners(Houghlines, HoughlinesRot, 'window',0)
+
+%if exist('HoughlinesFiltered') == 1
+%	figure; imshow(Dataset.ImReader.imOriDimmed)
+%	%plotcCorners(HoughlinesFiltered, HoughlinesRot, 'cCorner',0)
+%	plotcCorners(HoughlinesFiltered, HoughlinesRot, 'window',0)
+%end
+
+
+% figure; imshow(Dataset.ImReader.imOriDimmed)
+% plotcCorners(Houghlines2, HoughlinesRot, 'window',0)
+
+
 
 
 % project harris corners
