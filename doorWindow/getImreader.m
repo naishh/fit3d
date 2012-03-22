@@ -8,7 +8,7 @@ ImReader.imOriDimmed 			= 0.8*ImReader.imOri;
 if isfield(Dataset, 'cropArea')
 	r = Dataset.cropArea
 	ImReader.imCropped = ImReader.imOri(r(1):r(3),r(2):r(4),:);
-	imshow(ImReader.imCropped);
+	%imshow(ImReader.imCropped);
 else
 	ImReader.imCropped = ImReader.imOri;
 end

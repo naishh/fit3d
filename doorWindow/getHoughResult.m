@@ -17,7 +17,6 @@ saveImageQ						= true
 
 if plotmeImHough
 	disp('plotting');
-	pause;
 	fgColorModelTransform = figure();imshow(Dataset.ImReader.imColorModelTransform);
 	% plot min length line
 	hold on; plot([10,10+Dataset.HoughParam.minLength],[10,10],'r-','LineWidth',2);

@@ -1,6 +1,23 @@
 GENERAL
 	be in PZO
 
+	
+	before friday
+
+	cCorner
+		try different houghparams to get less cCorners
+		sort all cCorners on hline+vline length and plot highest 100
+		try different dataset
+		use eucl dist to endpoints instead of < and >
+
+		set max width/height depended of perspective
+		use window center and kmeans
+	
+	image houghlines cCorner
+	------------------- ------------------- -------------------
+
+
+
 	check meld /media/Storage/scriptie/dataset  fit3d/dataset
 
 	rectify script on spilrect, 

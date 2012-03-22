@@ -36,6 +36,16 @@ if strcmp(DatasetName,'Floriande0') == 1
 %imNr = 5447; file = sprintf('../dataset/FloriandeSet1/medium/undist__MG_%d.jpg', imNr); 
 	Dataset.EdgeDetectorParam.edgeTest 		= false;
 
+elseif strcmp(DatasetName,'Floriande3flip') == 1
+	Dataset.fileShort 						= 'Floriande3flip';
+	Dataset.path = [startPathDataset,'FloriandeSet1/small/'];
+	Dataset.baseFile = 'flipoutd';
+	Dataset.imStartNr = 3; 
+	Dataset.EdgeDetectorParam.thresh		= 0.40; 
+	Dataset.colorModel						= 'BW'; 
+	%Dataset.HoughParam.fillGap 				= 15;
+	Dataset.HoughParam.fillGap 				= 15;
+	Dataset.HoughParam.minLength 			= 35; 
 elseif strcmp(DatasetName,'Floriande0Outline') == 1
 	Dataset.fileShort 						= 'Floriande0Outline';
 	Dataset.path = [startPathDataset,'FloriandeSet1/small/'];
@@ -113,8 +123,12 @@ elseif strcmp(DatasetName, 'Spil6') == 1
 	Dataset.imStartNr 						= 6;
 	Dataset.colorModel						= 'none'; % {'HSV_V','RGB','BW'};
 	Dataset.EdgeDetectorParam.thresh		= 0.15; 
+	%Dataset.HoughParam.fillGap 				= 10;
+	%Dataset.HoughParam.minLength 			= 30; 
 	Dataset.HoughParam.fillGap 				= 10;
 	Dataset.HoughParam.minLength 			= 30; 
+	Dataset.HoughParam.ThetaH.Resolution  	= 1;
+	Dataset.HoughParam.ThetaV.Resolution  	= Dataset.HoughParam.ThetaH.Resolution;
 elseif strcmp(DatasetName, 'Spil1TransCrop2') == 1
 	Dataset.fileShort 						= 'Spil1TransCrop2';
 	Dataset.path = [startPathDataset,'FloriandeSet1/small/'];
@@ -257,15 +271,15 @@ Dataset.paramStr = getParamStr(Dataset);
 
 
 plotme = true;
-plotmeImEdge = true;
-plotmeImOri = true;
+plotmeImEdge = false;
+plotmeImOri = false;
 plotmeImHough = true;
 
 plotmeImHibaap = true; % todo doesnt work
 
 
 %modulesPlotEps = {'ImReader','HoughResult', 'Hibaap', 'ClassRect'}
-modulesPlotEps =  [        0,             0,       0,           1];
+modulesPlotEps =  [        0,             0,       0,           0];
 
 % MODULE THINGY 
 if exist('modules') == 0
@@ -297,7 +311,7 @@ for iM=1:length(modules)
 	eval(evalStr);
 	disp('[DONE]');
 
-	if modulesPlotEps(iM)
+	if modulesPlotEps(iM)==1
 		if plotme
 			disp('SAVING EPS..');
 			evalCode = ['export_fig -eps ', savePathEps, 'w_', Dataset.fileShort, '_Im', module, '.eps'], eval(evalCode)
