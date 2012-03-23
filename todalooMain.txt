@@ -5,6 +5,11 @@ GENERAL
 	before friday
 
 	cCorner
+		spelen met max window length 
+		spelen met max peaks houghlines
+			hough resolutie
+			fillgab
+
 		try different houghparams to get less cCorners
 			lower theta resolution
 		try the dataset near the dirk

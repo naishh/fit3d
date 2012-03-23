@@ -41,6 +41,16 @@ if strcmp(plotMode, 'window')
 	Y = cCorner.windowMidpointY;
 	plot(X,YnoInvert*Y,'b+','MarkerSize',10);
 
+elseif strcmp(plotMode, 'windowFilled')
+	lineSpec = 'r-';
+	lineSpecLineWidth = 1;
+
+	% one hline
+	X = [p1(1), p3(1), p2(1), p4(1), p1(1)];
+	Y = [p1(2), p3(2), p2(2), p4(2), p1(2)];
+	Y = YnoInvert*Y;
+	fill(X,Y,'r', 'EdgeColor','r');
+
 elseif strcmp(plotMode, 'cCornerBlack')
 		
 	lineSpec = 'k-';

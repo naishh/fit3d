@@ -53,9 +53,10 @@ for i=1:length(Houghlines)
 				%	c1x1             c1x2
 				%	     c2x1 c2x2
 				
-				% increase line length
-				hStretchParam = 0.4;
-				vStretchParam = 0.4;
+				%increase line length
+
+				hStretchParam = 0.1;
+				vStretchParam = 0.1;
 				cCrossingMaxDist = 0.2;
 
 				hVect = hc1x2-hc1x1;
@@ -66,9 +67,18 @@ for i=1:length(Houghlines)
 				vExtend = vVect*vStretchParam;
 				vc1x1 = vc1x1-vExtend; vc1x2 = vc1x2+vExtend;
 
-				if  euclideanDist(cCorner.crossing, cCorner2.crossing) < cCrossingMaxDist* ((vExtend+hExtend)/2)...
-				    hc2x1>hc1x1 && hc2x1<hc1x2 && hc2x2>hc2x1 && hc2x2<hc1x2...
+
+				%if  euclideanDist(cCorner.crossing, cCorner2.crossing) < cCrossingMaxDist* ((vExtend+hExtend)/2)...
+				if hc2x1>hc1x1 && hc2x1<hc1x2 && hc2x2>hc2x1 && hc2x2<hc1x2...
 					&&  vc2x1>vc1x1 && vc2x1<vc1x2 && vc2x2>vc2x1 && vc2x2<vc1x2
+					% hc1x1
+					% hc1x2
+					% hc2x1
+					% hc2x2
+					% disp('true');
+					% plotcCorner(cCorner, 'cCornerBlack',false);
+					% plotcCorner(cCorner2, 'cCorner',false);
+					% pause;
 					Houghlines(i2).cCorners(k2).bIncluded = true;
 					% optimalization is to remove the cCorner directly 
 				end

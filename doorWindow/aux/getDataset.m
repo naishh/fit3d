@@ -253,6 +253,32 @@ elseif strcmp(DatasetName, 'SpilFrontal6345') == 1
 	Dataset.HoughParam.ThetaV.Resolution  	= Dataset.HoughParam.ThetaH.Resolution;
 	Dataset.HoughParam.ThetaH.stretchAngle	= 5;
 	Dataset.HoughParam.ThetaV.stretchAngle	= 5;
+elseif strcmp(DatasetName, 'Dirk5') == 1
+	Dataset.fileShort 						= DatasetName;
+	Dataset.path 							= [startPathDataset,'Dirk/'];
+	Dataset.baseFile 						= 'IMG_6485'
+	Dataset.colorModel						= 'BW'; % {'HSV_V','RGB','BW', 'ORIGINAL'	};
+	Dataset.EdgeDetectorParam.thresh		= 0.45; 
+	Dataset.EdgeDetectorParam.edgeTest 		= false;
+	Dataset.HoughParam.ThetaH.Resolution  	= 0.1;
+	Dataset.HoughParam.ThetaV.Resolution  	= Dataset.HoughParam.ThetaH.Resolution;
+	Dataset.HoughParam.fillGap 				= 10;
+	Dataset.HoughParam.minLength 			= 25; 
+	Dataset.HoughParam.ThetaH.stretchAngle	= 40;
+	Dataset.HoughParam.ThetaV.stretchAngle	= 10;
+elseif strcmp(DatasetName, 'Dirk6') == 1
+	Dataset.fileShort 						= DatasetName;
+	Dataset.path 							= [startPathDataset,'Dirk/'];
+	Dataset.baseFile 						= 'IMG_6486'
+	Dataset.colorModel						= 'BW'; % {'HSV_V','RGB','BW', 'ORIGINAL'	};
+	Dataset.EdgeDetectorParam.thresh		= 0.3; 
+	Dataset.EdgeDetectorParam.edgeTest 		= false;
+	Dataset.HoughParam.ThetaH.Resolution  	= 0.1;
+	Dataset.HoughParam.ThetaV.Resolution  	= Dataset.HoughParam.ThetaH.Resolution;
+	Dataset.HoughParam.fillGap 				= 10;
+	Dataset.HoughParam.minLength 			= 25; 
+	Dataset.HoughParam.ThetaH.stretchAngle	= 20;
+	Dataset.HoughParam.ThetaV.stretchAngle	= 10;
 else
 	error('no matching dataset name');
 end
@@ -288,8 +314,8 @@ Dataset.paramStr = getParamStr(Dataset);
 
 
 plotme = true;
-plotmeImEdge = true;
-plotmeImOri = false;
+plotmeImEdge = false;
+plotmeImOri = true;
 plotmeImHough = true;
 
 plotmeImHibaap = true; % todo doesnt work
