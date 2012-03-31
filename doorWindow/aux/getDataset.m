@@ -315,7 +315,7 @@ Dataset.paramStr = getParamStr(Dataset);
 
 plotme = true;
 plotmeImEdge = false;
-plotmeImOri = true;
+plotmeImOri = false;
 plotmeImHough = true;
 
 plotmeImHibaap = true; % todo doesnt work

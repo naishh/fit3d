@@ -21,7 +21,7 @@ savePath 						= ['resultsHibaap/',Dataset.fileShort,'/'];
 
 %fgHough = figure();imshow(Dataset.ImReader.imOriDimmed); hold on;
 %plotHoughlinesAll(Dataset.ImReader.imHeight,Dataset.HoughResult.Houghlines,Dataset.HoughResult.HoughlinesRot);
-[Dataset.HoughResult.V.LinesIm,Dataset.HoughResult.H.LinesIm] = houghlinesToIm(Dataset,0)
+[Dataset.HoughResult.V.LinesIm,Dataset.HoughResult.H.LinesIm] = houghlinesToImOrt(Dataset,0)
 
 % show image
 %fgPeaklines = figure();imshow(Dataset.ImReader.imEdge);hold on;

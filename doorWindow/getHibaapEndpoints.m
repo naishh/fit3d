@@ -9,25 +9,19 @@ disp('plotting houghlines');
 	% plotHoughlinesAll(Dataset.ImReader.imHeight,Dataset.HoughResult.Houghlines,Dataset.HoughResult.HoughlinesRot);
 	fgHist= figure();imshow(Dataset.ImReader.imOriDimmed); hold on;
 
-w = Dataset.ImReader.imWidth;
-h = Dataset.ImReader.imHeight;
+% get coords of endpoints of houghlines
+[Xv, Yv] = houghlinesToXY(Dataset.HoughResult.Houghlines);
+[Xh, Yh] = houghlinesToXY(Dataset.HoughResult.HoughlinesRot);
 
-% calc histograms by summing rows/cols
-XvHist = sum(HoughResult.V.Im);
-YvHist = sum(HoughResult.V.Im, 2);
-XhHist = sum(HoughResult.H.Im);
-YhHist = sum(HoughResult.H.Im, 2);
-
-% setup histograms bins
-XvBins = 1:1:w;
-YhBins = 1:1:h;
+% calc histograms
+XvBins = 1:1:Dataset.ImReader.imWidth; XvHist = hist(Xv,XvBins);
+YhBins = 1:1:Dataset.ImReader.imHeight; YhHist = hist(Yh,YhBins);
 % 'unusable' histograms
-YvBins = 1:1:h;
-XhBins = 1:1:w;
+YvBins = 1:1:Dataset.ImReader.imHeight; YvHist = hist(Yv,YvBins);
+XhBins = 1:1:Dataset.ImReader.imWidth; XhHist = hist(Xh,XhBins);
 
 % smooth histograms 
 incrFactor = Dataset.HibaapParam.incrFactor; % TODO make perncent of avg image width height
-incrFactor = 1;
 XvHistSmooth = smoothNtimes(XvHist,6);
 XhHistSmooth = smoothNtimes(XhHist,6);
 YhHistSmooth = smoothNtimes(YhHist,6);
@@ -36,19 +30,17 @@ YvHistSmooth = smoothNtimes(YvHist,6);
 % plot histograms
 disp('plotting histograms');
 %plot(incrFactor*XvHist,'y-');
-plotHistX(Dataset.ImReader.imHeight-40, XvBins, (incrFactor*XvHist), 'g-');
-plotHistX(Dataset.ImReader.imHeight, XhBins, (incrFactor*XhHist), 'r-');
-plotHistY(incrFactor*YhHist, YhBins, 'g-');
-plotHistY(incrFactor*YvHist, YvBins, 'r-');
+plotHistX(Dataset.ImReader.imHeight, XvBins, (incrFactor*XvHist), 'g-');
+plotHistX(Dataset.ImReader.imHeight-100, XhBins, (incrFactor*XhHist), 'r-');
+%plotHistY(incrFactor*YhHist, YhBins);
 
 % plot histograms smoothed
-plot(XvBins, Dataset.ImReader.imHeight-40-(incrFactor*XvHistSmooth),'r-', 'LineWidth',2);
-plot(XhBins, Dataset.ImReader.imHeight-(incrFactor*XhHistSmooth),'g-', 'LineWidth',2);
-plot(incrFactor*YhHistSmooth, YhBins, 'r-', 'LineWidth',2);
-plot(incrFactor*YvHistSmooth, YhBins, 'g-', 'LineWidth',2);
+plot(XvBins, Dataset.ImReader.imHeight-(incrFactor*XvHistSmooth),'r-', 'LineWidth',2);
+plot(XhBins, Dataset.ImReader.imHeight-100-(incrFactor*XhHistSmooth),'g-', 'LineWidth',2);
 
 drawnow
 err
+%plot(incrFactor*YhHistSmooth, YhBins, 'r-', 'LineWidth',2);
 
 % set histogram thresholds
 XvThresh = Dataset.HibaapParam.XvThresh; YhThresh = Dataset.HibaapParam.YhThresh;

@@ -1,8 +1,9 @@
 GENERAL
 	be in PZO
 
+	try instead of canny derivative images
+	rectify image with gimp and check if alternative hists add value
 	
-	before friday
 
 	cCorner
 		spelen met max window length 
@@ -18,8 +19,6 @@ GENERAL
 	
 	image houghlines cCorner
 	------------------- ------------------- -------------------
-
-
 
 	check meld /media/Storage/scriptie/dataset  fit3d/dataset
 
