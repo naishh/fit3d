@@ -3,6 +3,12 @@ GENERAL
 
 	try instead of canny derivative images
 	rectify image with gimp and check if alternative hists add value
+	lengte houghlines meenemen
+		houghlinetopx : lengte houghlines als multiplier 
+	figures:
+		nieuw plaatje houghline classifciatie me gevulde staafdiagrammen 
+		plaatje met grouped rectangles opsplitsen (teveel info nu)
+		cCornertypes rood groen
 	
 
 	cCorner
