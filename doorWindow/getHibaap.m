@@ -37,19 +37,24 @@ XvHistSmooth = smoothNtimes(XvHist,6); XhHistSmooth = smoothNtimes(XhHist,6); Yh
 % normalise to get AWESOME graph height
 
 % mark positions where XhHistSmooth in or decreases big time by taking the abs diff
-XhHistSmoothDer = abs(diff(XhHistSmooth));
-XhHistSmoothDer = (XhHistSmoothDer/max(XhHistSmoothDer))*incrFactor*h;
-% quickfix, incr with length of 1
+%XhHistSmoothDer = abs(diff(XhHistSmooth));
+XhHistSmoothDer = abs(diff(XhHist))';
 l=length(XhHistSmoothDer); XhHistSmoothDer(l+1) = XhHistSmoothDer(l);
+XhHistSmoothDer = smoothNtimes(XhHistSmoothDer,6);
 
+
+%XhvHistSmooth = (0.8*XvHistSmooth + 0.2*XhHistSmoothDer)/2;
+%XhvHistSmooth = smoothNtimes(XhvHistSmooth,6);
+
+% stretch graphs 
 XvHistSmooth = (XvHistSmooth/max(XvHistSmooth))*incrFactor*h;
 XhHistSmooth = (XhHistSmooth/max(XhHistSmooth))*incrFactor*h;
-%XhHistSmoothInv = (1-(XhHistSmooth/max(XhHistSmooth)))*incrFactor*h;
-XhvHistSmooth = (0.8*XvHistSmooth + 0.2*XhHistSmoothDer)/2;
-%XhvHistSmooth = (XvHistSmooth + XhHistSmoothDer)/2;
+XhHistSmoothDer = (XhHistSmoothDer/max(XhHistSmoothDer))*incrFactor*h;
+
+XhvHistSmooth = (XvHistSmooth + XhHistSmoothDer)/2;
+
 YvHistSmooth = (YvHistSmooth/max(YvHistSmooth))*incrFactor*w;
 YhHistSmooth = (YhHistSmooth/max(YhHistSmooth))*incrFactor*w;
-
 
 
 
@@ -63,10 +68,12 @@ disp('plotting histograms');
 %plotHistY(incrFactor*YvHist, YvBins, 'r-');
 
 % plot histograms smoothed
-plot(XvBins, Dataset.ImReader.imHeight-3*graphSpacing-XvHistSmooth,'r-', 'LineWidth',2);
+plot(XvBins, Dataset.ImReader.imHeight-2*graphSpacing-XvHistSmooth,'r-', 'LineWidth',2);
+plot(XhBins, Dataset.ImReader.imHeight-2*graphSpacing-XhvHistSmooth,'g-', 'LineWidth',2);
 %plot(XhBins, Dataset.ImReader.imHeight-0*graphSpacing-XhHistSmooth,'g-', 'LineWidth',2);
-%plot(XhBins, Dataset.ImReader.imHeight-0*graphSpacing-XhHistSmoothDer,'b-', 'LineWidth',2);
-plot(XhBins, Dataset.ImReader.imHeight-4*graphSpacing-XhvHistSmooth,'b-', 'LineWidth',2);
+plot(XhBins, Dataset.ImReader.imHeight-2*graphSpacing-XhHistSmoothDer,'b-', 'LineWidth',2);
+plot(XhBins, Dataset.ImReader.imHeight-0*graphSpacing-XhHistSmooth,'y-', 'LineWidth',2);
+plot(XhBins, Dataset.ImReader.imHeight-0*graphSpacing-XhHistSmoothDer,'b-', 'LineWidth',2);
 %plot(2*graphSpacing + incrFactor*YhHistSmooth, YhBins, 'r-', 'LineWidth',2);
 %plot(2*graphSpacing + incrFactor*YvHistSmooth, YhBins, 'g-', 'LineWidth',2);
 
