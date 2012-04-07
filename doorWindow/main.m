@@ -13,7 +13,6 @@ showImHough = 1;
 
 %modules = {'ImReader','HoughResult', 'Hibaap', 'ClassRect'}
 modules = {'ImReader','HoughResult', 'Hibaap', 'ClassRect'}
-%getDataset('Spil1Trans',startPath, modules)
 %Dataset = getDataset('SpilFrontal6345',startPath, modules)
 Dataset = getDataset('Spil1TransImproved',startPath, modules)
 %Dataset = getDataset('Ort1Crop1',startPath, modules)

@@ -1,6 +1,6 @@
 function XvHistMaxPeaks = getHistMaxPeaks(Dataset, XvHistSmooth, XvThresh, plotme, direction);
 %XvPeaksBinary = XvHistSmooth>=XvThresh;
-XvPeaksBinary = XvHistSmooth>=0.3*max(XvHistSmooth);
+XvPeaksBinary = XvHistSmooth>=XvThresh*max(XvHistSmooth);
 XvHistMaxPeak = intmin;
 k=1;
 for i=2:length(XvPeaksBinary)
@@ -10,6 +10,8 @@ for i=2:length(XvPeaksBinary)
 		if plotme
 			if strcmp(direction,'Xv')
 				plot([XvHistMaxPeakIdx,XvHistMaxPeakIdx],[0,Dataset.ImReader.imHeight],'g--','LineWidth',2);
+			elseif strcmp(direction,'XvPseudo')
+				plot([XvHistMaxPeakIdx,XvHistMaxPeakIdx],[0,Dataset.ImReader.imHeight],'k--','LineWidth',2);
 			elseif strcmp(direction,'Yh')
 				plot([0,Dataset.ImReader.imWidth],[XvHistMaxPeakIdx,XvHistMaxPeakIdx],'r--','LineWidth',2);
 			else

@@ -21,6 +21,7 @@ savePath 						= ['resultsHibaap/',Dataset.fileShort,'/'];
 
 %fgHough = figure();imshow(Dataset.ImReader.imOriDimmed); hold on;
 %plotHoughlinesAll(Dataset.ImReader.imHeight,Dataset.HoughResult.Houghlines,Dataset.HoughResult.HoughlinesRot);
+[Dataset.HoughResult.V.LinesIm,Dataset.HoughResult.H.LinesIm] = houghlinesToImOrt(Dataset,0)
 
 % show image
 %fgPeaklines = figure();imshow(Dataset.ImReader.imEdge);hold on;
@@ -41,7 +42,7 @@ imHoughPxCountY = tempIm;
 % loop through vertical strokes
 for i=2:length(XvHistMaxPeaks)
 	x1 = XvHistMaxPeaks(i-1); x2 = XvHistMaxPeaks(i);
-	houghStroke	= Dataset.HoughResult.H.Im(:,x1:x2);
+	houghStroke	= Dataset.HoughResult.H.LinesIm(:,x1:x2);
 	houghStrokeTotal= sum(sum(houghStroke));
 	houghStrokeNorm=houghStrokeTotal/(size(houghStroke,1)*size(houghStroke,2));
 	imHoughPxCountX(:,x1:x2) = houghStrokeNorm;
@@ -50,7 +51,7 @@ end
 % loop through horizontal strokes
 for j=2:length(YhHistMaxPeaks)
 	y1 = YhHistMaxPeaks(j-1); y2 = YhHistMaxPeaks(j);
-	houghStroke	= Dataset.HoughResult.V.Im(y1:y2,:);
+	houghStroke	= Dataset.HoughResult.V.LinesIm(y1:y2,:);
 	houghStrokeTotal= sum(sum(houghStroke));
 	houghStrokeNorm=houghStrokeTotal/(size(houghStroke,1)*size(houghStroke,2));
 	imHoughPxCountY(y1:y2,:) = houghStrokeNorm;
@@ -79,7 +80,7 @@ WindowsRowVoteBin = WindowsRowVoteBin'==maxClusterIdx;
 
 
 % PLOT VERTICAL HOUGHLINE amounts
-fgimHoughImV = figure();imshow(imdilate(Dataset.HoughResult.V.Im,ones(5,5))); hold on;
+fgimHoughLinesImV = figure();imshow(imdilate(Dataset.HoughResult.V.LinesIm,ones(5,5))); hold on;
 voteGraphWidth = (Dataset.ImReader.imWidth/10); voteGraphFactor = voteGraphWidth/max(WindowsRowVote);
 for j=2:length(WindowsRowVote)
 	y1 = YhHistMaxPeaks(j-1); y2 = YhHistMaxPeaks(j);
@@ -91,7 +92,7 @@ for j=2:length(WindowsRowVote)
 	end
 end
 % PLOT HORIZONTAL HOUGHLINE amounts
-fgimHoughImH = figure();imshow(imdilate(Dataset.HoughResult.H.Im,ones(5,5))); hold on;
+fgimHoughLinesImH = figure();imshow(imdilate(Dataset.HoughResult.H.LinesIm,ones(5,5))); hold on;
 voteGraphHeight = (Dataset.ImReader.imHeight/10); voteGraphFactor = voteGraphHeight/max(WindowsColVote);
 for i=2:length(WindowsColVote)
 	x1 = XvHistMaxPeaks(i-1); x2 = XvHistMaxPeaks(i);
@@ -206,8 +207,8 @@ if false
 		%saveas(fgimHoughPxCountX 		,[savePath,'05_ClassRect_fgimHoughPxCountX.png'],'png'); 
 		%saveas(fgimHoughPxCountY 		,[savePath,'15_ClassRect_fgimHoughPxCountY.png'],'png'); 
 		saveas(fgimHoughPxCountSumXY	,[savePath,'25_ClassRect_fgimHoughPxCountSumXY.png'],'png'); 
-		saveas(fgimHoughImV 		,[savePath,'30_ClassRect_fgimHoughImV.png'],'png'); 
-		saveas(fgimHoughImH 		,[savePath,'31_ClassRect_fgimHoughImH.png'],'png'); 
+		saveas(fgimHoughLinesImV 		,[savePath,'30_ClassRect_fgimHoughLinesImV.png'],'png'); 
+		saveas(fgimHoughLinesImH 		,[savePath,'31_ClassRect_fgimHoughLinesImH.png'],'png'); 
 		saveas(fgimWindows				,[savePath,'40_ClassRect_fgimWindows.png'],'png');
 		disp('done!');
 	end

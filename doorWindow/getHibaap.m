@@ -56,7 +56,18 @@ XhvHistSmooth = (XvHistSmooth + XhHistSmoothDer)/2;
 YvHistSmooth = (YvHistSmooth/max(YvHistSmooth))*incrFactor*w;
 YhHistSmooth = (YhHistSmooth/max(YhHistSmooth))*incrFactor*w;
 
+XhHistSmoothDer = XhHistSmoothDer * 2; 
 
+% if the pseudo peak is above the XvHistSmooth plot it else plot XvHistSmooth
+Xpseudo = XhHistSmoothDer - XvHistSmooth;
+% quickfix:remove tale that peaks enormous because of smoothing avg
+Xpseudo = Xpseudo(1:(length(Xpseudo)-10));
+XhHistSmoothDer = XhHistSmoothDer(1:(length(XhHistSmoothDer )-10));
+
+% XhPseudo = max(XvHistSmooth, Xpseudo);
+
+%todo..
+XclassifyReady = XvHistSmooth; 
 
 % plot histograms
 disp('plotting histograms');
@@ -68,17 +79,18 @@ disp('plotting histograms');
 %plotHistY(incrFactor*YvHist, YvBins, 'r-');
 
 % plot histograms smoothed
-plot(XvBins, Dataset.ImReader.imHeight-2*graphSpacing-XvHistSmooth,'r-', 'LineWidth',2);
-plot(XhBins, Dataset.ImReader.imHeight-2*graphSpacing-XhvHistSmooth,'g-', 'LineWidth',2);
-%plot(XhBins, Dataset.ImReader.imHeight-0*graphSpacing-XhHistSmooth,'g-', 'LineWidth',2);
-plot(XhBins, Dataset.ImReader.imHeight-2*graphSpacing-XhHistSmoothDer,'b-', 'LineWidth',2);
-plot(XhBins, Dataset.ImReader.imHeight-0*graphSpacing-XhHistSmooth,'y-', 'LineWidth',2);
-plot(XhBins, Dataset.ImReader.imHeight-0*graphSpacing-XhHistSmoothDer,'b-', 'LineWidth',2);
+plot(XhBins, Dataset.ImReader.imHeight-6*graphSpacing-XhHistSmooth,'y-', 'LineWidth',2);
+plot(XhBins(1:length(XhHistSmoothDer)), Dataset.ImReader.imHeight-6*graphSpacing-XhHistSmoothDer,'b-', 'LineWidth',2);
+plot(XvBins, Dataset.ImReader.imHeight-3*graphSpacing-XvHistSmooth,'g-', 'LineWidth',2);
+plot(XhBins(1:length(Xpseudo)), Dataset.ImReader.imHeight-3*graphSpacing-Xpseudo,'k-', 'LineWidth',2);
+%plot(XvBins, Dataset.ImReader.imHeight-6*graphSpacing-XhPseudo,'g-', 'LineWidth',2);
 %plot(2*graphSpacing + incrFactor*YhHistSmooth, YhBins, 'r-', 'LineWidth',2);
 %plot(2*graphSpacing + incrFactor*YvHistSmooth, YhBins, 'g-', 'LineWidth',2);
 
-% TODO weghalen
-XvHistSmooth = XhvHistSmooth;
+legend('Xh: total amount of overlapping horizontal Houghlines at each x position',...
+'Xhder: Absolute of derivative of Xh',...
+'Xv: total amount of overlapping vertical Houghlines at each x position.',...
+'Xpseudo: Xhder - Xv');
 
 % set histogram thresholds
 XvThresh = Dataset.HibaapParam.XvThresh; YhThresh = Dataset.HibaapParam.YhThresh;
@@ -92,10 +104,16 @@ pause;
 %------------------------------------------------------------------------------------------------------------------------
 % find peaks
 plotme = 1;
-XvHistMaxPeaks = getHistMaxPeaks(Dataset, XvHistSmooth, XvThresh, plotme,'Xv');
+XvThresh = 0.3;
+XvHistMaxPeaks = getHistMaxPeaks(Dataset, XvHistSmooth, XvThresh, plotme,'Xv')
+pause;
+XvThresh = 0.4;
+XvHistMaxPeaksPseudo = getHistMaxPeaks(Dataset, XhHistSmoothDer, XvThresh, plotme,'XvPseudo')
+XvHistMaxPeaksTotal = sort([XvHistMaxPeaks,XvHistMaxPeaksPseudo])
+pause;
 YhHistMaxPeaks = getHistMaxPeaks(Dataset, YhHistSmooth, YhThresh, plotme,'Yh');
 % save result in dataset
-Hibaap.XvHistMaxPeaks = XvHistMaxPeaks;
+Hibaap.XvHistMaxPeaks = XvHistMaxPeaksTotal;
 Hibaap.YhHistMaxPeaks = YhHistMaxPeaks;
 
 % find and plot intersections of vertical and horizontal lines
