@@ -5,8 +5,8 @@ tic;
 %load([startPath,'/doorWindow/mats/Dataset_',Dataset.fileShort,'_houghlinesVH.mat']);
 
 disp('plotting houghlines');
-	% fgHough = figure();imshow(Dataset.ImReader.imOriDimmed); hold on;
-	% plotHoughlinesAll(Dataset.ImReader.imHeight,Dataset.HoughResult.Houghlines,Dataset.HoughResult.HoughlinesRot);
+	%fgHough = figure();imshow(Dataset.ImReader.imOriDimmed); hold on;
+	%plotHoughlinesAll(Dataset.ImReader.imHeight,Dataset.HoughResult.Houghlines,Dataset.HoughResult.HoughlinesRot);
 	fgHist= figure();imshow(Dataset.ImReader.imOriDimmed); hold on;
 
 w = Dataset.ImReader.imWidth;
@@ -87,9 +87,9 @@ plot(XhBins(1:length(Xpseudo)), Dataset.ImReader.imHeight-3*graphSpacing-Xpseudo
 %plot(2*graphSpacing + incrFactor*YhHistSmooth, YhBins, 'r-', 'LineWidth',2);
 %plot(2*graphSpacing + incrFactor*YvHistSmooth, YhBins, 'g-', 'LineWidth',2);
 
-legend('Xh: total amount of overlapping horizontal Houghlines at each x position',...
+legend('Xh: total amount of horizontal Houghlines that occur in pixelcolumn x',...
 'Xhder: Absolute of derivative of Xh',...
-'Xv: total amount of overlapping vertical Houghlines at each x position.',...
+'Xv: total amount of vertical Houghlines that occur in pixelcolumn x',...
 'Xpseudo: Xhder - Xv');
 
 % set histogram thresholds
@@ -110,7 +110,8 @@ pause;
 XvThresh = 0.4;
 XvHistMaxPeaksPseudo = getHistMaxPeaks(Dataset, XhHistSmoothDer, XvThresh, plotme,'XvPseudo')
 XvHistMaxPeaksTotal = sort([XvHistMaxPeaks,XvHistMaxPeaksPseudo])
-pause;
+%XvHistMaxPeaksTotal = XvHistMaxPeaksPseudo;
+XvHistMaxPeaksTotal = XvHistMaxPeaks;
 YhHistMaxPeaks = getHistMaxPeaks(Dataset, YhHistSmooth, YhThresh, plotme,'Yh');
 % save result in dataset
 Hibaap.XvHistMaxPeaks = XvHistMaxPeaksTotal;
@@ -121,7 +122,7 @@ EdgePeakCrossings = [];
 for i=1:length(XvHistMaxPeaks)
 	for j=1:length(YhHistMaxPeaks)
 		[crossing,d,l1,l2] = getLineCrossing([XvHistMaxPeaks(i),0]',[XvHistMaxPeaks(i),Dataset.ImReader.imHeight]',[0,YhHistMaxPeaks(j)]',[Dataset.ImReader.imWidth,YhHistMaxPeaks(j)]');
-		plot(crossing(1), crossing(2), '+k');
+		%plot(crossing(1), crossing(2), '+k');
 		EdgePeakCrossings = [EdgePeakCrossings;crossing'];
 	end
 end
