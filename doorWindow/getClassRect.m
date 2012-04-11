@@ -1,3 +1,17 @@
+
+% new method
+% count number of 0 crossings in Xhder
+% + 0 - is peak
+% - 0 + is dal
+%
+% if 1 found
+%	check 5 px left and right for pattern (down/up)
+% if multiple found iterative smooth Xh function  until 1 is found :D
+%
+%maybe also take hight of peak in Xh into account
+
+
+
 %function hibaapclassifyRectangles(Dataset,saveImage);
 % RECTANGLE CLASSIFICATION
 

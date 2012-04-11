@@ -33,12 +33,15 @@ XhHist = sum(HoughResult.H.Im);
 YhHist = sum(HoughResult.H.Im, 2);
 
 % smooth histograms 
-XvHistSmooth = smoothNtimes(XvHist,6); XhHistSmooth = smoothNtimes(XhHist,6); YhHistSmooth = smoothNtimes(YhHist,6); YvHistSmooth = smoothNtimes(YvHist,6);
+XvHistSmooth = smoothNtimes(XvHist,6); 
+XhHistSmooth = smoothNtimes(XhHist,20); 
+YhHistSmooth = smoothNtimes(YhHist,6); YvHistSmooth = smoothNtimes(YvHist,6);
 % normalise to get AWESOME graph height
 
 % mark positions where XhHistSmooth in or decreases big time by taking the abs diff
 %XhHistSmoothDer = abs(diff(XhHistSmooth));
-XhHistSmoothDer = abs(diff(XhHist))';
+%XhHistSmoothDer = (diff(XhHist))';
+XhHistSmoothDer = (diff(XhHistSmooth))';
 l=length(XhHistSmoothDer); XhHistSmoothDer(l+1) = XhHistSmoothDer(l);
 XhHistSmoothDer = smoothNtimes(XhHistSmoothDer,6);
 
@@ -81,6 +84,10 @@ disp('plotting histograms');
 % plot histograms smoothed
 plot(XhBins, Dataset.ImReader.imHeight-6*graphSpacing-XhHistSmooth,'y-', 'LineWidth',2);
 plot(XhBins(1:length(XhHistSmoothDer)), Dataset.ImReader.imHeight-6*graphSpacing-XhHistSmoothDer,'b-', 'LineWidth',2);
+
+%draw 0 line of Xhder
+plot([0,Dataset.ImReader.imWidth],[Dataset.ImReader.imHeight-6*graphSpacing, Dataset.ImReader.imHeight-6*graphSpacing],'k--','LineWidth',2);
+
 plot(XvBins, Dataset.ImReader.imHeight-3*graphSpacing-XvHistSmooth,'g-', 'LineWidth',2);
 plot(XhBins(1:length(Xpseudo)), Dataset.ImReader.imHeight-3*graphSpacing-Xpseudo,'k-', 'LineWidth',2);
 %plot(XvBins, Dataset.ImReader.imHeight-6*graphSpacing-XhPseudo,'g-', 'LineWidth',2);
@@ -88,7 +95,7 @@ plot(XhBins(1:length(Xpseudo)), Dataset.ImReader.imHeight-3*graphSpacing-Xpseudo
 %plot(2*graphSpacing + incrFactor*YvHistSmooth, YhBins, 'g-', 'LineWidth',2);
 
 legend('Xh: total amount of horizontal Houghlines that occur in pixelcolumn x',...
-'Xhder: Absolute of derivative of Xh',...
+'Xhder: Derivative of Xh',...
 'Xv: total amount of vertical Houghlines that occur in pixelcolumn x',...
 'Xpseudo: Xhder - Xv');
 
