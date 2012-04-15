@@ -3,6 +3,7 @@
 % count number of 0 crossings in Xhder
 % + 0 - is peak
 % - 0 + is dal
+% sign change of derivative
 %
 % if 1 found
 %	check 5 px left and right for pattern (down/up)
@@ -10,29 +11,10 @@
 %
 %maybe also take hight of peak in Xh into account
 
-
-
-%function hibaapclassifyRectangles(Dataset,saveImage);
 % RECTANGLE CLASSIFICATION
 
-% load hibaap values
-
-% clear;
-% cd ..
-% setup
-% cd doorWindow
-% 
 saveImage = true;
 savePath 						= ['resultsHibaap/',Dataset.fileShort,'/'];
-% %Dataset.fileShort='Ort1'
-% %Dataset.fileShort='OrtCrop1'
-% Dataset.fileShort='Spil1TransCrop1';
-% load([startPath,'/doorWindow/mats/Dataset_',Dataset.fileShort,'_hibaap.mat']);
-% 
-% if exist('Dataset')==0
-% 	error('tj:Dataset not loaded')
-% end
-
 %fgHough = figure();imshow(Dataset.ImReader.imOriDimmed); hold on;
 %plotHoughlinesAll(Dataset.ImReader.imHeight,Dataset.HoughResult.Houghlines,Dataset.HoughResult.HoughlinesRot);
 
@@ -41,55 +23,73 @@ savePath 						= ['resultsHibaap/',Dataset.fileShort,'/'];
 %plotHoughlinesAll(Dataset.ImReader.imHeight,Dataset.HoughResult.Houghlines,Dataset.HoughResult.HoughlinesRot);
 %plotPeakLines(Dataset);
 
-% add origin and endpoint to peak array so it can be used as a range
+% add left and right tale (origin and endpoint) to peak array so it can be used as a range
 XvHistMaxPeaks = [1,Dataset.Hibaap.XvHistMaxPeaks, Dataset.ImReader.imWidth];
 YhHistMaxPeaks = [1,Dataset.Hibaap.YhHistMaxPeaks,Dataset.ImReader.imHeight];
 
-% declare vars
-tempIm = zeros(Dataset.ImReader.imHeight,Dataset.ImReader.imWidth,1);
-imHoughPxCountX = tempIm;
-imHoughPxCountY = tempIm;
 
+% declare vars
+XhHistSmoothDer = Dataset.Hibaap.XhHistSmoothDer; 
+XhHistSmooth = Dataset.Hibaap.XhHistSmooth; 
+
+
+figure;
+hold on;
+
+
+w = Dataset.ImReader.imWidth; h = Dataset.ImReader.imHeight;
+% setup histograms bins
+XvBins = 1:1:w; YhBins = 1:1:h; YvBins = 1:1:h; XhBins = 1:1:w;
+
+figure; imshow(Dataset.ImReader.imOriDimmed); hold on;
+plotPeakLines(Dataset);
+%plot(XhBins, Dataset.ImReader.imHeight-6*Dataset.Hibaap.graphSpacing-XhHistSmooth,'y-', 'LineWidth',2);
+%plot(XhBins(1:length(XhHistSmoothDer)), Dataset.ImReader.imHeight-6*Dataset.Hibaap.graphSpacing-XhHistSmoothDer,'b-', 'LineWidth',2);
+
+plot([0,Dataset.ImReader.imWidth],[Dataset.ImReader.imHeight-6*Dataset.Hibaap.graphSpacing, Dataset.ImReader.imHeight-6*Dataset.Hibaap.graphSpacing],'k--','LineWidth',2);
+pause;
+
+% todo better plotting
+for i=2:length(XvHistMaxPeaks)
+	i
+	x1 = XvHistMaxPeaks(i-1); x2 = XvHistMaxPeaks(i);
+	D = XhHistSmoothDer(x1:x2)'
+	plot(XhBins(x1:x2), Dataset.ImReader.imHeight-6*Dataset.Hibaap.graphSpacing-D,'k-', 'LineWidth',2);
+	plot(XhBins(x1:x2), Dataset.ImReader.imHeight-6*Dataset.Hibaap.graphSpacing-XhHistSmooth(x1:x2),'g-','LineWidth',2);
+	pause;
+	signChanges = getSignChanges(D)
+
+	WindowsColVote(i) = 0
+	if length(signChanges) > 0 
+		id = signChanges(1) 
+		% take first signChange, alternative, get midle one
+		if D(id) > D(id+1) 
+			WindowsColVote(i) = 1
+		end
+	end
+	% while length(signChanges) > 1 
+	% 	length(signChanges) 
+	% 	disp('smoothing ');
+	% 	smoothNtimes(XhHistSmoothDer,1);
+	% 	signChanges = getSignChanges(D)
+	% 	pause;
+	% end
+	% pause;
+	%WindowsColVote(i) = houghStrokeNorm;
+end
 
 % SUM UP HOUGHLINE PICS 
 % loop through vertical strokes
 for i=2:length(XvHistMaxPeaks)
 	x1 = XvHistMaxPeaks(i-1); x2 = XvHistMaxPeaks(i);
-	houghStroke	= Dataset.HoughResult.H.Im(:,x1:x2);
-	houghStrokeTotal= sum(sum(houghStroke));
-	houghStrokeNorm=houghStrokeTotal/(size(houghStroke,1)*size(houghStroke,2));
-	imHoughPxCountX(:,x1:x2) = houghStrokeNorm;
 	WindowsColVote(i) = houghStrokeNorm;
 end
 % loop through horizontal strokes
 for j=2:length(YhHistMaxPeaks)
 	y1 = YhHistMaxPeaks(j-1); y2 = YhHistMaxPeaks(j);
 	houghStroke	= Dataset.HoughResult.V.Im(y1:y2,:);
-	houghStrokeTotal= sum(sum(houghStroke));
-	houghStrokeNorm=houghStrokeTotal/(size(houghStroke,1)*size(houghStroke,2));
-	imHoughPxCountY(y1:y2,:) = houghStrokeNorm;
 	WindowsRowVote(j) = houghStrokeNorm;
 end
-
-figure;
-barh(WindowsRowVote/max(WindowsRowVote))
-export_fig -eps w_Spil1TransCrop1_ImClassRectBarh.eps
-pause;
-%figure;
-%bar(WindowsColVote/max(WindowsColVote))
-%export_fig -eps w_Spil1TransCrop1_ImClassRectBar.eps
-figure;
-
-% CLUSTERING hough 
-% use 2 clusters and transfor 211121 into 100010
-[WindowsColVoteBin, Clusters] = kmeans(WindowsColVote,2);
-[t_, maxClusterIdx] = max(Clusters);
-% set a 1 at the clusters associated with highest bin
-WindowsColVoteBin = WindowsColVoteBin'==maxClusterIdx;
-
-[WindowsRowVoteBin, Clusters] = kmeans(WindowsRowVote,2);
-[t_, maxClusterIdx] = max(Clusters);
-WindowsRowVoteBin = WindowsRowVoteBin'==maxClusterIdx;
 
 
 % PLOT VERTICAL HOUGHLINE amounts

@@ -36,15 +36,22 @@ YhHist = sum(HoughResult.H.Im, 2);
 XvHistSmooth = smoothNtimes(XvHist,6); 
 XhHistSmooth = smoothNtimes(XhHist,20); 
 YhHistSmooth = smoothNtimes(YhHist,6); YvHistSmooth = smoothNtimes(YvHist,6);
+XhHistDerAbs  = abs(diff(XhHist))
+
+
 % normalise to get AWESOME graph height
 
 % mark positions where XhHistSmooth in or decreases big time by taking the abs diff
-%XhHistSmoothDer = abs(diff(XhHistSmooth));
 %XhHistSmoothDer = (diff(XhHist))';
 XhHistSmoothDer = (diff(XhHistSmooth))';
 l=length(XhHistSmoothDer); XhHistSmoothDer(l+1) = XhHistSmoothDer(l);
+
+l=length(XhHistDerAbs); XhHistDerAbs(l+1) = XhHistDerAbs(l);
+
 XhHistSmoothDer = smoothNtimes(XhHistSmoothDer,6);
 
+Xpseudo = XhHistDerAbs - XvHist;
+Xpseudo = smoothNtimes(Xpseudo,6);
 
 %XhvHistSmooth = (0.8*XvHistSmooth + 0.2*XhHistSmoothDer)/2;
 %XhvHistSmooth = smoothNtimes(XhvHistSmooth,6);
@@ -53,6 +60,7 @@ XhHistSmoothDer = smoothNtimes(XhHistSmoothDer,6);
 XvHistSmooth = (XvHistSmooth/max(XvHistSmooth))*incrFactor*h;
 XhHistSmooth = (XhHistSmooth/max(XhHistSmooth))*incrFactor*h;
 XhHistSmoothDer = (XhHistSmoothDer/max(XhHistSmoothDer))*incrFactor*h;
+XhHistSmoothDerAbs = abs(XhHistSmoothDer);
 
 XhvHistSmooth = (XvHistSmooth + XhHistSmoothDer)/2;
 
@@ -62,7 +70,9 @@ YhHistSmooth = (YhHistSmooth/max(YhHistSmooth))*incrFactor*w;
 XhHistSmoothDer = XhHistSmoothDer * 2; 
 
 % if the pseudo peak is above the XvHistSmooth plot it else plot XvHistSmooth
-Xpseudo = XhHistSmoothDer - XvHistSmooth;
+%Xpseudo = XhHistSmoothDer - XvHistSmooth;
+%Xpseudo = XhHistSmoothDerAbs - XvHistSmooth;
+
 % quickfix:remove tale that peaks enormous because of smoothing avg
 Xpseudo = Xpseudo(1:(length(Xpseudo)-10));
 XhHistSmoothDer = XhHistSmoothDer(1:(length(XhHistSmoothDer )-10));
@@ -112,17 +122,21 @@ pause;
 % find peaks
 plotme = 1;
 XvThresh = 0.3;
-XvHistMaxPeaks = getHistMaxPeaks(Dataset, XvHistSmooth, XvThresh, plotme,'Xv')
+XvHistMaxPeaks = getHistMaxPeaks(Dataset, XvHistSmooth, XvThresh, plotme,'Xv');
 pause;
 XvThresh = 0.4;
-XvHistMaxPeaksPseudo = getHistMaxPeaks(Dataset, XhHistSmoothDer, XvThresh, plotme,'XvPseudo')
-XvHistMaxPeaksTotal = sort([XvHistMaxPeaks,XvHistMaxPeaksPseudo])
+%XvHistMaxPeaksPseudo = getHistMaxPeaks(Dataset, XhHistSmoothDerAbs, XvThresh, plotme,'XvPseudo');
+XvHistMaxPeaksPseudo = getHistMaxPeaks(Dataset, Xpseudo, XvThresh, plotme,'XvPseudo');
+XvHistMaxPeaksTotal = sort([XvHistMaxPeaks,XvHistMaxPeaksPseudo]);
 %XvHistMaxPeaksTotal = XvHistMaxPeaksPseudo;
-XvHistMaxPeaksTotal = XvHistMaxPeaks;
 YhHistMaxPeaks = getHistMaxPeaks(Dataset, YhHistSmooth, YhThresh, plotme,'Yh');
 % save result in dataset
+
+Hibaap.XhHistSmooth = XhHistSmooth;
+Hibaap.XhHistSmoothDer = XhHistSmoothDer;
 Hibaap.XvHistMaxPeaks = XvHistMaxPeaksTotal;
 Hibaap.YhHistMaxPeaks = YhHistMaxPeaks;
+Hibaap.graphSpacing = graphSpacing;
 
 % find and plot intersections of vertical and horizontal lines
 EdgePeakCrossings = [];
