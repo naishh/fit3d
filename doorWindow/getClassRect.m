@@ -29,7 +29,7 @@ YhHistMaxPeaks = [1,Dataset.Hibaap.YhHistMaxPeaks,Dataset.ImReader.imHeight];
 
 
 % declare vars
-XhHistSmoothDer = Dataset.Hibaap.XhHistSmoothDer; 
+XhHistDerSmooth = Dataset.Hibaap.XhHistDerSmooth; 
 XhHistSmooth = Dataset.Hibaap.XhHistSmooth; 
 
 
@@ -44,7 +44,6 @@ XvBins = 1:1:w; YhBins = 1:1:h; YvBins = 1:1:h; XhBins = 1:1:w;
 figure; imshow(Dataset.ImReader.imOriDimmed); hold on;
 plotPeakLines(Dataset);
 %plot(XhBins, Dataset.ImReader.imHeight-6*Dataset.Hibaap.graphSpacing-XhHistSmooth,'y-', 'LineWidth',2);
-%plot(XhBins(1:length(XhHistSmoothDer)), Dataset.ImReader.imHeight-6*Dataset.Hibaap.graphSpacing-XhHistSmoothDer,'b-', 'LineWidth',2);
 
 plot([0,Dataset.ImReader.imWidth],[Dataset.ImReader.imHeight-6*Dataset.Hibaap.graphSpacing, Dataset.ImReader.imHeight-6*Dataset.Hibaap.graphSpacing],'k--','LineWidth',2);
 pause;
@@ -53,16 +52,16 @@ pause;
 for i=2:length(XvHistMaxPeaks)
 	i
 	x1 = XvHistMaxPeaks(i-1); x2 = XvHistMaxPeaks(i);
-	D = XhHistSmoothDer(x1:x2)'
+	D = XhHistDerSmooth(x1:x2)';
 	plot(XhBins(x1:x2), Dataset.ImReader.imHeight-6*Dataset.Hibaap.graphSpacing-D,'k-', 'LineWidth',2);
 	plot(XhBins(x1:x2), Dataset.ImReader.imHeight-6*Dataset.Hibaap.graphSpacing-XhHistSmooth(x1:x2),'g-','LineWidth',2);
-	pause;
 	signChanges = getSignChanges(D)
 
 	WindowsColVote(i) = 0
 	if length(signChanges) > 0 
 		id = signChanges(1) 
 		% take first signChange, alternative, get midle one
+		% check if it is a peak
 		if D(id) > D(id+1) 
 			WindowsColVote(i) = 1
 		end
@@ -70,7 +69,7 @@ for i=2:length(XvHistMaxPeaks)
 	% while length(signChanges) > 1 
 	% 	length(signChanges) 
 	% 	disp('smoothing ');
-	% 	smoothNtimes(XhHistSmoothDer,1);
+	% 	smoothNtimes(XhHistDerSmooth,1);
 	% 	signChanges = getSignChanges(D)
 	% 	pause;
 	% end
