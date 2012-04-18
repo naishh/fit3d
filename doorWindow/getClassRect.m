@@ -29,7 +29,7 @@ YhHistMaxPeaks = [1,Dataset.Hibaap.YhHistMaxPeaks,Dataset.ImReader.imHeight];
 
 
 % declare vars
-XhHistDerSmooth = Dataset.Hibaap.XhHistDerSmooth; 
+XhHistDerSmooth = smoothNtimes(Dataset.Hibaap.XhHistDerSmooth,10); 
 XhHistSmooth = Dataset.Hibaap.XhHistSmooth; 
 
 

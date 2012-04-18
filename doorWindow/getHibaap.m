@@ -33,36 +33,38 @@ XhHist = sum(HoughResult.H.Im);
 YhHist = sum(HoughResult.H.Im, 2);
 
 % smooth histograms 
-XvHistSmooth = smoothNtimes(XvHist,6); XhHistSmooth = smoothNtimes(XhHist,6); YhHistSmooth = smoothNtimes(YhHist,6); YvHistSmooth = smoothNtimes(YvHist,6);
+smoothFactor = 20;
+XvHistSmooth = smoothNtimes(XvHist,smoothFactor); XhHistSmooth = smoothNtimes(XhHist,smoothFactor); YhHistSmooth = smoothNtimes(YhHist,smoothFactor); YvHistSmooth = smoothNtimes(YvHist,smoothFactor);
 % normalise to get AWESOME graph height
 
 % mark positions where XhHistSmooth in or decreases big time by taking the abs diff
-%XhHistSmoothDer = abs(diff(XhHistSmooth));
-XhHistSmoothDer = abs(diff(XhHist))';
-l=length(XhHistSmoothDer); XhHistSmoothDer(l+1) = XhHistSmoothDer(l);
-XhHistSmoothDer = smoothNtimes(XhHistSmoothDer,6);
+%XhHistDerSmooth = abs(diff(XhHistSmooth));
+XhHistDerSmooth = abs(diff(XhHist))';
+l=length(XhHistDerSmooth); XhHistDerSmooth(l+1) = XhHistDerSmooth(l);
+XhHistDerSmooth = smoothNtimes(XhHistDerSmooth,smoothFactor);
 
 
-%XhvHistSmooth = (0.8*XvHistSmooth + 0.2*XhHistSmoothDer)/2;
+%XhvHistSmooth = (0.8*XvHistSmooth + 0.2*XhHistDerSmooth)/2;
 %XhvHistSmooth = smoothNtimes(XhvHistSmooth,6);
 
 % stretch graphs 
 XvHistSmooth = (XvHistSmooth/max(XvHistSmooth))*incrFactor*h;
 XhHistSmooth = (XhHistSmooth/max(XhHistSmooth))*incrFactor*h;
-XhHistSmoothDer = (XhHistSmoothDer/max(XhHistSmoothDer))*incrFactor*h;
+XhHistDerSmooth = (XhHistDerSmooth/max(XhHistDerSmooth))*incrFactor*h;
 
-XhvHistSmooth = (XvHistSmooth + XhHistSmoothDer)/2;
+XhvHistSmooth = (XvHistSmooth + XhHistDerSmooth)/2;
 
 YvHistSmooth = (YvHistSmooth/max(YvHistSmooth))*incrFactor*w;
 YhHistSmooth = (YhHistSmooth/max(YhHistSmooth))*incrFactor*w;
 
-XhHistSmoothDer = XhHistSmoothDer * 2; 
+% make it bigger for better representation
+XhHistDerSmooth = XhHistDerSmooth * 2; 
 
 % if the pseudo peak is above the XvHistSmooth plot it else plot XvHistSmooth
-Xpseudo = XhHistSmoothDer - XvHistSmooth;
+Xpseudo = XhHistDerSmooth - XvHistSmooth;
 % quickfix:remove tale that peaks enormous because of smoothing avg
 Xpseudo = Xpseudo(1:(length(Xpseudo)-10));
-XhHistSmoothDer = XhHistSmoothDer(1:(length(XhHistSmoothDer )-10));
+XhHistDerSmooth = XhHistDerSmooth(1:(length(XhHistDerSmooth )-10));
 
 % XhPseudo = max(XvHistSmooth, Xpseudo);
 
@@ -80,7 +82,7 @@ disp('plotting histograms');
 
 % plot histograms smoothed
 plot(XhBins, Dataset.ImReader.imHeight-6*graphSpacing-XhHistSmooth,'y-', 'LineWidth',2);
-plot(XhBins(1:length(XhHistSmoothDer)), Dataset.ImReader.imHeight-6*graphSpacing-XhHistSmoothDer,'b-', 'LineWidth',2);
+plot(XhBins(1:length(XhHistDerSmooth)), Dataset.ImReader.imHeight-6*graphSpacing-XhHistDerSmooth,'b-', 'LineWidth',2);
 plot(XvBins, Dataset.ImReader.imHeight-3*graphSpacing-XvHistSmooth,'g-', 'LineWidth',2);
 plot(XhBins(1:length(Xpseudo)), Dataset.ImReader.imHeight-3*graphSpacing-Xpseudo,'k-', 'LineWidth',2);
 %plot(XvBins, Dataset.ImReader.imHeight-6*graphSpacing-XhPseudo,'g-', 'LineWidth',2);
@@ -108,20 +110,24 @@ XvThresh = 0.3;
 XvHistMaxPeaks = getHistMaxPeaks(Dataset, XvHistSmooth, XvThresh, plotme,'Xv')
 pause;
 XvThresh = 0.4;
-XvHistMaxPeaksPseudo = getHistMaxPeaks(Dataset, XhHistSmoothDer, XvThresh, plotme,'XvPseudo')
+XvHistMaxPeaksPseudo = getHistMaxPeaks(Dataset, XhHistDerSmooth, XvThresh, plotme,'XvPseudo')
 XvHistMaxPeaksTotal = sort([XvHistMaxPeaks,XvHistMaxPeaksPseudo])
 pause;
 YhHistMaxPeaks = getHistMaxPeaks(Dataset, YhHistSmooth, YhThresh, plotme,'Yh');
 % save result in dataset
+
+Hibaap.XhHistSmooth = XhHistSmooth;
+Hibaap.XhHistDerSmooth = XhHistDerSmooth ;
 Hibaap.XvHistMaxPeaks = XvHistMaxPeaksTotal;
 Hibaap.YhHistMaxPeaks = YhHistMaxPeaks;
+Hibaap.graphSpacing = graphSpacing;
 
 % find and plot intersections of vertical and horizontal lines
 EdgePeakCrossings = [];
 for i=1:length(XvHistMaxPeaks)
 	for j=1:length(YhHistMaxPeaks)
 		[crossing,d,l1,l2] = getLineCrossing([XvHistMaxPeaks(i),0]',[XvHistMaxPeaks(i),Dataset.ImReader.imHeight]',[0,YhHistMaxPeaks(j)]',[Dataset.ImReader.imWidth,YhHistMaxPeaks(j)]');
-		plot(crossing(1), crossing(2), '+k');
+		%plot(crossing(1), crossing(2), '+k');
 		EdgePeakCrossings = [EdgePeakCrossings;crossing'];
 	end
 end
