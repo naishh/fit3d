@@ -1,6 +1,7 @@
 GENERAL
 	be in PZO
 
+
 hibaap+classrect
 	old result without pseudo vs new result
 	better rect class by cutting off edges with cCorner
