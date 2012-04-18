@@ -54,13 +54,13 @@ for i=2:length(XvHistMaxPeaks)
 	plot(XhBins(1:length(Dataset.Hibaap.XhHistDerSmooth)), Dataset.ImReader.imHeight-6*Hibaap.graphSpacing-XhHistDerSmooth,'b-', 'LineWidth',2);
 	signChanges = getSignChanges(D)
 
-	WindowsColVoteBin(i) = 0;
+	WindowsColVoteBin(i) = 1;
 	if length(signChanges) > 0 
 		id = signChanges(1);
 		% take first signChange, alternative, get midle one
-		% check if it is a peak
-		if D(id) > D(id+1) 
-			WindowsColVoteBin(i) = 1;
+		% check if it is a dal
+		if D(id) < D(id+1) 
+			WindowsColVoteBin(i) = 0;
 			disp('window founddd');
 		end
 	end
@@ -75,6 +75,10 @@ for i=2:length(XvHistMaxPeaks)
 	% pause;
 	%WindowsColVote(i) = houghStrokeNorm;
 end
+
+%quickfix
+WindowsColVoteBin( length(WindowsColVoteBin) ) = 0;
+WindowsColVoteBin( 1 ) = 0;
 
 % declare vars
 tempIm = zeros(Dataset.ImReader.imHeight,Dataset.ImReader.imWidth,1);

@@ -71,9 +71,6 @@ Xpseudo = XhHistDerAbsSmooth;
 
 % XhPseudo = max(XvHistSmooth, Xpseudo);
 
-%todo..
-XclassifyReady = XvHistSmooth; 
-
 % plot histograms
 disp('plotting histograms');
 %plot(incrFactor*XvHist,'y-');
@@ -111,10 +108,16 @@ pause;
 fgHist2 = figure();imshow(Dataset.ImReader.imOriDimmed); hold on;
 plot(XhBins, Dataset.ImReader.imHeight-6*graphSpacing-XhHistSmooth,'r-', 'LineWidth',2);
 plot(XhBins(1:length(Xpseudo)), Dataset.ImReader.imHeight-5*graphSpacing-Xpseudo,'k-', 'LineWidth',2);
+%XvThresh = 0.35;
+XhDerAbsThresh = 0.35;
+XvHistMaxPeaksPseudo = getHistMaxPeaks(Dataset, XhHistDerAbsSmooth, XhDerAbsThresh, plotme,'XvPseudo');
+XvHistMaxPeaksTotal = sort([XvHistMaxPeaks,XvHistMaxPeaksPseudo]);
 
-XvThresh = 0.35;
-XvHistMaxPeaksPseudo = getHistMaxPeaks(Dataset, XhHistDerAbsSmooth, XvThresh, plotme,'XvPseudo')
-XvHistMaxPeaksTotal = sort([XvHistMaxPeaks,XvHistMaxPeaksPseudo])
+legend( 'Xh: total amount of overlapping horizontal Houghlines at each x position',...
+'Xhder: Absolute of derivative of Xh');
+
+pause;
+
 
 
 % all together
@@ -123,7 +126,10 @@ plot(XvBins, Dataset.ImReader.imHeight-3*graphSpacing-XvHistSmooth,'g-', 'LineWi
 plot(XhBins, Dataset.ImReader.imHeight-6*graphSpacing-XhHistSmooth,'r-', 'LineWidth',2);
 plot(XhBins(1:length(Xpseudo)), Dataset.ImReader.imHeight-5*graphSpacing-Xpseudo,'k-', 'LineWidth',2);
 XvHistMaxPeaks = getHistMaxPeaks(Dataset, XvHistSmooth, XvThresh, plotme,'Xv')
-XvHistMaxPeaksPseudo = getHistMaxPeaks(Dataset, XhHistDerAbsSmooth, XvThresh, plotme,'XvPseudo')
+XvHistMaxPeaksPseudo = getHistMaxPeaks(Dataset, XhHistDerAbsSmooth, XhDerAbsThresh, plotme,'XvPseudo');
+legend( 'Xv: total amount of overlapping vertical Houghlines at each x position.',...
+'Xh: total amount of overlapping horizontal Houghlines at each x position',...
+'Xhder: Absolute of derivative of Xh');
 
 
 % merge close peaks
