@@ -84,18 +84,14 @@ disp('plotting histograms');
 %plotHistY(incrFactor*YvHist, YvBins, 'r-');
 
 % plot histograms smoothed
-plot(XhBins, Dataset.ImReader.imHeight-6*graphSpacing-XhHistSmooth,'y-', 'LineWidth',2);
-plot(XhBins(1:length(XhHistDerAbsSmooth)), Dataset.ImReader.imHeight-6*graphSpacing-XhHistDerAbsSmooth,'b-', 'LineWidth',2);
 plot(XvBins, Dataset.ImReader.imHeight-3*graphSpacing-XvHistSmooth,'g-', 'LineWidth',2);
-plot(XhBins(1:length(Xpseudo)), Dataset.ImReader.imHeight-3*graphSpacing-Xpseudo,'k-', 'LineWidth',2);
 %plot(XvBins, Dataset.ImReader.imHeight-6*graphSpacing-XhPseudo,'g-', 'LineWidth',2);
 %plot(2*graphSpacing + incrFactor*YhHistSmooth, YhBins, 'r-', 'LineWidth',2);
 %plot(2*graphSpacing + incrFactor*YvHistSmooth, YhBins, 'g-', 'LineWidth',2);
 
-legend('Xh: total amount of overlapping horizontal Houghlines at each x position',...
-'Xhder: Absolute of derivative of Xh',...
-'Xv: total amount of overlapping vertical Houghlines at each x position.',...
-'Xpseudo: Xhder - Xv');
+legend( 'Xv: total amount of overlapping vertical Houghlines at each x position.',...
+'Xh: total amount of overlapping horizontal Houghlines at each x position',...
+'Xhder: Absolute of derivative of Xh');
 
 % set histogram thresholds
 XvThresh = Dataset.HibaapParam.XvThresh; YhThresh = Dataset.HibaapParam.YhThresh;
@@ -105,16 +101,29 @@ XvThresh = Dataset.HibaapParam.XvThresh; YhThresh = Dataset.HibaapParam.YhThresh
 % plot vertical threshold line
 %plot([incrFactor*YhThresh,incrFactor*YhThresh], [0,Dataset.ImReader.imHeight],'k--','LineWidth',2);
 
-pause;
-%------------------------------------------------------------------------------------------------------------------------
 % find peaks
 plotme = 1;
 XvThresh = 0.3;
 XvHistMaxPeaks = getHistMaxPeaks(Dataset, XvHistSmooth, XvThresh, plotme,'Xv')
 pause;
-XvThresh = 0.3;
+
+
+fgHist2 = figure();imshow(Dataset.ImReader.imOriDimmed); hold on;
+plot(XhBins, Dataset.ImReader.imHeight-6*graphSpacing-XhHistSmooth,'r-', 'LineWidth',2);
+plot(XhBins(1:length(Xpseudo)), Dataset.ImReader.imHeight-5*graphSpacing-Xpseudo,'k-', 'LineWidth',2);
+
+XvThresh = 0.35;
 XvHistMaxPeaksPseudo = getHistMaxPeaks(Dataset, XhHistDerAbsSmooth, XvThresh, plotme,'XvPseudo')
 XvHistMaxPeaksTotal = sort([XvHistMaxPeaks,XvHistMaxPeaksPseudo])
+
+
+% all together
+fgHist3 = figure();imshow(Dataset.ImReader.imOriDimmed); hold on;
+plot(XvBins, Dataset.ImReader.imHeight-3*graphSpacing-XvHistSmooth,'g-', 'LineWidth',2);
+plot(XhBins, Dataset.ImReader.imHeight-6*graphSpacing-XhHistSmooth,'r-', 'LineWidth',2);
+plot(XhBins(1:length(Xpseudo)), Dataset.ImReader.imHeight-5*graphSpacing-Xpseudo,'k-', 'LineWidth',2);
+XvHistMaxPeaks = getHistMaxPeaks(Dataset, XvHistSmooth, XvThresh, plotme,'Xv')
+XvHistMaxPeaksPseudo = getHistMaxPeaks(Dataset, XhHistDerAbsSmooth, XvThresh, plotme,'XvPseudo')
 
 
 % merge close peaks
