@@ -29,8 +29,8 @@ YhHistMaxPeaks = [1,Dataset.Hibaap.YhHistMaxPeaks,Dataset.ImReader.imHeight];
 
 
 % declare vars
-XhHistDerSmooth = smoothNtimes(Dataset.Hibaap.XhHistDerSmooth,10); 
-XhHistSmooth = Dataset.Hibaap.XhHistSmooth; 
+XhHistDerSmooth = smoothNtimes(Dataset.Hibaap.XhHistDerSmooth,20); 
+XhHistSmooth = smoothNtimes(Dataset.Hibaap.XhHistSmooth,20); 
 
 
 figure;
@@ -52,20 +52,24 @@ pause;
 for i=2:length(XvHistMaxPeaks)
 	i
 	x1 = XvHistMaxPeaks(i-1); x2 = XvHistMaxPeaks(i);
-	D = XhHistDerSmooth(x1:x2)';
+	D = XhHistDerSmooth(x1:x2)'
 	plot(XhBins(x1:x2), Dataset.ImReader.imHeight-6*Dataset.Hibaap.graphSpacing-D,'k-', 'LineWidth',2);
 	plot(XhBins(x1:x2), Dataset.ImReader.imHeight-6*Dataset.Hibaap.graphSpacing-XhHistSmooth(x1:x2),'g-','LineWidth',2);
+	plot(XhBins(1:length(Dataset.Hibaap.XhHistDerSmooth)), Dataset.ImReader.imHeight-6*Hibaap.graphSpacing-XhHistDerSmooth,'b-', 'LineWidth',2);
 	signChanges = getSignChanges(D)
 
-	WindowsColVote(i) = 0
+	WindowsColVote(i) = 0;
 	if length(signChanges) > 0 
-		id = signChanges(1) 
+		id = signChanges(1);
 		% take first signChange, alternative, get midle one
 		% check if it is a peak
 		if D(id) > D(id+1) 
-			WindowsColVote(i) = 1
+			WindowsColVote(i) = 1;
+			disp('window founddd');
 		end
 	end
+	WindowsColVote(i) = 0
+	pause;
 	% while length(signChanges) > 1 
 	% 	length(signChanges) 
 	% 	disp('smoothing ');

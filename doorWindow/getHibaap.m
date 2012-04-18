@@ -33,38 +33,42 @@ XhHist = sum(HoughResult.H.Im);
 YhHist = sum(HoughResult.H.Im, 2);
 
 % smooth histograms 
-smoothFactor = 20;
+smoothFactor = 6;
 XvHistSmooth = smoothNtimes(XvHist,smoothFactor); XhHistSmooth = smoothNtimes(XhHist,smoothFactor); YhHistSmooth = smoothNtimes(YhHist,smoothFactor); YvHistSmooth = smoothNtimes(YvHist,smoothFactor);
 % normalise to get AWESOME graph height
 
 % mark positions where XhHistSmooth in or decreases big time by taking the abs diff
-%XhHistDerSmooth = abs(diff(XhHistSmooth));
-XhHistDerSmooth = abs(diff(XhHist))';
+%XhHistDerAbsSmooth = abs(diff(XhHistSmooth));
+XhHistDerAbsSmooth = abs(diff(XhHist))';
+l=length(XhHistDerAbsSmooth); XhHistDerAbsSmooth(l+1) = XhHistDerAbsSmooth(l);
+XhHistDerAbsSmooth = smoothNtimes(XhHistDerAbsSmooth,smoothFactor);
+
+XhHistDerSmooth = diff(XhHist)';
 l=length(XhHistDerSmooth); XhHistDerSmooth(l+1) = XhHistDerSmooth(l);
-XhHistDerSmooth = smoothNtimes(XhHistDerSmooth,smoothFactor);
+%XhHistDerSmooth = smoothNtimes(XhHistDerSmooth,smoothFactor);
 
 
-%XhvHistSmooth = (0.8*XvHistSmooth + 0.2*XhHistDerSmooth)/2;
+%XhvHistSmooth = (0.8*XvHistSmooth + 0.2*XhHistDerAbsSmooth)/2;
 %XhvHistSmooth = smoothNtimes(XhvHistSmooth,6);
 
 % stretch graphs 
 XvHistSmooth = (XvHistSmooth/max(XvHistSmooth))*incrFactor*h;
 XhHistSmooth = (XhHistSmooth/max(XhHistSmooth))*incrFactor*h;
-XhHistDerSmooth = (XhHistDerSmooth/max(XhHistDerSmooth))*incrFactor*h;
+XhHistDerAbsSmooth = (XhHistDerAbsSmooth/max(XhHistDerAbsSmooth))*incrFactor*h;
 
-XhvHistSmooth = (XvHistSmooth + XhHistDerSmooth)/2;
+XhvHistSmooth = (XvHistSmooth + XhHistDerAbsSmooth)/2;
 
 YvHistSmooth = (YvHistSmooth/max(YvHistSmooth))*incrFactor*w;
 YhHistSmooth = (YhHistSmooth/max(YhHistSmooth))*incrFactor*w;
 
 % make it bigger for better representation
-XhHistDerSmooth = XhHistDerSmooth * 2; 
+XhHistDerAbsSmooth = XhHistDerAbsSmooth * 2; 
 
 % if the pseudo peak is above the XvHistSmooth plot it else plot XvHistSmooth
-Xpseudo = XhHistDerSmooth - XvHistSmooth;
+Xpseudo = XhHistDerAbsSmooth - XvHistSmooth;
 % quickfix:remove tale that peaks enormous because of smoothing avg
 Xpseudo = Xpseudo(1:(length(Xpseudo)-10));
-XhHistDerSmooth = XhHistDerSmooth(1:(length(XhHistDerSmooth )-10));
+XhHistDerAbsSmooth = XhHistDerAbsSmooth(1:(length(XhHistDerAbsSmooth )-10));
 
 % XhPseudo = max(XvHistSmooth, Xpseudo);
 
@@ -82,7 +86,7 @@ disp('plotting histograms');
 
 % plot histograms smoothed
 plot(XhBins, Dataset.ImReader.imHeight-6*graphSpacing-XhHistSmooth,'y-', 'LineWidth',2);
-plot(XhBins(1:length(XhHistDerSmooth)), Dataset.ImReader.imHeight-6*graphSpacing-XhHistDerSmooth,'b-', 'LineWidth',2);
+plot(XhBins(1:length(XhHistDerAbsSmooth)), Dataset.ImReader.imHeight-6*graphSpacing-XhHistDerAbsSmooth,'b-', 'LineWidth',2);
 plot(XvBins, Dataset.ImReader.imHeight-3*graphSpacing-XvHistSmooth,'g-', 'LineWidth',2);
 plot(XhBins(1:length(Xpseudo)), Dataset.ImReader.imHeight-3*graphSpacing-Xpseudo,'k-', 'LineWidth',2);
 %plot(XvBins, Dataset.ImReader.imHeight-6*graphSpacing-XhPseudo,'g-', 'LineWidth',2);
@@ -110,7 +114,7 @@ XvThresh = 0.3;
 XvHistMaxPeaks = getHistMaxPeaks(Dataset, XvHistSmooth, XvThresh, plotme,'Xv')
 pause;
 XvThresh = 0.4;
-XvHistMaxPeaksPseudo = getHistMaxPeaks(Dataset, XhHistDerSmooth, XvThresh, plotme,'XvPseudo')
+XvHistMaxPeaksPseudo = getHistMaxPeaks(Dataset, XhHistDerAbsSmooth, XvThresh, plotme,'XvPseudo')
 XvHistMaxPeaksTotal = sort([XvHistMaxPeaks,XvHistMaxPeaksPseudo])
 pause;
 YhHistMaxPeaks = getHistMaxPeaks(Dataset, YhHistSmooth, YhThresh, plotme,'Yh');
@@ -118,6 +122,7 @@ YhHistMaxPeaks = getHistMaxPeaks(Dataset, YhHistSmooth, YhThresh, plotme,'Yh');
 
 Hibaap.XhHistSmooth = XhHistSmooth;
 Hibaap.XhHistDerSmooth = XhHistDerSmooth ;
+Hibaap.XhHistDerAbsSmooth = XhHistDerAbsSmooth ;
 Hibaap.XvHistMaxPeaks = XvHistMaxPeaksTotal;
 Hibaap.YhHistMaxPeaks = YhHistMaxPeaks;
 Hibaap.graphSpacing = graphSpacing;
