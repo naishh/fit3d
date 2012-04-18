@@ -62,13 +62,12 @@ YvHistSmooth = (YvHistSmooth/max(YvHistSmooth))*incrFactor*w;
 YhHistSmooth = (YhHistSmooth/max(YhHistSmooth))*incrFactor*w;
 
 % make it bigger for better representation
-XhHistDerAbsSmooth = XhHistDerAbsSmooth * 2; 
+%XhHistDerAbsSmooth = XhHistDerAbsSmooth * 2; 
+XhHistDerAbsSmooth = XhHistDerAbsSmooth; 
 
 % if the pseudo peak is above the XvHistSmooth plot it else plot XvHistSmooth
-Xpseudo = XhHistDerAbsSmooth - XvHistSmooth;
-% quickfix:remove tale that peaks enormous because of smoothing avg
-Xpseudo = Xpseudo(1:(length(Xpseudo)-10));
-XhHistDerAbsSmooth = XhHistDerAbsSmooth(1:(length(XhHistDerAbsSmooth )-10));
+%Xpseudo = XhHistDerAbsSmooth - XvHistSmooth;
+Xpseudo = XhHistDerAbsSmooth;
 
 % XhPseudo = max(XvHistSmooth, Xpseudo);
 
@@ -113,9 +112,25 @@ plotme = 1;
 XvThresh = 0.3;
 XvHistMaxPeaks = getHistMaxPeaks(Dataset, XvHistSmooth, XvThresh, plotme,'Xv')
 pause;
-XvThresh = 0.4;
+XvThresh = 0.3;
 XvHistMaxPeaksPseudo = getHistMaxPeaks(Dataset, XhHistDerAbsSmooth, XvThresh, plotme,'XvPseudo')
 XvHistMaxPeaksTotal = sort([XvHistMaxPeaks,XvHistMaxPeaksPseudo])
+
+
+% merge close peaks
+%-------------------------------
+%peakMergeDist = w/100 %(15px)
+peakMergeDist = w/100 %(15px)
+l = length(XvHistMaxPeaksTotal)
+diff = abs(XvHistMaxPeaksTotal(1:l-1) - XvHistMaxPeaksTotal(2:l))
+diffBin = diff>peakMergeDist;
+% add tale
+diffBin = [diffBin,1];
+XvHistMaxPeaksTotal = XvHistMaxPeaksTotal(find(diffBin == 1))
+% todo average the close peaks instead of removing the first ones
+%-------------------------------
+
+
 pause;
 YhHistMaxPeaks = getHistMaxPeaks(Dataset, YhHistSmooth, YhThresh, plotme,'Yh');
 % save result in dataset

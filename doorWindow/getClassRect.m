@@ -130,37 +130,37 @@ for i=2:length(XvHistMaxPeaks)
 end
 
 
-% exctract big rectangles base upon change 01 or 10 in colbin
-k=1
-for i=2:length(WindowsColVoteBin)
-	if ~WindowsColVoteBin(i-1) && WindowsColVoteBin(i)  
-		WindowsColVoteBig(k)= WindowsColVote(i-1)
-		WindowsColVoteBinBig(k) = 0;
-		XvHistMaxPeaksBig(k) = XvHistMaxPeaks(i-1)
-		k=k+1;
-	end
-	if WindowsColVoteBin(i-1) && ~WindowsColVoteBin(i)  
-		WindowsColVoteBinBig(k) = 1;
-		WindowsColVoteBig(k)= WindowsColVote(i-1)
-		XvHistMaxPeaksBig(k) = XvHistMaxPeaks(i-1)
-		k=k+1;
-	end
-end
-k=1
-for i=2:length(WindowsRowVoteBin)
-	if ~WindowsRowVoteBin(i-1) && WindowsRowVoteBin(i)  
-		WindowsRowVoteBinBig(k) = 0;
-		WindowsRowVoteBig(k)= WindowsRowVote(i-1)
-		YhHistMaxPeaksBig(k) = YhHistMaxPeaks(i-1)
-		k=k+1;
-	end
-	if WindowsRowVoteBin(i-1) && ~WindowsRowVoteBin(i)  
-		WindowsRowVoteBinBig(k) = 1;
-		WindowsRowVoteBig(k)= WindowsRowVote(i-1)
-		YhHistMaxPeaksBig(k) = YhHistMaxPeaks(i-1)
-		k=k+1;
-	end
-end
+% % exctract big rectangles base upon change 01 or 10 in colbin
+% k=1
+% for i=2:length(WindowsColVoteBin)
+% 	if ~WindowsColVoteBin(i-1) && WindowsColVoteBin(i)  
+% 		WindowsColVoteBig(k)= WindowsColVote(i-1)
+% 		WindowsColVoteBinBig(k) = 0;
+% 		XvHistMaxPeaksBig(k) = XvHistMaxPeaks(i-1)
+% 		k=k+1;
+% 	end
+% 	if WindowsColVoteBin(i-1) && ~WindowsColVoteBin(i)  
+% 		WindowsColVoteBinBig(k) = 1;
+% 		WindowsColVoteBig(k)= WindowsColVote(i-1)
+% 		XvHistMaxPeaksBig(k) = XvHistMaxPeaks(i-1)
+% 		k=k+1;
+% 	end
+% end
+% k=1
+% for i=2:length(WindowsRowVoteBin)
+% 	if ~WindowsRowVoteBin(i-1) && WindowsRowVoteBin(i)  
+% 		WindowsRowVoteBinBig(k) = 0;
+% 		WindowsRowVoteBig(k)= WindowsRowVote(i-1)
+% 		YhHistMaxPeaksBig(k) = YhHistMaxPeaks(i-1)
+% 		k=k+1;
+% 	end
+% 	if WindowsRowVoteBin(i-1) && ~WindowsRowVoteBin(i)  
+% 		WindowsRowVoteBinBig(k) = 1;
+% 		WindowsRowVoteBig(k)= WindowsRowVote(i-1)
+% 		YhHistMaxPeaksBig(k) = YhHistMaxPeaks(i-1)
+% 		k=k+1;
+% 	end
+% end
 
 
 
