@@ -26,29 +26,25 @@ savePath 						= ['resultsHibaap/',Dataset.fileShort,'/'];
 % add left and right tale (origin and endpoint) to peak array so it can be used as a range
 XvHistMaxPeaks = [1,Dataset.Hibaap.XvHistMaxPeaks, Dataset.ImReader.imWidth];
 YhHistMaxPeaks = [1,Dataset.Hibaap.YhHistMaxPeaks,Dataset.ImReader.imHeight];
-
-
-% declare vars
-XhHistDerSmooth = smoothNtimes(Dataset.Hibaap.XhHistDerSmooth,20); 
-XhHistSmooth = smoothNtimes(Dataset.Hibaap.XhHistSmooth,20); 
-
-
-figure;
-hold on;
-
-
 w = Dataset.ImReader.imWidth; h = Dataset.ImReader.imHeight;
 % setup histograms bins
 XvBins = 1:1:w; YhBins = 1:1:h; YvBins = 1:1:h; XhBins = 1:1:w;
 
-figure; imshow(Dataset.ImReader.imOriDimmed); hold on;
-plotPeakLines(Dataset);
-%plot(XhBins, Dataset.ImReader.imHeight-6*Dataset.Hibaap.graphSpacing-XhHistSmooth,'y-', 'LineWidth',2);
 
-plot([0,Dataset.ImReader.imWidth],[Dataset.ImReader.imHeight-6*Dataset.Hibaap.graphSpacing, Dataset.ImReader.imHeight-6*Dataset.Hibaap.graphSpacing],'k--','LineWidth',2);
+% smooth more to get one signchange per block
+XhHistDerSmooth = smoothNtimes(Dataset.Hibaap.XhHistDerSmooth,20); 
+XhHistSmooth = smoothNtimes(Dataset.Hibaap.XhHistSmooth,20); 
+
+
+figure; imshow(Dataset.ImReader.imOriDimmed); hold on;
+% plot window alignment lines
+plotPeakLines(Dataset);
+% plot zero line
+%plot([0,Dataset.ImReader.imWidth],[Dataset.ImReader.imHeight-6*Dataset.Hibaap.graphSpacing, Dataset.ImReader.imHeight-6*Dataset.Hibaap.graphSpacing],'k--','LineWidth',2);
+
 pause;
 
-% todo better plotting
+% colvote by signchanges 
 for i=2:length(XvHistMaxPeaks)
 	i
 	x1 = XvHistMaxPeaks(i-1); x2 = XvHistMaxPeaks(i);
@@ -58,18 +54,17 @@ for i=2:length(XvHistMaxPeaks)
 	plot(XhBins(1:length(Dataset.Hibaap.XhHistDerSmooth)), Dataset.ImReader.imHeight-6*Hibaap.graphSpacing-XhHistDerSmooth,'b-', 'LineWidth',2);
 	signChanges = getSignChanges(D)
 
-	WindowsColVote(i) = 0;
+	WindowsColVoteBin(i) = 0;
 	if length(signChanges) > 0 
 		id = signChanges(1);
 		% take first signChange, alternative, get midle one
 		% check if it is a peak
 		if D(id) > D(id+1) 
-			WindowsColVote(i) = 1;
+			WindowsColVoteBin(i) = 1;
 			disp('window founddd');
 		end
 	end
-	WindowsColVote(i) = 0
-	pause;
+	WindowsColVoteBin(i);
 	% while length(signChanges) > 1 
 	% 	length(signChanges) 
 	% 	disp('smoothing ');
@@ -81,44 +76,28 @@ for i=2:length(XvHistMaxPeaks)
 	%WindowsColVote(i) = houghStrokeNorm;
 end
 
+% declare vars
+tempIm = zeros(Dataset.ImReader.imHeight,Dataset.ImReader.imWidth,1);
+imHoughPxCountX = tempIm;
+imHoughPxCountY = tempIm;
+
 % SUM UP HOUGHLINE PICS 
-% loop through vertical strokes
-for i=2:length(XvHistMaxPeaks)
-	x1 = XvHistMaxPeaks(i-1); x2 = XvHistMaxPeaks(i);
-	WindowsColVote(i) = houghStrokeNorm;
-end
 % loop through horizontal strokes
 for j=2:length(YhHistMaxPeaks)
 	y1 = YhHistMaxPeaks(j-1); y2 = YhHistMaxPeaks(j);
 	houghStroke	= Dataset.HoughResult.V.Im(y1:y2,:);
+	houghStrokeTotal= sum(sum(houghStroke));
+	houghStrokeNorm=houghStrokeTotal/(size(houghStroke,1)*size(houghStroke,2));
+	imHoughPxCountY(y1:y2,:) = houghStrokeNorm;
 	WindowsRowVote(j) = houghStrokeNorm;
 end
 
 
-% PLOT VERTICAL HOUGHLINE amounts
-fgimHoughImV = figure();imshow(imdilate(Dataset.HoughResult.V.Im,ones(5,5))); hold on;
-voteGraphWidth = (Dataset.ImReader.imWidth/10); voteGraphFactor = voteGraphWidth/max(WindowsRowVote);
-for j=2:length(WindowsRowVote)
-	y1 = YhHistMaxPeaks(j-1); y2 = YhHistMaxPeaks(j);
-	x = voteGraphFactor*WindowsRowVote(j);
-	if WindowsRowVoteBin(j)
-		plot([x,x],[y1,y2],'g-','lineWidth', 3);
-	else
-		plot([x,x],[y1,y2],'r-','lineWidth', 3);
-	end
-end
-% PLOT HORIZONTAL HOUGHLINE amounts
-fgimHoughImH = figure();imshow(imdilate(Dataset.HoughResult.H.Im,ones(5,5))); hold on;
-voteGraphHeight = (Dataset.ImReader.imHeight/10); voteGraphFactor = voteGraphHeight/max(WindowsColVote);
-for i=2:length(WindowsColVote)
-	x1 = XvHistMaxPeaks(i-1); x2 = XvHistMaxPeaks(i);
-	y = (Dataset.ImReader.imHeight-(voteGraphFactor*WindowsColVote(i)));
-	if WindowsColVoteBin(i)
-		plot([x1,x2],[y,y],'g-','lineWidth', 3);
-	else
-		plot([x1,x2],[y,y],'r-','lineWidth', 3);
-	end
-end
+
+% CLUSTERING hough 
+[WindowsRowVoteBin, Clusters] = kmeans(WindowsRowVote,2);
+[t_, maxClusterIdx] = max(Clusters);
+WindowsRowVoteBin = WindowsRowVoteBin'==maxClusterIdx;
 
 
 % drawing the windows
@@ -131,12 +110,6 @@ for i=2:length(XvHistMaxPeaks)
 		%WindowsColVote(j)
 		X = [XvHistMaxPeaks(i),XvHistMaxPeaks(i), XvHistMaxPeaks(i-1),XvHistMaxPeaks(i-1),XvHistMaxPeaks(i)];
 		Y = [YhHistMaxPeaks(j),YhHistMaxPeaks(j-1), YhHistMaxPeaks(j-1),YhHistMaxPeaks(j),YhHistMaxPeaks(j)];
-
-		probV = WindowsColVote(i)/max(WindowsColVote);
-		probH = WindowsRowVote(j)/max(WindowsRowVote);
-		probVH = (probV+probH)/2;
-		probStr = sprintf('%0.1f', probVH);
-		%text(XvHistMaxPeaks(i-1)+10, YhHistMaxPeaks(j-1)+30, probStr, 'BackgroundColor',[1 1 1]);
 
 		if WindowsColVoteBin(i) && WindowsRowVoteBin(j)
 			colorStr = 'g-';
@@ -155,7 +128,6 @@ for i=2:length(XvHistMaxPeaks)
 	end
 	%	pause;
 end
-
 
 
 % exctract big rectangles base upon change 01 or 10 in colbin
@@ -191,20 +163,6 @@ for i=2:length(WindowsRowVoteBin)
 end
 
 
-for i=2:length(XvHistMaxPeaksBig)
-	for j=2:length(YhHistMaxPeaksBig)
-		if WindowsColVoteBinBig(i) && WindowsRowVoteBinBig(j)
-			margin = 5;
-			xOffset = margin*[1 1 -1 -1 1];
-			yOffset = margin*[1 -1 -1 1 1];
-			X = [XvHistMaxPeaksBig(i),XvHistMaxPeaksBig(i), XvHistMaxPeaksBig(i-1),XvHistMaxPeaksBig(i-1),XvHistMaxPeaksBig(i)];
-			Y = [YhHistMaxPeaksBig(j),YhHistMaxPeaksBig(j-1), YhHistMaxPeaksBig(j-1),YhHistMaxPeaksBig(j),YhHistMaxPeaksBig(j)];
-			colorStr = 'r-';
-			plot(X+xOffset,Y+yOffset, colorStr, 'LineWidth',3);
-		end
-	end
-end
-
 
 if false
 
@@ -232,5 +190,5 @@ if false
 end
 
 ClassRect.imGrayscaleProb = imHoughPxCountX+imHoughPxCountY;
-figure(fgimWindows)
+%figure(fgimWindows)
 
