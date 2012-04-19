@@ -50,7 +50,7 @@ for i=2:length(XvHistMaxPeaks)
 	x1 = XvHistMaxPeaks(i-1); x2 = XvHistMaxPeaks(i);
 	D = XhHistDerSmooth(x1:x2)'
 	plot(XhBins(x1:x2), Dataset.ImReader.imHeight-6*Dataset.Hibaap.graphSpacing-D,'k-', 'LineWidth',2);
-	plot(XhBins(x1:x2), Dataset.ImReader.imHeight-6*Dataset.Hibaap.graphSpacing-XhHistSmooth(x1:x2),'g-','LineWidth',2);
+	plot(XhBins(x1:x2), Dataset.ImReader.imHeight-6*Dataset.Hibaap.graphSpacing-XhHistSmooth(x1:x2),'r-','LineWidth',2);
 	plot(XhBins(1:length(Dataset.Hibaap.XhHistDerSmooth)), Dataset.ImReader.imHeight-6*Hibaap.graphSpacing-XhHistDerSmooth,'b-', 'LineWidth',2);
 	signChanges = getSignChanges(D)
 
@@ -75,6 +75,8 @@ for i=2:length(XvHistMaxPeaks)
 	% pause;
 	%WindowsColVote(i) = houghStrokeNorm;
 end
+
+legenda
 
 %quickfix
 WindowsColVoteBin( length(WindowsColVoteBin) ) = 0;

@@ -55,6 +55,7 @@ l=length(XhHistDerSmooth); XhHistDerSmooth(l+1) = XhHistDerSmooth(l);
 XvHistSmooth = (XvHistSmooth/max(XvHistSmooth))*incrFactor*h;
 XhHistSmooth = (XhHistSmooth/max(XhHistSmooth))*incrFactor*h;
 XhHistDerAbsSmooth = (XhHistDerAbsSmooth/max(XhHistDerAbsSmooth))*incrFactor*h;
+XhHistDerSmooth = (XhHistDerSmooth/max(XhHistDerSmooth))*incrFactor*h;
 
 XhvHistSmooth = (XvHistSmooth + XhHistDerAbsSmooth)/2;
 
