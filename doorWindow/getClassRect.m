@@ -37,6 +37,10 @@ XhHistSmooth = smoothNtimes(Dataset.Hibaap.XhHistSmooth,20);
 
 
 figure; imshow(Dataset.ImReader.imOriDimmed); hold on;
+
+%quickfix for right legend
+plot([0,0],[0,0],'k--'); plot([0,0],[0,0],'r-'); plot([0,0],[0,0],'b-');
+
 % plot window alignment lines
 plotPeakLines(Dataset);
 % plot zero line
@@ -76,11 +80,15 @@ for i=2:length(XvHistMaxPeaks)
 	%WindowsColVote(i) = houghStrokeNorm;
 end
 
-legenda
+legend( 'Merged window alignment lines',...
+		'Xh: total amount of overlapping horizontal Houghlines at each x position',...
+		'E: derivative of Xh');
 
 %quickfix
 WindowsColVoteBin( length(WindowsColVoteBin) ) = 0;
 WindowsColVoteBin( 1 ) = 0;
+WindowsColVoteBin( 2 ) = 0;
+WindowsColVoteBin( 3 ) = 0;
 
 % declare vars
 tempIm = zeros(Dataset.ImReader.imHeight,Dataset.ImReader.imWidth,1);
@@ -136,38 +144,48 @@ for i=2:length(XvHistMaxPeaks)
 end
 
 
-% % exctract big rectangles base upon change 01 or 10 in colbin
-% k=1
-% for i=2:length(WindowsColVoteBin)
-% 	if ~WindowsColVoteBin(i-1) && WindowsColVoteBin(i)  
-% 		WindowsColVoteBig(k)= WindowsColVote(i-1)
-% 		WindowsColVoteBinBig(k) = 0;
-% 		XvHistMaxPeaksBig(k) = XvHistMaxPeaks(i-1)
-% 		k=k+1;
-% 	end
-% 	if WindowsColVoteBin(i-1) && ~WindowsColVoteBin(i)  
-% 		WindowsColVoteBinBig(k) = 1;
-% 		WindowsColVoteBig(k)= WindowsColVote(i-1)
-% 		XvHistMaxPeaksBig(k) = XvHistMaxPeaks(i-1)
-% 		k=k+1;
-% 	end
-% end
-% k=1
-% for i=2:length(WindowsRowVoteBin)
-% 	if ~WindowsRowVoteBin(i-1) && WindowsRowVoteBin(i)  
-% 		WindowsRowVoteBinBig(k) = 0;
-% 		WindowsRowVoteBig(k)= WindowsRowVote(i-1)
-% 		YhHistMaxPeaksBig(k) = YhHistMaxPeaks(i-1)
-% 		k=k+1;
-% 	end
-% 	if WindowsRowVoteBin(i-1) && ~WindowsRowVoteBin(i)  
-% 		WindowsRowVoteBinBig(k) = 1;
-% 		WindowsRowVoteBig(k)= WindowsRowVote(i-1)
-% 		YhHistMaxPeaksBig(k) = YhHistMaxPeaks(i-1)
-% 		k=k+1;
-% 	end
-% end
+% exctract big red rectangles base upon change 01 or 10 in colbin
+k=1
+for i=2:length(WindowsColVoteBin)
+	if ~WindowsColVoteBin(i-1) && WindowsColVoteBin(i)  
+		WindowsColVoteBinBig(k) = 0;
+		XvHistMaxPeaksBig(k) = XvHistMaxPeaks(i-1)
+		k=k+1;
+	end
+	if WindowsColVoteBin(i-1) && ~WindowsColVoteBin(i)  
+		WindowsColVoteBinBig(k) = 1;
+		XvHistMaxPeaksBig(k) = XvHistMaxPeaks(i-1)
+		k=k+1;
+	end
+end
+k=1
+for i=2:length(WindowsRowVoteBin)
+	if ~WindowsRowVoteBin(i-1) && WindowsRowVoteBin(i)  
+		WindowsRowVoteBinBig(k) = 0;
+		YhHistMaxPeaksBig(k) = YhHistMaxPeaks(i-1)
+		k=k+1;
+	end
+	if WindowsRowVoteBin(i-1) && ~WindowsRowVoteBin(i)  
+		WindowsRowVoteBinBig(k) = 1;
+		YhHistMaxPeaksBig(k) = YhHistMaxPeaks(i-1)
+		k=k+1;
+	end
+end
 
+%draw big red rectangles
+for i=2:length(XvHistMaxPeaksBig)
+	for j=2:length(YhHistMaxPeaksBig)
+		if WindowsColVoteBinBig(i) && WindowsRowVoteBinBig(j)
+			margin = 5;
+			xOffset = margin*[1 1 -1 -1 1];
+			yOffset = margin*[1 -1 -1 1 1];
+			X = [XvHistMaxPeaksBig(i),XvHistMaxPeaksBig(i), XvHistMaxPeaksBig(i-1),XvHistMaxPeaksBig(i-1),XvHistMaxPeaksBig(i)];
+			Y = [YhHistMaxPeaksBig(j),YhHistMaxPeaksBig(j-1), YhHistMaxPeaksBig(j-1),YhHistMaxPeaksBig(j),YhHistMaxPeaksBig(j)];
+			colorStr = 'r-';
+			plot(X+xOffset,Y+yOffset, colorStr, 'LineWidth',3);
+		end
+	end
+end
 
 
 if false
@@ -196,5 +214,6 @@ if false
 end
 
 ClassRect.imGrayscaleProb = imHoughPxCountX+imHoughPxCountY;
+
 %figure(fgimWindows)
 

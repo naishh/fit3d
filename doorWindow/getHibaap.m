@@ -89,7 +89,7 @@ plot(XvBins, Dataset.ImReader.imHeight-3*graphSpacing-XvHistSmooth,'g-', 'LineWi
 
 legend( 'Xv: total amount of overlapping vertical Houghlines at each x position.',...
 'Xh: total amount of overlapping horizontal Houghlines at each x position',...
-'Xhder: Absolute of derivative of Xh');
+'D: Absolute of derivative of Xh');
 
 % set histogram thresholds
 XvThresh = Dataset.HibaapParam.XvThresh; YhThresh = Dataset.HibaapParam.YhThresh;
@@ -101,7 +101,7 @@ XvThresh = Dataset.HibaapParam.XvThresh; YhThresh = Dataset.HibaapParam.YhThresh
 
 % find peaks
 plotme = 1;
-XvThresh = 0.3;
+XvThresh = 0.4;
 XvHistMaxPeaks = getHistMaxPeaks(Dataset, XvHistSmooth, XvThresh, plotme,'Xv')
 pause;
 
@@ -109,13 +109,13 @@ pause;
 fgHist2 = figure();imshow(Dataset.ImReader.imOriDimmed); hold on;
 plot(XhBins, Dataset.ImReader.imHeight-6*graphSpacing-XhHistSmooth,'r-', 'LineWidth',2);
 plot(XhBins(1:length(Xpseudo)), Dataset.ImReader.imHeight-5*graphSpacing-Xpseudo,'k-', 'LineWidth',2);
-%XvThresh = 0.35;
 XhDerAbsThresh = 0.35;
+XhDerAbsThresh = 0.4;
 XvHistMaxPeaksPseudo = getHistMaxPeaks(Dataset, XhHistDerAbsSmooth, XhDerAbsThresh, plotme,'XvPseudo');
 XvHistMaxPeaksTotal = sort([XvHistMaxPeaks,XvHistMaxPeaksPseudo]);
 
 legend( 'Xh: total amount of overlapping horizontal Houghlines at each x position',...
-'Xhder: Absolute of derivative of Xh');
+'D: Absolute of derivative of Xh');
 
 pause;
 
@@ -124,13 +124,11 @@ pause;
 % all together
 fgHist3 = figure();imshow(Dataset.ImReader.imOriDimmed); hold on;
 plot(XvBins, Dataset.ImReader.imHeight-3*graphSpacing-XvHistSmooth,'g-', 'LineWidth',2);
-plot(XhBins, Dataset.ImReader.imHeight-6*graphSpacing-XhHistSmooth,'r-', 'LineWidth',2);
 plot(XhBins(1:length(Xpseudo)), Dataset.ImReader.imHeight-5*graphSpacing-Xpseudo,'k-', 'LineWidth',2);
 XvHistMaxPeaks = getHistMaxPeaks(Dataset, XvHistSmooth, XvThresh, plotme,'Xv')
 XvHistMaxPeaksPseudo = getHistMaxPeaks(Dataset, XhHistDerAbsSmooth, XhDerAbsThresh, plotme,'XvPseudo');
 legend( 'Xv: total amount of overlapping vertical Houghlines at each x position.',...
-'Xh: total amount of overlapping horizontal Houghlines at each x position',...
-'Xhder: Absolute of derivative of Xh');
+'D: Absolute of derivative of Xh');
 
 
 % merge close peaks
