@@ -107,6 +107,7 @@ elseif strcmp(plotMode, 'cCornerConnectivity')
 		clf;hold on;
 	end
 
+
 	% drawo ori line
 	lineSpec = 'g-';
 	plot(cCorner.vlineOri(1,:), YnoInvert*cCorner.vlineOri(2,:), lineSpec, 'LineWidth',3);
@@ -117,9 +118,23 @@ elseif strcmp(plotMode, 'cCornerConnectivity')
 	% draw dotted line to cross
 	hlineTjointEndOposite = getRestMatrix(cCorner.hlineTjointEnd,cCorner.hlineOri); 
 	vlineTjointEndOposite = getRestMatrix(cCorner.vlineTjointEnd,cCorner.vlineOri); 
+
+	
+
+	fontSize = 10;
+	text(cCorner.crossing(1)-10, cCorner.crossing(2)+2,'\fontsize{12} P_{i}','FontSize',fontSize,'Interpreter','tex');
+	text(hlineTjointEndOposite(1)-2, hlineTjointEndOposite(2)+2,'\fontsize{12} P_{e}','FontSize',fontSize,'Interpreter','tex');
+
 	X = [hlineTjointEndOposite(1),cCorner.crossing(1)];
 	Y = [hlineTjointEndOposite(2),cCorner.crossing(2)];
 	plot(X,Y,'--k');
+
+
+	% quickfix for plotting the right margin
+	lineSpec = 'w+';
+	plot(X(1,2)-10, Y(1,1), lineSpec);
+
+
 	X = [vlineTjointEndOposite(1),cCorner.crossing(1)];
 	Y = [vlineTjointEndOposite(2),cCorner.crossing(2)];
 	plot(X,Y,'--k');
@@ -131,13 +146,17 @@ elseif strcmp(plotMode, 'cCornerConnectivity')
 
 elseif strcmp(plotMode, 'cCornerCutoff')
 
-	lineSpec = 'g-';
+	lineSpec = 'r-';
 	% one hline
 	X = [p1(1), p3(1)];
 	Y = [p1(2), p3(2)];
 	plot(X,YnoInvert*Y,lineSpec,'LineWidth',3);
 
-	lineSpec = 'r-';
+	% quickfix for plotting the right margin
+	lineSpec = 'w+';
+	plot(X(1,2)-10, Y(1,1), lineSpec);
+
+	lineSpec = 'g-';
 	% one vline
 	X = [p3(1), p2(1)];
 	Y = [p3(2), p2(2)];
@@ -147,11 +166,6 @@ elseif strcmp(plotMode, 'cCornerCutoff')
 	X = cCorner.crossing(1);
 	Y = cCorner.crossing(2);
 	plot(X,YnoInvert*Y,'k+','MarkerSize',10,'LineWidth',2);
-
-	% blue cross in middle
-	X = cCorner.windowMidpointX;
-	Y = cCorner.windowMidpointY;
-	plot(X,YnoInvert*Y,'b+','MarkerSize',10);
 
 else
 	plotMode
