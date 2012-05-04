@@ -32,11 +32,6 @@ XvBins = 1:1:w; YhBins = 1:1:h; YvBins = 1:1:h; XhBins = 1:1:w;
 
 
 % smooth more to get one signchange per block
-% spil:
-
-%XhHistDerSmooth = smoothNtimes(Dataset.Hibaap.XhHistDerSmooth,20); 
-%XhHistSmooth = smoothNtimes(Dataset.Hibaap.XhHistSmooth,20); 
-
 n = Dataset.ClassRectParam.smoothNtimes;
 XhHistDerSmooth = smoothNtimes(Dataset.Hibaap.XhHistDerSmooth,n); 
 XhHistSmooth = smoothNtimes(Dataset.Hibaap.XhHistSmooth,n); 

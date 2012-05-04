@@ -1,7 +1,5 @@
 % turns houghlines into pixel images using bresenham (wikipedia)
 function [ImV,ImH] = houghlinesToIm(Dataset, plotme)
-	close all;	
-
 	inpIm = ones(Dataset.ImReader.imHeight, Dataset.ImReader.imWidth);
 	ImV = zeros(Dataset.ImReader.imHeight, Dataset.ImReader.imWidth);
 	ImH = zeros(Dataset.ImReader.imHeight, Dataset.ImReader.imWidth);

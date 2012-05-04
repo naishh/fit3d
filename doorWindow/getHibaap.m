@@ -1,3 +1,6 @@
+plotme = modulesPlotEps(3); 
+
+
 % HIBAAP - HIstogram BAsed AProach, window detection
 close all;
 tic;
@@ -100,7 +103,6 @@ XvThresh = Dataset.HibaapParam.XvThresh; YhThresh = Dataset.HibaapParam.YhThresh
 %plot([incrFactor*YhThresh,incrFactor*YhThresh], [0,Dataset.ImReader.imHeight],'k--','LineWidth',2);
 
 % find peaks
-plotme = 1;
 
 XvThresh = Dataset.HibaapParam.XvThresh;
 XhDerAbsThresh  = Dataset.HibaapParam.XhDerAbsThresh;
@@ -108,6 +110,11 @@ XhDerAbsThresh  = Dataset.HibaapParam.XhDerAbsThresh;
 XvHistMaxPeaks = getHistMaxPeaks(Dataset, XvHistSmooth, Dataset.HibaapParam.XvThresh, plotme,'Xv')
 pause;
 
+if plotme
+	disp('SAVING EPS..');
+	evalCode = ['export_fig -eps ', savePathEps, 'w_', Dataset.fileShort, '_Im', module, '_Xv.eps'], eval(evalCode)
+	disp('[DONE]');
+end
 
 fgHist2 = figure();imshow(Dataset.ImReader.imOriDimmed); hold on;
 plot(XhBins, Dataset.ImReader.imHeight-6*graphSpacing-XhHistSmooth,'r-', 'LineWidth',2);
@@ -119,6 +126,13 @@ XvHistMaxPeaksTotal = sort([XvHistMaxPeaks,XvHistMaxPeaksPseudo]);
 
 legend( 'Xh: total amount of overlapping horizontal Houghlines at each x position',...
 'D: Absolute of derivative of Xh');
+
+if plotme
+	disp('SAVING EPS..');
+	evalCode = ['export_fig -eps ', savePathEps, 'w_', Dataset.fileShort, '_Im', module, '_Xh.eps'], eval(evalCode)
+	disp('[DONE]');
+end
+
 
 pause;
 
@@ -133,6 +147,11 @@ XvHistMaxPeaksPseudo = getHistMaxPeaks(Dataset, XhHistDerAbsSmooth, Dataset.Hiba
 legend( 'Xv: total amount of overlapping vertical Houghlines at each x position.',...
 'D: Absolute of derivative of Xh');
 
+if plotme
+	disp('SAVING EPS..');
+	evalCode = ['export_fig -eps ', savePathEps, 'w_', Dataset.fileShort, '_Im', module, '_Xvh.eps'], eval(evalCode)
+	disp('[DONE]');
+end
 
 % merge close peaks
 %-------------------------------

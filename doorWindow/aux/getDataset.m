@@ -335,7 +335,7 @@ Dataset.paramStr = getParamStr(Dataset);
 
 
 plotme = true;
-plotmeImEdge = false;
+plotmeImEdge = false;;
 plotmeImOri = false;
 plotmeImHough = true;
 
@@ -343,7 +343,7 @@ plotmeImHibaap = true; % todo doesnt work
 
 
 %modulesPlotEps = {'ImReader','HoughResult', 'Hibaap', 'ClassRect'}
-modulesPlotEps =  [        0,             0,       0,           0];
+modulesPlotEps =  [        0,             1,       1,           1];
 
 % MODULE THINGY 
 if exist('modules') == 0
