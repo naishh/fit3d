@@ -1,8 +1,14 @@
 function XvHistMaxPeaks = getHistMaxPeaks(Dataset, XvHistSmooth, XvThresh, plotme, direction);
 %XvPeaksBinary = XvHistSmooth>=XvThresh;
-XvPeaksBinary = XvHistSmooth>=XvThresh*max(XvHistSmooth);
+XvPeaksBinary = XvHistSmooth>=(XvThresh*max(XvHistSmooth));
 XvHistMaxPeak = intmin;
 k=1;
+
+% update max
+XvHistMaxPeak = intmin;
+% store idx of max peakvalue
+XvHistMaxPeakIdx = 1;
+
 for i=2:length(XvPeaksBinary)
 	% detect where peak ends 
 	if [XvPeaksBinary(i-1),XvPeaksBinary(i)] == [1,0]

@@ -32,9 +32,14 @@ XvBins = 1:1:w; YhBins = 1:1:h; YvBins = 1:1:h; XhBins = 1:1:w;
 
 
 % smooth more to get one signchange per block
-XhHistDerSmooth = smoothNtimes(Dataset.Hibaap.XhHistDerSmooth,20); 
-XhHistSmooth = smoothNtimes(Dataset.Hibaap.XhHistSmooth,20); 
+% spil:
 
+%XhHistDerSmooth = smoothNtimes(Dataset.Hibaap.XhHistDerSmooth,20); 
+%XhHistSmooth = smoothNtimes(Dataset.Hibaap.XhHistSmooth,20); 
+
+n = Dataset.ClassRectParam.smoothNtimes;
+XhHistDerSmooth = smoothNtimes(Dataset.Hibaap.XhHistDerSmooth,n); 
+XhHistSmooth = smoothNtimes(Dataset.Hibaap.XhHistSmooth,n); 
 
 figure; imshow(Dataset.ImReader.imOriDimmed); hold on;
 
@@ -58,14 +63,16 @@ for i=2:length(XvHistMaxPeaks)
 	plot(XhBins(1:length(Dataset.Hibaap.XhHistDerSmooth)), Dataset.ImReader.imHeight-6*Hibaap.graphSpacing-XhHistDerSmooth,'b-', 'LineWidth',2);
 	signChanges = getSignChanges(D)
 
+	
+	% MODE everything is a window except for non window areas
 	WindowsColVoteBin(i) = 1;
 	if length(signChanges) > 0 
+		% this was for spil!
 		id = signChanges(1);
 		% take first signChange, alternative, get midle one
 		% check if it is a dal
 		if D(id) < D(id+1) 
 			WindowsColVoteBin(i) = 0;
-			disp('window founddd');
 		end
 	end
 	WindowsColVoteBin(i);

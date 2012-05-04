@@ -239,20 +239,6 @@ elseif strcmp(DatasetName, 'SpilZonnetje70') == 1
 	Dataset.EdgeDetectorParam.thresh		= 0.45; 
 	Dataset.HoughParam.fillGap 				= 10;
 	Dataset.HoughParam.minLength 			= 45; 
-elseif strcmp(DatasetName, 'SpilFrontal6345') == 1
-	Dataset.fileShort 						= 'SpilFrontal6345_crop1';
-	Dataset.path 							= [startPathDataset,'Spil/SpilFrontal/'];
-	%Dataset.cropArea						= [1,1,550,1632] %y1,x1,y2,x2
-	Dataset.cropArea						= [1,1,550,1629] %y1,x1,y2,x2
-	Dataset.baseFile 						= 'IMG_6345_crop1'
-	Dataset.colorModel						= 'BW'; % {'HSV_V','RGB','BW', 'ORIGINAL'	};
-	Dataset.EdgeDetectorParam.thresh		= 0.35; 
-	Dataset.EdgeDetectorParam.edgeTest 		= false;
-	% orthogonal values
-	Dataset.HoughParam.ThetaH.Resolution  	= 0.1;
-	Dataset.HoughParam.ThetaV.Resolution  	= Dataset.HoughParam.ThetaH.Resolution;
-	Dataset.HoughParam.ThetaH.stretchAngle	= 5;
-	Dataset.HoughParam.ThetaV.stretchAngle	= 5;
 elseif strcmp(DatasetName, 'Dirk5') == 1
 	Dataset.fileShort 						= DatasetName;
 	Dataset.path 							= [startPathDataset,'Dirk/'];
@@ -279,6 +265,41 @@ elseif strcmp(DatasetName, 'Dirk6') == 1
 	Dataset.HoughParam.minLength 			= 25; 
 	Dataset.HoughParam.ThetaH.stretchAngle	= 20;
 	Dataset.HoughParam.ThetaV.stretchAngle	= 10;
+elseif strcmp(DatasetName, 'SpilFrontal6345') == 1
+	Dataset.fileShort 						= 'SpilFrontal6345_crop1';
+	Dataset.path 							= [startPathDataset,'Spil/SpilFrontal/'];
+	%Dataset.cropArea						= [1,1,550,1632] %y1,x1,y2,x2
+	Dataset.cropArea						= [1,1,550,1629] %y1,x1,y2,x2
+	Dataset.baseFile 						= 'IMG_6345_crop1'
+	Dataset.colorModel						= 'BW'; % {'HSV_V','RGB','BW', 'ORIGINAL'	};
+	Dataset.EdgeDetectorParam.thresh		= 0.35; 
+	Dataset.EdgeDetectorParam.edgeTest 		= false;
+	% orthogonal values
+	Dataset.HoughParam.ThetaH.Resolution  	= 0.1;
+	Dataset.HoughParam.ThetaV.Resolution  	= Dataset.HoughParam.ThetaH.Resolution;
+	Dataset.HoughParam.ThetaH.stretchAngle	= 5;
+	Dataset.HoughParam.ThetaV.stretchAngle	= 5;
+	Dataset.HibaapParam.XvThresh 			= 0.4; 
+	Dataset.HibaapParam.XhDerAbsThresh 		= 0.4; 
+	Dataset.HibaapParam.peakMergeDist  		= 0.01;
+	Dataset.ClassRectParam.smoothNtimes     = 20;
+elseif strcmp(DatasetName, 'Dirk4Trans') == 1
+	Dataset.fileShort 						= DatasetName;
+	Dataset.path 							= [startPathDataset,'Dirk/'];
+	Dataset.baseFile 						= 'IMG_6484_trans'
+	Dataset.colorModel						= 'BW'; % {'HSV_V','RGB','BW', 'ORIGINAL'	};
+	Dataset.EdgeDetectorParam.thresh		= 0.3; 
+	Dataset.EdgeDetectorParam.edgeTest 		= false;
+	Dataset.HoughParam.ThetaH.Resolution  	= 0.1;
+	Dataset.HoughParam.ThetaV.Resolution  	= Dataset.HoughParam.ThetaH.Resolution;
+	Dataset.HoughParam.fillGap 				= 10;
+	Dataset.HoughParam.minLength 			= 25; 
+	Dataset.HoughParam.ThetaH.stretchAngle	= 20;
+	Dataset.HoughParam.ThetaV.stretchAngle	= 10;
+	Dataset.HibaapParam.XvThresh 			= 0.3; 
+	Dataset.HibaapParam.XhDerAbsThresh 		= 0.3; 
+	Dataset.HibaapParam.peakMergeDist 		= 0.005;
+	Dataset.ClassRectParam.smoothNtimes     = 50;
 else
 	error('no matching dataset name');
 end

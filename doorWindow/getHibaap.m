@@ -101,17 +101,20 @@ XvThresh = Dataset.HibaapParam.XvThresh; YhThresh = Dataset.HibaapParam.YhThresh
 
 % find peaks
 plotme = 1;
-XvThresh = 0.4;
-XvHistMaxPeaks = getHistMaxPeaks(Dataset, XvHistSmooth, XvThresh, plotme,'Xv')
+
+XvThresh = Dataset.HibaapParam.XvThresh;
+XhDerAbsThresh  = Dataset.HibaapParam.XhDerAbsThresh;
+
+XvHistMaxPeaks = getHistMaxPeaks(Dataset, XvHistSmooth, Dataset.HibaapParam.XvThresh, plotme,'Xv')
 pause;
 
 
 fgHist2 = figure();imshow(Dataset.ImReader.imOriDimmed); hold on;
 plot(XhBins, Dataset.ImReader.imHeight-6*graphSpacing-XhHistSmooth,'r-', 'LineWidth',2);
 plot(XhBins(1:length(Xpseudo)), Dataset.ImReader.imHeight-5*graphSpacing-Xpseudo,'k-', 'LineWidth',2);
-XhDerAbsThresh = 0.35;
-XhDerAbsThresh = 0.4;
-XvHistMaxPeaksPseudo = getHistMaxPeaks(Dataset, XhHistDerAbsSmooth, XhDerAbsThresh, plotme,'XvPseudo');
+
+
+XvHistMaxPeaksPseudo = getHistMaxPeaks(Dataset, XhHistDerAbsSmooth, Dataset.HibaapParam.XhDerAbsThresh, plotme,'XvPseudo');
 XvHistMaxPeaksTotal = sort([XvHistMaxPeaks,XvHistMaxPeaksPseudo]);
 
 legend( 'Xh: total amount of overlapping horizontal Houghlines at each x position',...
@@ -125,8 +128,8 @@ pause;
 fgHist3 = figure();imshow(Dataset.ImReader.imOriDimmed); hold on;
 plot(XvBins, Dataset.ImReader.imHeight-3*graphSpacing-XvHistSmooth,'g-', 'LineWidth',2);
 plot(XhBins(1:length(Xpseudo)), Dataset.ImReader.imHeight-5*graphSpacing-Xpseudo,'k-', 'LineWidth',2);
-XvHistMaxPeaks = getHistMaxPeaks(Dataset, XvHistSmooth, XvThresh, plotme,'Xv')
-XvHistMaxPeaksPseudo = getHistMaxPeaks(Dataset, XhHistDerAbsSmooth, XhDerAbsThresh, plotme,'XvPseudo');
+XvHistMaxPeaks = getHistMaxPeaks(Dataset, XvHistSmooth, Dataset.HibaapParam.XvThresh, plotme,'Xv')
+XvHistMaxPeaksPseudo = getHistMaxPeaks(Dataset, XhHistDerAbsSmooth, Dataset.HibaapParam.XhDerAbsThresh, plotme,'XvPseudo');
 legend( 'Xv: total amount of overlapping vertical Houghlines at each x position.',...
 'D: Absolute of derivative of Xh');
 
@@ -134,7 +137,9 @@ legend( 'Xv: total amount of overlapping vertical Houghlines at each x position.
 % merge close peaks
 %-------------------------------
 %peakMergeDist = w/100 %(15px)
-peakMergeDist = w/100 %(15px)
+
+peakMergeDist = w * Dataset.HibaapParam.peakMergeDist
+
 l = length(XvHistMaxPeaksTotal)
 diff = abs(XvHistMaxPeaksTotal(1:l-1) - XvHistMaxPeaksTotal(2:l))
 diffBin = diff>peakMergeDist;
