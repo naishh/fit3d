@@ -288,16 +288,20 @@ elseif strcmp(DatasetName, 'Dirk4Trans') == 1
 	Dataset.path 							= [startPathDataset,'Dirk/'];
 	Dataset.baseFile 						= 'IMG_6484_trans'
 	Dataset.colorModel						= 'BW'; % {'HSV_V','RGB','BW', 'ORIGINAL'	};
-	Dataset.EdgeDetectorParam.thresh		= 0.3; 
+	%Dataset.EdgeDetectorParam.thresh		= 0.3; 
+	Dataset.EdgeDetectorParam.thresh		= 0.2; 
 	Dataset.EdgeDetectorParam.edgeTest 		= false;
 	Dataset.HoughParam.ThetaH.Resolution  	= 0.1;
 	Dataset.HoughParam.ThetaV.Resolution  	= Dataset.HoughParam.ThetaH.Resolution;
 	Dataset.HoughParam.fillGap 				= 10;
-	Dataset.HoughParam.minLength 			= 25; 
-	Dataset.HoughParam.ThetaH.stretchAngle	= 20;
-	Dataset.HoughParam.ThetaV.stretchAngle	= 10;
-	Dataset.HibaapParam.XvThresh 			= 0.3; 
-	Dataset.HibaapParam.XhDerAbsThresh 		= 0.3; 
+	% Dataset.HoughParam.minLength 			= 25; 
+	% Dataset.HoughParam.ThetaH.stretchAngle	= 20;
+	% Dataset.HoughParam.ThetaV.stretchAngle	= 10;
+	Dataset.HoughParam.minLength 			= 45; 
+	Dataset.HoughParam.ThetaH.stretchAngle	= 5;
+	Dataset.HoughParam.ThetaV.stretchAngle	= 5;
+	Dataset.HibaapParam.XvThresh 			= 0.1; 
+	Dataset.HibaapParam.XhDerAbsThresh 		= 0.1; 
 	Dataset.HibaapParam.peakMergeDist 		= 0.005;
 	Dataset.ClassRectParam.smoothNtimes     = 50;
 else
@@ -334,16 +338,16 @@ Dataset.paramStr = getParamStr(Dataset);
 
 
 
-plotme = true;
-plotmeImEdge = false;;
+plotme = false;
+plotmeImEdge = true;
 plotmeImOri = false;
 plotmeImHough = true;
 
-plotmeImHibaap = true; % todo doesnt work
+plotmeImHibaap = false; % todo doesnt work
 
 
 %modulesPlotEps = {'ImReader','HoughResult', 'Hibaap', 'ClassRect'}
-modulesPlotEps =  [        0,             1,       1,           1];
+modulesPlotEps =  [        0,             0,       0,           0];
 
 % MODULE THINGY 
 if exist('modules') == 0

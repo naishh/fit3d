@@ -54,6 +54,8 @@ plotHoughlinesAll(Dataset.ImReader.imHeight,HoughResult.Houghlines,HoughResult.H
 
 Dataset.HoughResult = HoughResult;
 
+drawnow;
+pause;
 disp('converting houghlines to px ..');
 [HoughResult.V.Im,HoughResult.H.Im] = houghlinesToIm(Dataset, 0);
 end
