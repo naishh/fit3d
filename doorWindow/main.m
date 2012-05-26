@@ -11,8 +11,8 @@ cd ..;setup;cd doorWindow
 showImEdge = 1;
 showImHough = 1;
 
-%modules = {'ImReader','HoughResult', 'Hibaap', 'ClassRect'}
-modules = {'ImReader','HoughResult', 'Hibaap', 'ClassRect'}
+%modules = {'ImReader','HoughResult', 'Hibaap', 'ClassRectII'}
+modules = {'ImReader','HoughResult', 'Hibaap', 'ClassRectI'}
 %Dataset = getDataset('SpilFrontal6345',startPath, modules)
 Dataset = getDataset('Dirk4Trans',startPath, modules)
 %Dataset = getDataset('Ort1Crop1',startPath, modules)

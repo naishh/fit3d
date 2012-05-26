@@ -395,10 +395,10 @@ for iM=1:length(modules)
 		evalCode = ['export_fig -eps ', savePathEps, 'w_', Dataset.fileShort, '_ImEdge.eps'], eval(evalCode)
 		disp('[DONE]');
 	end
-	if strcmp(module,'ClassRect') 
+	if strcmp(module,'ClassRectI') 
 		disp('SAVING ImClassRectGrayscaleProb ..');
-		figure; imshow(Dataset.ClassRect.imGrayscaleProb,[]);
-		evalCode = ['export_fig -eps ', savePathEps, 'w_', Dataset.fileShort, '_ImClassRectGrayscaleProb.eps'], eval(evalCode)
+		figure; imshow(Dataset.ClassRectI.imGrayscaleProb,[]);
+		evalCode = ['export_fig -eps ', savePathEps, 'w_', Dataset.fileShort, '_ImClassRectIGrayscaleProb.eps'], eval(evalCode)
 		disp('[DONE]');
 	end
 end
