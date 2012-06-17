@@ -1,9 +1,14 @@
 function figBuilding = plotBuilding(Walls, interestingWalls)
-figBuilding = figure();
+%figBuilding = figure();
 hold on;
 
 % change order of the cornerpoints of the wall so the polygons (walls) are plotted right
+
 WallsNew = [Walls(:,1:3),Walls(:,7:9),Walls(:,10:12),Walls(:,4:6)];
+
+% idea: sway X with Z or something
+%Walls2 = Walls
+%Walls(
 
 % loop through walls
 for wall=1:size(WallsNew,1)

@@ -26,23 +26,16 @@ pause;
 
 
 
+% plot by leaving Y value 0
 %Z = MAP(XvIdxCrop,3);
 Z = MAP(:,3);
 Zv = abs(Z-mean(Z));
 [Sorted, ZvIdx]= sort(Zv);
 ZvIdxCrop = ZvIdx(1:round(0.99*length(Zv)));
-Idx = ZvIdxCrop; figure; plot(MAP(Idx,1),MAP(Idx,3),'k.','MarkerSize',1); axis equal
+Idx = ZvIdxCrop; figure; plot(MAP(Idx,1),MAP(Idx,3),'k.','MarkerSize',1); axis equal; hold on
 pause;
 
 
-
-
-
-
-% plot small dots and project on ground plane by leaving Y value 0
-figure;
-plot(MAP(:,1),MAP(:,3),'r.','MarkerSize',1);
-hold on
 
 %Z = Z+10
 
@@ -60,7 +53,7 @@ Z(5) =  Z(4)+((Z(5)-Z(4))*3)
 
 
 % plots cornerpoint in pointcloud
-plot(X,Z,'k+-','MarkerSize',10);
+plot(X,Z,'r+-','MarkerSize',10);
 
 % %yGround = 1;
 % %yAir = -3;	
@@ -69,13 +62,14 @@ plot(X,Z,'k+-','MarkerSize',10);
 %yGround = 1;
 %yAir = -3.2;	
 
-yGround = 0
-yAir = -3 
-
-bConnectLastToFirstWall = false;
-
-WallsPc = generateWallsFromCornerPoints(X,Z, yGround,yAir, bConnectLastToFirstWall);
-load('../mats/WallsPcMiddle2.mat')
+%yGround = 0
+%yAir = -3 
+%bConnectLastToFirstWall = false;
+%WallsPc = generateWallsFromCornerPoints(X,Z, yGround,yAir, bConnectLastToFirstWall);
+%load('../mats/WallsPcMiddle2.mat')
 %save('../mats/WallsPcMiddleParaFar.mat','WallsPc');
+
+load('WallsImproved.mat')
+
 
 
